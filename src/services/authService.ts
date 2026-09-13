@@ -16,6 +16,8 @@ import type {
   PasswordResetPayload,
   EmailVerificationResult,
 } from '../types/auth';
+import { auth, googleAuthProvider } from '../config/firebase';
+import { signInWithPopup } from 'firebase/auth';
 
 const SESSION_KEY = 'easehub_auth_session_v1';
 const USERS_KEY = 'easehub_auth_registered_users_v1';
@@ -224,56 +226,75 @@ export class MockAuthProviderAdapter implements IAuthProviderAdapter {
   }
 
   public async signInWithGoogle(): Promise<AuthResult> {
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    const googleUser: User = {
-      id: 'usr-google-student',
-      name: 'Aarav Sharma',
-      email: 'aarav.sharma@student.edu',
-      phone: '+91 98712 34567',
-      role: 'student',
-      status: 'active',
-      emailVerified: true,
-      avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
-      campusId: 'campus-hub',
-      campusName: 'Campus Living Hub',
-      hostelBlock: 'Block C',
-      roomNumber: '214',
-      studentId: 'STU-2024-108',
-      profile: {
-        userId: 'usr-google-student',
+    try {
+      const userCred = await signInWithPopup(auth, googleAuthProvider);
+      const fbUser = userCred.user;
+      const googleUser: User = {
+        id: fbUser.uid,
+        name: fbUser.displayName || 'Google Student',
+        email: fbUser.email || 'student@easehub.in',
+        phone: fbUser.phoneNumber || '+91 98712 34567',
+        role: 'student',
+        status: 'active',
+        emailVerified: fbUser.emailVerified,
+        avatarUrl: fbUser.photoURL || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
         campusId: 'campus-hub',
         campusName: 'Campus Living Hub',
-        university: 'Campus Living Hub',
-        course: 'B.Tech Computer Science',
-        branch: 'CSE',
-        year: '2nd Year',
-        academicProgram: 'B.Tech CSE',
-        graduatingYear: 2027,
         hostelBlock: 'Block C',
         roomNumber: '214',
-        studentId: 'STU-2024-108',
-      },
-      notifications: {
-        serviceUpdates: true,
-        bookingReminders: true,
-        smsAlerts: true,
-        emailReceipts: true,
-        deliveryArrivalNotices: true,
-        marketingAnnouncements: false,
-        inAppAlerts: true,
-        pushAlerts: true,
-      },
-      privacy: {
-        hideRoomFromExternalCouriers: false,
-        shareContactWithWarden: true,
-        allowPeerCampusDiscovery: true,
-      },
-      createdAt: new Date().toISOString(),
-    };
+        studentId: 'STU-' + fbUser.uid.slice(0, 6).toUpperCase(),
+        profile: {
+          userId: fbUser.uid,
+          campusId: 'campus-hub',
+          campusName: 'Campus Living Hub',
+          university: 'Campus Living Hub',
+          course: 'Collegiate Student',
+          branch: 'General',
+          year: 'Current',
+          academicProgram: 'Student Living',
+          graduatingYear: 2027,
+          hostelBlock: 'Block C',
+          roomNumber: '214',
+          studentId: 'STU-' + fbUser.uid.slice(0, 6).toUpperCase(),
+        },
+        notifications: {
+          serviceUpdates: true,
+          bookingReminders: true,
+          smsAlerts: true,
+          emailReceipts: true,
+          deliveryArrivalNotices: true,
+          marketingAnnouncements: false,
+          inAppAlerts: true,
+          pushAlerts: true,
+        },
+        privacy: {
+          hideRoomFromExternalCouriers: false,
+          shareContactWithWarden: true,
+          allowPeerCampusDiscovery: true,
+        },
+        createdAt: new Date().toISOString(),
+      };
 
-    this.saveRegisteredUser(googleUser);
-    this.setStoredSession(googleUser);
-    return { success: true, user: googleUser };
+      this.saveRegisteredUser(googleUser);
+      this.setStoredSession(googleUser);
+      return { success: true, user: googleUser };
+    } catch (err: unknown) {
+      console.warn('Firebase Google Auth popup error:', err);
+      const errorObj = err as { code?: string; message?: string };
+      if (errorObj?.code === 'auth/popup-closed-by-user') {
+        return { success: false, error: 'Google sign-in popup was closed.' };
+      }
+      if (errorObj?.code === 'auth/unauthorized-domain') {
+        return {
+          success: false,
+          error: 'Current domain is not authorized in Firebase Console. Add this domain in Firebase Console -> Authentication -> Settings -> Authorized domains.'
+        };
+      }
+      return {
+        success: false,
+        error: errorObj?.message || 'Google sign-in could not be completed.'
+      };
+    }
   }
 
   public async signInWithPhone(phoneNumber: string, fullName?: string): Promise<AuthResult> {

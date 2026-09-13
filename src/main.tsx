@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.tsx'
 import { ThemeProvider } from './context/ThemeContext'
 import { initContentProtection } from './utils/contentProtection'
+import './config/firebase'
 
 // Activate Anti-Copy & Content Security Shield
 initContentProtection();
