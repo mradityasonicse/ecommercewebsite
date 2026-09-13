@@ -1,0 +1,772 @@
+/* ==========================================================================
+   EASEHUB DESIGN OVERHAUL — PHASE 1: MOTION & INTERACTION FOUNDATION
+   Philosophy: FAST -> CLEAN -> CONTROLLED -> CONFIDENT
+   Award-level 60-120FPS GPU hardware-accelerated transitions & interactions.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. KEYFRAME DEFINITIONS (Transform & Opacity Only)
+   -------------------------------------------------------------------------- */
+
+/* Standard Page Route Entrance */
+@keyframes motionPageEntrance {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Scroll Section Fade Up */
+@keyframes motionFadeUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, var(--distance-md, 14px), 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Pure Opacity Fade */
+@keyframes motionFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Elegant Clip-Path Reveal (Masked Bottom-to-Top) */
+@keyframes motionClipReveal {
+  0% {
+    opacity: 0;
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  }
+  100% {
+    opacity: 1;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+/* Subtle Scale Reveal */
+@keyframes motionScaleReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.982);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Modal Window Entrance */
+@keyframes motionModalEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(var(--scale-modal-enter, 0.985)) translate3d(0, 8px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+}
+
+/* Lateral Drawer Entrance */
+@keyframes motionDrawerEnterRight {
+  0% {
+    transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Micro Status Radar Pulse (Scarlet Red Brand Beacon) */
+@keyframes motionRadarPulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(229, 36, 37, 0.6);
+  }
+  65% {
+    transform: scale(1);
+    box-shadow: 0 0 0 7px rgba(229, 36, 37, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(229, 36, 37, 0);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. REUSABLE MOTION UTILITY CLASSES
+   -------------------------------------------------------------------------- */
+
+.motion-page-enter {
+  animation: motionPageEntrance var(--duration-normal, 240ms) var(--ease-smooth, cubic-bezier(0.16, 1, 0.3, 1)) forwards;
+  will-change: opacity, transform;
+}
+
+.motion-fade-up {
+  animation: motionFadeUp var(--duration-deliberate, 380ms) var(--ease-smooth, cubic-bezier(0.16, 1, 0.3, 1)) forwards;
+  will-change: opacity, transform;
+}
+
+.motion-fade-in {
+  animation: motionFadeIn var(--duration-normal, 240ms) var(--ease-smooth) forwards;
+  will-change: opacity;
+}
+
+.motion-clip-reveal {
+  animation: motionClipReveal var(--duration-deliberate, 380ms) var(--ease-smooth) forwards;
+  will-change: clip-path, opacity;
+}
+
+.motion-scale-reveal {
+  animation: motionScaleReveal var(--duration-deliberate, 380ms) var(--ease-smooth) forwards;
+  will-change: transform, opacity;
+}
+
+/* --------------------------------------------------------------------------
+   3. INTERACTIVE CARD SYSTEM (Subtle, controlled physics)
+   -------------------------------------------------------------------------- */
+
+.interactive-card,
+.motion-card {
+  transition: transform var(--duration-fast, 150ms) var(--ease-smooth, cubic-bezier(0.16, 1, 0.3, 1)),
+              border-color var(--duration-fast) var(--ease-standard),
+              box-shadow var(--duration-fast) var(--ease-standard),
+              background-color var(--duration-fast) var(--ease-standard);
+  will-change: transform, box-shadow;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .interactive-card:hover,
+  .motion-card:hover {
+    transform: translateY(-2px) scale(var(--scale-card-hover, 1.012));
+    border-color: var(--color-border-hover);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .interactive-card:active,
+  .motion-card:active {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. BUTTON INTERACTION, SHINE BEAM & TOUCH COLOR DYNAMICS
+   -------------------------------------------------------------------------- */
+
+.easehub-btn {
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--duration-fast, 150ms) var(--ease-spring, cubic-bezier(0.34, 1.56, 0.64, 1)),
+              background var(--duration-fast, 150ms) var(--ease-smooth),
+              background-color var(--duration-fast, 150ms) var(--ease-smooth),
+              border-color var(--duration-fast, 150ms) var(--ease-smooth),
+              box-shadow var(--duration-fast, 150ms) var(--ease-smooth),
+              color var(--duration-fast, 150ms) var(--ease-smooth);
+  will-change: transform, box-shadow;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Luminous liquid shimmer beam on buttons */
+.easehub-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.28) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(25deg);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+/* Base button variant styles (Official EaseHub Brand: Deep Navy #12285A, Sunflower Gold #FACA12, Crisp Modern Outline) */
+.easehub-btn-primary {
+  background: #12285A !important;
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+  border: 1px solid #12285A !important;
+  box-shadow: 0 2px 8px -2px rgba(18, 40, 90, 0.3), 0 1px 2px 0 rgba(18, 40, 90, 0.15) !important;
+}
+
+.easehub-btn-accent {
+  background: #FACA12 !important;
+  color: #12285A !important;
+  font-weight: 700 !important;
+  border: 1px solid #E5B60A !important;
+  box-shadow: 0 2px 8px rgba(250, 202, 18, 0.35) !important;
+}
+
+.easehub-btn-secondary,
+.easehub-btn-outline {
+  background: #FFFFFF !important;
+  color: #12285A !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 1px 3px rgba(18, 40, 90, 0.05) !important;
+}
+
+.easehub-btn-tertiary {
+  background: transparent !important;
+  color: var(--color-text-primary) !important;
+  border: 1px solid #E2E8F0 !important;
+}
+
+.easehub-btn-ghost {
+  background: transparent !important;
+  color: var(--color-text-secondary) !important;
+  border: 1px solid transparent !important;
+}
+
+.easehub-btn-danger,
+.easehub-btn-signal {
+  background: linear-gradient(135deg, #E85B44 0%, #D3452E 100%) !important;
+  color: #FFFFFF !important;
+  border: 1px solid #D3452E !important;
+  box-shadow: 0 4px 14px rgba(211, 69, 46, 0.3) !important;
+}
+
+.easehub-btn-white {
+  background: #FFFFFF !important;
+  color: #12285A !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 2px 8px rgba(18, 40, 90, 0.08) !important;
+}
+
+/* Hover & Pointer Micro-Interactions */
+@media (hover: hover) and (pointer: fine) {
+  .easehub-btn:not(:disabled):hover {
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  .easehub-btn:not(:disabled):hover::after {
+    opacity: 1;
+    transform: translateX(380%) rotate(25deg);
+  }
+
+  /* Button Icon Motion (Arrow moves forward 3px on hover) */
+  .easehub-btn:not(:disabled):hover .easehub-btn-icon-right {
+    transform: translateX(3px);
+  }
+
+  .easehub-btn:not(:disabled):hover .easehub-btn-icon-left {
+    transform: translateX(-2px);
+  }
+
+  .easehub-btn-primary:not(:disabled):hover {
+    background: #0D1E45 !important;
+    color: #FFFFFF !important;
+    border-color: #0D1E45 !important;
+    box-shadow: 0 4px 14px rgba(18, 40, 90, 0.25) !important;
+  }
+
+  .easehub-btn-accent:not(:disabled):hover {
+    background: #E5B60A !important;
+    color: #12285A !important;
+    border-color: #D4A300 !important;
+    box-shadow: 0 4px 14px rgba(250, 202, 18, 0.45) !important;
+  }
+
+  .easehub-btn-secondary:not(:disabled):hover,
+  .easehub-btn-outline:not(:disabled):hover {
+    background: #F0F4FA !important;
+    border-color: #CBD5E1 !important;
+    color: #12285A !important;
+    box-shadow: 0 2px 8px rgba(18, 40, 90, 0.08) !important;
+  }
+
+  .easehub-btn-tertiary:not(:disabled):hover {
+    background: rgba(18, 40, 90, 0.05) !important;
+    border-color: #CBD5E1 !important;
+    color: #12285A !important;
+  }
+
+  .easehub-btn-ghost:not(:disabled):hover {
+    color: #12285A !important;
+    background: rgba(18, 40, 90, 0.05) !important;
+  }
+
+  .easehub-btn-danger:not(:disabled):hover,
+  .easehub-btn-signal:not(:disabled):hover {
+    background: linear-gradient(135deg, #FF7875 0%, #D3452E 100%) !important;
+    box-shadow: 0 6px 18px rgba(211, 69, 46, 0.4) !important;
+  }
+
+  .easehub-btn-white:not(:disabled):hover {
+    background: #F8FAFC !important;
+    box-shadow: 0 4px 12px rgba(18, 40, 90, 0.12) !important;
+  }
+}
+
+/* Active & Touch Physics */
+.easehub-btn:not(:disabled):active {
+  transform: translateY(1px) scale(0.98) !important;
+  transition-duration: 80ms !important;
+}
+
+.easehub-btn-primary:not(:disabled):active {
+  background: #081430 !important;
+  color: #FFFFFF !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+.easehub-btn-accent:not(:disabled):active {
+  background: #D4A300 !important;
+  color: #12285A !important;
+}
+
+.easehub-btn-secondary:not(:disabled):active,
+.easehub-btn-outline:not(:disabled):active {
+  background: #E2E8F0 !important;
+  border-color: #94A3B8 !important;
+}
+
+.easehub-btn-danger:not(:disabled):active,
+.easehub-btn-signal:not(:disabled):active {
+  background: #B83520 !important;
+}
+
+/* Mobile Touch Active Optimization */
+@media (hover: none) {
+  .easehub-btn:not(:disabled):active {
+    transform: scale(0.97) translateY(1px) !important;
+  }
+  .easehub-btn-primary:not(:disabled):active {
+    background: #002218 !important;
+    color: #FFFFFF !important;
+  }
+  .easehub-btn-secondary:not(:disabled):active,
+  .easehub-btn-outline:not(:disabled):active {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.6) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 0 16px rgba(255, 255, 255, 0.3) !important;
+  }
+}
+
+.easehub-btn-icon-right,
+.easehub-btn-icon-left {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--duration-fast, 150ms) var(--ease-smooth);
+  will-change: transform;
+}
+
+.easehub-btn:focus-visible {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: var(--shadow-focus);
+}
+
+/* --------------------------------------------------------------------------
+   5. LINK INTERACTIONS (Section 17: Cohesive underline expansion)
+   -------------------------------------------------------------------------- */
+
+.motion-link {
+  position: relative;
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.motion-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1.5px;
+  background-color: var(--color-brand-blue);
+  border-radius: var(--radius-pill);
+  transition: width var(--duration-fast) var(--ease-smooth);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .motion-link:hover::after {
+    width: 100%;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. IMAGE MICRO-INTERACTION (Section 19: Controlled subtle zoom)
+   -------------------------------------------------------------------------- */
+
+.motion-image-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.motion-image-zoom {
+  transition: transform var(--duration-deliberate, 380ms) var(--ease-smooth);
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .motion-image-container:hover .motion-image-zoom {
+    transform: scale(1.025);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. STATUS BEACON & PULSE ANIMATIONS
+   -------------------------------------------------------------------------- */
+
+.animate-pulse-dot {
+  animation: motionRadarPulse 2.2s infinite var(--ease-smooth);
+}
+
+.glass-nav {
+  background: rgba(10, 22, 51, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-border-subtle);
+  transition: background-color var(--duration-normal) var(--ease-smooth),
+              border-color var(--duration-normal) var(--ease-smooth),
+              box-shadow var(--duration-normal) var(--ease-smooth);
+}
+
+.glass-nav-scrolled {
+  background: rgba(8, 18, 43, 0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--color-border-default);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="dark"] .glass-nav,
+.dark .glass-nav {
+  background: rgba(6, 7, 9, 0.94);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+[data-theme="dark"] .glass-nav-scrolled,
+.dark .glass-nav-scrolled {
+  background: rgba(0, 0, 0, 0.98);
+  border-bottom: 1px solid var(--color-border-default);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.85);
+}
+
+
+
+/* --------------------------------------------------------------------------
+   8. NAVIGATION & NAVBAR SPECIFIC UTILITIES (Phase 2)
+   -------------------------------------------------------------------------- */
+
+.easehub-global-navbar {
+  transition: background-color var(--duration-normal, 240ms) var(--ease-smooth),
+              border-color var(--duration-normal, 240ms) var(--ease-smooth),
+              box-shadow var(--duration-normal, 240ms) var(--ease-smooth),
+              backdrop-filter var(--duration-normal, 240ms) var(--ease-smooth);
+}
+
+.easehub-desktop-nav-inner {
+  height: 76px;
+  transition: height var(--duration-normal, 240ms) var(--ease-smooth);
+}
+
+.glass-nav-scrolled .easehub-desktop-nav-inner {
+  height: 64px;
+}
+
+.easehub-brand-logo {
+  transition: opacity var(--duration-fast, 150ms) var(--ease-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .easehub-brand-logo:hover .easehub-mark {
+    transform: scale(1.025);
+  }
+}
+
+.easehub-nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  font-size: var(--text-body-xs);
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: color var(--duration-fast, 150ms) var(--ease-standard),
+              background-color var(--duration-fast, 150ms) var(--ease-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .easehub-nav-link:hover {
+    color: #FFFFFF;
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+}
+
+.easehub-nav-link.is-active {
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.easehub-nav-link-indicator {
+  position: absolute;
+  bottom: -2px;
+  left: 12px;
+  right: 12px;
+  height: 2px;
+  background-color: var(--color-brand-blue);
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--color-blue-glow);
+  pointer-events: none;
+  transition: transform var(--duration-fast, 150ms) var(--ease-smooth);
+}
+
+.nav-dropdown-menu {
+  animation: navDropdownEnter var(--duration-fast, 150ms) var(--ease-smooth) forwards;
+  transform-origin: top center;
+  will-change: opacity, transform;
+}
+
+@keyframes navDropdownEnter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 6px, 0) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.mobile-nav-backdrop {
+  animation: mobileBackdropFadeIn var(--duration-fast, 150ms) var(--ease-smooth) forwards;
+}
+
+@keyframes mobileBackdropFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.mobile-nav-drawer {
+  animation: mobileDrawerSlideIn var(--duration-normal, 240ms) var(--ease-smooth) forwards;
+  will-change: transform;
+}
+
+@keyframes mobileDrawerSlideIn {
+  from {
+    transform: translate3d(100%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.easehub-search-trigger {
+  transition: background-color var(--duration-fast, 150ms) var(--ease-standard),
+              border-color var(--duration-fast, 150ms) var(--ease-standard),
+              box-shadow var(--duration-fast, 150ms) var(--ease-standard),
+              color var(--duration-fast, 150ms) var(--ease-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .easehub-search-trigger:hover {
+    background-color: var(--color-surface-2) !important;
+    border-color: var(--color-border-hover) !important;
+    color: var(--color-text-secondary) !important;
+  }
+  .easehub-search-trigger:hover svg {
+    color: var(--color-text-primary) !important;
+  }
+}
+
+.easehub-search-trigger:focus-visible {
+  border-color: var(--color-brand-blue) !important;
+  box-shadow: 0 0 0 2px var(--color-blue-subtle) !important;
+}
+
+.easehub-search-trigger-compact {
+  transition: background-color var(--duration-fast, 150ms) var(--ease-standard),
+              border-color var(--duration-fast, 150ms) var(--ease-standard),
+              color var(--duration-fast, 150ms) var(--ease-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .easehub-search-trigger-compact:hover {
+    background-color: var(--color-surface-3) !important;
+    color: var(--color-text-primary) !important;
+    border-color: var(--color-border-hover) !important;
+  }
+}
+
+.nav-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.5rem 0.65rem;
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color var(--duration-fast, 150ms) var(--ease-standard),
+              color var(--duration-fast, 150ms) var(--ease-standard);
+  outline: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-dropdown-item:hover {
+    background-color: var(--color-surface-2) !important;
+    color: #FFFFFF !important;
+  }
+}
+
+.nav-dropdown-item:focus-visible {
+  outline: none;
+  background-color: var(--color-surface-2) !important;
+  box-shadow: 0 0 0 2px var(--color-brand-blue) !important;
+}
+
+.easehub-services-menu {
+  animation: megaMenuEnter var(--duration-fast, 150ms) var(--ease-smooth) forwards;
+  will-change: opacity, transform;
+}
+
+@keyframes megaMenuEnter {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -6px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+.services-menu-item {
+  transition: background-color var(--duration-fast, 150ms) var(--ease-standard),
+              border-color var(--duration-fast, 150ms) var(--ease-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .services-menu-item:hover {
+    background-color: var(--color-surface-2) !important;
+    border-color: var(--color-border-hover) !important;
+  }
+  .services-menu-item:hover .easehub-btn-icon-right {
+    transform: translateX(3px);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   9. MASTER MOTION SYSTEM: TACTILE BUTTONS & SERVICE CARDS (Sections 4, 9, 38)
+   -------------------------------------------------------------------------- */
+
+/* Tactile Button Micro-Interactions */
+.easehub-btn-tactile {
+  transition: transform var(--duration-micro, 140ms) var(--ease-smooth),
+              background-color var(--duration-fast, 200ms) var(--ease-standard),
+              border-color var(--duration-fast, 200ms) var(--ease-standard),
+              box-shadow var(--duration-fast, 200ms) var(--ease-standard);
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .easehub-btn-tactile:not(:disabled):hover {
+    transform: translateY(-1.5px);
+  }
+  .easehub-btn-tactile:not(:disabled):hover .easehub-icon-nudge {
+    transform: translateX(3px);
+  }
+}
+
+.easehub-btn-tactile:not(:disabled):active {
+  transform: translateY(0.5px) scale(0.985) !important;
+  transition-duration: 80ms !important;
+}
+
+/* Master Service Card Hover Physics */
+.easehub-card-interactive {
+  transition: transform var(--duration-fast, 200ms) var(--ease-smooth),
+              box-shadow var(--duration-fast, 200ms) var(--ease-smooth),
+              border-color var(--duration-fast, 200ms) var(--ease-smooth);
+  will-change: transform;
+}
+
+.easehub-card-img-zoom {
+  transition: transform var(--duration-standard, 300ms) var(--ease-smooth);
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .easehub-card-interactive:hover {
+    transform: translateY(-4px) !important;
+    border-color: var(--color-border-hover) !important;
+    box-shadow: var(--shadow-lg) !important;
+  }
+  .easehub-card-interactive:hover .easehub-card-img-zoom {
+    transform: scale(1.03) !important;
+  }
+}
+
+/* Category Switcher Pill Tabs Motion */
+.easehub-tab-btn {
+  transition: background-color var(--duration-fast, 200ms) var(--ease-standard),
+              color var(--duration-fast, 200ms) var(--ease-standard),
+              border-color var(--duration-fast, 200ms) var(--ease-standard),
+              transform var(--duration-micro, 140ms) var(--ease-smooth);
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .easehub-tab-btn:hover {
+    transform: translateY(-1px);
+  }
+}
+
+.easehub-tab-btn:active {
+  transform: translateY(0.5px) scale(0.98);
+  transition-duration: 80ms;
+}
+
+/* --------------------------------------------------------------------------
+   10. MANDATORY ACCESSIBILITY: REDUCED MOTION (Section 42)
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    transform: none !important;
+  }
+  .easehub-btn-tactile:hover,
+  .easehub-card-interactive:hover,
+  .easehub-card-interactive:hover .easehub-card-img-zoom {
+    transform: none !important;
+  }
+}
+
