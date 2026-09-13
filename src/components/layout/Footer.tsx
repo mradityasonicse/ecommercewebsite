@@ -10,8 +10,8 @@ export interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({
-  onPartnerOpen,
-  onRequestCampusOpen,
+  onPartnerOpen: _onPartnerOpen,
+  onRequestCampusOpen: _onRequestCampusOpen,
 }) => {
   const whatsappNumber = DEFAULT_WHATSAPP_ADMIN_NUMBER.replace(/\D/g, '');
 
@@ -75,14 +75,6 @@ export const Footer: React.FC<FooterProps> = ({
               Services
             </a>
             <a
-              href="#how-it-works"
-              style={{ color: 'var(--color-text-secondary)', textDecoration: 'none', transition: 'color var(--duration-fast)' }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--color-brand-blue)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-text-secondary)'; }}
-            >
-              How It Works
-            </a>
-            <a
               href="#bundles"
               style={{ color: 'var(--color-text-secondary)', textDecoration: 'none', transition: 'color var(--duration-fast)' }}
               onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--color-brand-blue)'; }}
@@ -90,46 +82,6 @@ export const Footer: React.FC<FooterProps> = ({
             >
               Smart Bundles
             </a>
-            {onPartnerOpen && (
-              <button
-                type="button"
-                onClick={onPartnerOpen}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: 'var(--color-text-secondary)',
-                  padding: 0,
-                  fontSize: '0.84rem',
-                  fontFamily: 'var(--font-body)',
-                  cursor: 'pointer',
-                  transition: 'color var(--duration-fast)',
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--color-brand-blue)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-text-secondary)'; }}
-              >
-                Become a Partner
-              </button>
-            )}
-            {onRequestCampusOpen && (
-              <button
-                type="button"
-                onClick={onRequestCampusOpen}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: 'var(--color-text-secondary)',
-                  padding: 0,
-                  fontSize: '0.84rem',
-                  fontFamily: 'var(--font-body)',
-                  cursor: 'pointer',
-                  transition: 'color var(--duration-fast)',
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--color-brand-blue)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-text-secondary)'; }}
-              >
-                Request Campus
-              </button>
-            )}
           </nav>
 
           {/* Right: WhatsApp Direct Connect & Copyright */}
