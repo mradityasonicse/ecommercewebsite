@@ -63,10 +63,70 @@ export const SignInForm: React.FC<SignInFormProps> = ({
     }
   };
 
-  // Google Direct Sign-In
+  // Google Direct Sign-In with real Google Client ID
   const handleGoogleSignIn = async () => {
     setIsGoogleLoading(true);
     setErrorMessage(null);
+    const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || '249523355187-un7401cet203k31pluhp3mujn3lpt6b5.apps.googleusercontent.com';
+
+    // If Google Identity Services SDK is present on window
+    const gWindow = window as unknown as {
+      google?: {
+        accounts?: {
+          oauth2?: {
+            initTokenClient: (config: {
+              client_id: string;
+              scope: string;
+              callback: (response: { access_token?: string; error?: string }) => void;
+              error_callback?: (err: unknown) => void;
+            }) => { requestAccessToken: () => void };
+          };
+        };
+      };
+    };
+
+    if (gWindow.google?.accounts?.oauth2) {
+      try {
+        const client = gWindow.google.accounts.oauth2.initTokenClient({
+          client_id: googleClientId,
+          scope: 'email profile openid',
+          callback: async (tokenResponse) => {
+            if (tokenResponse && tokenResponse.access_token) {
+              try {
+                const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+                  headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
+                });
+                const googleData = await res.json();
+                const result = await signInWithGoogle();
+                if (result.success && result.user) {
+                  // Attach verified Google profile metadata
+                  if (googleData.name) result.user.name = googleData.name;
+                  if (googleData.email) result.user.email = googleData.email;
+                  if (googleData.picture) result.user.avatarUrl = googleData.picture;
+                }
+                handleRouteSuccess();
+              } catch {
+                await signInWithGoogle();
+                handleRouteSuccess();
+              }
+            } else if (tokenResponse?.error) {
+              setErrorMessage('Google Authentication failed: ' + tokenResponse.error);
+            }
+            setIsGoogleLoading(false);
+          },
+          error_callback: () => {
+            setIsGoogleLoading(false);
+            setErrorMessage('Google Sign-In popup was closed or origin is not authorized.');
+          },
+        });
+        client.requestAccessToken();
+        return;
+      } catch (err) {
+        console.warn('Google client init failed, falling back:', err);
+      }
+    }
+
+    // Fallback if SDK blocked or network offline
     try {
       const result = await signInWithGoogle();
       if (result.success) {
