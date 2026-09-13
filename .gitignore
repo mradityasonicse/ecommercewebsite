@@ -39,10 +39,17 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Temporary Root Test Screenshots & Scratch Scripts
-*.png
+# Scratch & Temporary root files only
+/*.png
 extracted_*.json
 extract_data.js
 find_*.js
 generate_catalog.js
 inspect_bundle.js
+
+# NEVER ignore production images in public or src/assets
+!public/*.png
+!public/**/*.png
+!public/*.svg
+!src/assets/*.png
+!src/assets/*.svg

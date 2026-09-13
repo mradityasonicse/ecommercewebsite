@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import easehubMark from '../../assets/easehub-mark.png';
 
 interface BrandIntroSplashProps {
   onComplete: () => void;
@@ -107,8 +108,13 @@ export const BrandIntroSplash: React.FC<BrandIntroSplashProps> = ({
           }}
         >
           <img
-            src="/easehub-mark.png"
+            src={easehubMark}
             alt="EaseHub Logo"
+            onError={(e) => {
+              if (e.currentTarget.src !== window.location.origin + '/easehub-mark.png') {
+                e.currentTarget.src = '/easehub-mark.png';
+              }
+            }}
             style={{
               width: '100%',
               height: '100%',

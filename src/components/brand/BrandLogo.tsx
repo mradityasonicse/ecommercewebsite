@@ -1,4 +1,5 @@
 import React from 'react';
+import easehubMark from '../../assets/easehub-mark.png';
 
 export type BrandLogoVariant = 'default' | 'compact' | 'mobile' | 'footer' | 'full' | 'mark-only';
 
@@ -57,8 +58,13 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
     >
       {/* Official Brand Logo Mark */}
       <img
-        src="/easehub-mark.png"
+        src={easehubMark}
         alt="EaseHub Logo"
+        onError={(e) => {
+          if (e.currentTarget.src !== window.location.origin + '/easehub-mark.png') {
+            e.currentTarget.src = '/easehub-mark.png';
+          }
+        }}
         style={{
           height: `${markHeight}px`,
           width: 'auto',

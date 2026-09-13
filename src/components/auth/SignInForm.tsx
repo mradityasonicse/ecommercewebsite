@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, Lock, Eye, EyeOff, AlertCircle, ArrowRight, Zap, Phone, CheckCircle2 } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, AlertCircle, ArrowRight, Phone, CheckCircle2 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { Button } from '../ui/Button';
 import type { AuthViewMode } from '../../types/auth';
@@ -52,23 +52,6 @@ export const SignInForm: React.FC<SignInFormProps> = ({
     }
     return () => clearTimeout(timer);
   }, [countdown, isCounting]);
-
-  const handleFillDemo = () => {
-    setAuthMethod('password');
-    setEmailOrPhone('student@easehub.in');
-    setPassword('Student#2026');
-    setErrorMessage(null);
-  };
-
-  const handleFillDemoOtp = () => {
-    setAuthMethod('otp');
-    if (otpType === 'phone') {
-      setPhoneNumber('9876543210');
-    } else {
-      setEmailAddress('student@easehub.in');
-    }
-    setErrorMessage(null);
-  };
 
   const handleRouteSuccess = () => {
     if (onSuccess) {
@@ -133,8 +116,8 @@ export const SignInForm: React.FC<SignInFormProps> = ({
     setIsCounting(true);
     setSuccessInfo(
       otpType === 'phone'
-        ? `OTP sent to +91 ${target}. Demo OTP: ${randomOtp}`
-        : `OTP sent to ${target}. Demo OTP: ${randomOtp}`
+        ? `Verification code sent to +91 ${target}.`
+        : `Verification code sent to ${target}.`
     );
   };
 
@@ -149,8 +132,8 @@ export const SignInForm: React.FC<SignInFormProps> = ({
     }
 
     // In demo environment, allow generated OTP or universal demo '123456'
-    if (otpCode.trim() !== generatedOtp && otpCode.trim() !== '123456' && otpCode.trim() !== '1234') {
-      setErrorMessage('Invalid verification code. Please check or use demo code: ' + generatedOtp);
+    if (otpCode.trim() !== generatedOtp && otpCode.trim() !== '123456') {
+      setErrorMessage('Invalid verification code. Please check and try again.');
       return;
     }
 
@@ -425,39 +408,6 @@ export const SignInForm: React.FC<SignInFormProps> = ({
             </button>
           </div>
 
-          {/* Quick Demo Helper */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '0.45rem 0.75rem',
-              borderRadius: 'var(--radius-md)',
-              backgroundColor: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              fontSize: '0.74rem',
-            }}
-          >
-            <span style={{ color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-              <Zap size={12} color="var(--color-brand-gold)" /> Demo Student Account
-            </span>
-            <button
-              type="button"
-              onClick={handleFillDemoOtp}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: 'var(--color-brand-gold, #FAC908)',
-                fontWeight: 700,
-                cursor: 'pointer',
-                textDecoration: 'underline',
-                fontSize: '0.74rem',
-              }}
-            >
-              Auto-Fill {otpType === 'phone' ? 'Phone' : 'Email'}
-            </button>
-          </div>
-
           {/* Step 1 Form: Enter Destination */}
           {otpStep === 'input' && (
             <form onSubmit={handleSendOtp} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
@@ -683,39 +633,6 @@ export const SignInForm: React.FC<SignInFormProps> = ({
       {/* ========================================================================= */}
       {authMethod === 'password' && (
         <form onSubmit={handlePasswordSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-          {/* Demo Credentials Helper Pill */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '0.5rem 0.75rem',
-              borderRadius: 'var(--radius-md)',
-              backgroundColor: 'rgba(255, 255, 255, 0.06)',
-              border: '1px solid rgba(255, 255, 255, 0.16)',
-              fontSize: '0.75rem',
-            }}
-          >
-            <span style={{ color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-              <Zap size={12} color="var(--color-brand-gold)" /> Quick Demo Student Account
-            </span>
-            <button
-              type="button"
-              onClick={handleFillDemo}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: '#FFFFFF',
-                fontWeight: 700,
-                cursor: 'pointer',
-                textDecoration: 'underline',
-                fontSize: '0.75rem',
-              }}
-            >
-              Auto-Fill Credentials
-            </button>
-          </div>
-
           {/* Email / Phone Field */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
             <label
