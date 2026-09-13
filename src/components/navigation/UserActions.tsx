@@ -7,7 +7,6 @@ import {
   LogOut,
   LayoutDashboard,
   Shield,
-  Briefcase,
   ChevronDown,
   Sun,
   Moon,
@@ -631,49 +630,6 @@ export const UserActions: React.FC<UserActionsProps> = ({
                   <span>Settings & Preferences</span>
                 </button>
 
-                <div style={{ height: '1px', backgroundColor: 'var(--color-border-subtle)', margin: '0.35rem 0' }} />
-
-                <button
-                  type="button"
-                  onClick={() => handleNavigate('#provider')}
-                  style={{
-                    ...dropdownItemStyle,
-                    color: 'var(--color-blue-light)',
-                  }}
-                >
-                  <Briefcase size={14} />
-                  <span>Partner with EaseHub</span>
-                </button>
-              </>
-            )}
-
-            {/* Provider Role Actions (Phase 11) */}
-            {role === 'provider' && (
-              <>
-                <button
-                  type="button"
-                  onClick={() => handleNavigate('#provider/profile')}
-                  style={dropdownItemStyle}
-                >
-                  <Briefcase size={14} color="var(--color-brand-blue)" />
-                  <span>Provider Profile</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleNavigate('#provider/status')}
-                  style={dropdownItemStyle}
-                >
-                  <Shield size={14} color="var(--color-brand-blue)" />
-                  <span>Application Status</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleNavigate('#provider/settings')}
-                  style={dropdownItemStyle}
-                >
-                  <Settings size={14} color="var(--color-brand-blue)" />
-                  <span>Provider Settings</span>
-                </button>
               </>
             )}
 

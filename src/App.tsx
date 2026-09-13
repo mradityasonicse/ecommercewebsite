@@ -9,12 +9,10 @@ import {
   parseBookingSlugFromUrl,
   parseAuthRouteFromUrl,
   isAccountRoute,
-  isProviderRoute,
   getBookingHref,
   getServiceHref,
   getAuthHref,
   getAccountHref,
-  getProviderHref,
 } from './utils/routes';
 
 // Auth Context Provider
@@ -49,15 +47,11 @@ import { AuthPage } from './pages/AuthPage';
 // Student Account Dashboard (Phase 8)
 import { AccountPage } from './pages/AccountPage';
 
-// Provider Ecosystem (Phase 11)
-import { ProviderPage } from './pages/ProviderPage';
-
 // Modals & Drawers
 import { ProviderDetailModal } from './components/modals/ProviderDetailModal';
 import { ServiceDetailModal } from './components/modals/ServiceDetailModal';
 import { BundleDetailModal } from './components/modals/BundleDetailModal';
 import { RequestCampusDrawer } from './components/drawers/RequestCampusDrawer';
-import { PartnerOnboardingDrawer } from './components/drawers/PartnerOnboardingDrawer';
 
 // Design System Showcase
 import { DesignSystemPage } from './pages/DesignSystemPage';
@@ -69,7 +63,6 @@ export type AppViewMode =
   | 'service-booking'
   | 'auth'
   | 'account'
-  | 'provider'
   | 'design-system';
 
 interface RouteState {
@@ -111,7 +104,6 @@ function MainApp() {
   const [selectedService, setSelectedService] = useState<EcosystemService | null>(null);
   const [selectedBundle, setSelectedBundle] = useState<Bundle | null>(null);
   const [isRequestCampusOpen, setIsRequestCampusOpen] = useState(false);
-  const [isPartnerOpen, setIsPartnerOpen] = useState(false);
   const [activeBookingPayload, setActiveBookingPayload] = useState<BookingTargetPayload | null>(null);
   const [thankYouBookingData, setThankYouBookingData] = useState<BookingSubmissionData | null>(null);
 
@@ -149,12 +141,7 @@ function MainApp() {
       };
     }
 
-    // 4. Provider Ecosystem (#provider)
-    if (isProviderRoute(window.location.pathname, window.location.hash)) {
-      return { view: 'provider', serviceSlug: '' };
-    }
-
-    // 5. Student Account Dashboard (#account)
+    // 4. Student Account Dashboard (#account)
     if (isAccountRoute(window.location.pathname, window.location.hash)) {
       return { view: 'account', serviceSlug: '' };
     }
@@ -223,7 +210,6 @@ function MainApp() {
         'catalog',
         'marketplace',
         'services-catalog',
-        'provider',
         'account',
         'auth',
         'design-system',
@@ -256,8 +242,6 @@ function MainApp() {
       window.location.hash = getAuthHref(authMode || 'sign-in', returnTo);
     } else if (mode === 'account') {
       window.location.hash = getAccountHref();
-    } else if (mode === 'provider') {
-      window.location.hash = getProviderHref();
     } else if (mode === 'services') {
       window.location.hash = 'catalog';
     } else {
@@ -343,7 +327,6 @@ function MainApp() {
       selectedCampus={selectedCampus}
       onCampusChange={setSelectedCampus}
       onRequestCampusOpen={() => setIsRequestCampusOpen(true)}
-      onPartnerOpen={() => navigateTo('provider')}
     >
       {routeState.view === 'service-booking' ? (
         /* PHASE 7: BOOKING & SERVICE REQUEST FLOW */
@@ -354,12 +337,6 @@ function MainApp() {
           onBackToService={() => navigateTo('service-detail', routeState.serviceSlug)}
           onNavigateToAccount={() => navigateTo('account')}
           onNavigateToServices={() => navigateTo('services')}
-        />
-      ) : routeState.view === 'provider' ? (
-        /* PHASE 11: PROVIDER / VENDOR ECOSYSTEM */
-        <ProviderPage
-          onNavigateHome={() => navigateTo('app')}
-          onNavigateToAuth={(returnTo) => navigateTo('auth', undefined, undefined, 'sign-in', returnTo || '#provider')}
         />
       ) : routeState.view === 'account' ? (
         /* PHASE 8: STUDENT ACCOUNT DASHBOARD */
@@ -438,11 +415,6 @@ function MainApp() {
       <RequestCampusDrawer
         isOpen={isRequestCampusOpen}
         onClose={() => setIsRequestCampusOpen(false)}
-      />
-
-      <PartnerOnboardingDrawer
-        isOpen={isPartnerOpen}
-        onClose={() => setIsPartnerOpen(false)}
       />
 
       {/* Direct Interactive WhatsApp Booking Form Modal */}
