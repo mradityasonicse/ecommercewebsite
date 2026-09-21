@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Sun, Moon } from 'lucide-react';
-import { useTheme } from '../../context/ThemeContext';
 import { type Campus } from '../../data/campuses';
 import { BrandLogo } from '../brand/BrandLogo';
 import { DesktopNav } from './DesktopNav';
@@ -22,7 +20,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   onPartnerOpen,
   onOpenTracker,
 }) => {
-  const { theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 
@@ -86,36 +83,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               <BrandLogo variant="mobile" href="#" />
             </div>
 
-            {/* Right: Quick Search, Theme Toggle & Animated Hamburger */}
+            {/* Right: Quick Search & Animated Hamburger */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <button
-                type="button"
-                onClick={toggleTheme}
-                aria-label={`Switch to ${theme === 'primary' ? 'Dark' : 'Light'} Mode`}
-                title={`Switch to ${theme === 'primary' ? 'Dark' : 'Light'} Mode`}
-                className="easehub-theme-toggle-btn easehub-spring-btn"
-                style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: 'var(--radius-md)',
-                  backgroundColor: 'var(--color-surface-2)',
-                  border: '1px solid var(--color-border-subtle)',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
-                  flexShrink: 0,
-                  transition: 'all var(--duration-fast) var(--ease-standard)',
-                  padding: 0,
-                  outline: 'none',
-                }}
-              >
-                {theme === 'primary' ? (
-                  <Sun size={17} color="#FAC908" />
-                ) : (
-                  <Moon size={17} color="#A78BFA" />
-                )}
-              </button>
 
               <SearchTrigger variant="compact" />
 

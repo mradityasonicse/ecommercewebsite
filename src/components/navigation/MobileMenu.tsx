@@ -9,14 +9,11 @@ import {
   Shield,
   User as UserIcon,
   LogOut,
-  Sun,
-  Moon,
 } from 'lucide-react';
 import { BrandLogo } from '../brand/BrandLogo';
 import { CAMPUSES, type Campus } from '../../data/campuses';
 import { SearchTrigger } from './SearchTrigger';
 import { useAuth } from '../../context/AuthContext';
-import { useTheme } from '../../context/ThemeContext';
 
 export interface MobileMenuProps {
   isOpen: boolean;
@@ -43,7 +40,6 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
   onPartnerOpen: _onPartnerOpen,
 }) => {
   const { user, isAuthenticated, signOut } = useAuth();
-  const { theme, toggleTheme } = useTheme();
   const [isCampusPickerOpen, setIsCampusPickerOpen] = useState<boolean>(false);
   const [activeHash, setActiveHash] = useState<string>('');
 
@@ -326,58 +322,6 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
                 })}
               </div>
             )}
-          </div>
-
-          {/* Theme Switcher in Mobile Drawer */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '0.65rem 0.85rem',
-              backgroundColor: 'var(--color-surface-2)',
-              borderRadius: 'var(--radius-md)',
-              border: '1px solid var(--color-border-subtle)',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              {theme === 'primary' ? (
-                <Sun size={16} color="#F59E0B" />
-              ) : (
-                <Moon size={16} color="#A78BFA" />
-              )}
-              <span
-                style={{
-                  fontSize: '0.82rem',
-                  fontWeight: 600,
-                  color: 'var(--color-text-primary)',
-                  fontFamily: 'var(--font-sans)',
-                }}
-              >
-                {theme === 'primary' ? 'Light Theme' : 'Obsidian Dark'}
-              </span>
-            </div>
-
-            <button
-              type="button"
-              onClick={toggleTheme}
-              className="easehub-spring-btn"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.35rem',
-                padding: '0.35rem 0.65rem',
-                borderRadius: '6px',
-                backgroundColor: 'var(--color-surface)',
-                border: '1px solid var(--color-border-subtle)',
-                color: 'var(--color-text-primary)',
-                fontSize: '0.74rem',
-                fontWeight: 700,
-                cursor: 'pointer',
-              }}
-            >
-              <span>{theme === 'primary' ? 'Turn Dark On' : 'Turn Light On'}</span>
-            </button>
           </div>
 
           {/* Primary Navigation Links */}

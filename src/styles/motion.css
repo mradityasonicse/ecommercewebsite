@@ -409,18 +409,6 @@
   box-shadow: 0 4px 20px -2px rgba(15, 81, 50, 0.08);
 }
 
-[data-theme="dark"] .glass-nav,
-.dark .glass-nav {
-  background: rgba(9, 13, 22, 0.88);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-[data-theme="dark"] .glass-nav-scrolled,
-.dark .glass-nav-scrolled {
-  background: rgba(9, 13, 22, 0.96);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.6);
-}
 
 /* --------------------------------------------------------------------------
    8. NAVIGATION & NAVBAR SPECIFIC UTILITIES (Phase 2)

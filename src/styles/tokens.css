@@ -274,73 +274,9 @@ body.theme-primary {
 }
 
 /* ==========================================================================
-   THEME 2: OBSIDIAN DARK MODE (Deep AMOLED & Velvet Slate)
+   THEME: STRICT LIGHT MODE ONLY (Dark mode removed per user request)
    ========================================================================== */
-:root[data-theme="dark"],
-html.dark,
-body.dark {
-  /* --- 1. Backgrounds (True Obsidian Pitch Black Canvas) --- */
-  --color-background: #090D16;          /* Deep Obsidian Midnight Canvas */
-  --color-bg-primary: #090D16;          /* Primary Canvas */
-  --color-bg-secondary: #0F172A;        /* Dark Slate Inset */
-  --color-bg-tertiary: #1E293B;         /* Charcoal Inset */
-  --color-bg-elevated: #111827;         /* Elevated Card Obsidian */
-  --color-bg-inverse: #FFFFFF;
 
-  /* --- 2. Surface Hierarchy --- */
-  --color-surface: #0F172A;             /* Level 1 Surface */
-  --color-surface-1: #0F172A;           /* Base Card Surface */
-  --color-surface-2: #1E293B;           /* Sub-surface / Inset */
-  --color-surface-3: #243048;           /* Level 3 Inset */
-  --color-surface-4: #2D3A54;           /* Level 4 Accent Container */
-  --color-surface-elevated: #151F32;    /* Elevated Surface */
-  --color-surface-hover: #1A2438;       /* Surface Hover */
-  --color-surface-interactive: #0F172A;
-  --color-surface-active: #222F46;
-  --color-surface-inverse: #F8FAFC;
-  --color-surface-glass: rgba(9, 13, 22, 0.92);
-  --color-surface-overlay: rgba(0, 0, 0, 0.85);
-
-  /* --- 3. Text Hierarchy --- */
-  --color-text-primary: #F8FAFC;        /* High-contrast Crisp White */
-  --color-text-secondary: #94A3B8;      /* Slate Light */
-  --color-text-muted: #64748B;          /* Slate Subdued */
-  --color-text-disabled: #475569;
-  --color-text-inverse: #090D16;
-  --color-text-link: #34D399;           /* Vibrant Emerald Mint */
-  --color-text-link-hover: #10B981;
-
-  /* --- 4. Borders & Dividers --- */
-  --color-border: rgba(255, 255, 255, 0.1);
-  --color-border-subtle: rgba(255, 255, 255, 0.08);
-  --color-border-default: rgba(255, 255, 255, 0.14);
-  --color-border-hover: rgba(52, 211, 153, 0.4);
-  --color-border-strong: rgba(255, 255, 255, 0.24);
-  --color-border-focus: #10B981;
-  --color-border-active: #10B981;
-
-  /* --- 5. Brand Anchors in Dark Mode --- */
-  --color-brand-green: #10B981;         /* Bright Mint/Emerald */
-  --color-brand-blue: #10B981;
-  --color-blue: #10B981;
-  --color-blue-hover: #34D399;
-  --color-blue-active: #059669;
-  --color-blue-light: #6EE7B7;
-  --color-blue-dark: #064E3B;
-  --color-blue-subtle: rgba(16, 185, 129, 0.18);
-  --color-brand-navy: #090D16;
-  --color-brand-gold: #F59E0B;
-  --color-accent-gold: #FACC15;
-  --color-gold-text: #FDE047;
-  --color-brand-red: #F87171;
-
-  /* --- 6. Shadows --- */
-  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.6);
-  --shadow-md: 0 4px 16px -2px rgba(0, 0, 0, 0.7);
-  --shadow-lg: 0 12px 32px -4px rgba(0, 0, 0, 0.85);
-  --shadow-xl: 0 24px 52px -8px rgba(0, 0, 0, 0.95);
-  --shadow-focus: 0 0 0 3px rgba(16, 185, 129, 0.35);
-}
 
 /* ==========================================================================
    ACCESSIBILITY: PREFERS-REDUCED-MOTION

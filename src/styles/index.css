@@ -1050,97 +1050,7 @@ body.mobile-preview-active .easehub-mobile-nav-drawer .easehub-mobile-drawer-hea
   }
 }
 
-/* ==========================================================================
-   OBSIDIAN DARK THEME ADAPTATION & HIGH CONTRAST TOKENS
-   ========================================================================== */
-[data-theme="dark"] section,
-[data-theme="dark"] main section,
-[data-theme="dark"] #hero,
-[data-theme="dark"] #campus-pipeline,
-[data-theme="dark"] #core-services,
-[data-theme="dark"] #mess-menu,
-[data-theme="dark"] #campus-bento,
-[data-theme="dark"] #bundles,
-[data-theme="dark"] #reviews,
-[data-theme="dark"] #faq,
-[data-theme="dark"] #campus-story,
-[data-theme="dark"] #security-grid,
-[data-theme="dark"] .easehub-app-shell {
-  background-color: var(--color-bg-primary) !important;
-  color: var(--color-text-primary) !important;
-}
 
-[data-theme="dark"] h1,
-[data-theme="dark"] h2,
-[data-theme="dark"] h3,
-[data-theme="dark"] h4,
-[data-theme="dark"] h5,
-[data-theme="dark"] h6 {
-  color: var(--color-text-primary) !important;
-}
-
-[data-theme="dark"] p {
-  color: var(--color-text-secondary);
-}
-
-[data-theme="dark"] .prize-gradient-text {
-  background: linear-gradient(135deg, #34D399 0%, #10B981 50%, #6EE7B7 100%) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
-}
-
-[data-theme="dark"] .prize-glass-card,
-[data-theme="dark"] .easehub-bento-card,
-[data-theme="dark"] .architectural-card,
-[data-theme="dark"] .behance-card,
-[data-theme="dark"] .easehub-hover-lift {
-  background-color: var(--color-surface-1) !important;
-  border-color: var(--color-border-subtle) !important;
-  color: var(--color-text-primary) !important;
-}
-
-[data-theme="dark"] .prize-glass-card {
-  background: rgba(15, 23, 42, 0.88) !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
-}
-
-[data-theme="dark"] .prize-glass-card:hover {
-  border-color: #10B981 !important;
-  box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.8), 0 0 25px rgba(16, 185, 129, 0.25) !important;
-}
-
-[data-theme="dark"] .prize-dock-btn {
-  background-color: #0F172A !important;
-  border-color: rgba(255, 255, 255, 0.14) !important;
-  color: #F8FAFC !important;
-}
-
-[data-theme="dark"] .prize-dock-btn:hover {
-  background-color: #1E293B !important;
-  border-color: #10B981 !important;
-}
-
-[data-theme="dark"] .easehub-ambient-badge {
-  background-color: rgba(16, 185, 129, 0.12) !important;
-  border-color: rgba(16, 185, 129, 0.3) !important;
-  color: #34D399 !important;
-}
-
-[data-theme="dark"] .easehub-mobile-bottom-bar {
-  background: rgba(15, 23, 42, 0.94) !important;
-  border-color: rgba(255, 255, 255, 0.12) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7) !important;
-}
-
-[data-theme="dark"] .easehub-mobile-bottom-bar span {
-  color: var(--color-text-secondary) !important;
-}
-
-[data-theme="dark"] .easehub-mobile-bottom-bar button.active span {
-  color: #10B981 !important;
-}
 
 /* ==========================================================================
    BUNDLE SECTION THEME STYLING (HIGH CONTRAST LIGHT & DARK)
@@ -1196,66 +1106,7 @@ body.mobile-preview-active .easehub-mobile-nav-drawer .easehub-mobile-drawer-hea
   color: #0F172A;
 }
 
-/* Dark Mode Overrides for Bundles */
-[data-theme="dark"] .bundle-card {
-  background-color: #0F172A !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.12) !important;
-  color: #F8FAFC !important;
-}
-[data-theme="dark"] .bundle-card.is-popular {
-  border: 2px solid #10B981 !important;
-  box-shadow: 0 12px 32px rgba(16, 185, 129, 0.2) !important;
-}
-[data-theme="dark"] .bundle-title {
-  color: #F8FAFC !important;
-}
-[data-theme="dark"] .bundle-tagline {
-  color: #94A3B8 !important;
-}
-[data-theme="dark"] .bundle-pricing-box {
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-}
-[data-theme="dark"] .bundle-price {
-  color: #F8FAFC !important;
-}
-[data-theme="dark"] .bundle-price-period {
-  color: #94A3B8 !important;
-}
-[data-theme="dark"] .bundle-services-label {
-  color: #94A3B8 !important;
-}
-[data-theme="dark"] .bundle-service-item {
-  color: #F1F5F9 !important;
-}
-[data-theme="dark"] .bundle-assurance-pill-popular {
-  background-color: rgba(234, 179, 8, 0.15) !important;
-  border: 1px solid rgba(234, 179, 8, 0.35) !important;
-  color: #FDE047 !important;
-}
-[data-theme="dark"] .bundle-assurance-pill-standard {
-  background-color: rgba(34, 197, 94, 0.14) !important;
-  border: 1px solid rgba(34, 197, 94, 0.3) !important;
-  color: #4ADE80 !important;
-}
-[data-theme="dark"] .bundle-equation-box {
-  background-color: rgba(255, 255, 255, 0.04) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
-}
-[data-theme="dark"] .bundle-equation-item {
-  background-color: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  color: #F8FAFC !important;
-}
-[data-theme="dark"] .bundle-cta-standard {
-  background-color: rgba(16, 185, 129, 0.12) !important;
-  color: #34D399 !important;
-  border: 1.5px solid rgba(16, 185, 129, 0.35) !important;
-}
-[data-theme="dark"] .bundle-cta-standard:hover {
-  background-color: rgba(16, 185, 129, 0.22) !important;
-  color: #6EE7B7 !important;
-}
+
 
 /* ==========================================================================
    ROLE LOGIN PAGE THEME SUPPORT (ZERO COLLISION, HIGH CONTRAST)
@@ -1306,82 +1157,7 @@ body.mobile-preview-active .easehub-mobile-nav-drawer .easehub-mobile-drawer-hea
   border: 1.5px solid #CBD5E1;
 }
 
-/* Dark Mode Overrides for Role Login Page */
-[data-theme="dark"] .role-login-page {
-  background-color: var(--color-bg-primary, #090D16) !important;
-  color: var(--color-text-primary, #F8FAFC) !important;
-}
 
-[data-theme="dark"] .role-selector-section {
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-[data-theme="dark"] .role-select-card {
-  background-color: var(--color-surface-1, #0F172A) !important;
-  border-color: rgba(255, 255, 255, 0.12) !important;
-  color: #F8FAFC !important;
-}
-[data-theme="dark"] .role-select-card:hover {
-  border-color: rgba(255, 255, 255, 0.25) !important;
-}
-[data-theme="dark"] .role-select-card.is-selected {
-  background-color: #131E35 !important;
-}
-[data-theme="dark"] .role-select-card h3 {
-  color: #F8FAFC !important;
-}
-[data-theme="dark"] .role-select-card.is-selected h3 {
-  color: inherit !important;
-}
-[data-theme="dark"] .role-select-card .role-hindi-label {
-  color: #94A3B8 !important;
-}
-
-[data-theme="dark"] .role-action-section {
-  background-color: var(--color-surface-1, #0F172A) !important;
-  border-color: rgba(255, 255, 255, 0.12) !important;
-  color: #F8FAFC !important;
-}
-
-[data-theme="dark"] .role-highlights-box {
-  background-color: rgba(255, 255, 255, 0.04) !important;
-  border-color: rgba(255, 255, 255, 0.12) !important;
-}
-[data-theme="dark"] .role-highlights-box span {
-  color: #F8FAFC !important;
-}
-
-[data-theme="dark"] .role-form-box {
-  background-color: rgba(255, 255, 255, 0.04) !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
-}
-[data-theme="dark"] .role-form-box h3 {
-  color: #F8FAFC !important;
-}
-[data-theme="dark"] .role-form-box label {
-  color: #E2E8F0 !important;
-}
-
-[data-theme="dark"] .role-form-input {
-  background-color: var(--color-surface-2, #1E293B) !important;
-  color: #F8FAFC !important;
-  border-color: rgba(255, 255, 255, 0.16) !important;
-}
-[data-theme="dark"] .role-form-input:focus {
-  border-color: #10B981 !important;
-}
-
-[data-theme="dark"] .role-cred-btn {
-  background-color: var(--color-surface-2, #1E293B) !important;
-  color: #F8FAFC !important;
-  border-color: rgba(255, 255, 255, 0.2) !important;
-}
-[data-theme="dark"] .role-cred-btn:hover {
-  background-color: #27354E !important;
-  border-color: #10B981 !important;
-  color: #10B981 !important;
-}
 
 /* ==========================================================================
    CAMPUS BENTO SECTION THEME STYLING (PERFECT CONTRAST & GAP BALANCE)
@@ -1424,49 +1200,7 @@ body.mobile-preview-active .easehub-mobile-nav-drawer .easehub-mobile-drawer-hea
   border: 1.5px solid #86EFAC;
 }
 
-/* Dark Mode Bento Overrides */
-[data-theme="dark"] .bento-card-bg {
-  background-color: var(--color-surface-1, #0F172A) !important;
-  border-color: rgba(255, 255, 255, 0.12) !important;
-  color: #F8FAFC !important;
-}
 
-[data-theme="dark"] .bento-inset-box {
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  border-color: rgba(255, 255, 255, 0.12) !important;
-  color: #F8FAFC !important;
-}
-
-[data-theme="dark"] .bento-inset-btn {
-  background-color: rgba(255, 255, 255, 0.08) !important;
-  border-color: rgba(255, 255, 255, 0.16) !important;
-  color: #F8FAFC !important;
-}
-[data-theme="dark"] .bento-inset-btn:hover {
-  background-color: rgba(16, 185, 129, 0.2) !important;
-  border-color: #10B981 !important;
-  color: #34D399 !important;
-}
-
-[data-theme="dark"] .bento-feature-text {
-  color: #F1F5F9 !important;
-}
-
-[data-theme="dark"] .bento-craving-pill {
-  background-color: rgba(255, 255, 255, 0.08) !important;
-  color: #F8FAFC !important;
-  border-color: rgba(255, 255, 255, 0.15) !important;
-}
-
-[data-theme="dark"] .bento-nightowl-card {
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.96) 0%, rgba(20, 30, 48, 0.96) 50%, rgba(15, 23, 42, 0.96) 100%) !important;
-  border-color: rgba(255, 255, 255, 0.14) !important;
-}
-
-[data-theme="dark"] .bento-meal-tabs {
-  background-color: rgba(255, 255, 255, 0.06) !important;
-  border-color: rgba(255, 255, 255, 0.12) !important;
-}
 
 
 

@@ -11,38 +11,29 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('easehub-theme') as Theme | null;
-      if (saved === 'dark' || saved === 'primary') return saved;
-      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        return 'dark';
-      }
-    }
-    return 'primary';
-  });
+  const [theme] = useState<Theme>('primary');
 
   useEffect(() => {
     const root = document.documentElement;
-    root.setAttribute('data-theme', theme);
-    if (theme === 'dark') {
-      root.classList.add('dark');
-      root.classList.remove('theme-primary');
-    } else {
-      root.classList.remove('dark');
-      root.classList.add('theme-primary');
-    }
+    root.setAttribute('data-theme', 'primary');
+    root.classList.remove('dark');
+    root.classList.add('theme-primary');
     if (typeof window !== 'undefined') {
-      localStorage.setItem('easehub-theme', theme);
+      try {
+        localStorage.removeItem('easehub-theme');
+        localStorage.setItem('easehub-theme', 'primary');
+      } catch {
+        // Ignore storage errors in sandbox
+      }
     }
-  }, [theme]);
+  }, []);
 
   const toggleTheme = () => {
-    setThemeState((prev) => (prev === 'primary' ? 'dark' : 'primary'));
+    // Dark mode removed per user request: site is strictly in light mode
   };
 
-  const setTheme = (newTheme: Theme) => {
-    setThemeState(newTheme);
+  const setTheme = (_newTheme: Theme) => {
+    // Always strictly maintain primary light mode
   };
 
   return (

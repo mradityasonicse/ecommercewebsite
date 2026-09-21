@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Smartphone, Sun, Moon } from 'lucide-react';
+import { Smartphone } from 'lucide-react';
 import { BrandLogo } from '../brand/BrandLogo';
 import { type Campus } from '../../data/campuses';
-import { useTheme } from '../../context/ThemeContext';
 import { UserActions } from './UserActions';
 import { SearchTrigger } from './SearchTrigger';
 import { Container } from '../primitives/Container';
@@ -25,7 +24,6 @@ interface NavItemDef {
 }
 
 export const DesktopNav: React.FC<DesktopNavProps> = ({ onOpenTracker: _onOpenTracker }) => {
-  const { theme, toggleTheme } = useTheme();
   const [activeRoute, setActiveRoute] = useState<string>('home');
 
   // Detect active route based on window.location.hash and window.location.pathname
@@ -230,39 +228,9 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({ onOpenTracker: _onOpenTr
             })}
           </nav>
 
-          {/* 3. Right Utility Actions (Search + Mobile View + Theme Toggle + Auth) */}
+          {/* 3. Right Utility Actions (Search + Mobile View + Auth) */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexShrink: 0 }}>
             <SearchTrigger variant="desktop" />
-
-            {/* Theme Toggle Button (Light / Dark) */}
-            <button
-              type="button"
-              onClick={toggleTheme}
-              aria-label={`Switch to ${theme === 'primary' ? 'Dark' : 'Light'} Mode`}
-              title={`Switch to ${theme === 'primary' ? 'Dark' : 'Light'} Mode`}
-              className="easehub-theme-toggle-btn easehub-spring-btn"
-              style={{
-                width: '36px',
-                height: '36px',
-                borderRadius: '8px',
-                backgroundColor: 'var(--color-surface-2)',
-                border: '1px solid var(--color-border-subtle)',
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                flexShrink: 0,
-                transition: 'all 0.15s ease',
-                padding: 0,
-                outline: 'none',
-              }}
-            >
-              {theme === 'primary' ? (
-                <Sun size={17} color="#F59E0B" />
-              ) : (
-                <Moon size={17} color="#A78BFA" />
-              )}
-            </button>
 
             {/* 1-Tap Mobile View Simulator Button */}
             <button
