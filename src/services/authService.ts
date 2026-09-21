@@ -18,6 +18,7 @@ import type {
 } from '../types/auth';
 import { auth, googleAuthProvider } from '../config/firebase';
 import { signInWithPopup } from 'firebase/auth';
+import { FirestoreService } from './firestoreService';
 
 const SESSION_KEY = 'easehub_auth_session_v1';
 const USERS_KEY = 'easehub_auth_registered_users_v1';
@@ -161,6 +162,7 @@ export class MockAuthProviderAdapter implements IAuthProviderAdapter {
       if (user) {
         localStorage.setItem(SESSION_KEY, JSON.stringify(user));
         sessionStorage.setItem(SESSION_KEY, JSON.stringify(user));
+        FirestoreService.saveUser(user);
       } else {
         localStorage.removeItem(SESSION_KEY);
         sessionStorage.removeItem(SESSION_KEY);
@@ -186,6 +188,7 @@ export class MockAuthProviderAdapter implements IAuthProviderAdapter {
     try {
       const existing = this.getRegisteredUsers();
       localStorage.setItem(USERS_KEY, JSON.stringify([user, ...existing.filter(u => u.email !== user.email)]));
+      FirestoreService.saveUser(user);
     } catch {
       // Storage unavailable
     }

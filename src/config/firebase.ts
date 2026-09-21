@@ -1,6 +1,7 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAnalytics, isSupported, type Analytics } from 'firebase/analytics';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 /**
  * Firebase Project Configuration for EaseHub
@@ -19,9 +20,10 @@ export const firebaseConfig = {
 // Initialize Firebase App instance singleton
 export const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 
-// Initialize Firebase Authentication
+// Initialize Firebase Authentication & Firestore Database
 export const auth = getAuth(app);
 export const googleAuthProvider = new GoogleAuthProvider();
+export const db = getFirestore(app);
 
 // Initialize Firebase Analytics safely (guards against non-browser or ad-blocked environments)
 export let analytics: Analytics | null = null;

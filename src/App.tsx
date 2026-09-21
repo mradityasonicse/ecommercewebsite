@@ -69,6 +69,7 @@ import { BundleDetailModal } from './components/modals/BundleDetailModal';
 import { RequestCampusDrawer } from './components/drawers/RequestCampusDrawer';
 import { NotificationCenterDrawer } from './components/modals/NotificationCenterDrawer';
 import { MobilePreviewContainer } from './components/layout/MobilePreviewContainer';
+import { FirestoreService } from './services/firestoreService';
 
 export type AppViewMode =
   | 'app'
@@ -166,6 +167,11 @@ function MainApp() {
     setCurrentUserRole(null);
     navigateTo('login');
   };
+
+  useEffect(() => {
+    // Seed initial collections into Firebase Cloud Firestore so collections appear in Console
+    FirestoreService.seedInitialCollections();
+  }, []);
 
   useEffect(() => {
     const handleOpenRoleGate = () => {

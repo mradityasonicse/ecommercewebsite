@@ -6,6 +6,7 @@
 
 import type { ServiceRequest, RequestTimelineEvent, RequestStatus } from '../types/booking';
 import { NotificationService } from './notificationService';
+import { FirestoreService } from './firestoreService';
 
 const STORAGE_KEY = 'easehub_service_requests_v1';
 
@@ -385,6 +386,9 @@ export class ServiceRequestRepository {
     const updated = [newRequest, ...existing];
     this.saveStoredRequests(updated);
 
+    // Persist to Cloud Firestore Database in real time
+    FirestoreService.saveBooking(newRequest);
+
     // Trigger notification
     NotificationService.createNotification({
       userId: payload.customer.email,
@@ -479,6 +483,9 @@ export class ServiceRequestRepository {
 
     requests[idx] = updatedRequest;
     this.saveStoredRequests(requests);
+
+    // Sync cancelled status with Firestore Cloud
+    FirestoreService.saveBooking(updatedRequest);
 
     // Trigger in-app notification
     NotificationService.createNotification({
@@ -716,6 +723,9 @@ export class ServiceRequestRepository {
 
     requests[idx] = updatedRequest;
     this.saveStoredRequests(requests);
+
+    // Sync updated status with Firestore Cloud
+    FirestoreService.saveBooking(updatedRequest);
 
     // Notify the specific student immediately
     NotificationService.createNotification({
