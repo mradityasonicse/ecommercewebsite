@@ -187,13 +187,14 @@ export const RoleLoginPage: React.FC<RoleLoginPageProps> = ({ onLogin }) => {
 
   return (
     <div
+      className="role-login-page"
       style={{
         minHeight: '100vh',
         width: '100%',
-        backgroundColor: '#F8FAF7',
+        backgroundColor: 'var(--color-bg-primary, #F8FAF7)',
         backgroundImage:
           'radial-gradient(at 0% 0%, rgba(34, 197, 94, 0.08) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(250, 204, 21, 0.08) 0px, transparent 50%)',
-        color: '#0F172A',
+        color: 'var(--color-text-primary, #0F172A)',
         fontFamily: 'var(--font-sans, system-ui, -apple-system, sans-serif)',
         padding: '2rem 1.25rem 3.5rem',
         display: 'flex',
@@ -237,7 +238,7 @@ export const RoleLoginPage: React.FC<RoleLoginPageProps> = ({ onLogin }) => {
           style={{
             fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
             fontWeight: 900,
-            color: '#0F172A',
+            color: 'var(--color-text-primary, #0F172A)',
             letterSpacing: '-0.03em',
             margin: '0 0 0.5rem 0',
             lineHeight: 1.15,
@@ -249,7 +250,7 @@ export const RoleLoginPage: React.FC<RoleLoginPageProps> = ({ onLogin }) => {
         <p
           style={{
             fontSize: 'clamp(0.88rem, 2vw, 1.05rem)',
-            color: '#475569',
+            color: 'var(--color-text-secondary, #475569)',
             maxWidth: '620px',
             margin: '0 auto',
             lineHeight: 1.5,
@@ -270,7 +271,7 @@ export const RoleLoginPage: React.FC<RoleLoginPageProps> = ({ onLogin }) => {
         }}
       >
         {/* 5 Persona Selector Cards Grid */}
-        <section aria-label="Select User Role">
+        <section className="role-selector-section" aria-label="Select User Role">
           <div
             style={{
               display: 'grid',
@@ -288,11 +289,11 @@ export const RoleLoginPage: React.FC<RoleLoginPageProps> = ({ onLogin }) => {
                   key={persona.id}
                   type="button"
                   onClick={() => handleSelectPersona(persona.id)}
+                  className={`role-select-card ${isSelected ? 'is-selected' : ''}`}
                   style={{
-                    backgroundColor: '#FFFFFF',
                     border: isSelected
                       ? `2.5px solid ${persona.color}`
-                      : '1.5px solid #E2E8F0',
+                      : undefined,
                     borderRadius: '18px',
                     padding: '1.25rem 1rem',
                     textAlign: 'left',
@@ -310,13 +311,11 @@ export const RoleLoginPage: React.FC<RoleLoginPageProps> = ({ onLogin }) => {
                   }}
                   onMouseEnter={(e) => {
                     if (!isSelected) {
-                      e.currentTarget.style.borderColor = '#CBD5E1';
                       e.currentTarget.style.transform = 'translateY(-1px)';
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!isSelected) {
-                      e.currentTarget.style.borderColor = '#E2E8F0';
                       e.currentTarget.style.transform = 'none';
                     }
                   }}
@@ -367,14 +366,14 @@ export const RoleLoginPage: React.FC<RoleLoginPageProps> = ({ onLogin }) => {
                       style={{
                         fontSize: '0.96rem',
                         fontWeight: 800,
-                        color: isSelected ? persona.color : '#0F172A',
+                        color: isSelected ? persona.color : 'inherit',
                         margin: '0 0 0.15rem 0',
                         lineHeight: 1.2,
                       }}
                     >
                       {persona.title}
                     </h3>
-                    <div style={{ fontSize: '0.74rem', color: '#64748B', fontWeight: 600 }}>
+                    <div className="role-hindi-label" style={{ fontSize: '0.74rem', fontWeight: 600 }}>
                       {persona.hindiLabel}
                     </div>
                   </div>
@@ -384,7 +383,7 @@ export const RoleLoginPage: React.FC<RoleLoginPageProps> = ({ onLogin }) => {
                     style={{
                       marginTop: 'auto',
                       paddingTop: '0.35rem',
-                      borderTop: '1px dashed #F1F5F9',
+                      borderTop: '1px dashed rgba(148, 163, 184, 0.25)',
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.35rem',
@@ -403,8 +402,8 @@ export const RoleLoginPage: React.FC<RoleLoginPageProps> = ({ onLogin }) => {
 
         {/* Selected Persona Login Action Card */}
         <section
+          className="role-action-section"
           style={{
-            backgroundColor: '#FFFFFF',
             borderRadius: '24px',
             border: `2px solid ${currentConfig.borderLight}`,
             boxShadow: '0 20px 40px -15px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(0,0,0,0.02)',
@@ -449,7 +448,7 @@ export const RoleLoginPage: React.FC<RoleLoginPageProps> = ({ onLogin }) => {
                   style={{
                     fontSize: '1.45rem',
                     fontWeight: 900,
-                    color: '#0F172A',
+                    color: 'var(--color-text-primary, #0F172A)',
                     margin: 0,
                     lineHeight: 1.2,
                   }}
@@ -459,14 +458,13 @@ export const RoleLoginPage: React.FC<RoleLoginPageProps> = ({ onLogin }) => {
               </div>
             </div>
 
-            <p style={{ fontSize: '0.92rem', color: '#475569', margin: 0, lineHeight: 1.5 }}>
+            <p style={{ fontSize: '0.92rem', color: 'var(--color-text-secondary, #475569)', margin: 0, lineHeight: 1.5 }}>
               {currentConfig.tagline}
             </p>
 
             <div
+              className="role-highlights-box"
               style={{
-                backgroundColor: currentConfig.bgLight,
-                border: `1px solid ${currentConfig.borderLight}`,
                 borderRadius: '16px',
                 padding: '1.1rem 1.25rem',
                 display: 'flex',
@@ -493,7 +491,7 @@ export const RoleLoginPage: React.FC<RoleLoginPageProps> = ({ onLogin }) => {
                     alignItems: 'flex-start',
                     gap: '0.5rem',
                     fontSize: '0.84rem',
-                    color: '#1E293B',
+                    color: 'inherit',
                     fontWeight: 500,
                     lineHeight: 1.35,
                   }}
@@ -511,10 +509,9 @@ export const RoleLoginPage: React.FC<RoleLoginPageProps> = ({ onLogin }) => {
 
           {/* Right Column: Instant 1-Click Login & Manual Form */}
           <div
+            className="role-form-box"
             style={{
-              backgroundColor: '#F8FAF7',
               borderRadius: '20px',
-              border: '1px solid #E2E8F0',
               padding: '1.75rem',
               display: 'flex',
               flexDirection: 'column',
@@ -536,10 +533,10 @@ export const RoleLoginPage: React.FC<RoleLoginPageProps> = ({ onLogin }) => {
                 <Zap size={14} />
                 <span>RECOMMENDED FOR SPEED</span>
               </div>
-              <h3 style={{ fontSize: '1.15rem', fontWeight: 900, color: '#0F172A', margin: 0 }}>
+              <h3 style={{ fontSize: '1.15rem', fontWeight: 900, margin: 0 }}>
                 Instant 1-Click Access
               </h3>
-              <p style={{ fontSize: '0.8rem', color: '#64748B', margin: '0.2rem 0 0 0' }}>
+              <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary, #64748B)', margin: '0.2rem 0 0 0' }}>
                 Bina password type kiye turant login karein aur website access karein:
               </p>
             </div>
@@ -584,9 +581,9 @@ export const RoleLoginPage: React.FC<RoleLoginPageProps> = ({ onLogin }) => {
                 fontWeight: 700,
               }}
             >
-              <div style={{ flex: 1, height: '1px', backgroundColor: '#CBD5E1' }} />
+              <div style={{ flex: 1, height: '1px', backgroundColor: 'rgba(148, 163, 184, 0.3)' }} />
               <span>OR ENTER CREDENTIALS</span>
-              <div style={{ flex: 1, height: '1px', backgroundColor: '#CBD5E1' }} />
+              <div style={{ flex: 1, height: '1px', backgroundColor: 'rgba(148, 163, 184, 0.3)' }} />
             </div>
 
             {errorMessage && (
@@ -613,7 +610,7 @@ export const RoleLoginPage: React.FC<RoleLoginPageProps> = ({ onLogin }) => {
                     display: 'block',
                     fontSize: '0.75rem',
                     fontWeight: 700,
-                    color: '#334155',
+                    color: 'var(--color-text-primary, #334155)',
                     marginBottom: '0.25rem',
                   }}
                 >
@@ -638,14 +635,12 @@ export const RoleLoginPage: React.FC<RoleLoginPageProps> = ({ onLogin }) => {
                     value={emailOrPhone}
                     onChange={(e) => setEmailOrPhone(e.target.value)}
                     placeholder={currentConfig.defaultEmail}
+                    className="role-form-input"
                     style={{
                       width: '100%',
                       padding: '0.65rem 0.85rem 0.65rem 2.25rem',
                       borderRadius: '10px',
-                      border: '1.5px solid #CBD5E1',
                       fontSize: '0.84rem',
-                      color: '#0F172A',
-                      backgroundColor: '#FFFFFF',
                       boxSizing: 'border-box',
                     }}
                   />
@@ -658,7 +653,7 @@ export const RoleLoginPage: React.FC<RoleLoginPageProps> = ({ onLogin }) => {
                     display: 'block',
                     fontSize: '0.75rem',
                     fontWeight: 700,
-                    color: '#334155',
+                    color: 'var(--color-text-primary, #334155)',
                     marginBottom: '0.25rem',
                   }}
                 >
@@ -681,14 +676,12 @@ export const RoleLoginPage: React.FC<RoleLoginPageProps> = ({ onLogin }) => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
+                    className="role-form-input"
                     style={{
                       width: '100%',
                       padding: '0.65rem 0.85rem 0.65rem 2.25rem',
                       borderRadius: '10px',
-                      border: '1.5px solid #CBD5E1',
                       fontSize: '0.84rem',
-                      color: '#0F172A',
-                      backgroundColor: '#FFFFFF',
                       boxSizing: 'border-box',
                     }}
                   />
@@ -697,26 +690,14 @@ export const RoleLoginPage: React.FC<RoleLoginPageProps> = ({ onLogin }) => {
 
               <button
                 type="submit"
+                className="role-cred-btn"
                 style={{
                   padding: '0.7rem 1rem',
-                  backgroundColor: '#FFFFFF',
-                  color: '#1E293B',
-                  border: '1.5px solid #CBD5E1',
                   borderRadius: '10px',
                   fontSize: '0.84rem',
                   fontWeight: 700,
                   cursor: 'pointer',
                   transition: 'all 0.15s ease',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#EFF5EC';
-                  e.currentTarget.style.borderColor = '#16A34A';
-                  e.currentTarget.style.color = '#15803D';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#FFFFFF';
-                  e.currentTarget.style.borderColor = '#CBD5E1';
-                  e.currentTarget.style.color = '#1E293B';
                 }}
               >
                 Sign In with Credentials

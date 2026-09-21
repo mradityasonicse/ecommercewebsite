@@ -1257,4 +1257,131 @@ body.mobile-preview-active .easehub-mobile-nav-drawer .easehub-mobile-drawer-hea
   color: #6EE7B7 !important;
 }
 
+/* ==========================================================================
+   ROLE LOGIN PAGE THEME SUPPORT (ZERO COLLISION, HIGH CONTRAST)
+   ========================================================================== */
+.role-login-page {
+  background-color: var(--color-bg-primary, #F8FAF7);
+  color: var(--color-text-primary, #0F172A);
+}
+
+.role-selector-section {
+  background: transparent !important;
+}
+
+.role-select-card {
+  background-color: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  color: #0F172A;
+}
+.role-select-card h3 {
+  color: #0F172A;
+}
+.role-select-card .role-hindi-label {
+  color: #64748B;
+}
+
+.role-action-section {
+  background-color: #FFFFFF;
+  color: #0F172A;
+}
+
+.role-form-box {
+  background-color: #F8FAF7;
+  border: 1px solid #E2E8F0;
+}
+.role-form-box h3 {
+  color: #0F172A;
+}
+
+.role-form-input {
+  background-color: #FFFFFF;
+  color: #0F172A;
+  border: 1.5px solid #CBD5E1;
+}
+
+.role-cred-btn {
+  background-color: #FFFFFF;
+  color: #1E293B;
+  border: 1.5px solid #CBD5E1;
+}
+
+/* Dark Mode Overrides for Role Login Page */
+[data-theme="dark"] .role-login-page {
+  background-color: var(--color-bg-primary, #090D16) !important;
+  color: var(--color-text-primary, #F8FAFC) !important;
+}
+
+[data-theme="dark"] .role-selector-section {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+[data-theme="dark"] .role-select-card {
+  background-color: var(--color-surface-1, #0F172A) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #F8FAFC !important;
+}
+[data-theme="dark"] .role-select-card:hover {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+[data-theme="dark"] .role-select-card.is-selected {
+  background-color: #131E35 !important;
+}
+[data-theme="dark"] .role-select-card h3 {
+  color: #F8FAFC !important;
+}
+[data-theme="dark"] .role-select-card.is-selected h3 {
+  color: inherit !important;
+}
+[data-theme="dark"] .role-select-card .role-hindi-label {
+  color: #94A3B8 !important;
+}
+
+[data-theme="dark"] .role-action-section {
+  background-color: var(--color-surface-1, #0F172A) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #F8FAFC !important;
+}
+
+[data-theme="dark"] .role-highlights-box {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+[data-theme="dark"] .role-highlights-box span {
+  color: #F8FAFC !important;
+}
+
+[data-theme="dark"] .role-form-box {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+[data-theme="dark"] .role-form-box h3 {
+  color: #F8FAFC !important;
+}
+[data-theme="dark"] .role-form-box label {
+  color: #E2E8F0 !important;
+}
+
+[data-theme="dark"] .role-form-input {
+  background-color: var(--color-surface-2, #1E293B) !important;
+  color: #F8FAFC !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+[data-theme="dark"] .role-form-input:focus {
+  border-color: #10B981 !important;
+}
+
+[data-theme="dark"] .role-cred-btn {
+  background-color: var(--color-surface-2, #1E293B) !important;
+  color: #F8FAFC !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+[data-theme="dark"] .role-cred-btn:hover {
+  background-color: #27354E !important;
+  border-color: #10B981 !important;
+  color: #10B981 !important;
+}
+
+
 
