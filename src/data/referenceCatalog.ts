@@ -15,6 +15,9 @@ export interface CatalogItem {
   address: string;
   city: string;
   image: string;
+  images?: string[];
+  rating?: number;
+  phone?: string;
   features?: string[];
   turnaroundTime?: string;
 }
@@ -28,20 +31,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "MALE",
     "badgeType": "male",
     "badgeVariant": "male",
-    "description": "Comfortable PG accommodation near Rungta College.",
-    "price": 2200,
-    "priceText": "₹2,200",
-    "periodText": "/ month",
-    "address": "Kurud Rd, near Rungta College",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800",
+    "description": "Well-maintained student rooms with bed, cupboard, 24h water & electricity, and 2 bathrooms per floor with balcony.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmUOVteFtNZefEXh37NkdLkZQ4aQSCi6Bd7Ig70O0puOiAznpWeK91qpbVqrDriMqEXT0RU4KXqlq6MkkRLANas3_PSxxYqe2WAgZ_MOddhX1V-jd7cWuv-Bg-ZgeB1gHt-HuQx=w800-h600-k-no",
+    "rating": 4.6,
+    "phone": "075878 37948",
     "gender": "male",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-2",
@@ -51,20 +51,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "MALE",
     "badgeType": "male",
     "badgeVariant": "male",
-    "description": "Sharing rooms available at affordable rates.",
-    "price": 2500,
-    "priceText": "₹2,500",
-    "periodText": "/ month",
-    "address": "Kurud Rd, Kohka",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800",
+    "description": "Sharing student accommodations with verified facilities, continuous power backup, and reliable high-speed Wi-Fi.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWn7wSXgtH96L1kqe-J3o2ZsNBeb23O5e4cv0X6C1la72ElPZ4nYq7cwnOMQyUuLkPguGpK2ATvIGy4t7tLvKvY5IUEa9F3ci0nUxwiKPq0muTY0EwxfHX9CIykipCa091XIl8nsNw=w800-h600-k-no",
+    "rating": 4.9,
+    "phone": "070001 66252",
     "gender": "male",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-3",
@@ -74,20 +71,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "MALE",
     "badgeType": "male",
     "badgeVariant": "male",
-    "description": "PG with mess facility included.",
-    "price": 3000,
-    "priceText": "₹3,000",
-    "periodText": "/ month",
-    "address": "Avanti bai chowk kurud, Street 3",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800",
+    "description": "Comfortable bachelor student accommodations with integrated daily homestyle mess service.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmDDegSxaXbfSJ6lqjImwsQfFP62UQVJRrxNzxkwZuS_Z2V-XxlvxODJsbxEpqD8P_eNIxTFnJ0L6n6t42a7Zhrt1JZJd4hljWsep6Zz6nBM_YbgpjyAIot_c4VnnUijrFB_rI=w800-h600-k-no",
+    "rating": 4.2,
+    "phone": "095559 40652",
     "gender": "male",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-4",
@@ -97,20 +91,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "MALE",
     "badgeType": "male",
     "badgeVariant": "male",
-    "description": "Boys PG near Rungta College.",
-    "price": 2600,
-    "priceText": "₹2,600",
-    "periodText": "/ month",
-    "address": "1st floor, Rudraksh residency, Near Rungta college, Kurud Rd",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=800",
+    "description": "Clean student living rooms with ventilated study spaces and full campus student convenience.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmnDDxMwPQJcDeHjY761x1bIascxQi541ZoWk7veqLVmGiNaSl9TbVjtiaInLJvkaxQ3WOUHtaIxsPExtJUfu1W4C4H1WVxKKYJaJXiTzEHvGh8Ha5BEPSap24ABD3t9skl81rSjiaPLPtY=w800-h600-k-no",
+    "rating": 4.3,
+    "phone": "091405 35379",
     "gender": "male",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-5",
@@ -120,20 +111,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "MALE",
     "badgeType": "male",
     "badgeVariant": "male",
-    "description": "Boys hostel in Shivaji Nagar.",
-    "price": 2400,
-    "priceText": "₹2,400",
-    "periodText": "/ month",
-    "address": "65JW+2M2, sivaji Nagar, Bhilai, Kurud Rd",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800",
+    "description": "Quiet and well-maintained hostel environment with power backup and student living amenities.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWloBphNaJJ4vhV6RV0A0UmV83ofZMyJZh2CLeouTge-kNNxnPbmpcsKi7Kx2-3qLGUSDJ2sTzTyw44usraKfB8cDkCUZ60fsirnS2pE8rp1u2UimLvo4AVXg1QbCNu9uKAEWDlU=w800-h600-k-no",
+    "rating": 4.2,
+    "phone": "091405 35379",
     "gender": "male",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-6",
@@ -143,20 +131,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "UNISEX",
     "badgeType": "unisex",
     "badgeVariant": "unisex",
-    "description": "Hostel accommodation near P.T.M.M School.",
-    "price": 2700,
-    "priceText": "₹2,700",
-    "periodText": "/ month",
-    "address": "Kurud Road Kohka, Near Ujjwal Mangal Bhawan, behind P.T.M.M.M School, WARD-7, Kohka",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800",
+    "description": "Disciplined and spacious hostel living with 24-hour backup and clean surroundings.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmlOakEYkDMuGKe14wqdPeZ-wbaI6eK3HHyxtmZ54U_jvnpuHROtOLrSzNEBnWC6fOjt4-IvE3BBDba2ipt6XqnVuE2LTVpn9bFSU4pisDqEFJoJSBjTXvSyPB7Cpwp13pnr7Lz=w800-h600-k-no",
+    "rating": 4.4,
+    "phone": "081099 66442",
     "gender": "unisex",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-7",
@@ -166,20 +151,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "MALE",
     "badgeType": "male",
     "badgeVariant": "male",
-    "description": "PG for students and working bachelors.",
-    "price": 3000,
-    "priceText": "₹3,000",
-    "periodText": "/ month",
-    "address": "Priyadarshani Parisar West",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800",
+    "description": "Peaceful independent rooms suited for students and working professionals.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWl9SOetm8LGN1ztTus5OZ83BheE_pgwDE4i-gilpbTS1xBFxzlo7WzfcVU0dgXP7Yk8bBjvTBXLKXwVgBaVvEAgsuytK28FRvqdXyuLDAlDYUBerbCJR_Nyoh6HBhq0uIiW-2v3FEfffHsr=w800-h600-k-no",
+    "rating": 4.6,
+    "phone": "098934 82629",
     "gender": "male",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-8",
@@ -189,20 +171,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "UNISEX",
     "badgeType": "unisex",
     "badgeVariant": "unisex",
-    "description": "Hostel at Kurud Road.",
-    "price": 2500,
-    "priceText": "₹2,500",
-    "periodText": "/ month",
-    "address": "Kurud Road Between ujjwal mangal bhawan and Madan malviya school, Near avantibai chowk, Ward -7, Kohka",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1556020685-ae41abfc9365?w=800",
+    "description": "Homely student residency offering peaceful study atmosphere and clean utilities.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmSayo-6OgIsoTFMyIJ1WiA8pU8uAO8Afg8YX0NrWmiWaCKCbU_ymqnANf52j6wSBSONZD1IeB-2RO4RWNaJDgy7k3nUrZALIq7_cmPvvbpJfBYZlrphmEt-XoRhcdOSNRINjuhFQ=w800-h600-k-no",
+    "rating": 4.7,
+    "phone": "081099 66442",
     "gender": "unisex",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-9",
@@ -212,20 +191,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "FEMALE",
     "badgeType": "female",
     "badgeVariant": "female",
-    "description": "Girls PG in Smriti Nagar.",
-    "price": 3500,
-    "priceText": "₹3,500",
-    "periodText": "/ month",
-    "address": "B-462, Cross Street 23, Smriti Nagar",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800",
+    "description": "Safe and secure residential Girls PG in prime location with CCTV surveillance.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmM-1jzS22BebJlttOiF3ybXel2rDnuIslpvf5SGU-KHOp4K2gq6yrjhhsGa5IhZQBmcfvHNyeSN4dbv3_Jjd3Vq8cojGi8Cd_SM6MN1_AZBtRacnh-jXBT5DJ_lO8U_H_CPn_iiw=w800-h600-k-no",
+    "rating": 4.5,
+    "phone": "097704 93767",
     "gender": "female",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-10",
@@ -235,20 +211,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "MALE",
     "badgeType": "male",
     "badgeVariant": "male",
-    "description": "Boys hostel above Gopal Dairy.",
-    "price": 2800,
-    "priceText": "₹2,800",
-    "periodText": "/ month",
-    "address": "above Gopal Dairy, near Central Bank Of India, Ward 07, Radhika Nagar",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1484101403633-562f891dc89a?w=800",
+    "description": "Top-rated boys hostel with modern amenities, study desks, and active security.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmDl-AXN3CBAPTpzkENbuDI6FW2EKgcpIUCgpm80mVfl64F0d-PWYVPtYtJUxQrvIkEiZSQjz6wHvSYaXKBM44iVabVHwcz2rL-vHLGmemRMMe7PZL_SqMz06az5kSvAuRvQWGN=w800-h600-k-no",
+    "rating": 4.8,
+    "phone": "070245 69504",
     "gender": "male",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-11",
@@ -258,20 +231,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "MALE",
     "badgeType": "male",
     "badgeVariant": "male",
-    "description": "Boys hostel near Ekta Chowk.",
-    "price": 3200,
-    "priceText": "₹3,200",
-    "periodText": "/ month",
-    "address": "NEAR EKTA CHOWK, INFRONT OF SAI KRIPA CHOWK, KAILASH NAGAR INDUSTRIAL ESTATE",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800",
+    "description": "Spacious student living rooms with verified security and reliable Wi-Fi connectivity.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnBAjZJp-jDEqwvkHBi4RuApKwTjviei2trVwonXeLigtSxH4CQk55YSzoxe6K9ilDQeLfWBNMRyhY35K3Y8EPVA5wNcKVg7S9le1ip9Me-8Zi5-A_CqN1_YUtAaYPIrqR589yJ=w800-h600-k-no",
+    "rating": 4,
+    "phone": "093027 13148",
     "gender": "male",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-12",
@@ -281,20 +251,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "FEMALE",
     "badgeType": "female",
     "badgeVariant": "female",
-    "description": "Girls hostel in Pragati Nagar.",
-    "price": 3000,
-    "priceText": "₹3,000",
-    "periodText": "/ month",
-    "address": "Plot No 93-94, Street-1A, Pragati Nagar, Ajad Market, Risali",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800",
+    "description": "Dedicated girls residence for college students and working women with strict safety protocols.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWl68yzjVj5tHH_sB8seJhv0BjM7GzvQhXjO28QrO8BBrt114wQ-l8BMB7uzNrCEJ1UouqAJBwUxe9gL0_WwQdrdYkvj-Hje8EYum9rdmcQRiGCMDppUSbXhspmpUTCTEmiN9z8=w800-h600-k-no",
+    "rating": 4.8,
+    "phone": "094079 83379",
     "gender": "female",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-13",
@@ -304,20 +271,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "MALE",
     "badgeType": "male",
     "badgeVariant": "male",
-    "description": "Boys PG near Science College ground.",
-    "price": 2800,
-    "priceText": "₹2,800",
-    "periodText": "/ month",
-    "address": "behind Green bee Residency, beside govt. Science college ground, Deepak Nagar, Malviya Nagar",
-    "city": "Durg",
-    "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800",
+    "description": "Comfortable accommodations for college students with quiet environment and essential amenities.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkz5ExgWloFdom4Rj5cYPfKAWZqO4MKh2PRvrTOc2Nwz5c2jgjrZu-_JMDAu6JLQZ11ujp-_7HjTSXJHX9PYegXUzMoA4EBrFRElaw_j74E1O2FB24xMjKtuJIeEhyrmRH-x626jDdtVMkH=w800-h600-k-no",
+    "rating": 4.2,
+    "phone": "091405 35379",
     "gender": "male",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-14",
@@ -327,20 +291,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "MALE",
     "badgeType": "male",
     "badgeVariant": "male",
-    "description": "Boys PG in Nehru Nagar East.",
-    "price": 3500,
-    "priceText": "₹3,500",
-    "periodText": "/ month",
-    "address": "STREET-12 plot, no-75/7, Nehru Nagar East, Nehru Nagar",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1502672023488-70e25813eb80?w=800",
+    "description": "Conveniently located boys PG with furnished rooms and reliable water & power supply.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWm-vLPx1gu_0Ac_A5fFPNQ7UxOYwBxOd7U1YxCsfztRbRO6FSkDMfpSlNEMMuf81DE8WgDgXDzTM9KUBXms4lV-wT4F8TdBIbyZhxQ-0BAkChlxiT5pXquJ5qqLPEI1SPsE3mnM=w800-h600-k-no",
+    "rating": 3.8,
+    "phone": "091115 55544",
     "gender": "male",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-15",
@@ -350,20 +311,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "UNISEX",
     "badgeType": "unisex",
     "badgeVariant": "unisex",
-    "description": "Hostel at Smriti Nagar Road.",
-    "price": 2600,
-    "priceText": "₹2,600",
-    "periodText": "/ month",
-    "address": "STREET NO. 22, PLOT NO. 701/B, Raipur Naka - Smriti Nagar Rd",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800",
+    "description": "Popular student hostel featuring clean rooms, good ventilation, and supportive caretaker.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWl5jEr_8bcomOh15POCZge2roXB-Bm2xl8yJZ_Zlsy0a0rOGMYjGLvuCPjYlEyJoAfN3fPA7LM8PqkvNedqaIHUTG-Ccq1U60TPIUENZxXOd3dxIXFGi8Zm0XI9uXymB0SSo0IUcA=w800-h600-k-no",
+    "rating": 4.3,
+    "phone": "099072 48062",
     "gender": "unisex",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-16",
@@ -373,20 +331,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "UNISEX",
     "badgeType": "unisex",
     "badgeVariant": "unisex",
-    "description": "Hostel in Priyadarshini Parisar.",
-    "price": 3200,
-    "priceText": "₹3,200",
-    "periodText": "/ month",
-    "address": "7, 11, Nehru Nagar Main Rd, Priyadarshani Parisar West",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800",
+    "description": "Modern student hostel with disciplined lifestyle, library corner, and nutritious environment.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmIsxAZR74b6W9-9h9RYDUyhmLCL8PzH2ilj7bCRBLeQmuE229lRRVFSAXYSfjboyXgJzFx0IB0OuCSbgqRO4iRPiWBHw4veqIIR7YVHshji2L4iDllVcDFD44WctdvF0qM5fUi=w800-h600-k-no",
+    "rating": 4.4,
+    "phone": "074158 99039",
     "gender": "unisex",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-17",
@@ -396,20 +351,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "UNISEX",
     "badgeType": "unisex",
     "badgeVariant": "unisex",
-    "description": "Hostel in Kohka.",
-    "price": 2900,
-    "priceText": "₹2,900",
-    "periodText": "/ month",
-    "address": "69P2+38F, Kohka",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800",
+    "description": "Contemporary student residency with recreational space, high-speed Wi-Fi, and spacious rooms.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnZtpYJMgmYDPd3EVlKm9fMF5grClXBWc1sQqswqVb6JE93_hTAj3yzOVblcn3fPhnyMT-L5Wpo4F027S6ia39u-MW_gkYpju6CEhn9bjSkQdCkY-5zYmBP9dh5wbVMAc9NP2QRRWqQTSRv=w800-h600-k-no",
+    "rating": 4.3,
+    "phone": "096911 42605",
     "gender": "unisex",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-18",
@@ -419,20 +371,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "UNISEX",
     "badgeType": "unisex",
     "badgeVariant": "unisex",
-    "description": "PG in Smriti Nagar.",
-    "price": 2800,
-    "priceText": "₹2,800",
-    "periodText": "/ month",
-    "address": "688C+GHJ, Smriti Nagar",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800",
+    "description": "Clean and budget-friendly PG rooms for students in a quiet locality.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmYtJD-0bhES078mn3fMn0HWRG14E-LSMqTUrWY0VXNJio_xZU7R5910_wr2onUDGwJSmUSgmr79H_sR4C6W_MRxRUJ2a8TF7ZxDMV7sP47KcwpPO9FLQ6AZBS5h8zVoLEfrtSW=w800-h600-k-no",
+    "rating": 4,
+    "phone": "094252 44772",
     "gender": "unisex",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-19",
@@ -442,20 +391,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "UNISEX",
     "badgeType": "unisex",
     "badgeVariant": "unisex",
-    "description": "PG near new govt high school.",
-    "price": 2500,
-    "priceText": "₹2,500",
-    "periodText": "/ month",
-    "address": "Near by new govt. high secondary school, Kurud",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=800",
+    "description": "Homely paying guest accommodation with friendly atmosphere and basic student utilities.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWniLTCojv9vMU1H1PQOmG1B5QUarz-_gM-XcEzqmzl0ddU3sWvCnXkHP0-uoqYMWW97ucLEQ_rPFTDze2Ee099rH_2OlgXP6sFwMmPXP7yZuSGoDcvyY9fAA2Ru5azR1yHgFoVs=w800-h600-k-no",
+    "rating": 4.2,
+    "phone": "081099 66442",
     "gender": "unisex",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-20",
@@ -465,20 +411,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "UNISEX",
     "badgeType": "unisex",
     "badgeVariant": "unisex",
-    "description": "Hostel with food point.",
-    "price": 3500,
-    "priceText": "₹3,500",
-    "periodText": "/ month",
-    "address": "95/B-9, Nehru Nagar East",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800",
+    "description": "All-in-one student living facility featuring accommodation and convenient daily food point.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWl66MUrVNH0F31l3hAcFg9iqBfFtnZsRftndYEsY5T8uzmckEbeKsGLBkunk8Q-ZIR4Nfbr-Kr6oaQczaQg_pxELOwdIhDSvILx4QAeecLe4Dm8gMbJy9v2gJdA7zzfUSpR7wHI02MZQdOZ=w800-h600-k-no",
+    "rating": 4.5,
+    "phone": "070245 69504",
     "gender": "unisex",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-21",
@@ -488,20 +431,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "UNISEX",
     "badgeType": "unisex",
     "badgeVariant": "unisex",
-    "description": "Hostel in Smriti Nagar.",
-    "price": 3000,
-    "priceText": "₹3,000",
-    "periodText": "/ month",
-    "address": "Smriti Nagar",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800",
+    "description": "Comfortable hostel setup with continuous water, electricity backup, and study environment.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlskKeOjwPhr4b2jqcL45K_D7YmzJLZe_-jZFmuecmnKFHOA73Lx7ozFx_PnWpkwtP1xrQHK6kEidukemSB8Senyl0WJE7EF7_TVcXhbJz-JYcjx4Vh96F5zGPZC5fVkBpcenuR=w800-h600-k-no",
+    "rating": 4.4,
+    "phone": "099072 48062",
     "gender": "unisex",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-22",
@@ -511,20 +451,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "MALE",
     "badgeType": "male",
     "badgeVariant": "male",
-    "description": "Boys PG in Risali.",
-    "price": 3200,
-    "priceText": "₹3,200",
-    "periodText": "/ month",
-    "address": "Cross street, 10, Shakti Vihar Rd, Risali",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800",
+    "description": "Well-established boys paying guest with furnished bedrooms and quiet residential area.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWloBphNaJJ4vhV6RV0A0UmV83ofZMyJZh2CLeouTge-kNNxnPbmpcsKi7Kx2-3qLGUSDJ2sTzTyw44usraKfB8cDkCUZ60fsirnS2pE8rp1u2UimLvo4AVXg1QbCNu9uKAEWDlU=w800-h600-k-no",
+    "rating": 4.2,
+    "phone": "091405 35379",
     "gender": "male",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-23",
@@ -534,20 +471,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "FEMALE",
     "badgeType": "female",
     "badgeVariant": "female",
-    "description": "Girls PG in Nehru Nagar West.",
-    "price": 3800,
-    "priceText": "₹3,800",
-    "periodText": "/ month",
-    "address": "House 08, Block 23, Street 08, Nehru Nagar West, Vidya Vihar Colony",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1556020685-ae41abfc9365?w=800",
+    "description": "Premium and safe girls residence (The Sawai Queens) with CCTV, biometric safety, and hygienic living.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlFYZ_777LtYEzA0PWdGR6MesJmLL4bErf1jgbrTBIi9fJ3pum8_qLj1OLscOMpMd64LjKjSehBQ5YbHVRh1D0VW3mDLo6bq9144-TopKUBITFpMio3vf1tlI3MH-8jCJsEIXeiBQ3k4TA=w800-h600-k-no",
+    "rating": 4.7,
+    "phone": "083199 25542",
     "gender": "female",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-24",
@@ -557,20 +491,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "FEMALE",
     "badgeType": "female",
     "badgeVariant": "female",
-    "description": "Girls hostel in Nehru Nagar East.",
-    "price": 3600,
-    "priceText": "₹3,600",
-    "periodText": "/ month",
-    "address": "Street-9, Nehru Nagar East",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800",
+    "description": "Reputed girls hostel known for parental trust, warden assistance, and clean living quarters.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlrfbHWXcR0TrZBuEMofxiksZi_3ImlhWVFTvQ1DOfYnaiDB89wGF0NVCmOvbpqbD5N1YYJ0iI_zDIvhdhb_WyVzDlpBe3p5n6hYA61aK-2h2cEtjgusw5bUZrBXww2qAwujh4Z=w800-h600-k-no",
+    "rating": 4.3,
+    "phone": "094241 19112",
     "gender": "female",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-25",
@@ -580,20 +511,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "MALE",
     "badgeType": "male",
     "badgeVariant": "male",
-    "description": "PG and hostel in Sector 10.",
-    "price": 3000,
-    "priceText": "₹3,000",
-    "periodText": "/ month",
-    "address": "58MJ+HWB, Sector 10",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1484101403633-562f891dc89a?w=800",
+    "description": "Budget student accommodation with furnished beds and essential daily amenities.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmKAnbS-9Cujs7YmraefyLXJleQ8vxL4JJE7Reoz-XX0xp-3SNiT79_CnSshtVsUTL05kVvHqoga0X8OsAuCFMKhgSWQzaIZ_jE35M7l-lDqlnrMwAk8kBMDoZyRtdxjwH5ItH8=w800-h600-k-no",
+    "rating": 3.8,
+    "phone": "099070 95878",
     "gender": "male",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-26",
@@ -603,20 +531,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "UNISEX",
     "badgeType": "unisex",
     "badgeVariant": "unisex",
-    "description": "PG in Shakti Vihar.",
-    "price": 2800,
-    "priceText": "₹2,800",
-    "periodText": "/ month",
-    "address": "151/G, Street-6, Shakti Vihar Rd",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800",
+    "description": "Comfortable student PG with shared rooms, reliable electricity, and clean bathrooms.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkM_vmmO8VF8DX21cXZc8xRLdabqpWQdz5908RkEHQakW9Qkasm9m1BlK0xg3d8_GzogmlrXAdw1WROmh4yQOm2Px7Xabklqae7CP2Dp0EVpNVPO_TXe1F45p8IQJfQZ_l_LHLGWQ=w800-h600-k-no",
+    "rating": 4.1,
+    "phone": "099936 91768",
     "gender": "unisex",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-27",
@@ -626,20 +551,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "FEMALE",
     "badgeType": "female",
     "badgeVariant": "female",
-    "description": "Girls PG in Anand Nagar.",
-    "price": 3400,
-    "priceText": "₹3,400",
-    "periodText": "/ month",
-    "address": "Plot 1 302/18 street 3 Anand nagar, in front of shivam boys pg, Smriti Nagar",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800",
+    "description": "Safe girls accommodation near educational hub with continuous security and homely atmosphere.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmM-1jzS22BebJlttOiF3ybXel2rDnuIslpvf5SGU-KHOp4K2gq6yrjhhsGa5IhZQBmcfvHNyeSN4dbv3_Jjd3Vq8cojGi8Cd_SM6MN1_AZBtRacnh-jXBT5DJ_lO8U_H_CPn_iiw=w800-h600-k-no",
+    "rating": 3.8,
+    "phone": "097704 93767",
     "gender": "female",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-28",
@@ -649,20 +571,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "UNISEX",
     "badgeType": "unisex",
     "badgeVariant": "unisex",
-    "description": "PG College hostel.",
-    "price": 2500,
-    "priceText": "₹2,500",
-    "periodText": "/ month",
-    "address": "58WM+753, Sector 7",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800",
+    "description": "College campus student hostel and living quarters with expansive campus surroundings.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlAuPAsFSz1hl-gnV6T_PMvbHFv60tCQf7lzWjK24bGI4oNXJ_rv7-Mk3HdqUCur2a3GSknun9Nt8vpo2kwFj-wfwRASyDPoTppwzlSZ1PWckN2ySWx7YrzlGwHGPSePQna8Qpe=w800-h600-k-no",
+    "rating": 3.7,
+    "phone": "078822 84252",
     "gender": "unisex",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-29",
@@ -672,20 +591,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "UNISEX",
     "badgeType": "unisex",
     "badgeVariant": "unisex",
-    "description": "Accommodation in Shanti Nagar.",
-    "price": 3000,
-    "priceText": "₹3,000",
-    "periodText": "/ month",
-    "address": "68HW+8HP, Shanti Nagar",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1502672023488-70e25813eb80?w=800",
+    "description": "Quiet residential accommodation for students with peaceful study vibes.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWliYAoHf-MQE0Ytd2OA1UvMOyFvQHN_Tq-xuECbYmILn1fdCDeZAp7kQP--t0Av-uH1KYCzyxxiedk83OXa15SHOue_bFcNAnJghaRG6jes5ZqZGnLVGQJG3uht2xn4OR9GPFD7ok1fs2fh=w800-h600-k-no",
+    "rating": 4.1,
+    "phone": "093030 05151",
     "gender": "unisex",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-30",
@@ -695,20 +611,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "FEMALE",
     "badgeType": "female",
     "badgeVariant": "female",
-    "description": "Girls hostel near new govt high school.",
-    "price": 3200,
-    "priceText": "₹3,200",
-    "periodText": "/ month",
-    "address": "Near by new govt. high secondary school, Kurud",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800",
+    "description": "Dedicated girls hostel equipped with CCTV, warden care, RO drinking water, and safe entry.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkNwT7zxGnIRtMqfyQmd0W30T5owq0XhArH2H1GYttA32bAjcC0IGVi8kEAk9kqBBElPztLiqxCEnNr7TwEZJLOWhjVEDZGAxJoVeXmg0fUaxbSZuTBimKnobkTogh-o7D8kqx_=w800-h600-k-no",
+    "rating": 4.5,
+    "phone": "099817 86666",
     "gender": "female",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-31",
@@ -718,20 +631,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "FEMALE",
     "badgeType": "female",
     "badgeVariant": "female",
-    "description": "Girls PG in Smriti Nagar.",
-    "price": 3500,
-    "priceText": "₹3,500",
-    "periodText": "/ month",
-    "address": "House A11, Street 10, Smriti Nagar",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800",
+    "description": "High-trust girls PG in safe residential sector with quiet study environment and home-style hospitality.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlFYZ_777LtYEzA0PWdGR6MesJmLL4bErf1jgbrTBIi9fJ3pum8_qLj1OLscOMpMd64LjKjSehBQ5YbHVRh1D0VW3mDLo6bq9144-TopKUBITFpMio3vf1tlI3MH-8jCJsEIXeiBQ3k4TA=w800-h600-k-no",
+    "rating": 4.6,
+    "phone": "097704 93767",
     "gender": "female",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-32",
@@ -741,20 +651,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "MALE",
     "badgeType": "male",
     "badgeVariant": "male",
-    "description": "Boys PG in Priyadarshini Nagar.",
-    "price": 3100,
-    "priceText": "₹3,100",
-    "periodText": "/ month",
-    "address": "111/2a, Priyadarshini Nagar, Maitri Nagar, Risali",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800",
+    "description": "Well-ventilated boys PG rooms with personal wardrobes, continuous water, and peaceful student environment.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlepj5AIO0jSfo54AFQ-nziKT4ycVfWwJo-T3rz8ziKWrNjTtgARUjzrV4P57f7O6YVcvGoDMY3cMcrWfkJbL5mCeu1AQelSaDZOf2qAaD6AI1Qbo4SmLouQWwqAE7ZvGS8wP73zt77PLc7=w800-h600-k-no",
+    "rating": 4.3,
+    "phone": "070420 30741",
     "gender": "male",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-33",
@@ -764,20 +671,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "MALE",
     "badgeType": "male",
     "badgeVariant": "male",
-    "description": "Boys PG in Hari Nagar.",
-    "price": 2800,
-    "priceText": "₹2,800",
-    "periodText": "/ month",
-    "address": "48/22, Hari Nagar Main Rd, Asha Nagar, Gandhi Nagar, Katulbod, Durg, Hanuman Nagar",
-    "city": "Durg",
-    "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800",
+    "description": "Friendly student accommodations with 24h water, electricity backup, and study-friendly atmosphere.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWl9SOetm8LGN1ztTus5OZ83BheE_pgwDE4i-gilpbTS1xBFxzlo7WzfcVU0dgXP7Yk8bBjvTBXLKXwVgBaVvEAgsuytK28FRvqdXyuLDAlDYUBerbCJR_Nyoh6HBhq0uIiW-2v3FEfffHsr=w800-h600-k-no",
+    "rating": 4.2,
+    "phone": "098934 82629",
     "gender": "male",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-34",
@@ -787,20 +691,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "FEMALE",
     "badgeType": "female",
     "badgeVariant": "female",
-    "description": "Girls PG with Tiffin Service in Risali.",
-    "price": 4000,
-    "priceText": "₹4,000",
-    "periodText": "/ month",
-    "address": "Plot No. 16, Daya Nagar, Risali",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=800",
+    "description": "Verified girls PG with attached homestyle tiffin service, high-security gate, and clean spacious rooms.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWn6v6yQtcwHFm0tIWRjv_5bAIiaG7PiuZDIYlIyVhCP6uwammZFY53-WfEWMZALxguJ9ps8k8sIVgTVsYGc2f4hEtsNt7PAzZbU6wmGV_-NMuQJnm0VV4xYWWYqwbDMsV3vO1o=w800-h600-k-no",
+    "rating": 4.4,
+    "phone": "088399 12656",
     "gender": "female",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-35",
@@ -810,20 +711,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "FEMALE",
     "badgeType": "female",
     "badgeVariant": "female",
-    "description": "Girls hostel in Shanti Nagar.",
-    "price": 3300,
-    "priceText": "₹3,300",
-    "periodText": "/ month",
-    "address": "68GW+8H8, Shanti Nagar",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800",
+    "description": "Safe and comfortable girls hostel with attentive management and student conveniences.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWliYAoHf-MQE0Ytd2OA1UvMOyFvQHN_Tq-xuECbYmILn1fdCDeZAp7kQP--t0Av-uH1KYCzyxxiedk83OXa15SHOue_bFcNAnJghaRG6jes5ZqZGnLVGQJG3uht2xn4OR9GPFD7ok1fs2fh=w800-h600-k-no",
+    "rating": 3.7,
+    "phone": "093030 05151",
     "gender": "female",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   },
   {
     "id": "fallback-36",
@@ -833,20 +731,17 @@ export const REFERENCE_PGS: CatalogItem[] = [
     "badge": "UNISEX",
     "badgeType": "unisex",
     "badgeVariant": "unisex",
-    "description": "Accommodation in Kosa Nagar.",
-    "price": 2600,
-    "priceText": "₹2,600",
-    "periodText": "/ month",
-    "address": "Kosa Nagar, Dixit Colony",
-    "city": "Bhilai",
-    "image": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800",
+    "description": "Peaceful residential student rooms with ample natural light, ventilation, and reliable utilities.",
+    "price": 0,
+    "priceText": "",
+    "periodText": "",
+    "address": "",
+    "city": "",
+    "image": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkYcWCyAKkqe0G_tJppY2WWVvvlbYFNdpak9JgGRgM5ImYRBlmzYt1XSvUGPc1CmuPYQ4yXfHHEL07f47zF1-Sdqb_HGdPHYS9yAdWeRQPWaugTyjeOChqFhu585UnP955cT4pREw=w800-h600-k-no",
+    "rating": 3.8,
+    "phone": "094252 47452",
     "gender": "unisex",
-    "features": [
-      "24/7 Security",
-      "High-Speed Wi-Fi",
-      "Power Backup",
-      "RO Water"
-    ]
+    "features": []
   }
 ];
 

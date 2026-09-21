@@ -227,7 +227,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
         availabilityStatus: 'available',
       },
     ],
-    providerIds: ['prov-zenith-pg'],
+    providerIds: ['prov-mourya-pg', 'prov-saffron-pg', 'prov-zenith-pg'],
     faqs: [
       {
         question: 'How is my security deposit protected?',

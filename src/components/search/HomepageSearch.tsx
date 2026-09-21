@@ -567,46 +567,50 @@ export const HomepageSearch: React.FC<HomepageSearchProps> = ({
                               </span>
                             )}
                           </div>
-                          <div
-                            style={{
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: '0.25rem',
-                              fontSize: 'var(--text-caption)',
-                              color: 'var(--color-text-muted)',
-                              marginTop: '2px',
-                              whiteSpace: 'nowrap',
-                              overflow: 'hidden',
-                              textOverflow: 'ellipsis',
-                            }}
-                          >
-                            <MapPin size={12} color="#EF4444" style={{ flexShrink: 0 }} />
-                            <span>{item.address}</span>
-                          </div>
-                        </div>
-
-                        <div style={{ textAlign: 'right', flexShrink: 0 }}>
-                          <span
-                            style={{
-                              fontSize: 'var(--text-body-sm)',
-                              fontWeight: 700,
-                              color: 'var(--color-brand-gold)',
-                            }}
-                          >
-                            {item.priceText || `₹${item.price}`}
-                          </span>
-                          {item.periodText && (
-                            <span
+                          {item.category !== 'pg' && item.address ? (
+                            <div
                               style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.25rem',
                                 fontSize: 'var(--text-caption)',
                                 color: 'var(--color-text-muted)',
-                                marginLeft: '2px',
+                                marginTop: '2px',
+                                whiteSpace: 'nowrap',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
                               }}
                             >
-                              {item.periodText}
-                            </span>
-                          )}
+                              <MapPin size={12} color="#EF4444" style={{ flexShrink: 0 }} />
+                              <span>{item.address}</span>
+                            </div>
+                          ) : null}
                         </div>
+
+                        {item.category !== 'pg' && (item.priceText || item.price > 0) ? (
+                          <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                            <span
+                              style={{
+                                fontSize: 'var(--text-body-sm)',
+                                fontWeight: 700,
+                                color: 'var(--color-brand-gold)',
+                              }}
+                            >
+                              {item.priceText || `₹${item.price}`}
+                            </span>
+                            {item.periodText && (
+                              <span
+                                style={{
+                                  fontSize: 'var(--text-caption)',
+                                  color: 'var(--color-text-muted)',
+                                  marginLeft: '2px',
+                                }}
+                              >
+                                {item.periodText}
+                              </span>
+                            )}
+                          </div>
+                        ) : null}
                       </div>
                     );
                   })}

@@ -29,6 +29,36 @@ export const PROVIDERS: Provider[] = [
     responseTime: '15 mins'
   },
   {
+    id: 'prov-mourya-pg',
+    name: 'Mourya PG (Room Available)',
+    serviceId: 'stay',
+    campusId: 'campus-hub',
+    rating: 4.6,
+    reviewsCount: 18,
+    isVerified: true,
+    verificationBadge: 'EaseHub Verified PG',
+    distanceFromCampus: 'Verified Partner',
+    priceHighlight: '₹2,200 / month',
+    tags: ['Wi-Fi', '24h Water & Power', 'Bed & Cupboard', 'Balcony'],
+    bio: 'Clean and comfortable bachelor student PG with bed & cupboard, 24-hour electricity and water, 2 bathrooms per floor, and balcony.',
+    responseTime: 'Quick reply'
+  },
+  {
+    id: 'prov-saffron-pg',
+    name: 'SAFFRON PG',
+    serviceId: 'stay',
+    campusId: 'campus-hub',
+    rating: 4.9,
+    reviewsCount: 12,
+    isVerified: true,
+    verificationBadge: 'EaseHub Verified PG',
+    distanceFromCampus: 'Verified Partner',
+    priceHighlight: '₹2,500 / month',
+    tags: ['Boys PG', 'High-Speed Wi-Fi', 'Power Backup', 'RO Water'],
+    bio: 'Affordable boys PG accommodations with shared rooms, reliable Wi-Fi, continuous utilities, and student-focused facilities.',
+    responseTime: 'Instant booking'
+  },
+  {
     id: 'prov-zenith-pg',
     name: 'Zenith Student Living — Block A',
     serviceId: 'stay',

@@ -13,9 +13,14 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
   // WhatsApp concierge dispatch URL with pre-filled inquiry text
   const handleWhatsApp = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const phone = '918102848776';
-    const message = `Hello EaseHub! 👋\nI am interested in:\n• Service: ${item.name}\n• Category: ${item.category.toUpperCase()}\n• Price: ${item.priceText} ${item.periodText || ''}\n• Location: ${item.address}, ${item.city}\n\nPlease share current vacancy status and booking details.`;
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    const rawPhone = item.phone ? item.phone.replace(/\D/g, '') : '918102848776';
+    const cleanPhone = rawPhone.startsWith('0') && rawPhone.length === 11
+      ? '91' + rawPhone.slice(1)
+      : (rawPhone.length === 10 ? '91' + rawPhone : rawPhone);
+    const locLine = item.address && item.category !== 'pg' ? `\n• Location: ${item.address}${item.city ? ', ' + item.city : ''}` : '';
+    const priceLine = item.priceText && item.category !== 'pg' ? `\n• Price: ${item.priceText} ${item.periodText || ''}` : '';
+    const message = `Hello EaseHub! 👋\nI am interested in:\n• Service: ${item.name}\n• Category: ${item.category.toUpperCase()}${priceLine}${locLine}\n\nPlease share current vacancy status and booking details.`;
+    const url = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
@@ -54,6 +59,7 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
           src={item.image}
           alt={item.name}
           loading="lazy"
+          referrerPolicy="no-referrer"
           style={{
             width: '100%',
             height: '100%',
@@ -64,34 +70,63 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
           }}
         />
 
-        {/* Top-Right Badge (MALE / FEMALE / UNISEX / VEG / NON-VEG) */}
-        {item.badge && (
-          <div
-            style={{
-              position: 'absolute',
-              top: '12px',
-              right: '12px',
-              backgroundColor: item.badgeVariant === 'female' ? '#FFF1F2' : '#FEF9C3',
-              borderRadius: '9999px',
-              padding: '3px 11px',
-              border: item.badgeVariant === 'female' ? '1px solid #FECDD3' : '1px solid #FDE047',
-              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
-            }}
-          >
-            <span
+        {/* Top-Right Badges & Rating */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '12px',
+            right: '12px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+          }}
+        >
+          {item.rating && (
+            <div
               style={{
-                fontSize: '0.68rem',
-                fontFamily: 'var(--font-mono, monospace)',
+                backgroundColor: 'rgba(15, 23, 42, 0.88)',
+                backdropFilter: 'blur(6px)',
+                borderRadius: '9999px',
+                padding: '3px 9px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '3px',
+                color: '#FBBF24',
+                fontSize: '0.72rem',
                 fontWeight: 800,
-                letterSpacing: '0.08em',
-                color: item.badgeVariant === 'female' ? '#E11D48' : '#854D0E',
-                textTransform: 'uppercase',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+                border: '1px solid rgba(255, 255, 255, 0.15)',
               }}
             >
-              {item.badge}
-            </span>
-          </div>
-        )}
+              <span>★</span>
+              <span style={{ color: '#FFFFFF' }}>{item.rating}</span>
+            </div>
+          )}
+          {item.badge && (
+            <div
+              style={{
+                backgroundColor: item.badgeVariant === 'female' ? '#FFF1F2' : '#FEF9C3',
+                borderRadius: '9999px',
+                padding: '3px 11px',
+                border: item.badgeVariant === 'female' ? '1px solid #FECDD3' : '1px solid #FDE047',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
+              }}
+            >
+              <span
+                style={{
+                  fontSize: '0.68rem',
+                  fontFamily: 'var(--font-mono, monospace)',
+                  fontWeight: 800,
+                  letterSpacing: '0.08em',
+                  color: item.badgeVariant === 'female' ? '#E11D48' : '#854D0E',
+                  textTransform: 'uppercase',
+                }}
+              >
+                {item.badge}
+              </span>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* 2. Card Content Body */}
@@ -121,41 +156,41 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
             {item.name}
           </h3>
 
-          {/* Location Row with Red Pin */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'flex-start',
-              gap: '0.45rem',
-              color: '#334155',
-              fontSize: 'var(--text-body-sm)',
-              fontFamily: 'var(--font-family-body-sm)',
-              lineHeight: 'var(--leading-body-sm)',
-              marginBottom: '0.5rem',
-              fontWeight: 500,
-            }}
-          >
-            <MapPin
-              size={15}
-              color="#EF4444"
-              style={{ flexShrink: 0, marginTop: '2px' }}
-            />
-            <span
+          {/* Location Row with Red Pin (Only when address is available and not PG) */}
+          {item.category !== 'pg' && item.address ? (
+            <div
               style={{
-                display: '-webkit-box',
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: 'vertical',
-                overflow: 'hidden',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '0.45rem',
+                color: '#334155',
+                fontSize: 'var(--text-body-sm)',
+                fontFamily: 'var(--font-family-body-sm)',
+                lineHeight: 'var(--leading-body-sm)',
+                marginBottom: '0.5rem',
+                fontWeight: 500,
               }}
             >
-              {item.address}
-            </span>
-          </div>
+              <MapPin
+                size={15}
+                color="#EF4444"
+                style={{ flexShrink: 0, marginTop: '2px' }}
+              />
+              <span
+                style={{
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
+                }}
+              >
+                {item.address}
+              </span>
+            </div>
+          ) : null}
 
-
-
-          {/* Optional Key Feature Badges */}
-          {item.features && item.features.length > 0 && (
+          {/* Optional Key Feature Badges (Excluded for PGs) */}
+          {item.category !== 'pg' && item.features && item.features.length > 0 && (
             <div
               style={{
                 display: 'flex',
@@ -189,7 +224,7 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
           )}
         </div>
 
-        {/* 3. Bottom Action Row: Starts from Price & WhatsApp + Book Now */}
+        {/* 3. Bottom Action Row */}
         <div
           style={{
             paddingTop: '0.9rem',
@@ -202,45 +237,67 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
             rowGap: '0.65rem',
           }}
         >
-          {/* Left: Price Column */}
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span
-              style={{
-                fontSize: '0.72rem',
-                color: '#475569',
-                fontWeight: 700,
-                lineHeight: 1,
-                marginBottom: '3px',
-              }}
-            >
-              Starts from
-            </span>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.25rem' }}>
+          {item.category !== 'pg' && item.priceText ? (
+            /* Left: Price Column */
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
               <span
                 style={{
-                  fontSize: '1.45rem',
-                  fontWeight: 900,
-                  fontFamily: 'var(--font-display)',
-                  color: '#0F172A',
-                  letterSpacing: '-0.02em',
-                  lineHeight: 1.15,
+                  fontSize: '0.72rem',
+                  color: '#475569',
+                  fontWeight: 700,
+                  lineHeight: 1,
+                  marginBottom: '3px',
                 }}
               >
-                {item.priceText}
+                Starts from
               </span>
-              {item.periodText && (
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.25rem' }}>
                 <span
                   style={{
-                    fontSize: '0.8rem',
-                    color: '#475569',
-                    fontWeight: 600,
+                    fontSize: '1.45rem',
+                    fontWeight: 900,
+                    fontFamily: 'var(--font-display)',
+                    color: '#0F172A',
+                    letterSpacing: '-0.02em',
+                    lineHeight: 1.15,
                   }}
                 >
-                  {item.periodText.replace('per ', '/')}
+                  {item.priceText}
                 </span>
-              )}
+                {item.periodText && (
+                  <span
+                    style={{
+                      fontSize: '0.8rem',
+                      color: '#475569',
+                      fontWeight: 600,
+                    }}
+                  >
+                    {item.periodText.replace('per ', '/')}
+                  </span>
+                )}
+              </div>
             </div>
-          </div>
+          ) : (
+            /* For PG: Verified Partner Pill */
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.3rem',
+                  fontSize: '0.74rem',
+                  fontWeight: 700,
+                  color: '#15803D',
+                  backgroundColor: '#EFF5EC',
+                  border: '1px solid #86EFAC',
+                  borderRadius: '9999px',
+                  padding: '3px 10px',
+                }}
+              >
+                <span>✓ Verified Student PG</span>
+              </span>
+            </div>
+          )}
 
           {/* Right: Unified Action Buttons */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexShrink: 0 }}>

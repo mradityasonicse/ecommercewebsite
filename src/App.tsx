@@ -292,6 +292,7 @@ function MainApp() {
         token: authMatch.token,
         errorCode: authMatch.error,
       };
+      
     }
 
     // 6. Student Account Dashboard (#account)
