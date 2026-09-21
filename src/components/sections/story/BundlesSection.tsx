@@ -25,7 +25,7 @@ export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }
       aria-label="Smart Living Bundles"
       style={{
         position: 'relative',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: 'var(--color-bg-primary, #FFFFFF)',
         paddingTop: '5rem',
         paddingBottom: '5rem',
         borderBottom: '1.5px solid rgba(22, 163, 74, 0.15)',
@@ -68,7 +68,7 @@ export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }
                 fontWeight: 800,
                 lineHeight: 1.2,
                 letterSpacing: '-0.03em',
-                color: '#0F172A',
+                color: 'var(--color-text-primary, #0F172A)',
                 margin: '0 0 0.75rem 0',
               }}
             >
@@ -81,7 +81,7 @@ export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }
             <p
               style={{
                 fontSize: '1rem',
-                color: '#334155',
+                color: 'var(--color-text-secondary, #334155)',
                 lineHeight: 1.6,
                 maxWidth: '65ch',
                 margin: '0 auto',
@@ -94,12 +94,10 @@ export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }
 
           {/* The Equation Card */}
           <div
-            className="easehub-hover-lift"
+            className="bundle-equation-box easehub-hover-lift"
             style={{
               maxWidth: '920px',
               margin: '0 auto 2.5rem auto',
-              backgroundColor: '#F8FAF7',
-              border: '1.5px solid rgba(22, 163, 74, 0.2)',
               borderRadius: '16px',
               padding: '1rem 1.5rem',
               display: 'flex',
@@ -110,16 +108,16 @@ export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }
               boxShadow: '0 2px 10px rgba(0,0,0,0.02)',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.92rem', color: '#0F172A', fontWeight: 600, flexWrap: 'wrap', justifyContent: 'center' }}>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', backgroundColor: '#FFFFFF', border: '1px solid rgba(22, 163, 74, 0.2)', padding: '0.4rem 0.85rem', borderRadius: '8px', color: '#0F172A', fontWeight: 700 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.92rem', color: 'var(--color-text-primary, #0F172A)', fontWeight: 600, flexWrap: 'wrap', justifyContent: 'center' }}>
+              <span className="bundle-equation-item" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.4rem 0.85rem', borderRadius: '8px', fontWeight: 700 }}>
                 <MessCulinaryIcon size={16} /> Daily Mess
               </span>
               <span style={{ color: '#16A34A', fontWeight: 800, fontSize: '1.1rem' }}>+</span>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', backgroundColor: '#FFFFFF', border: '1px solid rgba(22, 163, 74, 0.2)', padding: '0.4rem 0.85rem', borderRadius: '8px', color: '#0F172A', fontWeight: 700 }}>
+              <span className="bundle-equation-item" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.4rem 0.85rem', borderRadius: '8px', fontWeight: 700 }}>
                 <LaundryAquaIcon size={16} /> Doorstep Laundry
               </span>
               <span style={{ color: '#16A34A', fontWeight: 800, fontSize: '1.1rem' }}>+</span>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', backgroundColor: '#FFFFFF', border: '1px solid rgba(22, 163, 74, 0.2)', padding: '0.4rem 0.85rem', borderRadius: '8px', color: '#0F172A', fontWeight: 700 }}>
+              <span className="bundle-equation-item" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.4rem 0.85rem', borderRadius: '8px', fontWeight: 700 }}>
                 <Wifi size={16} color="#2563EB" /> Gigabit Wi-Fi
               </span>
               <span style={{ color: '#16A34A', fontWeight: 800, fontSize: '1.1rem' }}>=</span>
@@ -144,14 +142,12 @@ export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }
             return (
               <ScrollReveal key={bundle.id} variant="fade-up" delay={index * 120}>
                 <div
-                  className="easehub-hover-lift"
+                  className={`bundle-card ${isFeatured ? 'is-popular' : ''} easehub-hover-lift`}
                   onClick={() => onSelectBundle(bundle)}
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onSelectBundle(bundle); }}
                   style={{
-                    backgroundColor: '#FFFFFF',
-                    border: isFeatured ? '2px solid #16A34A' : '1.5px solid rgba(22, 163, 74, 0.2)',
                     borderRadius: '20px',
                     padding: 'clamp(1.25rem, 2.5vw, 1.75rem)',
                     cursor: 'pointer',
@@ -161,15 +157,18 @@ export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }
                     position: 'relative',
                     height: '100%',
                     transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-                    boxShadow: isFeatured ? '0 12px 32px rgba(22, 163, 74, 0.15)' : '0 4px 16px rgba(0, 0, 0, 0.04)',
                   }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.boxShadow = isFeatured ? '0 16px 40px rgba(22, 163, 74, 0.22)' : '0 10px 24px rgba(0, 0, 0, 0.08)';
+                  if (isFeatured) {
+                    e.currentTarget.style.boxShadow = '0 16px 40px rgba(22, 163, 74, 0.22)';
+                  }
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'none';
-                  e.currentTarget.style.boxShadow = isFeatured ? '0 12px 32px rgba(22, 163, 74, 0.15)' : '0 4px 16px rgba(0, 0, 0, 0.04)';
+                  if (isFeatured) {
+                    e.currentTarget.style.boxShadow = '0 12px 32px rgba(22, 163, 74, 0.15)';
+                  }
                 }}
               >
                 <div>
@@ -230,10 +229,10 @@ export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }
                   </div>
 
                   <h3
+                    className="bundle-title"
                     style={{
                       fontSize: '1.35rem',
                       fontWeight: 800,
-                      color: '#0F172A',
                       lineHeight: 1.3,
                       letterSpacing: '-0.02em',
                       margin: '0 0 0.5rem 0',
@@ -243,9 +242,9 @@ export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }
                   </h3>
 
                   <p
+                    className="bundle-tagline"
                     style={{
                       fontSize: '0.86rem',
-                      color: '#475569',
                       lineHeight: 1.5,
                       margin: '0 0 1.25rem 0',
                     }}
@@ -255,9 +254,8 @@ export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }
 
                   {/* High-Contrast, Crystal Clear Pricing Box */}
                   <div
+                    className="bundle-pricing-box"
                     style={{
-                      backgroundColor: '#F8FAF7',
-                      border: '1.5px solid rgba(22, 163, 74, 0.2)',
                       borderRadius: '14px',
                       padding: '0.85rem 1rem',
                       marginBottom: '1.25rem',
@@ -271,10 +269,10 @@ export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }
                     <div style={{ minWidth: 0, flex: '1 1 auto' }}>
                       <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.35rem', flexWrap: 'nowrap' }}>
                         <span
+                          className="bundle-price"
                           style={{
                             fontSize: 'clamp(1.35rem, 2.6vw, 1.65rem)',
                             fontWeight: 900,
-                            color: '#0F172A',
                             letterSpacing: '-0.02em',
                             whiteSpace: 'nowrap',
                             display: 'inline-block',
@@ -283,9 +281,9 @@ export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }
                           ₹{bundle.bundlePrice.toLocaleString('en-IN')}
                         </span>
                         <span
+                          className="bundle-price-period"
                           style={{
                             fontSize: '0.8rem',
-                            color: '#475569',
                             fontWeight: 600,
                             whiteSpace: 'nowrap',
                           }}
@@ -327,12 +325,15 @@ export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }
 
                   {/* Services Included List */}
                   <div style={{ marginBottom: '1.25rem' }}>
-                    <div style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: '#475569', letterSpacing: '0.05em', marginBottom: '0.75rem' }}>
+                    <div
+                      className="bundle-services-label"
+                      style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.75rem' }}
+                    >
                       Services Included in Pass
                     </div>
                     <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
                       {bundle.servicesIncluded.map((srv, idx) => (
-                        <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.85rem', color: '#0F172A', fontWeight: 600 }}>
+                        <li key={idx} className="bundle-service-item" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.88rem', fontWeight: 600 }}>
                           <CheckCircle2 size={16} color="#16A34A" style={{ marginTop: '2px', flexShrink: 0 }} />
                           <span style={{ lineHeight: 1.4 }}>{srv}</span>
                         </li>
@@ -342,21 +343,19 @@ export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }
 
                   {/* Natural Student Real-Life Assurance Pill */}
                   <div
+                    className={isFeatured ? 'bundle-assurance-pill-popular' : 'bundle-assurance-pill-standard'}
                     style={{
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.4rem',
                       padding: '0.45rem 0.75rem',
                       borderRadius: '8px',
-                      backgroundColor: isFeatured ? '#FEF9C3' : '#F0FDF4',
-                      border: isFeatured ? '1px solid #FDE047' : '1px solid #BBF7D0',
                       fontSize: '0.75rem',
                       fontWeight: 700,
-                      color: isFeatured ? '#854D0E' : '#15803D',
                       marginBottom: '1.25rem',
                     }}
                   >
-                    <Sparkles size={14} color={isFeatured ? '#854D0E' : '#15803D'} style={{ flexShrink: 0 }} />
+                    <Sparkles size={14} style={{ flexShrink: 0 }} />
                     <span>
                       {bundle.id === 'freshman-starter'
                         ? 'Ghar jate waqt mess 1-click pause • Zero Brokerage'
@@ -374,14 +373,14 @@ export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }
                     e.stopPropagation();
                     onSelectBundle(bundle);
                   }}
-                  className="easehub-btn-tactile easehub-spring-btn"
+                  className={`easehub-btn-tactile easehub-spring-btn ${isFeatured ? '' : 'bundle-cta-standard'}`}
                   style={{
                     width: '100%',
                     padding: '0.75rem 1rem',
                     borderRadius: '12px',
-                    backgroundColor: isFeatured ? '#16A34A' : '#F0FDF4',
-                    color: isFeatured ? '#FFFFFF' : '#15803D',
-                    border: isFeatured ? 'none' : '1.5px solid #86EFAC',
+                    backgroundColor: isFeatured ? '#16A34A' : undefined,
+                    color: isFeatured ? '#FFFFFF' : undefined,
+                    border: isFeatured ? 'none' : undefined,
                     fontSize: '0.88rem',
                     fontWeight: 800,
                     display: 'inline-flex',
@@ -393,11 +392,15 @@ export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }
                     boxShadow: isFeatured ? '0 4px 14px rgba(22, 163, 74, 0.35)' : 'none',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = isFeatured ? '#15803D' : '#DCFCE7';
+                    if (isFeatured) {
+                      e.currentTarget.style.backgroundColor = '#15803D';
+                    }
                     e.currentTarget.style.transform = 'translateY(-1px)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = isFeatured ? '#16A34A' : '#F0FDF4';
+                    if (isFeatured) {
+                      e.currentTarget.style.backgroundColor = '#16A34A';
+                    }
                     e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >

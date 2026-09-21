@@ -1142,3 +1142,119 @@ body.mobile-preview-active .easehub-mobile-nav-drawer .easehub-mobile-drawer-hea
   color: #10B981 !important;
 }
 
+/* ==========================================================================
+   BUNDLE SECTION THEME STYLING (HIGH CONTRAST LIGHT & DARK)
+   ========================================================================== */
+.bundle-card {
+  background-color: #FFFFFF;
+  border: 1.5px solid rgba(22, 163, 74, 0.2);
+  color: #0F172A;
+}
+.bundle-card.is-popular {
+  border: 2px solid #16A34A;
+  box-shadow: 0 12px 32px rgba(22, 163, 74, 0.15);
+}
+.bundle-title {
+  color: #0F172A;
+}
+.bundle-tagline {
+  color: #475569;
+}
+.bundle-pricing-box {
+  background-color: #F8FAF7;
+  border: 1.5px solid rgba(22, 163, 74, 0.2);
+}
+.bundle-price {
+  color: #0F172A;
+}
+.bundle-price-period {
+  color: #475569;
+}
+.bundle-services-label {
+  color: #475569;
+}
+.bundle-service-item {
+  color: #0F172A;
+}
+.bundle-assurance-pill-popular {
+  background-color: #FEF9C3;
+  border: 1px solid #FDE047;
+  color: #854D0E;
+}
+.bundle-assurance-pill-standard {
+  background-color: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  color: #15803D;
+}
+.bundle-equation-box {
+  background-color: #F8FAF7;
+  border: 1.5px solid rgba(22, 163, 74, 0.2);
+}
+.bundle-equation-item {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(22, 163, 74, 0.2);
+  color: #0F172A;
+}
+
+/* Dark Mode Overrides for Bundles */
+[data-theme="dark"] .bundle-card {
+  background-color: #0F172A !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.12) !important;
+  color: #F8FAFC !important;
+}
+[data-theme="dark"] .bundle-card.is-popular {
+  border: 2px solid #10B981 !important;
+  box-shadow: 0 12px 32px rgba(16, 185, 129, 0.2) !important;
+}
+[data-theme="dark"] .bundle-title {
+  color: #F8FAFC !important;
+}
+[data-theme="dark"] .bundle-tagline {
+  color: #94A3B8 !important;
+}
+[data-theme="dark"] .bundle-pricing-box {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+[data-theme="dark"] .bundle-price {
+  color: #F8FAFC !important;
+}
+[data-theme="dark"] .bundle-price-period {
+  color: #94A3B8 !important;
+}
+[data-theme="dark"] .bundle-services-label {
+  color: #94A3B8 !important;
+}
+[data-theme="dark"] .bundle-service-item {
+  color: #F1F5F9 !important;
+}
+[data-theme="dark"] .bundle-assurance-pill-popular {
+  background-color: rgba(234, 179, 8, 0.15) !important;
+  border: 1px solid rgba(234, 179, 8, 0.35) !important;
+  color: #FDE047 !important;
+}
+[data-theme="dark"] .bundle-assurance-pill-standard {
+  background-color: rgba(34, 197, 94, 0.14) !important;
+  border: 1px solid rgba(34, 197, 94, 0.3) !important;
+  color: #4ADE80 !important;
+}
+[data-theme="dark"] .bundle-equation-box {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
+}
+[data-theme="dark"] .bundle-equation-item {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #F8FAFC !important;
+}
+[data-theme="dark"] .bundle-cta-standard {
+  background-color: rgba(16, 185, 129, 0.12) !important;
+  color: #34D399 !important;
+  border: 1.5px solid rgba(16, 185, 129, 0.35) !important;
+}
+[data-theme="dark"] .bundle-cta-standard:hover {
+  background-color: rgba(16, 185, 129, 0.22) !important;
+  color: #6EE7B7 !important;
+}
+
+
