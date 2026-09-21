@@ -9,8 +9,8 @@ import {
   SprayCan, 
   Wrench, 
   ArrowUpRight, 
-  Users, 
-  ShieldCheck
+  ShieldCheck,
+  Clock
 } from 'lucide-react';
 import type { Service, AvailabilityStatus } from '../../types/service';
 
@@ -44,16 +44,18 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service, onSelectServi
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.3rem',
-              fontSize: '0.68rem',
-              fontFamily: 'var(--font-mono)',
+              fontSize: 'var(--text-status)',
+              fontFamily: 'var(--font-family-status)',
               fontWeight: 700,
-              color: '#4ADE80',
-              backgroundColor: 'rgba(34, 197, 94, 0.1)',
+              color: 'var(--color-brand-green, #10B981)',
+              backgroundColor: 'rgba(16, 185, 129, 0.12)',
+              border: '1px solid rgba(16, 185, 129, 0.25)',
               padding: '0.15rem 0.5rem',
               borderRadius: 'var(--radius-sm)',
+              textTransform: 'uppercase',
             }}
           >
-            <span style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#4ADE80' }} />
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10B981' }} />
             Available Now
           </span>
         );
@@ -64,16 +66,18 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service, onSelectServi
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.3rem',
-              fontSize: '0.68rem',
-              fontFamily: 'var(--font-mono)',
+              fontSize: 'var(--text-status)',
+              fontFamily: 'var(--font-family-status)',
               fontWeight: 700,
-              color: '#FBBF24',
-              backgroundColor: 'rgba(245, 158, 11, 0.1)',
+              color: 'var(--color-brand-gold, #FAC908)',
+              backgroundColor: 'rgba(250, 201, 8, 0.12)',
+              border: '1px solid rgba(250, 201, 8, 0.25)',
               padding: '0.15rem 0.5rem',
               borderRadius: 'var(--radius-sm)',
+              textTransform: 'uppercase',
             }}
           >
-            <span style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#FBBF24' }} />
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#FAC908' }} />
             Limited Slots
           </span>
         );
@@ -84,13 +88,15 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service, onSelectServi
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.3rem',
-              fontSize: '0.68rem',
-              fontFamily: 'var(--font-mono)',
+              fontSize: 'var(--text-status)',
+              fontFamily: 'var(--font-family-status)',
               fontWeight: 700,
-              color: 'var(--color-brand-red)',
-              backgroundColor: 'rgba(255, 43, 43, 0.1)',
+              color: 'var(--color-brand-red, #EF4444)',
+              backgroundColor: 'rgba(239, 68, 68, 0.12)',
+              border: '1px solid rgba(239, 68, 68, 0.25)',
               padding: '0.15rem 0.5rem',
               borderRadius: 'var(--radius-sm)',
+              textTransform: 'uppercase',
             }}
           >
             Coming Soon
@@ -100,8 +106,6 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service, onSelectServi
         return null;
     }
   };
-
-  const isFeatured = service.isFeatured;
 
   return (
     <article
@@ -115,11 +119,12 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service, onSelectServi
         }
       }}
       aria-label={`${service.name}, starting from ${service.startingPrice} ${service.pricingUnit}`}
+      className="easehub-card-interactive"
       style={{
         backgroundColor: 'var(--color-surface-1)',
-        border: isFeatured ? '1px solid rgba(255, 255, 255, 0.25)' : '1px solid var(--color-border-subtle)',
-        borderRadius: 'var(--radius-xl)',
-        padding: 'var(--space-6)',
+        border: '1px solid var(--color-border-subtle)',
+        borderRadius: 'var(--radius-lg)',
+        padding: '1.5rem',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
@@ -130,12 +135,12 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service, onSelectServi
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = 'translateY(-3px)';
-        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.35)';
-        e.currentTarget.style.boxShadow = '0 12px 28px rgba(0,0,0,0.5)';
+        e.currentTarget.style.borderColor = 'var(--color-border-hover)';
+        e.currentTarget.style.boxShadow = '0 12px 28px rgba(0, 0, 0, 0.45)';
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = 'none';
-        e.currentTarget.style.borderColor = isFeatured ? 'rgba(255, 255, 255, 0.25)' : 'var(--color-border-subtle)';
+        e.currentTarget.style.borderColor = 'var(--color-border-subtle)';
         e.currentTarget.style.boxShadow = 'none';
       }}
     >
@@ -146,7 +151,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service, onSelectServi
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            marginBottom: 'var(--space-4)',
+            marginBottom: '1rem',
           }}
         >
           <div
@@ -154,11 +159,12 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service, onSelectServi
               width: '42px',
               height: '42px',
               borderRadius: 'var(--radius-md)',
-              backgroundColor: isFeatured ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.04)',
+              backgroundColor: 'var(--color-surface-2)',
+              border: '1px solid var(--color-border-subtle)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: service.accentColor === 'red' ? 'var(--color-brand-red)' : '#FFFFFF',
+              color: service.accentColor === 'red' ? 'var(--color-brand-red)' : 'var(--color-brand-blue)',
             }}
           >
             {getIcon(service.iconName, 20)}
@@ -166,130 +172,140 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service, onSelectServi
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
             {renderAvailabilityBadge(service.availabilityStatus)}
-            {isFeatured && (
-              <span
-                style={{
-                  fontSize: '0.68rem',
-                  fontFamily: 'var(--font-mono)',
-                  color: '#FFFFFF',
-                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                  border: '1px solid rgba(255, 255, 255, 0.16)',
-                  padding: '0.15rem 0.5rem',
-                  borderRadius: 'var(--radius-sm)',
-                  fontWeight: 700,
-                }}
-              >
-                ★ Featured
-              </span>
-            )}
           </div>
         </div>
 
-        {/* Badge & Title */}
+        {/* Verification Badge */}
         <div
           style={{
-            fontSize: '0.72rem',
-            fontFamily: 'var(--font-mono)',
+            fontSize: 'var(--text-status)',
+            fontFamily: 'var(--font-family-status)',
+            fontWeight: 700,
             color: 'var(--color-text-muted)',
-            marginBottom: '0.25rem',
+            marginBottom: '0.35rem',
             display: 'flex',
             alignItems: 'center',
             gap: '0.35rem',
+            letterSpacing: 'var(--tracking-uppercase)',
+            textTransform: 'uppercase',
           }}
         >
           <ShieldCheck size={13} color="var(--color-brand-blue)" />
           <span>{service.badgeText}</span>
         </div>
 
+        {/* Service Title */}
         <h3
           style={{
-            fontSize: '1.2rem',
-            fontFamily: 'var(--font-display)',
-            fontWeight: 800,
-            color: '#FFFFFF',
-            margin: '0 0 var(--space-2) 0',
-            lineHeight: 1.25,
+            fontSize: 'var(--text-h3)',
+            fontFamily: 'var(--font-family-h3)',
+            fontWeight: 'var(--weight-h3)',
+            color: 'var(--color-text-primary)',
+            margin: '0 0 0.5rem 0',
+            lineHeight: 'var(--leading-h3)',
+            letterSpacing: 'var(--tracking-h3)',
+            textWrap: 'balance',
           }}
         >
           {service.name}
         </h3>
 
+        {/* Short Description */}
         <p
           style={{
-            fontSize: '0.86rem',
-            fontFamily: 'var(--font-body)',
+            fontSize: 'var(--text-body-sm)',
+            fontFamily: 'var(--font-family-body-sm)',
             color: 'var(--color-text-secondary)',
-            lineHeight: 1.5,
-            margin: '0 0 var(--space-4) 0',
+            lineHeight: 'var(--leading-body-sm)',
+            margin: '0 0 1rem 0',
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
           }}
         >
           {service.shortDescription}
         </p>
 
-        {/* Tags */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', marginBottom: 'var(--space-4)' }}>
-          {service.tags.slice(0, 3).map((tag, idx) => (
-            <span
-              key={idx}
-              style={{
-                fontSize: '0.7rem',
-                fontFamily: 'var(--font-mono)',
-                color: 'var(--color-text-muted)',
-                backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                padding: '0.15rem 0.45rem',
-                borderRadius: 'var(--radius-sm)',
-                border: '1px solid var(--color-border-subtle)',
-              }}
-            >
-              #{tag}
-            </span>
-          ))}
-        </div>
+        {/* Popular Feature Bullets */}
+        {service.popularFeatures && service.popularFeatures.length > 0 && (
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', marginBottom: '1rem' }}>
+            {service.popularFeatures.slice(0, 3).map((feat, idx) => (
+              <span
+                key={idx}
+                style={{
+                  fontSize: 'var(--text-caption)',
+                  fontFamily: 'var(--font-family-caption)',
+                  color: 'var(--color-text-secondary)',
+                  backgroundColor: 'var(--color-surface-2)',
+                  padding: '0.2rem 0.55rem',
+                  borderRadius: 'var(--radius-sm)',
+                  border: '1px solid var(--color-border-subtle)',
+                }}
+              >
+                {feat}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Bottom Footer Details */}
       <div
         style={{
           borderTop: '1px solid var(--color-border-subtle)',
-          paddingTop: 'var(--space-4)',
+          paddingTop: '1rem',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
         }}
       >
-        {/* Pricing */}
+        {/* Pricing Model */}
         <div>
-          <span style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', display: 'block' }}>Student Rate</span>
+          <span style={{ fontSize: 'var(--text-caption)', color: 'var(--color-text-muted)', display: 'block' }}>
+            Starting Rate
+          </span>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.25rem' }}>
-            <span style={{ fontSize: '1.15rem', fontFamily: 'var(--font-display)', fontWeight: 800, color: '#FFFFFF' }}>
+            <span style={{ fontSize: '1.25rem', fontFamily: 'var(--font-family-body)', fontWeight: 700, color: 'var(--color-brand-gold)' }}>
               {service.startingPrice}
             </span>
-            <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
+            <span style={{ fontSize: 'var(--text-caption)', color: 'var(--color-text-muted)' }}>
               /{service.pricingUnit.replace('per ', '')}
             </span>
           </div>
         </div>
 
-        {/* Metrics & CTA */}
+        {/* Operational turnaround time or Action */}
         <div style={{ textAlign: 'right' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.75rem', color: 'var(--color-text-muted)', justifyContent: 'flex-end', marginBottom: '0.2rem' }}>
-            <Users size={12} />
-            <span>{service.metrics.providersAvailable} providers</span>
-          </div>
+          {service.metrics?.avgDeliveryTime && (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.3rem',
+                fontSize: 'var(--text-caption)',
+                color: 'var(--color-text-muted)',
+                justifyContent: 'flex-end',
+                marginBottom: '0.25rem',
+              }}
+            >
+              <Clock size={12} />
+              <span>{service.metrics.avgDeliveryTime}</span>
+            </div>
+          )}
 
           <div
             style={{
-              fontSize: '0.82rem',
-              color: 'var(--color-blue-light)',
+              fontSize: 'var(--text-button)',
+              color: 'var(--color-brand-blue)',
               fontWeight: 700,
-              fontFamily: 'var(--font-display)',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '0.2rem',
+              gap: '0.25rem',
             }}
           >
             <span>Explore Options</span>
-            <ArrowUpRight size={14} />
+            <ArrowUpRight size={15} />
           </div>
         </div>
       </div>

@@ -50,29 +50,50 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
         outline: 'none',
         cursor: 'pointer',
         userSelect: 'none',
-        transition: 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+        transition: 'transform var(--duration-fast, 150ms) var(--ease-standard)',
+        borderRadius: 'var(--radius-sm)',
         ...style,
       }}
-      onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.02)')}
+      onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.015)')}
       onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
     >
-      {/* Official Brand Logo Mark */}
-      <img
-        src={easehubMark}
-        alt="EaseHub Logo"
-        onError={(e) => {
-          if (e.currentTarget.src !== window.location.origin + '/easehub-mark.png') {
-            e.currentTarget.src = '/easehub-mark.png';
-          }
-        }}
+      {/* Official Brand Logo Mark with Luminous Neon Glow */}
+      <div
         style={{
-          height: `${markHeight}px`,
-          width: 'auto',
-          display: 'block',
-          objectFit: 'contain',
-          filter: 'drop-shadow(0 0 1px rgba(255, 255, 255, 0.45)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35))',
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
-      />
+      >
+        <div
+          style={{
+            position: 'absolute',
+            inset: '-4px',
+            background: 'radial-gradient(circle, rgba(22, 163, 74, 0.3) 0%, rgba(22, 163, 74, 0) 70%)',
+            filter: 'blur(6px)',
+            borderRadius: '50%',
+            pointerEvents: 'none',
+          }}
+        />
+        <img
+          src={easehubMark}
+          alt="EaseHub Logo"
+          onError={(e) => {
+            if (e.currentTarget.src !== window.location.origin + '/easehub-mark.png') {
+              e.currentTarget.src = '/easehub-mark.png';
+            }
+          }}
+          style={{
+            position: 'relative',
+            height: `${markHeight}px`,
+            width: 'auto',
+            display: 'block',
+            objectFit: 'contain',
+            filter: 'drop-shadow(0 3px 8px rgba(22, 163, 74, 0.2))',
+          }}
+        />
+      </div>
 
       {/* Brand Wordmark */}
       {showText && (
@@ -88,30 +109,80 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
             style={{
               display: 'flex',
               alignItems: 'center',
-              letterSpacing: '-0.03em',
-              fontWeight: 800,
-              fontSize: isMobile ? '1.2rem' : isFooter ? '1.45rem' : '1.35rem',
+              letterSpacing: '-0.04em',
+              fontWeight: 900,
+              fontFamily: 'var(--font-display)',
+              fontSize: isMobile ? '1.25rem' : isFooter ? '1.5rem' : '1.4rem',
               lineHeight: 1,
             }}
           >
-            <span style={{ color: '#FFFFFF' }}>EASE</span>
-            <span style={{ color: 'var(--color-brand-green, #59A83E)' }}>HUB</span>
-          </div>
-
-          {shouldShowTagline && (
+            <span
+              style={{
+                color: '#0F172A',
+              }}
+            >
+              EASE
+            </span>
+            <span
+              style={{
+                background: 'linear-gradient(135deg, #16A34A 0%, #15803D 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              HUB
+            </span>
             <span
               style={{
                 fontSize: '0.58rem',
-                fontWeight: 700,
-                letterSpacing: '0.09em',
-                color: 'var(--color-brand-gold, #FAC908)',
-                textTransform: 'uppercase',
+                fontWeight: 800,
+                padding: '1px 6px',
+                borderRadius: '5px',
+                background: '#FEF08A',
+                border: '1px solid #FDE047',
+                color: '#854D0E',
+                marginLeft: '6px',
+                letterSpacing: '0.06em',
+                lineHeight: 1.4,
+              }}
+            >
+              HQ
+            </span>
+          </div>
+
+          {shouldShowTagline && (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px',
                 marginTop: '3px',
                 lineHeight: 1,
               }}
             >
-              PG • Laundry • Mess
-            </span>
+              <span
+                style={{
+                  width: '5px',
+                  height: '5px',
+                  borderRadius: '50%',
+                  backgroundColor: '#16A34A',
+                  boxShadow: '0 0 6px rgba(22, 163, 74, 0.6)',
+                  display: 'inline-block',
+                }}
+              />
+              <span
+                style={{
+                  fontSize: '0.6rem',
+                  fontWeight: 800,
+                  letterSpacing: '0.1em',
+                  color: '#64748B',
+                  textTransform: 'uppercase',
+                  fontFamily: 'var(--font-mono)',
+                }}
+              >
+                CAMPUS SUPER-APP
+              </span>
+            </div>
           )}
         </div>
       )}

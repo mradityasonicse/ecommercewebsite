@@ -1,6 +1,7 @@
 @import './tokens.css';
 @import './reset.css';
 @import './motion.css';
+@import './awwwards-figma.css';
 
 /* Universal Keyboard Focus State */
 :focus-visible {
@@ -9,7 +10,15 @@
   box-shadow: 0 0 0 4px var(--color-blue-subtle);
 }
 
-/* Base Body Styles */
+/* Professional Award-Winning Typography & Rendering Defaults */
+html {
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'ss01';
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
@@ -18,6 +27,28 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Clean Green & White Campus Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary, #F8FAF7);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(22, 163, 74, 0.25);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(22, 163, 74, 0.5);
+}
+
+::selection {
+  background-color: rgba(250, 204, 21, 0.35);
+  color: #0F172A;
 }
 
 /* Layout Containers */
@@ -78,121 +109,274 @@ body {
   }
 }
 
-/* Typography Utility Classes */
+/* ========================================================================= */
+/* Centralized Semantic Typography Classes (Phase 3 System)                  */
+/* ========================================================================= */
+
+.type-display {
+  font-family: var(--font-family-display);
+  font-size: var(--text-display);
+  font-weight: var(--weight-display);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+}
+
+.type-h1 {
+  font-family: var(--font-family-h1);
+  font-size: var(--text-h1);
+  font-weight: var(--weight-h1);
+  line-height: var(--leading-h1);
+  letter-spacing: var(--tracking-h1);
+  text-wrap: balance;
+}
+
+.type-h2 {
+  font-family: var(--font-family-h2);
+  font-size: var(--text-h2);
+  font-weight: var(--weight-h2);
+  line-height: var(--leading-h2);
+  letter-spacing: var(--tracking-h2);
+  text-wrap: balance;
+}
+
+.type-h3 {
+  font-family: var(--font-family-h3);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-h3);
+  line-height: var(--leading-h3);
+  letter-spacing: var(--tracking-h3);
+  text-wrap: balance;
+}
+
+.type-h4 {
+  font-family: var(--font-family-h4);
+  font-size: var(--text-h4);
+  font-weight: var(--weight-h4);
+  line-height: var(--leading-h4);
+  letter-spacing: var(--tracking-h4);
+}
+
+.type-body-lg {
+  font-family: var(--font-family-body-lg);
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-body-lg);
+  line-height: var(--leading-body-lg);
+  letter-spacing: var(--tracking-body-lg);
+  text-wrap: pretty;
+  max-inline-size: 65ch;
+}
+
+.type-body {
+  font-family: var(--font-family-body);
+  font-size: var(--text-body);
+  font-weight: var(--weight-body);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-body);
+  text-wrap: pretty;
+}
+
+.type-body-sm {
+  font-family: var(--font-family-body-sm);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-body-sm);
+  line-height: var(--leading-body-sm);
+  letter-spacing: var(--tracking-body-sm);
+}
+
+.type-label {
+  font-family: var(--font-family-label);
+  font-size: var(--text-label);
+  font-weight: var(--weight-label);
+  line-height: var(--leading-label);
+  letter-spacing: var(--tracking-label);
+}
+
+.type-caption {
+  font-family: var(--font-family-caption);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-caption);
+  line-height: var(--leading-caption);
+  letter-spacing: var(--tracking-caption);
+}
+
+.type-metadata {
+  font-family: var(--font-family-metadata);
+  font-size: var(--text-metadata);
+  font-weight: var(--weight-metadata);
+  line-height: var(--leading-metadata);
+  letter-spacing: var(--tracking-metadata);
+}
+
+.type-nav {
+  font-family: var(--font-family-nav);
+  font-size: var(--text-nav);
+  font-weight: var(--weight-nav);
+  line-height: var(--leading-nav);
+  letter-spacing: var(--tracking-nav);
+}
+
+.type-button {
+  font-family: var(--font-family-button);
+  font-size: var(--text-button);
+  font-weight: var(--weight-button);
+  line-height: var(--leading-button);
+  letter-spacing: var(--tracking-button);
+}
+
+.type-input {
+  font-family: var(--font-family-input);
+  font-size: var(--text-input);
+  font-weight: var(--weight-input);
+  line-height: var(--leading-input);
+  letter-spacing: var(--tracking-input);
+}
+
+.type-status {
+  font-family: var(--font-family-status);
+  font-size: var(--text-status);
+  font-weight: var(--weight-status);
+  line-height: var(--leading-status);
+  letter-spacing: var(--tracking-status);
+}
+
+/* Backward Compatibility Utilities */
 .text-display-xl {
-  font-family: var(--font-display);
-  font-size: var(--text-display-xl);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.035em;
+  font-family: var(--font-family-display);
+  font-size: var(--text-display);
+  font-weight: var(--weight-display);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
 }
 
 .text-display-lg {
-  font-family: var(--font-display);
-  font-size: var(--text-display-lg);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
+  font-family: var(--font-family-display);
+  font-size: var(--text-display);
+  font-weight: var(--weight-display);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
 }
 
 .text-display-md {
-  font-family: var(--font-display);
-  font-size: var(--text-display-md);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.025em;
+  font-family: var(--font-family-h1);
+  font-size: var(--text-h1);
+  font-weight: var(--weight-h1);
+  line-height: var(--leading-h1);
+  letter-spacing: var(--tracking-h1);
+  text-wrap: balance;
 }
 
 .text-heading-xl {
-  font-family: var(--font-display);
-  font-size: var(--text-heading-xl);
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  font-family: var(--font-family-h1);
+  font-size: var(--text-h1);
+  font-weight: var(--weight-h1);
+  line-height: var(--leading-h1);
+  letter-spacing: var(--tracking-h1);
+  text-wrap: balance;
 }
 
 .text-heading-lg {
-  font-family: var(--font-display);
-  font-size: var(--text-heading-lg);
-  font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
+  font-family: var(--font-family-h2);
+  font-size: var(--text-h2);
+  font-weight: var(--weight-h2);
+  line-height: var(--leading-h2);
+  letter-spacing: var(--tracking-h2);
+  text-wrap: balance;
 }
 
 .text-heading-md {
-  font-family: var(--font-display);
-  font-size: var(--text-heading-md);
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: -0.015em;
+  font-family: var(--font-family-h3);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-h3);
+  line-height: var(--leading-h3);
+  letter-spacing: var(--tracking-h3);
+  text-wrap: balance;
 }
 
 .text-heading-sm {
-  font-family: var(--font-display);
-  font-size: var(--text-heading-sm);
-  font-weight: 600;
-  line-height: 1.4;
-  letter-spacing: -0.01em;
+  font-family: var(--font-family-h4);
+  font-size: var(--text-h4);
+  font-weight: var(--weight-h4);
+  line-height: var(--leading-h4);
+  letter-spacing: var(--tracking-h4);
 }
 
 .text-body-lg {
-  font-family: var(--font-body);
+  font-family: var(--font-family-body-lg);
   font-size: var(--text-body-lg);
-  line-height: 1.6;
+  font-weight: var(--weight-body-lg);
+  line-height: var(--leading-body-lg);
+  letter-spacing: var(--tracking-body-lg);
+  text-wrap: pretty;
+  max-inline-size: 65ch;
 }
 
 .text-body-md {
-  font-family: var(--font-body);
-  font-size: var(--text-body-md);
-  line-height: 1.55;
+  font-family: var(--font-family-body);
+  font-size: var(--text-body);
+  font-weight: var(--weight-body);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-body);
+  text-wrap: pretty;
 }
 
 .text-body-sm {
-  font-family: var(--font-body);
+  font-family: var(--font-family-body-sm);
   font-size: var(--text-body-sm);
-  line-height: 1.5;
+  font-weight: var(--weight-body-sm);
+  line-height: var(--leading-body-sm);
+  letter-spacing: var(--tracking-body-sm);
 }
 
 .text-body-xs {
-  font-family: var(--font-body);
-  font-size: var(--text-body-xs);
-  line-height: 1.45;
+  font-family: var(--font-family-caption);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-caption);
+  line-height: var(--leading-caption);
+  letter-spacing: var(--tracking-caption);
 }
 
 .text-label-lg {
-  font-family: var(--font-display);
-  font-size: var(--text-label-lg);
-  font-weight: 600;
-  line-height: 1.3;
+  font-family: var(--font-family-label);
+  font-size: var(--text-button);
+  font-weight: var(--weight-label);
+  line-height: var(--leading-label);
+  letter-spacing: var(--tracking-label);
 }
 
 .text-label-md {
-  font-family: var(--font-display);
-  font-size: var(--text-label-md);
-  font-weight: 600;
-  line-height: 1.3;
+  font-family: var(--font-family-label);
+  font-size: var(--text-label);
+  font-weight: var(--weight-label);
+  line-height: var(--leading-label);
+  letter-spacing: var(--tracking-label);
 }
 
 .text-label-sm {
-  font-family: var(--font-display);
-  font-size: var(--text-label-sm);
-  font-weight: 600;
-  line-height: 1.3;
+  font-family: var(--font-family-label);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-caption);
+  line-height: var(--leading-caption);
+  letter-spacing: var(--tracking-label);
 }
 
 .text-caption {
-  font-family: var(--font-body);
+  font-family: var(--font-family-caption);
   font-size: var(--text-caption);
-  line-height: 1.4;
+  font-weight: var(--weight-caption);
+  line-height: var(--leading-caption);
+  letter-spacing: var(--tracking-caption);
   color: var(--color-text-muted);
 }
 
 .text-eyebrow {
-  font-family: var(--font-display);
+  font-family: var(--font-family-label);
   font-size: var(--text-eyebrow);
-  font-weight: 700;
+  font-weight: var(--weight-status);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--tracking-uppercase);
   color: var(--color-brand-blue);
 }
 
@@ -232,30 +416,33 @@ body {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  font-family: var(--font-body);
+  font-family: var(--font-family-label);
   font-size: var(--text-eyebrow);
-  font-weight: 700;
+  font-weight: var(--weight-status);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--tracking-uppercase);
   color: var(--color-brand-blue);
   margin-bottom: var(--space-3);
 }
 
 .section-title {
-  font-family: var(--font-display);
-  font-size: var(--text-heading-xl);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: var(--font-family-h1);
+  font-size: var(--text-h1);
+  font-weight: var(--weight-h1);
+  letter-spacing: var(--tracking-h1);
   color: var(--color-text-primary);
-  line-height: 1.2;
+  line-height: var(--leading-h1);
+  text-wrap: balance;
   margin-bottom: var(--space-4);
 }
 
 .section-desc {
-  font-family: var(--font-body);
+  font-family: var(--font-family-body-lg);
   font-size: var(--text-body-lg);
   color: var(--color-text-secondary);
-  line-height: 1.625;
+  line-height: var(--leading-body-lg);
+  text-wrap: pretty;
+  max-inline-size: 65ch;
 }
 
 /* Flex & Grid Helpers */
@@ -273,21 +460,685 @@ body {
 .gap-8 { gap: var(--space-8); }
 .w-full { width: 100%; }
 
-/* Text Gradient Accents */
-.text-gradient-blue {
-  background: linear-gradient(135deg, #12285A 0%, #1A397B 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Text Accent Utilities */
+.text-brand-blue { color: var(--color-brand-blue); }
+.text-brand-red { color: var(--color-brand-red); }
+.text-brand-gold { color: var(--color-brand-gold); }
+.text-muted { color: var(--color-text-muted); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-primary { color: var(--color-text-primary); }
+
+/* ==========================================================================
+   ARCHITECTURAL & PRIZE-WINNING EDITORIAL UTILITIES
+   ========================================================================== */
+
+/* Monograph Metadata Chip (Swiss / Architectural Monograph Indexing) */
+.monograph-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 6px;
+  background: rgba(37, 99, 235, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.24);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #60A5FA;
 }
 
-.text-gradient-gold {
-  background: linear-gradient(135deg, #B45309 0%, #FACA12 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Clean High-Contrast Editorial Display Headline */
+.editorial-headline {
+  font-family: var(--font-display, 'Outfit', sans-serif);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.12;
+  color: #0F172A;
 }
 
-.text-gradient-electric {
-  background: linear-gradient(135deg, #12285A 0%, #58A940 100%);
+/* Subtle Specular Card with Hairline Border */
+.architectural-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(22, 163, 74, 0.16);
+  border-radius: 20px;
+  box-shadow: 0 4px 20px -2px rgba(15, 81, 50, 0.06);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.architectural-card:hover {
+  border-color: #16A34A;
+  box-shadow: 0 16px 36px -12px rgba(15, 81, 50, 0.14), 0 0 20px rgba(22, 163, 74, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Micro Hairline Separator */
+.hairline-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(22, 163, 74, 0.15) 20%, rgba(22, 163, 74, 0.15) 80%, transparent 100%);
+  width: 100%;
+}
+
+/* ========================================================================= */
+/* LUXURY DESIGN SYSTEM: OPTION 1 & OPTION 3 UTILITIES                        */
+/* ========================================================================= */
+
+/* Tactile Click Feel for All Buttons */
+button:active, a.easehub-btn:active {
+  transform: scale(0.97) !important;
+}
+
+/* Apple-Glass Specular Dual-Border Card */
+.easehub-glass-card {
+  background: rgba(15, 23, 42, 0.78) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 20px 40px -15px rgba(0, 0, 0, 0.75) !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease !important;
+}
+
+.easehub-glass-card:hover {
+  transform: translateY(-5px) !important;
+  border-color: rgba(59, 130, 246, 0.45) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 28px 60px -12px rgba(0, 0, 0, 0.85), 0 0 35px rgba(59, 130, 246, 0.2) !important;
+}
+
+/* Pulsating Radar Ring */
+@keyframes easehub-pulse-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.easehub-pulse-beacon {
+  animation: easehub-pulse-ring 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+/* Ambient Floating Mesh Glow Orbs Animation */
+@keyframes ambientDriftOne {
+  0% { transform: translate(0px, 0px) scale(1); }
+  50% { transform: translate(40px, -30px) scale(1.08); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes ambientDriftTwo {
+  0% { transform: translate(0px, 0px) scale(1.05); }
+  50% { transform: translate(-35px, 35px) scale(0.96); }
+  100% { transform: translate(0px, 0px) scale(1.05); }
+}
+
+.easehub-mesh-orb-1 {
+  animation: ambientDriftOne 18s ease-in-out infinite alternate;
+}
+
+.easehub-mesh-orb-2 {
+  animation: ambientDriftTwo 22s ease-in-out infinite alternate;
+}
+
+/* Mobile Bottom Sheet Drawer Transitions */
+@media (max-width: 640px) {
+  .easehub-modal-overlay {
+    align-items: flex-end !important;
+    padding: 0 !important;
+  }
+
+  .easehub-bottom-sheet {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-left-radius: 28px !important;
+    border-top-right-radius: 28px !important;
+    max-height: 90vh !important;
+    animation: easehubSlideUpSheet 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+}
+
+@keyframes easehubSlideUpSheet {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   PRIZE-WINNING DESIGN UTILITIES & MICRO-INTERACTIONS
+   ========================================================================== */
+
+/* Shimmer Keyframe */
+@keyframes prizeShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Float Keyframe */
+@keyframes prizeFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-7px); }
+}
+
+.prize-float-slow {
+  animation: prizeFloat 5.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.prize-float-delayed {
+  animation: prizeFloat 6.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) 1.2s infinite;
+}
+
+/* Luxury Gradient Text (Emerald Green with Sunflower Yellow Glow) */
+.prize-gradient-text {
+  background: linear-gradient(135deg, #14532D 0%, #15803D 50%, #16A34A 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
+
+.prize-gold-gradient-text {
+  background: linear-gradient(135deg, #854D0E 0%, #D97706 60%, #EAB308 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.prize-emerald-gradient-text {
+  background: linear-gradient(135deg, #14532D 0%, #15803D 55%, #22C55E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Shimmer Pill Badge (Radiant Sunlight Yellow) */
+.prize-shimmer-badge {
+  background: linear-gradient(90deg, rgba(254, 240, 138, 0.5) 0%, rgba(253, 224, 71, 0.8) 50%, rgba(254, 240, 138, 0.5) 100%);
+  background-size: 200% 100%;
+  animation: prizeShimmer 3.5s ease-in-out infinite;
+  border: 1px solid rgba(202, 138, 4, 0.35);
+  box-shadow: 0 2px 10px rgba(234, 179, 8, 0.2);
+  color: #854D0E;
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.prize-shimmer-badge:hover {
+  border-color: rgba(202, 138, 4, 0.6);
+  box-shadow: 0 4px 16px rgba(234, 179, 8, 0.35);
+  transform: translateY(-1px);
+}
+
+/* Glass Surface with Fresh Green Micro-Border Glow */
+.prize-glass-card {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(22, 163, 74, 0.16);
+  box-shadow: 0 8px 24px -4px rgba(15, 81, 50, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.28s ease, box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.prize-glass-card:hover {
+  border-color: #16A34A;
+  box-shadow: 0 16px 36px -6px rgba(15, 81, 50, 0.14), 0 0 20px rgba(22, 163, 74, 0.15);
+  transform: translateY(-3px);
+}
+
+/* Interactive Dock Item (Clean White with Green Border) */
+.prize-dock-btn {
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(15, 81, 50, 0.06);
+}
+.prize-dock-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 18px rgba(15, 81, 50, 0.12);
+}
+.prize-dock-btn:active {
+  transform: scale(0.97);
+}
+
+/* ==========================================================================
+   AWWWARDS & BEHANCE EDITORIAL GRAPHIC DESIGN UTILITIES
+   ========================================================================== */
+
+/* 1. Ultra-fine Organic Film Grain (Calibrated for Crisp White Canvas) */
+.awwwards-grain {
+  display: none;
+}
+
+/* 2. Specular Bevel & Clean Depth (Pure White Card with Green Micro Accent) */
+.behance-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid rgba(22, 163, 74, 0.14);
+  box-shadow: 0 8px 24px -4px rgba(15, 81, 50, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.28s ease;
+}
+
+.behance-card:hover {
+  transform: translateY(-4px);
+  border-color: #16A34A;
+  box-shadow: 0 20px 40px -8px rgba(15, 81, 50, 0.15), 0 0 24px rgba(22, 163, 74, 0.12);
+}
+
+/* 3. Editorial Monospace Kicker (Awwwards Typographic Rhythm) */
+.editorial-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #15803D;
+}
+
+/* 4. Subtle Kinetic Shimmer Gradient */
+.editorial-gradient-headline {
+  background: linear-gradient(135deg, #0F172A 20%, #15803D 65%, #16A34A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ==========================================================================
+   GOD-LEVEL SMOOTHNESS & UNIVERSAL RESPONSIVE ENGINE (AWWWARDS / 120FPS)
+   ========================================================================== */
+
+/* 1. Global Viewport & Kinetic Zero-Jank Scroll */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+  touch-action: pan-y pinch-zoom;
+}
+
+/* 2. Universal Tactile Spring Feedback (Buttons, Links, Cards) */
+button, 
+a, 
+[role="button"], 
+input[type="submit"],
+.easehub-btn {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
+              background-color 0.18s ease, 
+              border-color 0.18s ease, 
+              color 0.18s ease !important;
+}
+
+button:active:not(:disabled),
+[role="button"]:active,
+.easehub-btn:active:not(:disabled) {
+  transform: scale(0.972) !important;
+  transition: transform 0.08s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* 3. Buttery Card Elevate Physics */
+.architectural-card,
+.behance-card,
+.interactive-card,
+.easehub-bento-card {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.2s ease !important;
+  will-change: transform, box-shadow;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .architectural-card:hover,
+  .behance-card:hover,
+  .interactive-card:hover {
+    transform: translateY(-3px) !important;
+  }
+}
+
+/* 4. Horizontal Smooth Swipe Containers (Scrollbar Free) */
+.smooth-horizontal-scroll {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  gap: 0.75rem;
+}
+
+.smooth-horizontal-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.smooth-horizontal-scroll > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+/* 5. Mobile & Tablet Universal Responsiveness Matrix */
+@media (max-width: 1024px) {
+  /* Prevent horizontal text overflows */
+  h1, h2, h3, h4, p, span {
+    word-break: break-word;
+  }
+
+  /* Bento 12-col collapses cleanly */
+  .easehub-bento-grid {
+    grid-template-columns: repeat(1, 1fr) !important;
+    gap: 1.25rem !important;
+  }
+
+  .easehub-bento-card {
+    grid-column: span 1 !important;
+    grid-row: auto !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Balanced mobile section padding */
+  section {
+    padding-top: clamp(2.5rem, 6vw, 3.5rem) !important;
+    padding-bottom: clamp(2.5rem, 6vw, 3.5rem) !important;
+  }
+
+  /* Clamped Hero headline for iPhone */
+  #hero h1 {
+    font-size: clamp(1.85rem, 7vw, 2.75rem) !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.03em !important;
+  }
+
+  /* Quick action dock buttons wrap gracefully into 2-col or single flex */
+  .prize-dock-btn {
+    flex: 1 1 calc(50% - 0.5rem);
+    justify-content: center;
+    padding: 0.65rem 0.85rem !important;
+    font-size: 0.8rem !important;
+  }
+
+  /* Mobile floating bottom nav bar clearance */
+  .easehub-app-shell {
+    padding-bottom: calc(68px + env(safe-area-inset-bottom, 16px)) !important;
+  }
+
+  /* Touch-friendly modal bottom sheets (exclude full-screen navigation drawer) */
+  [role="dialog"]:not(#mobile-nav-drawer):not(.easehub-mobile-nav-drawer) {
+    max-height: calc(100dvh - 36px) !important;
+    border-radius: 20px !important;
+    margin: 18px 12px !important;
+    padding: 1.25rem !important;
+  }
+}
+
+@media (max-width: 860px) {
+  /* Mobile floating bottom nav bar clean presentation */
+  .easehub-mobile-bottom-bar {
+    display: flex !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: calc(100% - 24px) !important;
+    max-width: 440px !important;
+    bottom: 12px !important;
+    z-index: 9998 !important;
+  }
+
+  /* Hide separate desktop-only floating tracker beacon because bottom bar contains central Track icon */
+  .easehub-floating-tracker-btn {
+    display: none !important;
+  }
+
+  /* Float Chat Support widget safely above the mobile bottom nav bar */
+  .easehub-chat-floating-root {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 88px) !important;
+    right: 16px !important;
+  }
+
+  .easehub-chat-online-badge {
+    display: none !important;
+  }
+
+  /* Extra bottom padding on mobile/tablet so footer content is never hidden behind floating navigation */
+  .easehub-global-footer {
+    padding-bottom: calc(88px + env(safe-area-inset-bottom, 16px)) !important;
+  }
+
+  .easehub-app-shell {
+    padding-bottom: calc(72px + env(safe-area-inset-bottom, 16px)) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .prize-dock-btn {
+    flex: 1 1 100%;
+  }
+
+  /* Input hit target expansion */
+  input, select, textarea {
+    font-size: 16px !important; /* Prevents auto-zoom on iOS */
+  }
+}
+
+/* ==========================================================================
+   UNIVERSAL DEVICE HARDWARE ACCELERATION & 120FPS MOBILE SMOOTHNESS
+   ========================================================================== */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  overflow-x: hidden;
+  touch-action: manipulation;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* GPU Compositor Layering for interactive cards */
+.behance-card,
+.easehub-service-grid > *,
+#campus-pipeline,
+#bundles,
+#reviews,
+#faq {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Performance: Skip layout/paint of offscreen sections until scrolled near */
+#reviews,
+#faq,
+#campus-story,
+#security-grid {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 650px;
+}
+
+/* Hide floating mobile view button on actual small mobile screens */
+@media (max-width: 767px) {
+  .easehub-floating-mobile-trigger {
+    display: none !important;
+  }
+}
+
+/* Mobile Preview Mode Body Lock & Outer Trigger Suppress */
+body.mobile-preview-active {
+  overflow: hidden !important;
+}
+
+body.mobile-preview-active .easehub-floating-mobile-trigger {
+  display: none !important;
+}
+
+/* In Mobile Preview Mode, strictly hide desktop navbar links and show mobile header */
+body.mobile-preview-active .easehub-nav-desktop-container {
+  display: none !important;
+}
+
+body.mobile-preview-active .easehub-nav-mobile-container {
+  display: block !important;
+}
+
+/* In Mobile Preview Mode, offset the fixed navbar to sit right below the 42px status bar */
+body.mobile-preview-active .easehub-global-navbar {
+  top: 42px !important;
+  border-radius: 0 !important;
+}
+
+/* ==========================================================================
+   MOBILE NAVIGATION DRAWER - SAFE-AREA & SIMULATOR NOTCH CLEARANCE
+   ========================================================================== */
+#mobile-nav-drawer,
+.easehub-mobile-nav-drawer {
+  position: fixed !important;
+  inset: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  max-height: none !important;
+  border-radius: 0 !important;
+  z-index: 999995 !important;
+  box-sizing: border-box !important;
+}
+
+/* In 1-Tap Mobile Simulator Mode, dock strictly below the 42px phone status bar */
+body.mobile-preview-active #mobile-nav-drawer,
+body.mobile-preview-active .easehub-mobile-nav-drawer {
+  top: 42px !important;
+  height: calc(100% - 42px) !important;
+  bottom: 0 !important;
+}
+
+body.mobile-preview-active #mobile-nav-drawer .easehub-mobile-drawer-panel,
+body.mobile-preview-active .easehub-mobile-nav-drawer .easehub-mobile-drawer-panel {
+  height: 100% !important;
+  max-height: 100% !important;
+}
+
+body.mobile-preview-active #mobile-nav-drawer .easehub-mobile-drawer-header,
+body.mobile-preview-active .easehub-mobile-nav-drawer .easehub-mobile-drawer-header {
+  padding-top: 0 !important;
+  height: 64px !important;
+  min-height: 64px !important;
+}
+
+/* On real mobile devices, respect safe-area-inset-top so drawer header & logo never collide with notch / Dynamic Island */
+@supports (padding-top: env(safe-area-inset-top)) {
+  #mobile-nav-drawer .easehub-mobile-drawer-header,
+  .easehub-mobile-nav-drawer .easehub-mobile-drawer-header {
+    padding-top: max(0.65rem, env(safe-area-inset-top)) !important;
+    min-height: calc(64px + env(safe-area-inset-top, 0px)) !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* ==========================================================================
+   OBSIDIAN DARK THEME ADAPTATION & HIGH CONTRAST TOKENS
+   ========================================================================== */
+[data-theme="dark"] section,
+[data-theme="dark"] main section,
+[data-theme="dark"] #hero,
+[data-theme="dark"] #campus-pipeline,
+[data-theme="dark"] #core-services,
+[data-theme="dark"] #mess-menu,
+[data-theme="dark"] #campus-bento,
+[data-theme="dark"] #bundles,
+[data-theme="dark"] #reviews,
+[data-theme="dark"] #faq,
+[data-theme="dark"] #campus-story,
+[data-theme="dark"] #security-grid,
+[data-theme="dark"] .easehub-app-shell {
+  background-color: var(--color-bg-primary) !important;
+  color: var(--color-text-primary) !important;
+}
+
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+  color: var(--color-text-primary) !important;
+}
+
+[data-theme="dark"] p {
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .prize-gradient-text {
+  background: linear-gradient(135deg, #34D399 0%, #10B981 50%, #6EE7B7 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+[data-theme="dark"] .prize-glass-card,
+[data-theme="dark"] .easehub-bento-card,
+[data-theme="dark"] .architectural-card,
+[data-theme="dark"] .behance-card,
+[data-theme="dark"] .easehub-hover-lift {
+  background-color: var(--color-surface-1) !important;
+  border-color: var(--color-border-subtle) !important;
+  color: var(--color-text-primary) !important;
+}
+
+[data-theme="dark"] .prize-glass-card {
+  background: rgba(15, 23, 42, 0.88) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
+}
+
+[data-theme="dark"] .prize-glass-card:hover {
+  border-color: #10B981 !important;
+  box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.8), 0 0 25px rgba(16, 185, 129, 0.25) !important;
+}
+
+[data-theme="dark"] .prize-dock-btn {
+  background-color: #0F172A !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  color: #F8FAFC !important;
+}
+
+[data-theme="dark"] .prize-dock-btn:hover {
+  background-color: #1E293B !important;
+  border-color: #10B981 !important;
+}
+
+[data-theme="dark"] .easehub-ambient-badge {
+  background-color: rgba(16, 185, 129, 0.12) !important;
+  border-color: rgba(16, 185, 129, 0.3) !important;
+  color: #34D399 !important;
+}
+
+[data-theme="dark"] .easehub-mobile-bottom-bar {
+  background: rgba(15, 23, 42, 0.94) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7) !important;
+}
+
+[data-theme="dark"] .easehub-mobile-bottom-bar span {
+  color: var(--color-text-secondary) !important;
+}
+
+[data-theme="dark"] .easehub-mobile-bottom-bar button.active span {
+  color: #10B981 !important;
+}
+

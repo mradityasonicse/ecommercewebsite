@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { Smartphone, Sun, Moon } from 'lucide-react';
 import { BrandLogo } from '../brand/BrandLogo';
-import { PRIMARY_NAV_ITEMS, type NavItem } from '../../config/navigation';
 import { type Campus } from '../../data/campuses';
+import { useTheme } from '../../context/ThemeContext';
 import { UserActions } from './UserActions';
+import { SearchTrigger } from './SearchTrigger';
 import { Container } from '../primitives/Container';
 
 export interface DesktopNavProps {
@@ -10,33 +12,116 @@ export interface DesktopNavProps {
   onCampusChange?: (campus: Campus) => void;
   onRequestCampusOpen?: () => void;
   onPartnerOpen?: () => void;
+  onOpenTracker?: () => void;
 }
 
-export const DesktopNav: React.FC<DesktopNavProps> = () => {
-  const [activeItem, setActiveItem] = useState<string>('pg');
+interface NavItemDef {
+  id: string;
+  label: string;
+  href: string;
+  badge?: string;
+  badgeColor?: string;
+  icon?: React.ReactNode;
+}
 
-  // Sync active item when category is selected anywhere
+export const DesktopNav: React.FC<DesktopNavProps> = ({ onOpenTracker: _onOpenTracker }) => {
+  const { theme, toggleTheme } = useTheme();
+  const [activeRoute, setActiveRoute] = useState<string>('home');
+
+  // Detect active route based on window.location.hash and window.location.pathname
   useEffect(() => {
-    const handleCategoryEvent = (e: CustomEvent<{ category: string }>) => {
-      if (e.detail?.category) {
-        const cat = e.detail.category.toLowerCase();
-        if (cat.includes('pg')) setActiveItem('pg');
-        else if (cat.includes('meal') || cat.includes('mess')) setActiveItem('meals');
-        else if (cat.includes('laundry')) setActiveItem('laundry');
-        else if (cat.includes('extra')) setActiveItem('extra');
-        else if (cat.includes('contact')) setActiveItem('contact');
+    const updateActiveRoute = () => {
+      const hash = window.location.hash.toLowerCase();
+      const path = window.location.pathname.toLowerCase();
+
+      if (hash.startsWith('#chat') || path.startsWith('/chat')) {
+        setActiveRoute('chat');
+      } else if (hash.startsWith('#admin') || path.startsWith('/admin')) {
+        setActiveRoute('admin');
+      } else if (hash.startsWith('#account/requests')) {
+        setActiveRoute('requests');
+      } else if (hash.startsWith('#account') || path.startsWith('/account')) {
+        setActiveRoute('account');
+      } else if (hash.startsWith('#provider') || path.startsWith('/provider')) {
+        setActiveRoute('provider');
+      } else if (hash.includes('bundle')) {
+        setActiveRoute('bundles');
+      } else if (hash.includes('trust')) {
+        setActiveRoute('trust');
+      } else if (hash.includes('contact')) {
+        setActiveRoute('contact');
+      } else if (
+        hash.includes('service') ||
+        hash.includes('catalog') ||
+        path.includes('service') ||
+        path.includes('catalog')
+      ) {
+        setActiveRoute('services');
+      } else {
+        setActiveRoute('home');
       }
     };
-    window.addEventListener('easehub:select-category' as any, handleCategoryEvent);
-    return () => window.removeEventListener('easehub:select-category' as any, handleCategoryEvent);
+
+    updateActiveRoute();
+    window.addEventListener('hashchange', updateActiveRoute);
+    window.addEventListener('popstate', updateActiveRoute);
+    return () => {
+      window.removeEventListener('hashchange', updateActiveRoute);
+      window.removeEventListener('popstate', updateActiveRoute);
+    };
   }, []);
 
-  const handleNavClick = (item: NavItem) => {
-    setActiveItem(item.id);
-    window.dispatchEvent(new CustomEvent('easehub:select-category', { detail: { category: item.id } }));
-    const el = document.getElementById('core-services');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+  const getNavItems = (): NavItemDef[] => {
+    return [
+      { id: 'home', label: 'Home', href: '#home' },
+      { id: 'pg', label: 'PG & Hostels', href: '#pg' },
+      { id: 'laundry', label: 'Laundry', href: '#laundry' },
+      { id: 'extra', label: 'Extra Services', href: '#extra' },
+    ];
+  };
+
+  const navItems = getNavItems();
+
+  const handleNavClick = (e: React.MouseEvent, item: NavItemDef) => {
+    e.preventDefault();
+    setActiveRoute(item.id);
+
+    if (item.id === 'home') {
+      window.location.hash = '#home';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (['pg', 'laundry', 'extra'].includes(item.id)) {
+      const categoryMap: { [key: string]: string } = {
+        pg: 'pg',
+        laundry: 'laundry',
+        extra: 'extra',
+      };
+      const cat = categoryMap[item.id] || item.id;
+      window.location.hash = `#${item.id}`;
+      window.dispatchEvent(
+        new CustomEvent('easehub:select-category', {
+          detail: { category: cat },
+        })
+      );
+      const el = document.getElementById('core-services');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+      return;
+    }
+
+    if (item.href.startsWith('#')) {
+      const targetId = item.href.replace('#', '').split('?')[0];
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.location.hash = item.href;
+      }
+    } else {
+      window.location.href = item.href;
     }
   };
 
@@ -63,66 +148,156 @@ export const DesktopNav: React.FC<DesktopNavProps> = () => {
             <BrandLogo variant="compact" href="#" />
           </div>
 
-          {/* 2. Center Navigation Links (Reference Site Style: Pill Bar) */}
+          {/* 2. Center Editorial Navigation (Precise, non-pill architectural layout) */}
           <nav
-            aria-label="Main Navigation"
+            role="navigation"
+            aria-label="Primary Navigation"
             style={{
               display: 'flex',
               alignItems: 'center',
-              backgroundColor: 'var(--color-surface-1)',
-              border: '1px solid var(--color-border-subtle)',
-              borderRadius: '9999px',
-              padding: '4px',
-              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
-              gap: '2px',
+              gap: '1.75rem',
+              height: '100%',
             }}
           >
-            {PRIMARY_NAV_ITEMS.map((item) => {
-              const isActive = activeItem === item.id;
+            {navItems.map((item) => {
+              const isActive = activeRoute === item.id;
 
               return (
-                <button
+                <a
                   key={item.id}
-                  type="button"
-                  onClick={() => handleNavClick(item)}
+                  href={item.href}
+                  onClick={(e) => handleNavClick(e, item)}
+                  aria-current={isActive ? 'page' : undefined}
+                  className={`easehub-nav-item ${isActive ? 'is-active' : ''}`}
                   style={{
+                    position: 'relative',
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '0.35rem',
-                    padding: '0.45rem 1.05rem',
-                    borderRadius: '9999px',
-                    backgroundColor: isActive ? 'var(--color-brand-navy)' : 'transparent',
-                    color: isActive ? '#FFFFFF' : 'var(--color-text-secondary)',
-                    border: 'none',
-                    fontSize: '0.86rem',
-                    fontFamily: 'var(--font-display, sans-serif)',
+                    gap: '0.4rem',
+                    padding: '0.5rem 0.25rem',
+                    fontSize: '0.875rem',
+                    fontFamily: 'var(--font-sans)',
                     fontWeight: isActive ? 700 : 500,
+                    color: isActive ? 'var(--color-brand-green)' : 'var(--color-text-secondary)',
+                    textDecoration: 'none',
                     cursor: 'pointer',
-                    transition: 'all 0.15s ease',
-                    outline: 'none',
-                    boxShadow: isActive ? '0 2px 8px rgba(18, 40, 90, 0.3)' : 'none',
+                    transition: 'color var(--duration-fast) var(--ease-standard)',
+                    borderRadius: 'var(--radius-xs)',
                   }}
                   onMouseEnter={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.color = 'var(--color-text-primary)';
-                      e.currentTarget.style.backgroundColor = 'var(--color-surface-2)';
-                    }
+                    if (!isActive) e.currentTarget.style.color = 'var(--color-brand-green)';
                   }}
                   onMouseLeave={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.color = 'var(--color-text-secondary)';
-                      e.currentTarget.style.backgroundColor = 'transparent';
-                    }
+                    if (!isActive) e.currentTarget.style.color = 'var(--color-text-secondary)';
                   }}
                 >
+                  {item.icon && <span style={{ display: 'inline-flex', alignItems: 'center' }}>{item.icon}</span>}
                   <span>{item.label}</span>
-                </button>
+                  {item.badge && (
+                    <span
+                      style={{
+                        fontSize: '0.62rem',
+                        fontWeight: 800,
+                        padding: '1px 6px',
+                        borderRadius: 'var(--radius-sm)',
+                        backgroundColor: item.badgeColor || '#15803D',
+                        color: '#FFFFFF',
+                        border: 'none',
+                        letterSpacing: '0.02em',
+                      }}
+                    >
+                      {item.badge}
+                    </span>
+                  )}
+                  {/* Subtle active underline indicator */}
+                  {isActive && (
+                    <span
+                      aria-hidden="true"
+                      style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: '2px',
+                        backgroundColor: '#15803D',
+                        borderRadius: '2px',
+                        pointerEvents: 'none',
+                      }}
+                    />
+                  )}
+                </a>
               );
             })}
           </nav>
 
-          {/* 3. Right Utility Actions (Sun Theme Toggle + Login + Sign Up) */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+          {/* 3. Right Utility Actions (Search + Mobile View + Theme Toggle + Auth) */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexShrink: 0 }}>
+            <SearchTrigger variant="desktop" />
+
+            {/* Theme Toggle Button (Light / Dark) */}
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={`Switch to ${theme === 'primary' ? 'Dark' : 'Light'} Mode`}
+              title={`Switch to ${theme === 'primary' ? 'Dark' : 'Light'} Mode`}
+              className="easehub-theme-toggle-btn easehub-spring-btn"
+              style={{
+                width: '36px',
+                height: '36px',
+                borderRadius: '8px',
+                backgroundColor: 'var(--color-surface-2)',
+                border: '1px solid var(--color-border-subtle)',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                flexShrink: 0,
+                transition: 'all 0.15s ease',
+                padding: 0,
+                outline: 'none',
+              }}
+            >
+              {theme === 'primary' ? (
+                <Sun size={17} color="#F59E0B" />
+              ) : (
+                <Moon size={17} color="#A78BFA" />
+              )}
+            </button>
+
+            {/* 1-Tap Mobile View Simulator Button */}
+            <button
+              type="button"
+              onClick={() => {
+                window.dispatchEvent(new CustomEvent('easehub:toggle-mobile-view', { detail: { enabled: true } }));
+              }}
+              title="One-Tap Mobile View Preview"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                padding: '0.38rem 0.75rem',
+                backgroundColor: '#DCFCE7',
+                border: '1.5px solid #86EFAC',
+                borderRadius: '8px',
+                color: '#15803D',
+                fontSize: '0.78rem',
+                fontWeight: 800,
+                cursor: 'pointer',
+                transition: 'all 0.15s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#BBF7D0';
+                e.currentTarget.style.transform = 'translateY(-1px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#DCFCE7';
+                e.currentTarget.style.transform = 'none';
+              }}
+            >
+              <Smartphone size={14} />
+              <span>Mobile View</span>
+            </button>
+
             <UserActions
               onSignIn={() => {
                 window.location.hash = '#auth/sign-in';
@@ -137,3 +312,4 @@ export const DesktopNav: React.FC<DesktopNavProps> = () => {
     </div>
   );
 };
+

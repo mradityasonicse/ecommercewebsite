@@ -8,6 +8,12 @@ import {
   ChevronRight,
   Shield,
   HelpCircle,
+  UtensilsCrossed,
+  Building2,
+  Shirt,
+  Wrench,
+  Store,
+  Moon,
 } from 'lucide-react';
 import { type Campus } from '../../data/campuses';
 import { SITE_CONFIG } from '../../data/site-config';
@@ -23,39 +29,59 @@ const DEFAULT_PHONE = '918102848776';
 interface QuickTopic {
   id: string;
   label: string;
-  emoji: string;
+  icon: React.ComponentType<{ size?: number; strokeWidth?: number; style?: React.CSSProperties; color?: string }>;
+  color: string;
+  bgColor: string;
   query: string;
 }
 
 const QUICK_TOPICS: QuickTopic[] = [
   {
     id: 'mess',
-    label: 'Daily Mess & Tiffin',
-    emoji: '🍛',
+    label: 'Daily Mess & Tiffin Plans',
+    icon: UtensilsCrossed,
+    color: '#F59E0B',
+    bgColor: 'rgba(245, 158, 11, 0.16)',
     query: 'Hi EaseHub! I want details about hygienic monthly mess & tiffin plans near campus.',
   },
   {
     id: 'pg',
-    label: 'Zero-Brokerage PG',
-    emoji: '🏠',
+    label: 'Zero-Brokerage PG & Rooms',
+    icon: Building2,
+    color: '#38BDF8',
+    bgColor: 'rgba(56, 189, 248, 0.16)',
     query: 'Hi EaseHub! Looking for verified student PG / hostel rooms with zero brokerage.',
   },
   {
     id: 'laundry',
-    label: 'Doorstep Laundry',
-    emoji: '🧺',
+    label: '24h Doorstep Laundry Pickup',
+    icon: Shirt,
+    color: '#10B981',
+    bgColor: 'rgba(16, 185, 129, 0.16)',
     query: 'Hi EaseHub! How does the 24-hour campus doorstep laundry pickup and iron service work?',
   },
   {
+    id: 'night_owl',
+    label: 'Midnight Canteen & Snacks',
+    icon: Moon,
+    color: '#C084FC',
+    bgColor: 'rgba(192, 132, 252, 0.16)',
+    query: 'Hi EaseHub! I want to order late-night Maggi / snacks to my hostel gate.',
+  },
+  {
     id: 'repairs',
-    label: 'Urgent Room Repairs',
-    emoji: '⚡',
+    label: 'Urgent Room Electrician/Plumbing',
+    icon: Wrench,
+    color: '#FB923C',
+    bgColor: 'rgba(251, 146, 60, 0.16)',
     query: 'Hi EaseHub! I need urgent electrician/plumber maintenance in my student room.',
   },
   {
     id: 'partner',
-    label: 'List Campus Business',
-    emoji: '🤝',
+    label: 'List Your Campus Business',
+    icon: Store,
+    color: '#818CF8',
+    bgColor: 'rgba(129, 140, 248, 0.16)',
     query: 'Hi EaseHub! I am a local campus service provider and want to get verified on EaseHub.',
   },
 ];
@@ -72,14 +98,9 @@ export const CampusChatWidget: React.FC<CampusChatWidgetProps> = ({
   const panelRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  // Show a gentle invitation tooltip on desktop after 2.5 seconds
+  // Keep chat pill clean without intrusive auto-popup
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!isOpen) {
-        setShowTooltip(true);
-      }
-    }, 2500);
-    return () => clearTimeout(timer);
+    setShowTooltip(false);
   }, [isOpen]);
 
   // Hide tooltip when opened
@@ -524,6 +545,7 @@ export const CampusChatWidget: React.FC<CampusChatWidgetProps> = ({
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.375rem' }}>
                   {QUICK_TOPICS.map((topic) => {
                     const isSelected = selectedTopic === topic.id;
+                    const IconComponent = topic.icon;
                     return (
                       <button
                         key={topic.id}
@@ -533,31 +555,60 @@ export const CampusChatWidget: React.FC<CampusChatWidgetProps> = ({
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'space-between',
-                          padding: '0.6rem 0.75rem',
+                          padding: '0.65rem 0.85rem',
                           backgroundColor: isSelected
-                            ? 'rgba(37, 211, 102, 0.12)'
+                            ? 'rgba(37, 211, 102, 0.14)'
                             : 'var(--color-surface-2, #181F2E)',
                           border: isSelected
                             ? '1px solid #25D366'
                             : '1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.08))',
-                          borderRadius: 'var(--radius-sm, 6px)',
+                          borderRadius: '10px',
                           color: 'var(--color-text-primary, #FFFFFF)',
-                          fontSize: '0.8rem',
-                          fontWeight: 500,
+                          fontSize: '0.82rem',
+                          fontWeight: 600,
                           cursor: 'pointer',
                           textAlign: 'left',
-                          transition: 'all 0.15s ease',
+                          transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                        }}
+                        onMouseEnter={(e) => {
+                          if (!isSelected) {
+                            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)';
+                            e.currentTarget.style.transform = 'translateX(3px)';
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (!isSelected) {
+                            e.currentTarget.style.backgroundColor = 'var(--color-surface-2, #181F2E)';
+                            e.currentTarget.style.transform = 'none';
+                          }
                         }}
                       >
-                        <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                          <span>{topic.emoji}</span>
-                          <span>{topic.label}</span>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                          <span
+                            style={{
+                              width: '28px',
+                              height: '28px',
+                              borderRadius: '8px',
+                              backgroundColor: topic.bgColor,
+                              border: `1px solid ${topic.color}35`,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              color: topic.color,
+                              flexShrink: 0,
+                              boxShadow: `0 2px 8px ${topic.color}20`,
+                            }}
+                          >
+                            <IconComponent size={15} strokeWidth={2.2} />
+                          </span>
+                          <span style={{ color: 'var(--color-text-primary, #FFFFFF)' }}>{topic.label}</span>
                         </span>
                         <ChevronRight
-                          size={14}
+                          size={15}
                           style={{
                             color: isSelected ? '#25D366' : 'var(--color-text-muted, #94A3B8)',
                             flexShrink: 0,
+                            transition: 'transform 0.15s ease',
                           }}
                         />
                       </button>
@@ -735,22 +786,35 @@ export const CampusChatWidget: React.FC<CampusChatWidgetProps> = ({
           from { opacity: 0; transform: translateY(16px) scale(0.97); }
           to { opacity: 1; transform: translateY(0) scale(1); }
         }
-        @media (max-width: 640px) {
-          .easehub-chat-desktop-tooltip {
-            display: none !important;
+        @media (max-width: 860px) {
+          .easehub-chat-floating-root {
+            bottom: calc(env(safe-area-inset-bottom, 0px) + 88px) !important;
+            right: 16px !important;
+          }
+          .easehub-chat-panel {
+            bottom: calc(env(safe-area-inset-bottom, 0px) + 90px) !important;
           }
           .easehub-chat-online-badge {
             display: none !important;
           }
+          .easehub-chat-desktop-tooltip {
+            display: none !important;
+          }
+          #easehub-chat-trigger {
+            padding: 0.62rem 0.95rem !important;
+            min-height: 42px !important;
+          }
+        }
+        @media (max-width: 640px) {
           .easehub-chat-panel {
             right: 1rem !important;
             left: 1rem !important;
             width: auto !important;
             max-width: none !important;
-            bottom: max(5rem, calc(env(safe-area-inset-bottom, 0px) + 5rem)) !important;
+            bottom: max(5.5rem, calc(env(safe-area-inset-bottom, 0px) + 5.5rem)) !important;
           }
           #easehub-chat-trigger {
-            padding: 0.75rem 1rem !important;
+            padding: 0.6rem 0.9rem !important;
           }
         }
       `}</style>

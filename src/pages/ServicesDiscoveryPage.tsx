@@ -57,7 +57,7 @@ export const ServicesDiscoveryPage: React.FC<ServicesDiscoveryPageProps> = ({
   });
 
   const [allServices, setAllServices] = useState<Service[]>(() => {
-    return ServiceRepository.filterAndSortServices([], {}).length ? [] : [...(window as any).__INITIAL_SERVICES__ || []];
+    return ServiceRepository.getCategories().length ? ServiceRepository.filterAndSortServices(ServiceRepository.getServicesSync ? ServiceRepository.getServicesSync() : [], {}) : [];
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
@@ -181,7 +181,7 @@ export const ServicesDiscoveryPage: React.FC<ServicesDiscoveryPageProps> = ({
               onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--color-blue-light)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-text-muted)'; }}
             >
-              <span>← Back to Homepage Story</span>
+              <span>← Back to Homepage</span>
             </button>
           </div>
         )}
@@ -215,6 +215,7 @@ export const ServicesDiscoveryPage: React.FC<ServicesDiscoveryPageProps> = ({
             onOpenMobileFilters={() => setIsDrawerOpen(true)}
             onClearFilters={handleClearFilters}
             hasActiveFilters={hasActiveFilters}
+            categories={categories}
           />
         </div>
 
@@ -227,6 +228,7 @@ export const ServicesDiscoveryPage: React.FC<ServicesDiscoveryPageProps> = ({
           <EmptyState
             onClearFilters={handleClearFilters}
             searchQuery={filters.search}
+            activeCategory={filters.category}
           />
         ) : (
           <ServiceResults

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X } from 'lucide-react';
+import { X, Sparkles } from 'lucide-react';
 
 export interface AnnouncementBannerProps {
   message?: string;
@@ -7,7 +7,7 @@ export interface AnnouncementBannerProps {
 }
 
 export const AnnouncementBanner: React.FC<AnnouncementBannerProps> = ({
-  message = '🎉 Early users get priority support',
+  message = 'Early verified students get priority campus dispatch & onboarding perks',
   onDismiss,
 }) => {
   const [isVisible, setIsVisible] = useState<boolean>(true);
@@ -46,6 +46,7 @@ export const AnnouncementBanner: React.FC<AnnouncementBannerProps> = ({
           margin: '0 auto',
         }}
       >
+        <Sparkles size={14} style={{ color: '#86EFAC', flexShrink: 0 }} />
         <span>{message}</span>
       </div>
 

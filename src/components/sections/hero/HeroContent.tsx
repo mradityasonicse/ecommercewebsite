@@ -93,9 +93,7 @@ export const HeroContent: React.FC<HeroContentProps> = ({
         Everything Students Need.{' '}
         <span
           style={{
-            background: 'linear-gradient(135deg, #0F382C 0%, #164E3E 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
+            color: 'var(--color-brand-gold)',
             display: 'inline-block',
           }}
         >

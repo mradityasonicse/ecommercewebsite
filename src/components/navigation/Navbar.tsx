@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, Sun, Moon } from 'lucide-react';
+import { Sun, Moon } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { type Campus } from '../../data/campuses';
 import { BrandLogo } from '../brand/BrandLogo';
 import { DesktopNav } from './DesktopNav';
 import { MobileMenu } from './MobileMenu';
 import { SearchTrigger } from './SearchTrigger';
-import { Button } from '../ui/Button';
 
 export interface NavbarProps {
   selectedCampus: Campus;
   onCampusChange: (campus: Campus) => void;
   onRequestCampusOpen?: () => void;
   onPartnerOpen?: () => void;
+  onOpenTracker?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -20,6 +20,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onCampusChange,
   onRequestCampusOpen,
   onPartnerOpen,
+  onOpenTracker,
 }) => {
   const { theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -30,7 +31,10 @@ export const Navbar: React.FC<NavbarProps> = ({
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          setIsScrolled(window.scrollY > 20);
+          setIsScrolled((prev) => {
+            const next = window.scrollY > 20;
+            return prev === next ? prev : next;
+          });
           ticking = false;
         });
         ticking = true;
@@ -61,9 +65,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             onCampusChange={onCampusChange}
             onRequestCampusOpen={onRequestCampusOpen}
             onPartnerOpen={onPartnerOpen}
+            onOpenTracker={onOpenTracker}
           />
         </div>
 
+        {/* Mobile Navigation Header (Rendered on < 1024px) */}
         {/* Mobile Navigation Header (Rendered on < 1024px) */}
         <div className="easehub-nav-mobile-container">
           <div
@@ -71,58 +77,37 @@ export const Navbar: React.FC<NavbarProps> = ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              height: '64px',
+              height: '60px',
               padding: '0 1rem',
             }}
           >
-            {/* Left: Hamburger Menu Button */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <button
-                type="button"
-                onClick={() => setIsMobileMenuOpen(true)}
-                aria-label="Open mobile navigation menu"
-                aria-expanded={isMobileMenuOpen}
-                style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: 'var(--radius-sm)',
-                  backgroundColor: 'var(--color-surface-2)',
-                  border: '1px solid var(--color-border-default)',
-                  color: 'var(--color-text-primary)',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
-                  outline: 'none',
-                }}
-              >
-                <Menu size={20} />
-              </button>
-
+            {/* Left: Brand Logo */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <BrandLogo variant="mobile" href="#" />
             </div>
 
-            {/* Right: Quick Search, Theme Toggle & CTA */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+            {/* Right: Quick Search, Theme Toggle & Animated Hamburger */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <button
                 type="button"
                 onClick={toggleTheme}
-                aria-label={`Toggle theme: currently ${theme === 'primary' ? 'Navy Blue' : 'Obsidian Black'}`}
-                title={`Switch visual theme (${theme === 'primary' ? 'Navy Blue' : 'Obsidian Black'})`}
+                aria-label={`Switch to ${theme === 'primary' ? 'Dark' : 'Light'} Mode`}
+                title={`Switch to ${theme === 'primary' ? 'Dark' : 'Light'} Mode`}
+                className="easehub-theme-toggle-btn easehub-spring-btn"
                 style={{
-                  width: '38px',
-                  height: '38px',
-                  borderRadius: '9999px',
-                  backgroundColor: theme === 'primary' ? '#132756' : '#0F121A',
-                  border: theme === 'primary' ? '1.5px solid #284D9E' : '1.5px solid #242B3D',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: 'var(--radius-md)',
+                  backgroundColor: 'var(--color-surface-2)',
+                  border: '1px solid var(--color-border-subtle)',
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   cursor: 'pointer',
                   flexShrink: 0,
-                  transition: 'all 0.2s ease',
-                  boxShadow: theme === 'primary' ? '0 2px 8px rgba(19, 39, 86, 0.4)' : '0 2px 8px rgba(0, 0, 0, 0.6)',
+                  transition: 'all var(--duration-fast) var(--ease-standard)',
                   padding: 0,
+                  outline: 'none',
                 }}
               >
                 {theme === 'primary' ? (
@@ -133,17 +118,63 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
 
               <SearchTrigger variant="compact" />
-              <Button
-                variant="primary"
-                size="sm"
-                className="easehub-nav-mobile-cta"
-                onClick={() => {
-                  window.location.hash = '#auth/sign-up';
+
+              {/* Animated Hamburger Button (Morphs to X) */}
+              <button
+                type="button"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+                aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-nav-drawer"
+                className="easehub-hamburger-btn"
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: 'var(--radius-md)',
+                  backgroundColor: 'var(--color-surface-2)',
+                  border: '1px solid var(--color-border-subtle)',
+                  color: 'var(--color-text-primary)',
+                  display: 'inline-flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '4px',
+                  cursor: 'pointer',
+                  outline: 'none',
+                  padding: 0,
                 }}
-                style={{ padding: '0.4rem 0.75rem', fontSize: '0.78rem', whiteSpace: 'nowrap' }}
               >
-                Get Started
-              </Button>
+                <span
+                  style={{
+                    width: '18px',
+                    height: '2px',
+                    backgroundColor: 'var(--color-text-primary, #0F172A)',
+                    borderRadius: '2px',
+                    transition: 'transform var(--duration-fast) var(--ease-smooth), opacity var(--duration-fast)',
+                    transform: isMobileMenuOpen ? 'translateY(6px) rotate(45deg)' : 'none',
+                  }}
+                />
+                <span
+                  style={{
+                    width: '18px',
+                    height: '2px',
+                    backgroundColor: 'var(--color-text-primary, #0F172A)',
+                    borderRadius: '2px',
+                    transition: 'opacity var(--duration-fast)',
+                    opacity: isMobileMenuOpen ? 0 : 1,
+                  }}
+                />
+                <span
+                  style={{
+                    width: '18px',
+                    height: '2px',
+                    backgroundColor: 'var(--color-text-primary, #0F172A)',
+                    borderRadius: '2px',
+                    transition: 'transform var(--duration-fast) var(--ease-smooth), opacity var(--duration-fast)',
+                    transform: isMobileMenuOpen ? 'translateY(-6px) rotate(-45deg)' : 'none',
+                  }}
+                />
+              </button>
             </div>
           </div>
         </div>
@@ -158,11 +189,19 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           @media (max-width: 1023px) {
             .easehub-nav-desktop-container {
-              display: none;
+              display: none !important;
             }
             .easehub-nav-mobile-container {
-              display: block;
+              display: block !important;
             }
+          }
+
+          /* Force Mobile Header in 1-Tap Mobile Simulator */
+          body.mobile-preview-active .easehub-nav-desktop-container {
+            display: none !important;
+          }
+          body.mobile-preview-active .easehub-nav-mobile-container {
+            display: block !important;
           }
 
           @media (max-width: 375px) {

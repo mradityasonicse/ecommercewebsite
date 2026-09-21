@@ -58,8 +58,8 @@ export const ServiceHero: React.FC<ServiceHeroProps> = ({
               {service.category.toUpperCase().replace('-', ' & ')}
             </span>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.8rem', color: 'var(--color-text-muted, #6B736D)' }}>
-              <MapPin size={13} color="var(--color-brand-blue, #0F382C)" />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>
+              <MapPin size={13} color="var(--color-brand-blue)" />
               <span>Available around <strong>{activeCampus.name}</strong></span>
             </div>
           </div>
@@ -72,7 +72,7 @@ export const ServiceHero: React.FC<ServiceHeroProps> = ({
               fontWeight: 600,
               lineHeight: 1.15,
               letterSpacing: '-0.02em',
-              color: 'var(--color-text-primary, #151D1A)',
+              color: 'var(--color-text-primary)',
               margin: '0 0 var(--space-4) 0',
             }}
           >
@@ -84,7 +84,7 @@ export const ServiceHero: React.FC<ServiceHeroProps> = ({
               fontSize: 'clamp(1.1rem, 1.4vw, 1.25rem)',
               fontFamily: 'var(--font-sans)',
               fontWeight: 600,
-              color: 'var(--color-brand-blue, #0F382C)',
+              color: 'var(--color-brand-blue)',
               lineHeight: 1.4,
               margin: '0 0 var(--space-4) 0',
             }}
@@ -96,7 +96,7 @@ export const ServiceHero: React.FC<ServiceHeroProps> = ({
             style={{
               fontSize: '0.96rem',
               fontFamily: 'var(--font-sans)',
-              color: 'var(--color-text-secondary, #414845)',
+              color: 'var(--color-text-secondary)',
               lineHeight: 1.6,
               margin: '0 0 var(--space-8) 0',
               maxWidth: '560px',
@@ -114,19 +114,19 @@ export const ServiceHero: React.FC<ServiceHeroProps> = ({
               marginBottom: 'var(--space-8)',
               padding: '0.75rem 1.25rem',
               backgroundColor: '#FFFFFF',
-              border: '1px solid var(--color-border-subtle, #E8E4D5)',
+              border: '1px solid var(--color-border-subtle)',
               borderRadius: 'var(--radius-lg)',
               boxShadow: 'var(--shadow-sm)',
               width: 'max-content',
             }}
           >
-            <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--color-text-muted, #6B736D)', textTransform: 'uppercase' }}>
+            <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>
               Student Rate Card:
             </span>
-            <span style={{ fontSize: '1.4rem', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 700, color: 'var(--color-text-primary, #151D1A)' }}>
+            <span style={{ fontSize: '1.4rem', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 700, color: 'var(--color-text-primary)' }}>
               From {service.startingPrice}
             </span>
-            <span style={{ fontSize: '0.82rem', color: 'var(--color-text-muted, #6B736D)' }}>
+            <span style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)' }}>
               {service.pricingUnit}
             </span>
           </div>
@@ -139,7 +139,7 @@ export const ServiceHero: React.FC<ServiceHeroProps> = ({
               style={{
                 padding: '0.85rem 1.8rem',
                 borderRadius: 'var(--radius-md)',
-                backgroundColor: 'var(--color-brand-blue, #0F382C)',
+                backgroundColor: 'var(--color-brand-blue)',
                 color: '#FFFFFF',
                 border: 'none',
                 fontSize: '0.92rem',
@@ -166,8 +166,8 @@ export const ServiceHero: React.FC<ServiceHeroProps> = ({
                 padding: '0.85rem 1.5rem',
                 borderRadius: 'var(--radius-md)',
                 backgroundColor: '#FFFFFF',
-                color: 'var(--color-text-primary, #151D1A)',
-                border: '1px solid var(--color-border-subtle, #E8E4D5)',
+                color: 'var(--color-text-primary)',
+                border: '1px solid var(--color-border-subtle)',
                 fontSize: '0.92rem',
                 fontFamily: 'var(--font-sans)',
                 fontWeight: 600,
@@ -178,16 +178,16 @@ export const ServiceHero: React.FC<ServiceHeroProps> = ({
                 transition: 'all var(--duration-fast)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'var(--color-brand-blue, #0F382C)';
-                e.currentTarget.style.color = 'var(--color-brand-blue, #0F382C)';
+                e.currentTarget.style.borderColor = 'var(--color-brand-blue)';
+                e.currentTarget.style.color = 'var(--color-brand-blue)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'var(--color-border-subtle, #E8E4D5)';
-                e.currentTarget.style.color = 'var(--color-text-primary, #151D1A)';
+                e.currentTarget.style.borderColor = 'var(--color-border-subtle)';
+                e.currentTarget.style.color = 'var(--color-text-primary)';
               }}
             >
-              <ShieldCheck size={16} color="var(--color-brand-blue, #0F382C)" />
-              <span>Verified Providers ({service.metrics.providersAvailable})</span>
+              <ShieldCheck size={16} color="var(--color-brand-blue)" />
+              <span>Verified Providers</span>
             </button>
           </div>
         </div>

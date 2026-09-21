@@ -4,17 +4,21 @@ import type { ServiceOption } from '../../types/serviceDetail';
 
 interface ServiceOptionsProps {
   options: ServiceOption[];
+  selectedOptionId?: string;
   onSelectOption: (option: ServiceOption) => void;
 }
 
 export const ServiceOptions: React.FC<ServiceOptionsProps> = ({
   options,
+  selectedOptionId: controlledSelectedId,
   onSelectOption,
 }) => {
-  const [selectedOptionId, setSelectedOptionId] = useState<string>(() => {
+  const [internalSelectedId, setInternalSelectedId] = useState<string>(() => {
     const popular = options.find(o => o.isPopular);
     return popular ? popular.id : (options[0]?.id || '');
   });
+
+  const selectedOptionId = controlledSelectedId || internalSelectedId;
 
   if (!options || options.length === 0) return null;
 
@@ -35,18 +39,18 @@ export const ServiceOptions: React.FC<ServiceOptionsProps> = ({
             gap: '0.45rem',
             padding: '0.35rem 0.85rem',
             borderRadius: 'var(--radius-pill)',
-            backgroundColor: 'rgba(15, 56, 44, 0.06)',
-            border: '1px solid rgba(15, 56, 44, 0.16)',
+            backgroundColor: 'rgba(59, 130, 246, 0.06)',
+            border: '1px solid rgba(59, 130, 246, 0.16)',
             fontSize: '0.72rem',
             fontFamily: 'var(--font-sans)',
             fontWeight: 700,
-            color: 'var(--color-brand-blue, #0F382C)',
+            color: 'var(--color-brand-blue)',
             textTransform: 'uppercase',
             letterSpacing: '0.08em',
             marginBottom: 'var(--space-3)',
           }}
         >
-          <Layers size={13} color="var(--color-brand-blue, #0F382C)" />
+          <Layers size={13} color="var(--color-brand-blue)" />
           <span>Flexible Formats</span>
         </div>
 
@@ -55,7 +59,7 @@ export const ServiceOptions: React.FC<ServiceOptionsProps> = ({
             fontSize: 'clamp(1.8rem, 2.8vw, 2.4rem)',
             fontFamily: 'var(--font-serif, "Domine", serif)',
             fontWeight: 600,
-            color: 'var(--color-text-primary, #151D1A)',
+            color: 'var(--color-text-primary)',
             lineHeight: 1.2,
             margin: '0 0 var(--space-3) 0',
           }}
@@ -63,7 +67,7 @@ export const ServiceOptions: React.FC<ServiceOptionsProps> = ({
           Select Your Living Plan.
         </h2>
 
-        <p style={{ fontSize: '0.96rem', color: 'var(--color-text-secondary, #414845)', lineHeight: 1.6, margin: 0 }}>
+        <p style={{ fontSize: '0.96rem', color: 'var(--color-text-secondary)', lineHeight: 1.6, margin: 0 }}>
           Choose a tier that matches your academic schedule. All plans include EaseHub quality auditing and cancellation flexibility.
         </p>
       </div>
@@ -82,7 +86,7 @@ export const ServiceOptions: React.FC<ServiceOptionsProps> = ({
             <div
               key={opt.id}
               onClick={() => {
-                setSelectedOptionId(opt.id);
+                setInternalSelectedId(opt.id);
                 onSelectOption(opt);
               }}
               role="button"
@@ -90,13 +94,13 @@ export const ServiceOptions: React.FC<ServiceOptionsProps> = ({
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
-                  setSelectedOptionId(opt.id);
+                  setInternalSelectedId(opt.id);
                   onSelectOption(opt);
                 }
               }}
               style={{
-                backgroundColor: isSelected ? '#f3fbf5' : '#FFFFFF',
-                border: isSelected ? '2px solid var(--color-brand-blue, #0F382C)' : '1px solid var(--color-border-subtle, #E8E4D5)',
+                backgroundColor: isSelected ? 'var(--color-surface-2)' : '#FFFFFF',
+                border: isSelected ? '2px solid var(--color-brand-blue)' : '1px solid var(--color-border-subtle)',
                 borderRadius: 'var(--radius-xl)',
                 padding: 'var(--space-8)',
                 cursor: 'pointer',
@@ -109,13 +113,13 @@ export const ServiceOptions: React.FC<ServiceOptionsProps> = ({
               }}
               onMouseEnter={(e) => {
                 if (!isSelected) {
-                  e.currentTarget.style.borderColor = 'var(--color-brand-blue, #0F382C)';
+                  e.currentTarget.style.borderColor = 'var(--color-brand-blue)';
                   e.currentTarget.style.boxShadow = 'var(--shadow-md)';
                 }
               }}
               onMouseLeave={(e) => {
                 if (!isSelected) {
-                  e.currentTarget.style.borderColor = 'var(--color-border-subtle, #E8E4D5)';
+                  e.currentTarget.style.borderColor = 'var(--color-border-subtle)';
                   e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
                 }
               }}
@@ -127,7 +131,7 @@ export const ServiceOptions: React.FC<ServiceOptionsProps> = ({
                     position: 'absolute',
                     top: '-12px',
                     left: '24px',
-                    backgroundColor: 'var(--color-brand-blue, #0F382C)',
+                    backgroundColor: 'var(--color-brand-blue)',
                     color: '#FFFFFF',
                     fontSize: '0.7rem',
                     fontFamily: 'var(--font-sans)',
@@ -139,7 +143,7 @@ export const ServiceOptions: React.FC<ServiceOptionsProps> = ({
                     boxShadow: 'var(--shadow-sm)',
                   }}
                 >
-                  ★ {opt.tag || 'Most Popular'}
+                  {opt.tag || 'Recommended Plan'}
                 </div>
               )}
 
@@ -150,9 +154,9 @@ export const ServiceOptions: React.FC<ServiceOptionsProps> = ({
                       style={{
                         fontSize: '0.7rem',
                         fontFamily: 'var(--font-mono)',
-                        color: 'var(--color-brand-blue, #0F382C)',
-                        backgroundColor: '#f3fbf5',
-                        border: '1px solid var(--color-border-subtle, #E8E4D5)',
+                        color: 'var(--color-brand-blue)',
+                        backgroundColor: 'var(--color-surface-2)',
+                        border: '1px solid var(--color-border-subtle)',
                         padding: '0.2rem 0.55rem',
                         borderRadius: 'var(--radius-sm)',
                       }}
@@ -167,7 +171,7 @@ export const ServiceOptions: React.FC<ServiceOptionsProps> = ({
                     fontSize: '1.25rem',
                     fontFamily: 'var(--font-serif, "Domine", serif)',
                     fontWeight: 600,
-                    color: 'var(--color-text-primary, #151D1A)',
+                    color: 'var(--color-text-primary)',
                     margin: '0 0 var(--space-2) 0',
                   }}
                 >
@@ -177,7 +181,7 @@ export const ServiceOptions: React.FC<ServiceOptionsProps> = ({
                 <p
                   style={{
                     fontSize: '0.86rem',
-                    color: 'var(--color-text-secondary, #414845)',
+                    color: 'var(--color-text-secondary)',
                     lineHeight: 1.5,
                     margin: '0 0 var(--space-6) 0',
                   }}
@@ -188,23 +192,23 @@ export const ServiceOptions: React.FC<ServiceOptionsProps> = ({
                 {/* Price Display */}
                 <div
                   style={{
-                    backgroundColor: '#f3fbf5',
-                    border: '1px solid var(--color-border-subtle, #E8E4D5)',
+                    backgroundColor: 'var(--color-surface-2)',
+                    border: '1px solid var(--color-border-subtle)',
                     borderRadius: 'var(--radius-lg)',
                     padding: 'var(--space-4) var(--space-5)',
                     marginBottom: 'var(--space-6)',
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.35rem' }}>
-                    <span style={{ fontSize: '1.75rem', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 700, color: 'var(--color-text-primary, #151D1A)' }}>
+                    <span style={{ fontSize: '1.75rem', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 700, color: 'var(--color-text-primary)' }}>
                       {opt.price.currency}{opt.price.amount?.toLocaleString()}
                     </span>
-                    <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted, #6B736D)' }}>
+                    <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>
                       /{opt.price.period?.replace('per ', '')}
                     </span>
                   </div>
                   {opt.price.billingNote && (
-                    <div style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary, #414845)', marginTop: '0.2rem' }}>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginTop: '0.2rem' }}>
                       {opt.price.billingNote}
                     </div>
                   )}
@@ -213,7 +217,7 @@ export const ServiceOptions: React.FC<ServiceOptionsProps> = ({
                 {/* Feature checklist */}
                 <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 var(--space-6) 0', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   {opt.features.map((feat, idx) => (
-                    <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.84rem', color: 'var(--color-text-primary, #151D1A)' }}>
+                    <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.84rem', color: 'var(--color-text-primary)' }}>
                       <CheckCircle2 size={15} color="#2E7D32" style={{ marginTop: '2px', flexShrink: 0 }} />
                       <span>{feat}</span>
                     </li>
@@ -228,9 +232,9 @@ export const ServiceOptions: React.FC<ServiceOptionsProps> = ({
                   width: '100%',
                   padding: '0.75rem',
                   borderRadius: 'var(--radius-md)',
-                  backgroundColor: isSelected ? 'var(--color-brand-blue, #0F382C)' : '#FFFFFF',
-                  color: isSelected ? '#FFFFFF' : 'var(--color-text-primary, #151D1A)',
-                  border: isSelected ? 'none' : '1px solid var(--color-border-subtle, #E8E4D5)',
+                  backgroundColor: isSelected ? 'var(--color-brand-blue)' : '#FFFFFF',
+                  color: isSelected ? '#FFFFFF' : 'var(--color-text-primary)',
+                  border: isSelected ? 'none' : '1px solid var(--color-border-subtle)',
                   fontSize: '0.86rem',
                   fontFamily: 'var(--font-sans)',
                   fontWeight: 700,

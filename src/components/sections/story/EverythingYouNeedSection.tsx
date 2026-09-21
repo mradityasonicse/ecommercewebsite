@@ -166,7 +166,7 @@ export const EverythingYouNeedSection: React.FC<EverythingYouNeedSectionProps> =
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-6px)';
                   e.currentTarget.style.boxShadow = '0 16px 32px rgba(0, 0, 0, 0.08)';
-                  e.currentTarget.style.borderColor = 'var(--color-brand-blue, #0F382C)';
+                  e.currentTarget.style.borderColor = 'var(--color-brand-blue)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'none';
@@ -284,9 +284,9 @@ export const EverythingYouNeedSection: React.FC<EverythingYouNeedSectionProps> =
                     transition: 'all 0.2s ease',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = 'var(--color-brand-blue, #0F382C)';
+                    e.currentTarget.style.backgroundColor = 'var(--color-brand-blue)';
                     e.currentTarget.style.color = '#FFFFFF';
-                    e.currentTarget.style.borderColor = 'var(--color-brand-blue, #0F382C)';
+                    e.currentTarget.style.borderColor = 'var(--color-brand-blue)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.backgroundColor = 'transparent';

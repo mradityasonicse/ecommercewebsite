@@ -8,12 +8,9 @@ import {
   LayoutDashboard,
   Shield,
   ChevronDown,
-  Sun,
-  Moon,
 } from 'lucide-react';
 import type { UserRole } from '../../types/auth';
 import { useAuth } from '../../context/AuthContext';
-import { useTheme } from '../../context/ThemeContext';
 import { NotificationService } from '../../services/notificationService';
 
 export interface UserActionsProps {
@@ -33,7 +30,6 @@ export const UserActions: React.FC<UserActionsProps> = ({
   style = {},
 }) => {
   const { user, isAuthenticated, signOut } = useAuth();
-  const { theme, toggleTheme } = useTheme();
   const isMobile = variant === 'mobile';
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -70,18 +66,16 @@ export const UserActions: React.FC<UserActionsProps> = ({
   }, []);
 
   const handleSignIn = () => {
+    window.dispatchEvent(new CustomEvent('easehub_open_role_gate'));
     if (onSignIn) {
       onSignIn();
-    } else {
-      window.location.hash = '#auth/sign-in';
     }
   };
 
   const handleGetStarted = () => {
+    window.dispatchEvent(new CustomEvent('easehub_open_role_gate'));
     if (onGetStarted) {
       onGetStarted();
-    } else {
-      window.location.hash = '#auth/sign-up';
     }
   };
 
@@ -93,10 +87,12 @@ export const UserActions: React.FC<UserActionsProps> = ({
   const handleSignOut = () => {
     setIsDropdownOpen(false);
     signOut();
+    localStorage.removeItem('easehub_current_role');
+    localStorage.removeItem('easehub_user_role');
     window.location.hash = '';
   };
 
-  // 1. LOGGED OUT STATE
+  // 1. LOGGED OUT STATE (Figma & Awwwards Grade Minimal Header Actions)
   if (!isAuthenticated || !user) {
     return (
       <div
@@ -110,109 +106,66 @@ export const UserActions: React.FC<UserActionsProps> = ({
           ...style,
         }}
       >
-        {/* Dark / Light Mode Toggle Button (Matching Reference Site) */}
-        {/* Theme Switcher Button (Primary Brand Navy -> Pitch Black -> Crisp Light) */}
-        {!isMobile && (
-          <button
-            type="button"
-            onClick={toggleTheme}
-            aria-label={`Current Theme: ${theme === 'primary' ? 'Navy Blue' : 'Obsidian Black'}. Click to switch theme.`}
-            title={`Current Theme: ${
-              theme === 'primary'
-                ? 'Brand Navy (Click for Pitch Black)'
-                : 'Pitch Black (Click for Brand Navy)'
-            }`}
-            style={{
-              width: '38px',
-              height: '38px',
-              borderRadius: '9999px',
-              backgroundColor: theme === 'primary' ? '#132756' : '#0F121A',
-              border: theme === 'primary' ? '1.5px solid #284D9E' : '1.5px solid #242B3D',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              boxShadow:
-                theme === 'primary'
-                  ? '0 2px 10px rgba(18, 40, 90, 0.4)'
-                  : '0 2px 10px rgba(0, 0, 0, 0.6)',
-              transition: 'all 0.2s ease',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'scale(1.1)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'scale(1)';
-            }}
-          >
-            {theme === 'primary' ? (
-              // Brand Royal Navy Mode: Sunflower Gold Sun/Sparkle
-              <Sun size={18} color="#FACA12" />
-            ) : (
-              // Midnight Black Mode: Cool Lunar Violet Moon
-              <Moon size={18} color="#A78BFA" />
-            )}
-          </button>
-        )}
-
-        {/* Login Button (Reference Site Style: Crisp White with Border) */}
+        {/* Clean Sign In Text Button */}
         <button
           type="button"
           onClick={handleSignIn}
+          className="easehub-spring-btn"
           style={{
-            padding: isMobile ? '0.75rem 1rem' : '0.45rem 1.15rem',
+            padding: isMobile ? '0.65rem 1rem' : '0.42rem 0.85rem',
             width: isMobile ? '100%' : 'auto',
-            backgroundColor: '#FFFFFF',
-            border: '1px solid #E2E8F0',
-            borderRadius: '8px',
-            color: '#0F172A',
-            fontSize: '0.86rem',
-            fontWeight: 600,
-            fontFamily: 'var(--font-display, sans-serif)',
+            backgroundColor: 'transparent',
+            border: 'none',
+            color: 'var(--color-text-primary, #334155)',
+            fontSize: '0.84rem',
+            fontWeight: 700,
+            fontFamily: 'var(--font-sans)',
             cursor: 'pointer',
-            boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
-            transition: 'all 0.15s ease',
+            transition: 'color 0.15s ease',
+            outline: 'none',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = '#F8FAFC';
-            e.currentTarget.style.borderColor = '#CBD5E1';
+            e.currentTarget.style.color = '#15803D';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = '#FFFFFF';
-            e.currentTarget.style.borderColor = '#E2E8F0';
+            e.currentTarget.style.color = 'var(--color-text-primary, #334155)';
           }}
         >
-          Login
+          Sign In
         </button>
 
-        {/* Sign Up Button (Reference Site Style: Solid Brand Navy) */}
+        {/* Primary Get Started Button */}
         <button
           type="button"
           onClick={handleGetStarted}
+          className="easehub-spring-btn"
           style={{
-            padding: isMobile ? '0.75rem 1rem' : '0.48rem 1.25rem',
+            padding: isMobile ? '0.65rem 1.15rem' : '0.42rem 1.15rem',
             width: isMobile ? '100%' : 'auto',
-            backgroundColor: '#12285A', // Official Brand Deep Navy
+            backgroundColor: '#16A34A',
             border: 'none',
-            borderRadius: '8px',
+            borderRadius: '9999px',
             color: '#FFFFFF',
-            fontSize: '0.86rem',
-            fontWeight: 600,
-            fontFamily: 'var(--font-display, sans-serif)',
+            fontSize: '0.82rem',
+            fontWeight: 700,
+            fontFamily: 'var(--font-sans)',
             cursor: 'pointer',
-            boxShadow: '0 2px 8px rgba(18, 40, 90, 0.2)',
-            transition: 'all 0.15s ease',
+            boxShadow: '0 2px 10px rgba(22, 163, 74, 0.25)',
+            transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+            outline: 'none',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = '#0D1E44';
+            e.currentTarget.style.backgroundColor = '#15803D';
             e.currentTarget.style.transform = 'translateY(-1px)';
+            e.currentTarget.style.boxShadow = '0 4px 14px rgba(22, 163, 74, 0.35)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = '#12285A';
-            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.backgroundColor = '#16A34A';
+            e.currentTarget.style.transform = 'none';
+            e.currentTarget.style.boxShadow = '0 2px 10px rgba(22, 163, 74, 0.25)';
           }}
         >
-          Sign Up
+          Get Started
         </button>
       </div>
     );
@@ -436,7 +389,7 @@ export const UserActions: React.FC<UserActionsProps> = ({
           borderRadius: '50%',
           backgroundColor: 'var(--color-surface-2)',
           border: '1px solid var(--color-border-default)',
-          color: unreadCount > 0 ? 'var(--color-blue-light)' : 'var(--color-text-secondary)',
+          color: unreadCount > 0 ? 'var(--color-brand-blue)' : 'var(--color-text-secondary)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -450,7 +403,7 @@ export const UserActions: React.FC<UserActionsProps> = ({
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.borderColor = 'var(--color-border-default)';
-          e.currentTarget.style.color = unreadCount > 0 ? 'var(--color-blue-light)' : 'var(--color-text-secondary)';
+          e.currentTarget.style.color = unreadCount > 0 ? 'var(--color-brand-blue)' : 'var(--color-text-secondary)';
         }}
       >
         <Bell size={16} />
@@ -462,7 +415,7 @@ export const UserActions: React.FC<UserActionsProps> = ({
               right: '-2px',
               minWidth: '16px',
               height: '16px',
-              borderRadius: '8px',
+              borderRadius: 'var(--radius-pill)',
               backgroundColor: 'var(--color-brand-red)',
               color: '#FFFFFF',
               fontSize: '0.62rem',
@@ -470,8 +423,7 @@ export const UserActions: React.FC<UserActionsProps> = ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: '0 3px',
-              boxShadow: '0 0 6px var(--color-red-glow)',
+              padding: '0 4px',
             }}
           >
             {unreadCount}
@@ -553,9 +505,9 @@ export const UserActions: React.FC<UserActionsProps> = ({
                   borderRadius: 'var(--radius-pill)',
                   textTransform: 'uppercase',
                   fontWeight: 700,
-                  backgroundColor: role === 'admin' ? 'rgba(229, 36, 37, 0.15)' : 'var(--color-blue-subtle)',
-                  color: role === 'admin' ? '#FFA0A0' : 'var(--color-blue-light)',
-                  border: role === 'admin' ? '1px solid rgba(229, 36, 37, 0.3)' : '1px solid rgba(11, 127, 194, 0.3)',
+                  backgroundColor: role === 'admin' ? 'rgba(239, 68, 68, 0.15)' : 'var(--color-blue-subtle)',
+                  color: role === 'admin' ? 'var(--color-brand-red)' : 'var(--color-brand-blue)',
+                  border: role === 'admin' ? '1px solid rgba(239, 68, 68, 0.3)' : '1px solid rgba(59, 130, 246, 0.3)',
                 }}
               >
                 {role}
@@ -574,6 +526,7 @@ export const UserActions: React.FC<UserActionsProps> = ({
                 <button
                   type="button"
                   onClick={() => handleNavigate('#account/dashboard')}
+                  className="nav-dropdown-item"
                   style={dropdownItemStyle}
                 >
                   <LayoutDashboard size={14} color="var(--color-brand-blue)" />
@@ -583,6 +536,7 @@ export const UserActions: React.FC<UserActionsProps> = ({
                 <button
                   type="button"
                   onClick={() => handleNavigate('#account/requests')}
+                  className="nav-dropdown-item"
                   style={dropdownItemStyle}
                 >
                   <Package size={14} color="var(--color-brand-blue)" />
@@ -592,6 +546,7 @@ export const UserActions: React.FC<UserActionsProps> = ({
                 <button
                   type="button"
                   onClick={() => handleNavigate('#account/notifications')}
+                  className="nav-dropdown-item"
                   style={dropdownItemStyle}
                 >
                   <Bell size={14} color="var(--color-brand-blue)" />
@@ -600,7 +555,7 @@ export const UserActions: React.FC<UserActionsProps> = ({
                     <span
                       style={{
                         fontSize: '0.62rem',
-                        backgroundColor: 'var(--color-accent-red)',
+                        backgroundColor: 'var(--color-brand-red)',
                         color: '#FFFFFF',
                         borderRadius: 'var(--radius-pill)',
                         padding: '0.1rem 0.35rem',
@@ -615,6 +570,7 @@ export const UserActions: React.FC<UserActionsProps> = ({
                 <button
                   type="button"
                   onClick={() => handleNavigate('#account/profile')}
+                  className="nav-dropdown-item"
                   style={dropdownItemStyle}
                 >
                   <UserIcon size={14} color="var(--color-brand-blue)" />
@@ -624,12 +580,45 @@ export const UserActions: React.FC<UserActionsProps> = ({
                 <button
                   type="button"
                   onClick={() => handleNavigate('#account/settings')}
+                  className="nav-dropdown-item"
                   style={dropdownItemStyle}
                 >
                   <Settings size={14} color="var(--color-brand-blue)" />
                   <span>Settings & Preferences</span>
                 </button>
+              </>
+            )}
 
+            {/* Provider Role Actions */}
+            {role === 'provider' && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => handleNavigate('#provider')}
+                  className="nav-dropdown-item"
+                  style={dropdownItemStyle}
+                >
+                  <LayoutDashboard size={14} color="var(--color-brand-blue)" />
+                  <span>Provider Portal</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleNavigate('#provider/status')}
+                  className="nav-dropdown-item"
+                  style={dropdownItemStyle}
+                >
+                  <Shield size={14} color="var(--color-brand-blue)" />
+                  <span>Verification Status</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleNavigate('#provider/profile')}
+                  className="nav-dropdown-item"
+                  style={dropdownItemStyle}
+                >
+                  <UserIcon size={14} color="var(--color-brand-blue)" />
+                  <span>Provider Profile</span>
+                </button>
               </>
             )}
 
@@ -639,14 +628,16 @@ export const UserActions: React.FC<UserActionsProps> = ({
                 <button
                   type="button"
                   onClick={() => handleNavigate('#admin/dashboard')}
+                  className="nav-dropdown-item"
                   style={dropdownItemStyle}
                 >
-                  <Shield size={14} color="#FF7B72" />
+                  <Shield size={14} color="var(--color-brand-red)" />
                   <span>Admin Dashboard</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleNavigate('#account/dashboard')}
+                  className="nav-dropdown-item"
                   style={dropdownItemStyle}
                 >
                   <LayoutDashboard size={14} color="var(--color-brand-blue)" />
@@ -661,12 +652,13 @@ export const UserActions: React.FC<UserActionsProps> = ({
             <button
               type="button"
               onClick={handleSignOut}
+              className="nav-dropdown-item"
               style={{
                 ...dropdownItemStyle,
-                color: '#FF7B72',
+                color: 'var(--color-brand-red)',
               }}
             >
-              <LogOut size={14} />
+              <LogOut size={14} color="var(--color-brand-red)" />
               <span>Sign Out</span>
             </button>
           </div>

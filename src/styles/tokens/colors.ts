@@ -31,14 +31,14 @@ export const colors = {
 
   // --- Brand Accents ---
   brand: {
-    // Primary Action: Deep Royal Navy
+    // Primary Action: Deep Royal Navy & Electric Blue
     navy: '#12285A',
-    blue: '#12285A',
-    blueHover: '#0D1E45',
-    blueActive: '#081430',
-    blueLight: '#1A397B',
-    blueSubtle: 'rgba(18, 40, 90, 0.08)',
-    blueGlow: 'rgba(18, 40, 90, 0.16)',
+    blue: '#3B82F6',
+    electricBlue: '#3B82F6',
+    blueHover: '#2563EB',
+    blueActive: '#1D4ED8',
+    blueLight: '#60A5FA',
+    blueSubtle: 'rgba(59, 130, 246, 0.08)',
 
     // Secondary Action: Campus Leaf Green
     green: '#58A940',
@@ -52,13 +52,13 @@ export const colors = {
     goldActive: '#D4A300',
     goldSubtle: 'rgba(250, 202, 18, 0.18)',
 
-    // Alert: Terracotta / Crimson Red
-    red: '#D3452E',
-    redHover: '#B83520',
-    redActive: '#9E2B18',
-    redLight: '#E85B44',
-    redSubtle: 'rgba(211, 69, 46, 0.12)',
-    redGlow: 'rgba(211, 69, 46, 0.25)',
+    // Alert & Critical Action: Signal Red
+    red: '#EF4444',
+    signalRed: '#EF4444',
+    redHover: '#DC2626',
+    redActive: '#B91C1C',
+    redLight: '#F87171',
+    redSubtle: 'rgba(239, 68, 68, 0.12)',
 
     white: '#FFFFFF',
   },

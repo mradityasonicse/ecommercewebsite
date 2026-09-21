@@ -69,13 +69,13 @@ export const TimeSlotSelector: React.FC<TimeSlotSelectorProps> = ({
                 padding: '0.75rem 1rem',
                 borderRadius: 'var(--radius-md)',
                 backgroundColor: isSelected
-                  ? '#f3fbf5'
+                  ? 'var(--color-surface-2)'
                   : 'var(--color-surface-1)',
                 border: isSelected
                   ? '2px solid var(--color-brand-blue)'
                   : '1px solid var(--color-border-subtle)',
                 boxShadow: isSelected
-                  ? '0 4px 14px rgba(15, 56, 44, 0.1)'
+                  ? '0 4px 14px rgba(59, 130, 246, 0.1)'
                   : 'var(--shadow-sm)',
                 color: 'var(--color-text-primary)',
                 cursor: 'pointer',
@@ -85,7 +85,7 @@ export const TimeSlotSelector: React.FC<TimeSlotSelectorProps> = ({
               onMouseEnter={(e) => {
                 if (!isSelected) {
                   e.currentTarget.style.borderColor = 'var(--color-brand-blue)';
-                  e.currentTarget.style.backgroundColor = '#f3fbf5';
+                  e.currentTarget.style.backgroundColor = 'var(--color-surface-2)';
                 }
               }}
               onMouseLeave={(e) => {

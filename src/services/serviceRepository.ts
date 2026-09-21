@@ -23,10 +23,64 @@ export class ServiceRepository {
   }
 
   /**
+   * Reads services with admin overrides from localStorage.
+   */
+  public static getBaseServices(): Service[] {
+    if (typeof window === 'undefined') return [...ECOSYSTEM_SERVICES];
+    try {
+      const saved = localStorage.getItem('easehub_custom_services');
+      if (saved) return JSON.parse(saved);
+    } catch {
+      // Fallback
+    }
+    return [...ECOSYSTEM_SERVICES];
+  }
+
+  /**
+   * Admin: Saves or updates a service definition.
+   */
+  public static saveService(updated: Service): void {
+    const services = this.getBaseServices();
+    const idx = services.findIndex(s => s.id === updated.id || s.slug === updated.slug);
+    if (idx !== -1) {
+      services[idx] = updated;
+    } else {
+      services.push(updated);
+    }
+    try {
+      localStorage.setItem('easehub_custom_services', JSON.stringify(services));
+      window.dispatchEvent(new CustomEvent('easehub_services_updated'));
+    } catch {
+      // Storage unavailable
+    }
+  }
+
+  /**
+   * Admin: Resets all services to factory defaults.
+   */
+  public static resetServices(): void {
+    try {
+      localStorage.removeItem('easehub_custom_services');
+      window.dispatchEvent(new CustomEvent('easehub_services_updated'));
+    } catch {
+      // Storage unavailable
+    }
+  }
+
+  /**
    * Fetches all services matching optional filter, search, and sorting criteria.
    */
   public static async getServices(params?: ServiceFilterParams): Promise<Service[]> {
-    const services = [...ECOSYSTEM_SERVICES];
+    const services = this.getBaseServices();
+    if (!params) return services;
+    return this.filterAndSortServices(services, params);
+  }
+
+  /**
+   * Synchronous accessor for immediate render hydration.
+   */
+  public static getServicesSync(params?: ServiceFilterParams): Service[] {
+    const services = this.getBaseServices();
     if (!params) return services;
     return this.filterAndSortServices(services, params);
   }
@@ -36,7 +90,8 @@ export class ServiceRepository {
    */
   public static async getServiceBySlug(slug: string): Promise<Service | null> {
     const canonical = this.resolveCanonicalSlug(slug);
-    const service = ECOSYSTEM_SERVICES.find(
+    const services = this.getBaseServices();
+    const service = services.find(
       s => s.slug.toLowerCase() === canonical || s.id.toLowerCase() === canonical
     );
     return service ? { ...service } : null;
@@ -207,11 +262,8 @@ export class ServiceRepository {
       case 'price-desc':
         result.sort((a, b) => b.numericStartingPrice - a.numericStartingPrice);
         break;
-      case 'rating':
-        result.sort((a, b) => (b.metrics.ratingScore || 0) - (a.metrics.ratingScore || 0));
-        break;
-      case 'popular':
-        result.sort((a, b) => b.metrics.providersAvailable - a.metrics.providersAvailable);
+      case 'newest':
+        result.sort((a, b) => (b.priorityOrder || 0) - (a.priorityOrder || 0));
         break;
       case 'recommended':
       default:

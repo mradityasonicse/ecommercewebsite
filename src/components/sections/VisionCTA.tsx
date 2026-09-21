@@ -27,29 +27,16 @@ export const VisionCTA: React.FC<VisionCTAProps> = ({ onPartnerOpen, onRequestCa
             <div
               style={{
                 backgroundColor: 'var(--color-surface)',
-                border: '1px solid rgba(28, 100, 242, 0.4)',
-                borderRadius: 'var(--radius-xl)',
+                border: '1px solid var(--color-border)',
+                borderRadius: 'var(--radius-lg)',
                 padding: 'clamp(2rem, 4vw, 3rem)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
                 height: '100%',
                 position: 'relative',
-                overflow: 'hidden'
               }}
             >
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  right: 0,
-                  width: '200px',
-                  height: '200px',
-                  background: 'radial-gradient(circle at top right, var(--color-blue-glow), transparent 70%)',
-                  pointerEvents: 'none'
-                }}
-              />
-
               <div>
                 <Badge variant="blue" size="sm" icon={<GraduationCap size={12} />} style={{ marginBottom: '1.25rem' }}>
                   For University Students
@@ -117,7 +104,7 @@ export const VisionCTA: React.FC<VisionCTAProps> = ({ onPartnerOpen, onRequestCa
               style={{
                 backgroundColor: 'var(--color-surface)',
                 border: '1px solid var(--color-border)',
-                borderRadius: 'var(--radius-xl)',
+                borderRadius: 'var(--radius-lg)',
                 padding: 'clamp(2rem, 4vw, 3rem)',
                 display: 'flex',
                 flexDirection: 'column',

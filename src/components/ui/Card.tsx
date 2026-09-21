@@ -60,7 +60,7 @@ export const Card: React.FC<CardProps> = ({
         return {
           backgroundColor: 'var(--color-surface-1)',
           border: selected ? '1px solid var(--color-brand-blue)' : '1px solid var(--color-border-subtle)',
-          boxShadow: selected ? '0 0 16px var(--color-blue-glow)' : 'var(--shadow-sm)',
+          boxShadow: selected ? 'var(--shadow-md)' : 'var(--shadow-sm)',
         };
     }
   };

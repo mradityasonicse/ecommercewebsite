@@ -15,6 +15,7 @@ import {
   ServiceReviews,
   ServiceFAQ,
   RelatedServices,
+  StickyBookingSidebar,
   StickyServiceAction,
   ServiceNotFound,
   ServiceLoadingSkeleton,
@@ -39,6 +40,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
 }) => {
   const [service, setService] = useState<ServiceDetail | null>(null);
   const [relatedServices, setRelatedServices] = useState<Service[]>([]);
+  const [selectedOption, setSelectedOption] = useState<ServiceOption | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // Load service details and related items asynchronously
@@ -54,6 +56,12 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
       if (!isMounted) return;
       setService(detail);
       setRelatedServices(related);
+      if (detail && detail.options && detail.options.length > 0) {
+        const defaultOpt = detail.options.find(o => o.isPopular) || detail.options[0];
+        setSelectedOption(defaultOpt);
+      } else {
+        setSelectedOption(null);
+      }
       setIsLoading(false);
     });
 
@@ -73,6 +81,18 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
     const providersElem = document.getElementById('providers');
     if (providersElem) {
       providersElem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const handleBookService = (optionToBook?: ServiceOption) => {
+    const targetOption = optionToBook || selectedOption || service?.options?.[0];
+    if (!service) return;
+
+    if (onSelectOption && targetOption) {
+      onSelectOption(targetOption);
+    } else {
+      const optionQuery = targetOption ? `?option=${targetOption.id}` : '';
+      window.location.hash = `#services/${service.slug}/book${optionQuery}`;
     }
   };
 
@@ -121,56 +141,79 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
           onViewProviders={handleScrollToProviders}
         />
 
-        {/* Service Highlights & Trust Metrics */}
-        <ServiceSummary
-          service={service}
-          activeCampus={selectedCampus}
-        />
+        {/* Two-Column Marketplace Layout (Desktop: Details Left, Sticky Booking Card Right) */}
+        <div
+          className="service-detail-columns"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'minmax(0, 1fr) 360px',
+            gap: 'var(--space-10)',
+            alignItems: 'start',
+            marginTop: 'var(--space-4)',
+          }}
+        >
+          {/* Left Column: Comprehensive Service Facts & Options */}
+          <div style={{ minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+            {/* Service Highlights & Trust Metrics */}
+            <ServiceSummary
+              service={service}
+              activeCampus={selectedCampus}
+            />
 
-        {/* Verified Features, Inclusions & Non-Inclusions */}
-        <ServiceFeatures service={service} />
+            {/* Verified Features, Inclusions & Non-Inclusions */}
+            <ServiceFeatures service={service} />
 
-        {/* Tiered Options & Transparent Pricing Structure */}
-        <div id="plans">
-          <ServiceOptions
-            options={service.options}
-            onSelectOption={(option) => {
-              if (onSelectOption) {
-                onSelectOption(option);
-              } else {
-                window.location.hash = `#services/${service.slug}/book?option=${option.id}`;
-              }
-            }}
-          />
+            {/* Tiered Options & Transparent Pricing Structure */}
+            <div id="plans">
+              <ServiceOptions
+                options={service.options}
+                selectedOptionId={selectedOption?.id}
+                onSelectOption={(option) => {
+                  setSelectedOption(option);
+                }}
+              />
+            </div>
+
+            {/* Perimeter, Hub Delivery & Campus Coverage */}
+            <ServiceLocation
+              service={service}
+              activeCampus={selectedCampus}
+            />
+
+            {/* Verified On-Ground Operator & Provider Profiles */}
+            <div id="providers">
+              <ServiceProviderSection
+                service={service}
+                activeCampus={selectedCampus}
+                onSelectProvider={(provider) => {
+                  if (onSelectProvider) onSelectProvider(provider);
+                }}
+              />
+            </div>
+
+            {/* Student Reviews & Verified Feedback */}
+            <ServiceReviews service={service} />
+
+            {/* Frequently Asked Student Questions Accordion */}
+            <ServiceFAQ
+              faqs={service.faqs}
+              serviceName={service.name}
+            />
+          </div>
+
+          {/* Right Column (Desktop >= 1024px): Sticky Request & Booking Summary */}
+          <div className="desktop-sidebar-column">
+            <StickyBookingSidebar
+              service={service}
+              selectedOption={selectedOption}
+              activeCampus={selectedCampus}
+              onBook={() => handleBookService()}
+              onScrollToPlans={handleScrollToPlans}
+            />
+          </div>
         </div>
 
-        {/* Perimeter, Hub Delivery & Campus Coverage */}
-        <ServiceLocation
-          service={service}
-          activeCampus={selectedCampus}
-        />
-
-        {/* Verified On-Ground Operator & Provider Profiles */}
-        <div id="providers">
-          <ServiceProviderSection
-            service={service}
-            activeCampus={selectedCampus}
-            onSelectProvider={(provider) => {
-              if (onSelectProvider) onSelectProvider(provider);
-            }}
-          />
-        </div>
-
-        {/* Student Reviews & Verified Feedback */}
-        <ServiceReviews service={service} />
-
-        {/* Frequently Asked Student Questions Accordion */}
-        <ServiceFAQ
-          faqs={service.faqs}
-          serviceName={service.name}
-        />
-
-        {/* Related Campus Essentials Cross-Navigation */}
+        {/* Full-Width Cross-Navigation: Related Campus Essentials */}
         <RelatedServices
           services={relatedServices}
           onSelectService={(s) => {
@@ -180,11 +223,24 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({
         />
       </div>
 
-      {/* High-Impact Sticky Bottom Bar for Mobile & Desktop */}
+      {/* High-Impact Sticky Bottom Bar for Mobile & Tablet (< 1024px) */}
       <StickyServiceAction
         service={service}
-        onActionClick={handleScrollToPlans}
+        selectedOption={selectedOption}
+        onActionClick={() => handleBookService()}
       />
+
+      <style>{`
+        @media (max-width: 1023px) {
+          .service-detail-columns {
+            grid-template-columns: 1fr !important;
+            gap: var(--space-6) !important;
+          }
+          .desktop-sidebar-column {
+            display: none !important;
+          }
+        }
+      `}</style>
     </div>
   );
 };

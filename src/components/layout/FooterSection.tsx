@@ -68,7 +68,7 @@ export const FooterSection: React.FC<FooterSectionProps> = ({
                 transition: 'color var(--duration-fast)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.color = '#FFFFFF';
+                e.currentTarget.style.color = 'var(--color-brand-blue, #15803D)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.color = 'var(--color-text-secondary)';
@@ -83,9 +83,9 @@ export const FooterSection: React.FC<FooterSectionProps> = ({
                     fontWeight: 700,
                     padding: '0.05rem 0.4rem',
                     borderRadius: 'var(--radius-pill)',
-                    backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                    color: '#FFFFFF',
-                    border: '1px solid rgba(255, 255, 255, 0.18)',
+                    backgroundColor: '#FEF08A',
+                    color: '#854D0E',
+                    border: '1px solid #FDE047',
                   }}
                 >
                   {link.badge}

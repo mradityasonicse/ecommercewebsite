@@ -78,13 +78,13 @@ export const ServiceSelectionStep: React.FC<ServiceSelectionStepProps> = ({
                 padding: 'var(--space-5)',
                 borderRadius: 'var(--radius-lg)',
                 backgroundColor: isSelected
-                  ? '#f3fbf5'
+                  ? 'var(--color-surface-2)'
                   : 'var(--color-surface-1)',
                 border: isSelected
                   ? '2px solid var(--color-brand-blue)'
                   : '1px solid var(--color-border-subtle)',
                 boxShadow: isSelected
-                  ? '0 4px 16px -2px rgba(15, 56, 44, 0.12)'
+                  ? '0 4px 16px -2px rgba(59, 130, 246, 0.12)'
                   : 'var(--shadow-sm)',
                 cursor: 'pointer',
                 transition: 'all var(--duration-fast)',

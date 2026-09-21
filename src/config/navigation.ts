@@ -98,8 +98,8 @@ export const FOOTER_SECTIONS: FooterColumn[] = [
       { label: 'Gym & Fitness Passes', href: '#services?category=gym-fitness' },
       { label: 'Campus Transit & Shuttles', href: '#services?category=transport' },
       { label: 'Dedicated Fiber Wi-Fi', href: '#services?category=wifi' },
-      { label: 'Room Deep Cleaning', href: '#services?category=cleaning' },
-      { label: 'Emergency Repairs', href: '#services?category=maintenance' },
+      { label: 'Room Deep Cleaning', href: '#extra' },
+      { label: 'Emergency Repairs & Extras', href: '#extra' },
     ],
   },
   {

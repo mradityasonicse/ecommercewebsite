@@ -75,19 +75,20 @@ export const CategoryNavigation: React.FC<CategoryNavigationProps> = ({
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.45rem',
-            padding: '0.5rem 0.95rem',
+            padding: '0.5rem 1rem',
+            minHeight: '40px',
             borderRadius: 'var(--radius-pill)',
             border: activeCategoryId === 'all'
-              ? '1px solid #FFFFFF'
+              ? '1px solid var(--color-brand-blue)'
               : '1px solid var(--color-border-subtle)',
             backgroundColor: activeCategoryId === 'all'
-              ? '#FFFFFF'
+              ? 'var(--color-blue-active, #2563EB)'
               : 'var(--color-surface-1)',
             color: activeCategoryId === 'all'
-              ? '#080A0F'
+              ? '#FFFFFF'
               : 'var(--color-text-secondary)',
-            fontSize: '0.85rem',
-            fontFamily: 'var(--font-display)',
+            fontSize: 'var(--text-button)',
+            fontFamily: 'var(--font-family-button)',
             fontWeight: activeCategoryId === 'all' ? 700 : 500,
             cursor: 'pointer',
             transition: 'all var(--duration-fast)',
@@ -96,8 +97,8 @@ export const CategoryNavigation: React.FC<CategoryNavigationProps> = ({
           }}
           onMouseEnter={(e) => {
             if (activeCategoryId !== 'all') {
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.35)';
-              e.currentTarget.style.color = '#FFFFFF';
+              e.currentTarget.style.borderColor = 'var(--color-border-hover)';
+              e.currentTarget.style.color = 'var(--color-text-primary)';
             }
           }}
           onMouseLeave={(e) => {
@@ -107,17 +108,17 @@ export const CategoryNavigation: React.FC<CategoryNavigationProps> = ({
             }
           }}
         >
-          <LayoutGrid size={15} color={activeCategoryId === 'all' ? '#080A0F' : 'var(--color-text-muted)'} />
+          <LayoutGrid size={15} color={activeCategoryId === 'all' ? '#FFFFFF' : 'var(--color-text-muted)'} />
           <span>All Services</span>
           {allItemsCount > 0 && (
             <span
               style={{
-                fontSize: '0.7rem',
+                fontSize: '0.72rem',
                 fontFamily: 'var(--font-mono)',
-                padding: '0.1rem 0.4rem',
+                padding: '0.1rem 0.45rem',
                 borderRadius: 'var(--radius-pill)',
-                backgroundColor: activeCategoryId === 'all' ? 'rgba(0, 0, 0, 0.15)' : 'rgba(255, 255, 255, 0.06)',
-                color: activeCategoryId === 'all' ? '#080A0F' : 'var(--color-text-muted)',
+                backgroundColor: activeCategoryId === 'all' ? 'rgba(255, 255, 255, 0.22)' : 'var(--color-surface-2)',
+                color: activeCategoryId === 'all' ? '#FFFFFF' : 'var(--color-text-muted)',
               }}
             >
               {allItemsCount}
@@ -140,19 +141,20 @@ export const CategoryNavigation: React.FC<CategoryNavigationProps> = ({
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.45rem',
-                padding: '0.5rem 0.95rem',
+                padding: '0.5rem 1rem',
+                minHeight: '40px',
                 borderRadius: 'var(--radius-pill)',
                 border: isActive
-                  ? '1px solid #FFFFFF'
+                  ? '1px solid var(--color-brand-blue)'
                   : '1px solid var(--color-border-subtle)',
                 backgroundColor: isActive
-                  ? '#FFFFFF'
+                  ? 'var(--color-blue-active, #2563EB)'
                   : 'var(--color-surface-1)',
                 color: isActive
-                  ? '#080A0F'
+                  ? '#FFFFFF'
                   : 'var(--color-text-secondary)',
-                fontSize: '0.85rem',
-                fontFamily: 'var(--font-display)',
+                fontSize: 'var(--text-button)',
+                fontFamily: 'var(--font-family-button)',
                 fontWeight: isActive ? 700 : 500,
                 cursor: 'pointer',
                 transition: 'all var(--duration-fast)',
@@ -161,8 +163,8 @@ export const CategoryNavigation: React.FC<CategoryNavigationProps> = ({
               }}
               onMouseEnter={(e) => {
                 if (!isActive) {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.35)';
-                  e.currentTarget.style.color = '#FFFFFF';
+                  e.currentTarget.style.borderColor = 'var(--color-border-hover)';
+                  e.currentTarget.style.color = 'var(--color-text-primary)';
                 }
               }}
               onMouseLeave={(e) => {
@@ -172,19 +174,17 @@ export const CategoryNavigation: React.FC<CategoryNavigationProps> = ({
                 }
               }}
             >
-              <span style={{ display: 'flex', color: isActive ? '#080A0F' : 'var(--color-text-muted)' }}>
-                {getCategoryIcon(category.iconName, 15)}
-              </span>
+              {getCategoryIcon(category.iconName, 15)}
               <span>{category.label}</span>
               {count > 0 && (
                 <span
                   style={{
-                    fontSize: '0.7rem',
+                    fontSize: '0.72rem',
                     fontFamily: 'var(--font-mono)',
-                    padding: '0.1rem 0.4rem',
+                    padding: '0.1rem 0.45rem',
                     borderRadius: 'var(--radius-pill)',
-                    backgroundColor: isActive ? 'rgba(0, 0, 0, 0.15)' : 'rgba(255, 255, 255, 0.06)',
-                    color: isActive ? '#080A0F' : 'var(--color-text-muted)',
+                    backgroundColor: isActive ? 'rgba(255, 255, 255, 0.22)' : 'var(--color-surface-2)',
+                    color: isActive ? '#FFFFFF' : 'var(--color-text-muted)',
                   }}
                 >
                   {count}

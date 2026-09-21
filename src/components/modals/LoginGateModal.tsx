@@ -33,24 +33,24 @@ export const LoginGateModal: React.FC<LoginGateModalProps> = ({
         alignItems: 'center',
         justifyContent: 'center',
         padding: '1.25rem',
-        backgroundColor: 'rgba(5, 11, 24, 0.82)',
-        backdropFilter: 'blur(10px)',
-        WebkitBackdropFilter: 'blur(10px)',
+        backgroundColor: 'rgba(15, 23, 42, 0.45)',
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
         overflowY: 'auto',
       }}
     >
-      {/* Modal Card matching user screenshot layout */}
+      {/* Modal Card matching clean white campus aesthetic */}
       <div
         style={{
           position: 'relative',
           width: '100%',
           maxWidth: '460px',
-          backgroundColor: '#0F172A', // Sleek Navy/Midnight Slate
+          backgroundColor: '#FFFFFF',
           borderRadius: '20px',
-          border: '1px solid rgba(255, 255, 255, 0.12)',
-          boxShadow: '0 25px 60px -12px rgba(0, 0, 0, 0.75), 0 0 35px rgba(24, 76, 180, 0.25)',
+          border: '1.5px solid rgba(22, 163, 74, 0.22)',
+          boxShadow: '0 25px 60px -12px rgba(15, 81, 50, 0.15), 0 0 35px rgba(250, 204, 21, 0.1)',
           padding: '2.25rem 2rem',
-          color: '#FFFFFF',
+          color: '#0F172A',
           animation: 'easehub-fade-up 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
@@ -66,9 +66,9 @@ export const LoginGateModal: React.FC<LoginGateModalProps> = ({
             width: '32px',
             height: '32px',
             borderRadius: '50%',
-            backgroundColor: 'rgba(255, 255, 255, 0.08)',
-            border: '1px solid rgba(255, 255, 255, 0.12)',
-            color: 'var(--color-text-secondary)',
+            backgroundColor: '#F8FAF7',
+            border: '1px solid rgba(22, 163, 74, 0.2)',
+            color: '#334155',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -76,12 +76,12 @@ export const LoginGateModal: React.FC<LoginGateModalProps> = ({
             transition: 'all 0.15s ease',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.16)';
-            e.currentTarget.style.color = '#FFFFFF';
+            e.currentTarget.style.backgroundColor = '#EFF5EC';
+            e.currentTarget.style.color = '#15803D';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
-            e.currentTarget.style.color = 'var(--color-text-secondary)';
+            e.currentTarget.style.backgroundColor = '#F8FAF7';
+            e.currentTarget.style.color = '#334155';
           }}
         >
           <X size={16} />
@@ -91,13 +91,14 @@ export const LoginGateModal: React.FC<LoginGateModalProps> = ({
         <div style={{ marginBottom: '1.5rem' }}>
           <h2
             style={{
-              fontSize: '1.75rem',
-              fontFamily: 'var(--font-display, "Playfair Display", Georgia, serif)',
-              fontWeight: 800,
-              color: '#FFFFFF',
+              fontSize: 'var(--text-h2)',
+              fontFamily: 'var(--font-family-h2)',
+              fontWeight: 'var(--weight-h2)',
+              color: '#0F172A',
               margin: '0 0 0.5rem 0',
-              lineHeight: 1.2,
-              letterSpacing: '-0.015em',
+              lineHeight: 'var(--leading-h2)',
+              letterSpacing: 'var(--tracking-h2)',
+              textWrap: 'balance',
             }}
           >
             {authMode === 'sign-in'
@@ -108,11 +109,11 @@ export const LoginGateModal: React.FC<LoginGateModalProps> = ({
           </h2>
           <p
             style={{
-              fontSize: '0.88rem',
-              color: 'var(--color-text-secondary, #94A3B8)',
+              fontSize: 'var(--text-body-sm)',
+              color: 'var(--color-text-secondary)',
               margin: 0,
-              lineHeight: 1.5,
-              fontFamily: 'var(--font-body, sans-serif)',
+              lineHeight: 'var(--leading-body-sm)',
+              fontFamily: 'var(--font-family-body-sm)',
             }}
           >
             {authMode === 'sign-in'

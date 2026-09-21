@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import type { Provider } from '../../data/providers';
+import { ShieldCheck, MapPin, Clock, CheckCircle2 } from 'lucide-react';
 import { Modal } from '../ui/Modal';
-import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
-import { ShieldCheck, Star, MapPin, Clock, CheckCircle2 } from 'lucide-react';
+import { Badge } from '../ui/Badge';
+import type { Provider } from '../../data/providers';
 
 interface ProviderDetailModalProps {
   provider: Provider | null;
@@ -11,16 +11,19 @@ interface ProviderDetailModalProps {
   onBookService?: (category: string) => void;
 }
 
-export const ProviderDetailModal: React.FC<ProviderDetailModalProps> = ({ provider, onClose, onBookService }) => {
-  const [isBooked, setIsBooked] = useState(false);
+export const ProviderDetailModal: React.FC<ProviderDetailModalProps> = ({
+  provider,
+  onClose,
+  onBookService,
+}) => {
   const [studentPhone, setStudentPhone] = useState('');
   const [studentRoom, setStudentRoom] = useState('');
+  const [isBooked, setIsBooked] = useState(false);
 
   if (!provider) return null;
 
   const handleBook = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!studentPhone.trim()) return;
     setIsBooked(true);
   };
 
@@ -42,27 +45,26 @@ export const ProviderDetailModal: React.FC<ProviderDetailModalProps> = ({ provid
             <Badge variant="verified" size="md" icon={<ShieldCheck size={14} />}>
               {provider.verificationBadge}
             </Badge>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: 'var(--text-sm)', fontWeight: 700, color: '#D97706' }}>
-              <Star size={16} fill="#D97706" />
-              <span>{provider.rating}</span>
-              <span style={{ color: 'var(--color-text-muted, #6B736D)' }}>({provider.reviewsCount} student reviews)</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)', fontFamily: 'var(--font-mono)' }}>
+              <Clock size={13} color="var(--color-brand-blue)" />
+              <span>Response: {provider.responseTime}</span>
             </div>
           </div>
 
           {/* Location & Response */}
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', fontSize: 'var(--text-xs)', color: 'var(--color-text-secondary, #414845)' }}>
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', fontSize: 'var(--text-xs)', color: 'var(--color-text-secondary)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <MapPin size={14} color="var(--color-brand-blue, #0F382C)" />
+              <MapPin size={14} color="var(--color-brand-blue)" />
               <span>{provider.distanceFromCampus}</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <Clock size={14} color="var(--color-brand-blue, #0F382C)" />
-              <span>Average response: {provider.responseTime}</span>
+              <ShieldCheck size={14} color="var(--color-success)" />
+              <span>Audited Campus Partner</span>
             </div>
           </div>
 
           {/* Bio & Description */}
-          <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-secondary, #414845)', lineHeight: 1.6 }}>
+          <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-secondary)', lineHeight: 1.6, margin: 0 }}>
             {provider.bio}
           </p>
 
@@ -70,34 +72,36 @@ export const ProviderDetailModal: React.FC<ProviderDetailModalProps> = ({ provid
           <div
             style={{
               padding: '1.25rem',
-              backgroundColor: '#f3fbf5',
+              backgroundColor: 'var(--color-surface-2)',
               borderRadius: 'var(--radius-md)',
-              border: '1px solid var(--color-border-subtle, #E8E4D5)',
+              border: '1px solid var(--color-border-subtle)',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'space-between'
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '0.75rem',
             }}
           >
             <div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted, #6B736D)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>
+              <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>
                 Standard Student Rate
               </div>
-              <div style={{ fontSize: '1.35rem', fontFamily: 'Domine, serif', fontWeight: 700, color: 'var(--color-brand-blue, #0F382C)' }}>
+              <div style={{ fontSize: '1.35rem', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 700, color: 'var(--color-text-primary)' }}>
                 {provider.priceHighlight}
               </div>
             </div>
-            <div style={{ fontSize: '0.75rem', color: '#2E7D32', fontWeight: 700, backgroundColor: 'rgba(46, 125, 50, 0.1)', padding: '0.35rem 0.65rem', borderRadius: 'var(--radius-pill)' }}>
-              Zero Commission • Direct Rate
+            <div style={{ fontSize: '0.75rem', color: 'var(--color-success)', fontWeight: 700, backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '0.35rem 0.65rem', borderRadius: 'var(--radius-pill)', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
+              Zero Broker Fee • Direct Rate
             </div>
           </div>
 
           {/* Booking Form */}
           <form onSubmit={handleBook} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '0.5rem' }}>
-            <div style={{ fontSize: 'var(--text-sm)', fontFamily: 'Domine, serif', fontWeight: 700, color: 'var(--color-brand-blue, #0F382C)' }}>
+            <div style={{ fontSize: 'var(--text-sm)', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 700, color: 'var(--color-brand-blue)' }}>
               Direct Student Connection
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.75rem' }}>
               <input
                 type="tel"
                 required
@@ -106,29 +110,28 @@ export const ProviderDetailModal: React.FC<ProviderDetailModalProps> = ({ provid
                 onChange={(e) => setStudentPhone(e.target.value)}
                 style={{
                   padding: '0.75rem',
-                  backgroundColor: '#FFFFFF',
+                  backgroundColor: 'var(--color-surface-1)',
                   borderRadius: 'var(--radius-sm)',
-                  border: '1px solid var(--color-border-subtle, #E8E4D5)',
-                  color: 'var(--color-text-primary, #151D1A)',
-                  fontSize: 'var(--text-xs)',
+                  border: '1px solid var(--color-border-subtle)',
+                  color: 'var(--color-text-primary)',
+                  fontSize: 'var(--text-sm)',
                   outline: 'none',
-                  boxShadow: '0 1px 2px rgba(15, 56, 44, 0.04)'
                 }}
               />
               <input
                 type="text"
-                placeholder="Hostel / Room No (e.g. Block B-204)"
+                required
+                placeholder="Hostel / Room / Address"
                 value={studentRoom}
                 onChange={(e) => setStudentRoom(e.target.value)}
                 style={{
                   padding: '0.75rem',
-                  backgroundColor: '#FFFFFF',
+                  backgroundColor: 'var(--color-surface-1)',
                   borderRadius: 'var(--radius-sm)',
-                  border: '1px solid var(--color-border-subtle, #E8E4D5)',
-                  color: 'var(--color-text-primary, #151D1A)',
-                  fontSize: 'var(--text-xs)',
+                  border: '1px solid var(--color-border-subtle)',
+                  color: 'var(--color-text-primary)',
+                  fontSize: 'var(--text-sm)',
                   outline: 'none',
-                  boxShadow: '0 1px 2px rgba(15, 56, 44, 0.04)'
                 }}
               />
             </div>
@@ -155,12 +158,12 @@ export const ProviderDetailModal: React.FC<ProviderDetailModalProps> = ({ provid
         </div>
       ) : (
         <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
-          <CheckCircle2 size={48} color="#2E7D32" style={{ margin: '0 auto 1rem auto' }} />
-          <h3 style={{ fontSize: 'var(--text-h3)', fontFamily: 'Domine, serif', fontWeight: 700, color: 'var(--color-brand-blue, #0F382C)', marginBottom: '0.5rem' }}>
+          <CheckCircle2 size={48} color="var(--color-success)" style={{ margin: '0 auto 1rem auto' }} />
+          <h3 style={{ fontSize: 'var(--text-h3)', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '0.5rem' }}>
             Connection Confirmed!
           </h3>
-          <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-secondary, #414845)', marginBottom: '1.5rem', lineHeight: 1.6 }}>
-            {provider.name} has been notified for your room at <strong style={{ color: 'var(--color-brand-blue, #0F382C)' }}>{studentRoom || 'Campus Address'}</strong>.
+          <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-secondary)', marginBottom: '1.5rem', lineHeight: 1.6 }}>
+            {provider.name} has been notified for your room at <strong style={{ color: 'var(--color-brand-blue)' }}>{studentRoom || 'Campus Address'}</strong>.
             You will receive a WhatsApp verification token and callback in {provider.responseTime}.
           </p>
           <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>

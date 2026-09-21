@@ -74,7 +74,7 @@ export const ServiceSummary: React.FC<ServiceSummaryProps> = ({ service, activeC
                 {fact.label}
               </span>
             </div>
-            <div style={{ fontSize: '0.98rem', fontFamily: 'var(--font-sans)', fontWeight: 700, color: 'var(--color-text-primary, #151D1A)' }}>
+            <div style={{ fontSize: '0.98rem', fontFamily: 'var(--font-sans)', fontWeight: 700, color: 'var(--color-text-primary)' }}>
               {fact.value}
             </div>
           </div>

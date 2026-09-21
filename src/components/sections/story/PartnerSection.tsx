@@ -14,18 +14,18 @@ export const PartnerSection: React.FC<PartnerSectionProps> = ({ onPartnerOpen })
   const partnerPerks = [
     {
       title: 'Direct Campus Reach',
-      desc: 'Connect with thousands of verified university students living within 2km of your facility.',
-      metric: '42,000+ Students',
+      desc: 'Connect with local students living near your facility around Bhilai and Durg campus zones.',
+      metric: 'Direct Inquiries',
     },
     {
-      title: 'Predictable Monthly Revenue',
-      desc: 'Eliminate seasonality with semester-long meal plans, fixed hostel contracts, and recurring laundry cycles.',
-      metric: '92% Retention Rate',
+      title: 'Predictable Monthly Demand',
+      desc: 'Fill vacancies and meal slots with semester-long plans, fixed hostel contracts, and laundry cycles.',
+      metric: 'Semester Bookings',
     },
     {
-      title: 'Protected Digital Payments',
-      desc: 'Automated weekly bank settlements with zero payment chasing and transparent dispute arbitration.',
-      metric: 'T+2 Payout SLA',
+      title: 'Direct Settlements & Support',
+      desc: 'Direct student inquiries via WhatsApp with verified listing details and clear terms.',
+      metric: 'Verified Listing',
     },
   ];
 
@@ -85,8 +85,8 @@ export const PartnerSection: React.FC<PartnerSectionProps> = ({ onPartnerOpen })
 
             <h2
               style={{
-                fontSize: 'clamp(1.8rem, 3.2vw, 2.75rem)',
                 fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(1.75rem, 3.2vw, 2.5rem)',
                 fontWeight: 800,
                 lineHeight: 1.2,
                 letterSpacing: '-0.025em',
@@ -97,9 +97,7 @@ export const PartnerSection: React.FC<PartnerSectionProps> = ({ onPartnerOpen })
               Run a Campus Service?{' '}
               <span
                 style={{
-                  background: 'linear-gradient(135deg, var(--color-brand-red) 0%, #FFA39E 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
+                  color: 'var(--color-brand-gold)',
                 }}
               >
                 Grow with EaseHub.

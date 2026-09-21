@@ -107,12 +107,12 @@ export const AccountPage: React.FC<AccountPageProps> = ({
             width: '64px',
             height: '64px',
             borderRadius: '50%',
-            backgroundColor: 'rgba(255, 255, 255, 0.08)',
-            border: '1px solid rgba(255, 255, 255, 0.18)',
+            backgroundColor: '#DCFCE7',
+            border: '1px solid #86EFAC',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#FFFFFF',
+            color: '#15803D',
             marginBottom: 'var(--space-2)',
           }}
         >
@@ -124,7 +124,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({
             fontSize: 'clamp(1.4rem, 2.5vw, 1.8rem)',
             fontFamily: 'var(--font-display)',
             fontWeight: 800,
-            color: '#FFFFFF',
+            color: 'var(--color-text-primary)',
             margin: 0,
           }}
         >
@@ -335,8 +335,8 @@ export const AccountPage: React.FC<AccountPageProps> = ({
             {/* Embedded Security Section */}
             <div style={{ marginTop: 'var(--space-2)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: 'var(--space-4)' }}>
-                <Shield size={18} color="var(--color-brand-blue)" />
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#FFFFFF', margin: 0 }}>
+                <Shield size={18} color="#15803D" />
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0F172A', margin: 0 }}>
                   Password & Active Session Credentials
                 </h3>
               </div>
@@ -358,10 +358,10 @@ function getTabStyle(isActive: boolean): React.CSSProperties {
     gap: '0.5rem',
     padding: '0.65rem 1.1rem',
     borderRadius: 'var(--radius-md)',
-    border: 'none',
-    backgroundColor: isActive ? 'var(--color-surface-2)' : 'transparent',
-    color: isActive ? '#FFFFFF' : 'var(--color-text-secondary)',
-    fontWeight: isActive ? 700 : 500,
+    border: isActive ? '1px solid #86EFAC' : '1px solid transparent',
+    backgroundColor: isActive ? '#DCFCE7' : 'transparent',
+    color: isActive ? '#15803D' : '#475569',
+    fontWeight: isActive ? 800 : 500,
     fontSize: '0.88rem',
     cursor: 'pointer',
     transition: 'all 0.15s ease',

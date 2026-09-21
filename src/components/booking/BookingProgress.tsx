@@ -105,11 +105,11 @@ export const BookingProgress: React.FC<BookingProgressProps> = ({
                       justifyContent: 'center',
                       fontSize: '0.68rem',
                       fontWeight: 700,
-                      backgroundColor: isCompleted
+                        backgroundColor: isCompleted
                         ? 'var(--color-semantic-success)'
                         : isCurrent
-                        ? '#0F382C'
-                        : '#EDF6EF',
+                        ? 'var(--color-brand-blue)'
+                        : 'var(--color-surface-2)',
                       color: isCompleted
                         ? '#FFFFFF'
                         : isCurrent

@@ -250,15 +250,16 @@ export const SignInForm: React.FC<SignInFormProps> = ({
           justifyContent: 'center',
           gap: '0.75rem',
           padding: '0.75rem 1rem',
-          backgroundColor: '#FFFFFF',
-          color: '#1F2937',
-          border: '1px solid rgba(255, 255, 255, 0.3)',
+          backgroundColor: 'var(--color-surface-2)',
+          color: 'var(--color-text-primary)',
+          border: '1px solid var(--color-border-default)',
           borderRadius: 'var(--radius-md, 10px)',
-          fontWeight: 700,
-          fontSize: '0.92rem',
-          fontFamily: 'var(--font-display, sans-serif)',
+          fontWeight: 'var(--weight-button)',
+          fontSize: 'var(--text-button)',
+          fontFamily: 'var(--font-family-button)',
+          letterSpacing: 'var(--tracking-button)',
           cursor: isGoogleLoading ? 'wait' : 'pointer',
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.25)',
+          boxShadow: 'var(--shadow-sm)',
           transition: 'all 0.2s ease',
         }}
         onMouseEnter={(e) => {
@@ -291,27 +292,43 @@ export const SignInForm: React.FC<SignInFormProps> = ({
             d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
           />
         </svg>
-        <span>{isGoogleLoading ? 'Connecting to Google...' : 'Continue with Google'}</span>
+        <span>{isGoogleLoading ? 'Connecting to Google...' : 'Continue with University Google'}</span>
       </button>
 
-      {/* Divider */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', margin: '0.25rem 0' }}>
-        <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--color-border-subtle, rgba(255, 255, 255, 0.12))' }} />
-        <span style={{ fontSize: '0.74rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600 }}>
-          Or Sign In With
+      {/* 2. DIVIDER: OR CONTINUE WITH PHONE / PASSWORD */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.75rem',
+          margin: '0.25rem 0',
+        }}
+      >
+        <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--color-border-subtle)' }} />
+        <span
+          style={{
+            fontSize: '0.75rem',
+            color: 'var(--color-text-muted)',
+            fontFamily: 'var(--font-sans)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            fontWeight: 700,
+          }}
+        >
+          or collegiate credentials
         </span>
-        <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--color-border-subtle, rgba(255, 255, 255, 0.12))' }} />
+        <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--color-border-subtle)' }} />
       </div>
 
-      {/* 2. AUTH METHOD TAB SELECTOR (OTP vs Password) */}
+      {/* 3. AUTH METHOD SEGMENTED TOGGLE (OTP vs Password) */}
       <div
         style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
-          backgroundColor: 'var(--color-surface-2, rgba(255, 255, 255, 0.05))',
+          backgroundColor: 'var(--color-surface-2)',
           padding: '4px',
-          borderRadius: 'var(--radius-md, 10px)',
-          border: '1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.1))',
+          borderRadius: '12px',
+          border: '1px solid var(--color-border-subtle)',
           gap: '4px',
         }}
       >
@@ -322,14 +339,13 @@ export const SignInForm: React.FC<SignInFormProps> = ({
             setErrorMessage(null);
           }}
           style={{
-            padding: '0.5rem 0.75rem',
-            borderRadius: '8px',
+            padding: '0.55rem 0.75rem',
+            borderRadius: '9px',
             border: 'none',
-            backgroundColor: authMethod === 'otp' ? 'var(--color-brand-blue, #2563EB)' : 'transparent',
+            backgroundColor: authMethod === 'otp' ? '#15803D' : 'transparent',
             color: authMethod === 'otp' ? '#FFFFFF' : 'var(--color-text-secondary)',
-            fontWeight: authMethod === 'otp' ? 700 : 500,
-            fontSize: '0.84rem',
-            fontFamily: 'var(--font-display, sans-serif)',
+            fontWeight: 800,
+            fontSize: '0.82rem',
             cursor: 'pointer',
             transition: 'all 0.15s ease',
             display: 'flex',
@@ -348,14 +364,13 @@ export const SignInForm: React.FC<SignInFormProps> = ({
             setErrorMessage(null);
           }}
           style={{
-            padding: '0.5rem 0.75rem',
-            borderRadius: '8px',
+            padding: '0.55rem 0.75rem',
+            borderRadius: '9px',
             border: 'none',
-            backgroundColor: authMethod === 'password' ? 'var(--color-brand-blue, #2563EB)' : 'transparent',
+            backgroundColor: authMethod === 'password' ? '#15803D' : 'transparent',
             color: authMethod === 'password' ? '#FFFFFF' : 'var(--color-text-secondary)',
-            fontWeight: authMethod === 'password' ? 700 : 500,
-            fontSize: '0.84rem',
-            fontFamily: 'var(--font-display, sans-serif)',
+            fontWeight: 800,
+            fontSize: '0.82rem',
             cursor: 'pointer',
             transition: 'all 0.15s ease',
             display: 'flex',
@@ -491,8 +506,8 @@ export const SignInForm: React.FC<SignInFormProps> = ({
                       style={{
                         padding: '0.75rem 0.85rem',
                         backgroundColor: 'var(--color-surface-2)',
-                        border: '1px solid var(--color-border-subtle)',
-                        borderRadius: 'var(--radius-md)',
+                        border: '1.5px solid var(--color-border-default)',
+                        borderRadius: '10px',
                         color: 'var(--color-text-primary)',
                         fontSize: '0.9rem',
                         fontWeight: 700,
@@ -518,9 +533,9 @@ export const SignInForm: React.FC<SignInFormProps> = ({
                           width: '100%',
                           padding: '0.75rem 1rem',
                           backgroundColor: 'var(--color-surface-2)',
-                          border: '1px solid var(--color-border-subtle)',
-                          borderRadius: 'var(--radius-md)',
-                          color: '#FFFFFF',
+                          border: '1.5px solid var(--color-border-default)',
+                          borderRadius: '10px',
+                          color: 'var(--color-text-primary)',
                           fontSize: '0.95rem',
                           letterSpacing: '0.05em',
                           outline: 'none',
@@ -534,8 +549,8 @@ export const SignInForm: React.FC<SignInFormProps> = ({
                   <label
                     htmlFor="otp-email"
                     style={{
-                      fontSize: '0.74rem',
-                      fontFamily: 'var(--font-display)',
+                      fontSize: '0.75rem',
+                      fontFamily: 'var(--font-sans)',
                       fontWeight: 700,
                       color: 'var(--color-text-secondary)',
                       textTransform: 'uppercase',
@@ -560,9 +575,9 @@ export const SignInForm: React.FC<SignInFormProps> = ({
                         width: '100%',
                         padding: '0.75rem 1rem 0.75rem 2.4rem',
                         backgroundColor: 'var(--color-surface-2)',
-                        border: '1px solid var(--color-border-subtle)',
-                        borderRadius: 'var(--radius-md)',
-                        color: '#FFFFFF',
+                        border: '1.5px solid var(--color-border-default)',
+                        borderRadius: '10px',
+                        color: 'var(--color-text-primary)',
                         fontSize: '0.9rem',
                         outline: 'none',
                       }}
@@ -633,25 +648,25 @@ export const SignInForm: React.FC<SignInFormProps> = ({
                 style={{
                   width: '100%',
                   padding: '0.85rem 1rem',
-                  backgroundColor: 'var(--color-surface-2)',
-                  border: '1px solid var(--color-brand-blue, #2563EB)',
-                  borderRadius: 'var(--radius-md)',
-                  color: '#FFFFFF',
+                  backgroundColor: '#FFFFFF',
+                  border: '2px solid #16A34A',
+                  borderRadius: '12px',
+                  color: '#0F172A',
                   fontSize: '1.4rem',
                   textAlign: 'center',
                   letterSpacing: '0.35em',
                   fontWeight: 800,
                   outline: 'none',
-                  boxShadow: '0 0 16px rgba(37, 99, 235, 0.25)',
+                  boxShadow: '0 0 16px rgba(22, 163, 74, 0.2)',
                 }}
               />
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.78rem' }}>
-                <span style={{ color: 'var(--color-text-muted)' }}>
+                <span style={{ color: '#64748B' }}>
                   Didn't receive code?
                 </span>
                 {isCounting ? (
-                  <span style={{ color: 'var(--color-text-secondary)', fontWeight: 600 }}>
+                  <span style={{ color: '#334155', fontWeight: 600 }}>
                     Resend in {countdown}s
                   </span>
                 ) : (
@@ -661,7 +676,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
                     style={{
                       background: 'none',
                       border: 'none',
-                      color: 'var(--color-brand-gold, #FAC908)',
+                      color: '#15803D',
                       fontWeight: 700,
                       cursor: 'pointer',
                       textDecoration: 'underline',
@@ -699,9 +714,9 @@ export const SignInForm: React.FC<SignInFormProps> = ({
               htmlFor="auth-email"
               style={{
                 fontSize: '0.75rem',
-                fontFamily: 'var(--font-display)',
+                fontFamily: 'var(--font-sans)',
                 fontWeight: 700,
-                color: 'var(--color-text-secondary)',
+                color: '#334155',
                 textTransform: 'uppercase',
                 letterSpacing: '0.05em',
               }}
@@ -723,9 +738,9 @@ export const SignInForm: React.FC<SignInFormProps> = ({
                   width: '100%',
                   padding: '0.75rem 1rem 0.75rem 2.4rem',
                   backgroundColor: 'var(--color-surface-2)',
-                  border: '1px solid var(--color-border-subtle)',
-                  borderRadius: 'var(--radius-md)',
-                  color: '#FFFFFF',
+                  border: '1.5px solid var(--color-border-default)',
+                  borderRadius: '10px',
+                  color: 'var(--color-text-primary)',
                   fontSize: '0.9rem',
                   outline: 'none',
                 }}
@@ -740,9 +755,9 @@ export const SignInForm: React.FC<SignInFormProps> = ({
                 htmlFor="auth-password"
                 style={{
                   fontSize: '0.75rem',
-                  fontFamily: 'var(--font-display)',
+                  fontFamily: 'var(--font-sans)',
                   fontWeight: 700,
-                  color: 'var(--color-text-secondary)',
+                  color: '#334155',
                   textTransform: 'uppercase',
                   letterSpacing: '0.05em',
                 }}
@@ -755,8 +770,9 @@ export const SignInForm: React.FC<SignInFormProps> = ({
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: 'var(--color-blue-light, #93C5FD)',
+                  color: '#15803D',
                   fontSize: '0.75rem',
+                  fontWeight: 600,
                   cursor: 'pointer',
                 }}
               >
@@ -778,9 +794,9 @@ export const SignInForm: React.FC<SignInFormProps> = ({
                   width: '100%',
                   padding: '0.75rem 2.6rem 0.75rem 2.4rem',
                   backgroundColor: 'var(--color-surface-2)',
-                  border: '1px solid var(--color-border-subtle)',
-                  borderRadius: 'var(--radius-md)',
-                  color: '#FFFFFF',
+                  border: '1.5px solid var(--color-border-default)',
+                  borderRadius: '10px',
+                  color: 'var(--color-text-primary)',
                   fontSize: '0.9rem',
                   outline: 'none',
                 }}

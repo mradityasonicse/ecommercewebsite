@@ -61,33 +61,33 @@ export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
 
   if (isTokenExpired) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', textAlign: 'center', alignItems: 'center', width: '100%' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', textAlign: 'center', alignItems: 'center', width: '100%' }}>
         <div
           style={{
-            width: '56px',
-            height: '56px',
+            width: '52px',
+            height: '52px',
             borderRadius: '50%',
-            backgroundColor: 'rgba(239, 68, 68, 0.1)',
-            border: '1px solid rgba(239, 68, 68, 0.25)',
+            backgroundColor: '#FEE2E2',
+            border: '1.5px solid #F87171',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#EF4444',
+            color: '#B91C1C',
           }}
         >
           <AlertCircle size={26} />
         </div>
 
         <div>
-          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#FFFFFF', margin: '0 0 var(--space-2) 0' }}>
+          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', margin: '0 0 0.35rem 0' }}>
             Reset Link Expired
           </h3>
-          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', lineHeight: 1.6, margin: 0 }}>
+          <p style={{ fontSize: '0.85rem', color: '#64748B', lineHeight: 1.6, margin: 0 }}>
             Security tokens expire after 30 minutes to protect your student credentials. Please request a fresh reset link.
           </p>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: '100%' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', width: '100%' }}>
           <Button
             variant="primary"
             size="md"
@@ -95,6 +95,7 @@ export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
             iconPosition="left"
             fullWidth
             onClick={() => onSwitchMode('forgot-password')}
+            style={{ backgroundColor: '#15803D' }}
           >
             Request New Reset Link
           </Button>
@@ -114,28 +115,28 @@ export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
 
   if (isSuccess) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', textAlign: 'center', alignItems: 'center', width: '100%' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', textAlign: 'center', alignItems: 'center', width: '100%' }}>
         <div
           style={{
-            width: '56px',
-            height: '56px',
+            width: '52px',
+            height: '52px',
             borderRadius: '50%',
-            backgroundColor: 'rgba(34, 197, 94, 0.1)',
-            border: '1px solid rgba(34, 197, 94, 0.25)',
+            backgroundColor: '#DCFCE7',
+            border: '1.5px solid #86EFAC',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#22C55E',
+            color: '#15803D',
           }}
         >
           <CheckCircle2 size={26} />
         </div>
 
         <div>
-          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#FFFFFF', margin: '0 0 var(--space-2) 0' }}>
+          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', margin: '0 0 0.35rem 0' }}>
             Password Reset Complete
           </h3>
-          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', lineHeight: 1.6, margin: 0 }}>
+          <p style={{ fontSize: '0.85rem', color: '#64748B', lineHeight: 1.6, margin: 0 }}>
             Your account security credentials have been updated. You may now sign in using your new password.
           </p>
         </div>
@@ -150,6 +151,7 @@ export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
             if (onSuccess) onSuccess();
             else onSwitchMode('sign-in');
           }}
+          style={{ backgroundColor: '#15803D' }}
         >
           Continue to Sign In
         </Button>
@@ -158,20 +160,21 @@ export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: '100%' }}>
+    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
       {errorMessage && (
         <div
           role="alert"
           style={{
-            backgroundColor: 'rgba(239, 68, 68, 0.1)',
-            border: '1px solid rgba(239, 68, 68, 0.3)',
-            borderRadius: 'var(--radius-md)',
+            backgroundColor: '#FEE2E2',
+            border: '1px solid #F87171',
+            borderRadius: '10px',
             padding: '0.75rem 1rem',
-            color: 'var(--color-accent-red)',
+            color: '#B91C1C',
             fontSize: '0.85rem',
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem',
+            fontWeight: 600,
           }}
         >
           <AlertCircle size={16} />
@@ -213,7 +216,7 @@ export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
         iconPosition="left"
         loading={isLoading}
         fullWidth
-        style={{ marginTop: 'var(--space-2)' }}
+        style={{ marginTop: '0.5rem', backgroundColor: '#15803D' }}
       >
         Update Password
       </Button>
@@ -224,15 +227,15 @@ export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
         style={{
           background: 'none',
           border: 'none',
-          color: 'var(--color-text-secondary)',
+          color: '#15803D',
           fontSize: '0.82rem',
-          fontWeight: 600,
+          fontWeight: 700,
           cursor: 'pointer',
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
           gap: '0.4rem',
-          marginTop: 'var(--space-2)',
+          marginTop: '0.25rem',
         }}
       >
         <ArrowLeft size={14} /> Back to Sign In

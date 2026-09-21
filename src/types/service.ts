@@ -7,10 +7,11 @@ export type AvailabilityStatus = 'available' | 'limited' | 'unavailable' | 'comi
 
 export type ServiceSortOption = 
   | 'recommended' 
-  | 'popular' 
-  | 'rating' 
   | 'price-asc' 
-  | 'price-desc';
+  | 'price-desc' 
+  | 'newest'
+  | 'popular' 
+  | 'rating';
 
 export interface ServiceCategory {
   id: string;
@@ -22,10 +23,10 @@ export interface ServiceCategory {
 }
 
 export interface ServiceMetrics {
-  providersAvailable: number;
-  avgDeliveryTime: string;
-  studentSatisfaction: string;
-  ratingScore?: number; // e.g. 4.8
+  providersAvailable?: number;
+  avgDeliveryTime?: string;
+  studentSatisfaction?: string;
+  ratingScore?: number;
   reviewCount?: number;
 }
 

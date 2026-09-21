@@ -12,4 +12,5 @@ export { FinalCTASection } from './FinalCTASection';
 export { EverythingYouNeedSection } from './EverythingYouNeedSection';
 export { TestimonialsSection } from './TestimonialsSection';
 export { FAQSection } from './FAQSection';
+export { ConnectedCampusPipeline } from './ConnectedCampusPipeline';
 export { ReferenceCTABanner } from './ReferenceCTABanner';

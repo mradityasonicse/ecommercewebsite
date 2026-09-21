@@ -108,9 +108,7 @@ export const ServiceEcosystemSection: React.FC<ServiceEcosystemSectionProps> = (
             Everything in One Place.{' '}
             <span
               style={{
-                background: 'linear-gradient(135deg, #FFFFFF 0%, var(--color-text-secondary) 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
+                color: 'var(--color-brand-gold)',
               }}
             >
               Curated for Student Living.

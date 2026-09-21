@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, MapPin, Star, ArrowUpRight } from 'lucide-react';
+import { ShieldCheck, MapPin, Clock, ArrowUpRight } from 'lucide-react';
 import type { ServiceDetail } from '../../types/serviceDetail';
 import type { Campus } from '../../data/campuses';
 import { PROVIDERS, type Provider } from '../../data/providers';
@@ -39,18 +39,18 @@ export const ServiceProviderSection: React.FC<ServiceProviderSectionProps> = ({
             gap: '0.45rem',
             padding: '0.35rem 0.85rem',
             borderRadius: 'var(--radius-pill)',
-            backgroundColor: 'rgba(15, 56, 44, 0.06)',
-            border: '1px solid rgba(15, 56, 44, 0.16)',
+            backgroundColor: 'rgba(59, 130, 246, 0.06)',
+            border: '1px solid rgba(59, 130, 246, 0.16)',
             fontSize: '0.72rem',
             fontFamily: 'var(--font-sans)',
             fontWeight: 700,
-            color: 'var(--color-brand-blue, #0F382C)',
+            color: 'var(--color-brand-blue)',
             textTransform: 'uppercase',
             letterSpacing: '0.08em',
             marginBottom: 'var(--space-3)',
           }}
         >
-          <ShieldCheck size={13} color="var(--color-brand-blue, #0F382C)" />
+          <ShieldCheck size={13} color="var(--color-brand-blue)" />
           <span>Audited Operators</span>
         </div>
 
@@ -59,7 +59,7 @@ export const ServiceProviderSection: React.FC<ServiceProviderSectionProps> = ({
             fontSize: 'clamp(1.8rem, 2.8vw, 2.4rem)',
             fontFamily: 'var(--font-serif, "Domine", serif)',
             fontWeight: 600,
-            color: 'var(--color-text-primary, #151D1A)',
+            color: 'var(--color-text-primary)',
             lineHeight: 1.2,
             margin: '0 0 var(--space-3) 0',
           }}
@@ -67,7 +67,7 @@ export const ServiceProviderSection: React.FC<ServiceProviderSectionProps> = ({
           Verified Providers Serving Your Gate.
         </h2>
 
-        <p style={{ fontSize: '0.96rem', color: 'var(--color-text-secondary, #414845)', lineHeight: 1.6, margin: 0 }}>
+        <p style={{ fontSize: '0.96rem', color: 'var(--color-text-secondary)', lineHeight: 1.6, margin: 0 }}>
           Every partner listed below has passed in-person identity verification, hygiene registration audits, and agreed to fixed student rate cards.
         </p>
       </div>
@@ -93,7 +93,7 @@ export const ServiceProviderSection: React.FC<ServiceProviderSectionProps> = ({
             }}
             style={{
               backgroundColor: '#FFFFFF',
-              border: '1px solid var(--color-border-subtle, #E8E4D5)',
+              border: '1px solid var(--color-border-subtle)',
               borderRadius: 'var(--radius-xl)',
               padding: 'var(--space-6)',
               cursor: 'pointer',
@@ -105,12 +105,12 @@ export const ServiceProviderSection: React.FC<ServiceProviderSectionProps> = ({
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.borderColor = 'var(--color-brand-blue, #0F382C)';
+              e.currentTarget.style.borderColor = 'var(--color-brand-blue)';
               e.currentTarget.style.boxShadow = 'var(--shadow-md)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'none';
-              e.currentTarget.style.borderColor = 'var(--color-border-subtle, #E8E4D5)';
+              e.currentTarget.style.borderColor = 'var(--color-border-subtle)';
               e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
             }}
           >
@@ -121,7 +121,7 @@ export const ServiceProviderSection: React.FC<ServiceProviderSectionProps> = ({
                     fontSize: '0.7rem',
                     fontFamily: 'var(--font-mono)',
                     color: '#2E7D32',
-                    backgroundColor: '#f3fbf5',
+                    backgroundColor: 'var(--color-surface-2)',
                     border: '1px solid rgba(46, 125, 50, 0.25)',
                     padding: '0.2rem 0.55rem',
                     borderRadius: 'var(--radius-sm)',
@@ -135,18 +135,17 @@ export const ServiceProviderSection: React.FC<ServiceProviderSectionProps> = ({
                   <span>{prov.verificationBadge}</span>
                 </span>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.78rem', color: 'var(--color-text-primary, #151D1A)', fontWeight: 700 }}>
-                  <Star size={13} fill="#F8CE37" color="#F8CE37" />
-                  <span>{prov.rating}</span>
-                  <span style={{ color: 'var(--color-text-muted, #6B736D)', fontWeight: 400 }}>({prov.reviewsCount})</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.78rem', color: 'var(--color-text-secondary)' }}>
+                  <Clock size={12} color="var(--color-brand-blue)" />
+                  <span>{prov.responseTime}</span>
                 </div>
               </div>
 
-              <h3 style={{ fontSize: '1.15rem', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 600, color: 'var(--color-text-primary, #151D1A)', margin: '0 0 var(--space-2) 0' }}>
+              <h3 style={{ fontSize: '1.15rem', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 600, color: 'var(--color-text-primary)', margin: '0 0 var(--space-2) 0' }}>
                 {prov.name}
               </h3>
 
-              <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary, #414845)', lineHeight: 1.5, margin: '0 0 var(--space-4) 0' }}>
+              <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', lineHeight: 1.5, margin: '0 0 var(--space-4) 0' }}>
                 {prov.bio}
               </p>
 
@@ -157,9 +156,9 @@ export const ServiceProviderSection: React.FC<ServiceProviderSectionProps> = ({
                     style={{
                       fontSize: '0.7rem',
                       fontFamily: 'var(--font-mono)',
-                      color: 'var(--color-text-muted, #6B736D)',
-                      backgroundColor: '#f3fbf5',
-                      border: '1px solid var(--color-border-subtle, #E8E4D5)',
+                      color: 'var(--color-text-muted)',
+                      backgroundColor: 'var(--color-surface-2)',
+                      border: '1px solid var(--color-border-subtle)',
                       padding: '0.15rem 0.45rem',
                       borderRadius: 'var(--radius-sm)',
                     }}
@@ -172,19 +171,19 @@ export const ServiceProviderSection: React.FC<ServiceProviderSectionProps> = ({
 
             <div
               style={{
-                borderTop: '1px solid var(--color-border-subtle, #E8E4D5)',
+                borderTop: '1px solid var(--color-border-subtle)',
                 paddingTop: 'var(--space-3)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.78rem', color: 'var(--color-text-muted, #6B736D)' }}>
-                <MapPin size={12} color="var(--color-brand-blue, #0F382C)" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>
+                <MapPin size={12} color="var(--color-brand-blue)" />
                 <span>{prov.distanceFromCampus}</span>
               </div>
 
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem', color: 'var(--color-brand-blue, #0F382C)', fontSize: '0.82rem', fontWeight: 600 }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem', color: 'var(--color-brand-blue)', fontSize: '0.82rem', fontWeight: 600 }}>
                 <span>Inspect Profile</span>
                 <ArrowUpRight size={14} />
               </div>

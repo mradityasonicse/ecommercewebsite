@@ -11,12 +11,13 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Initialize theme: Default to 'primary' (Brand Deep Royal Navy from logo)
   const [theme, setThemeState] = useState<Theme>(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('easehub-theme');
-      if (saved === 'primary' || saved === 'dark') return saved;
-      return 'primary'; // Primary default: Logo Deep Royal Navy
+      const saved = localStorage.getItem('easehub-theme') as Theme | null;
+      if (saved === 'dark' || saved === 'primary') return saved;
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
+      }
     }
     return 'primary';
   });
@@ -24,13 +25,16 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   useEffect(() => {
     const root = document.documentElement;
     root.setAttribute('data-theme', theme);
-    root.classList.remove('dark', 'theme-primary', 'light');
     if (theme === 'dark') {
       root.classList.add('dark');
+      root.classList.remove('theme-primary');
     } else {
+      root.classList.remove('dark');
       root.classList.add('theme-primary');
     }
-    localStorage.setItem('easehub-theme', theme);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('easehub-theme', theme);
+    }
   }, [theme]);
 
   const toggleTheme = () => {

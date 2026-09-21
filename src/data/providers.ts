@@ -3,8 +3,8 @@ export interface Provider {
   name: string;
   serviceId: string;
   campusId: string;
-  rating: number;
-  reviewsCount: number;
+  rating?: number;
+  reviewsCount?: number;
   isVerified: boolean;
   verificationBadge: string;
   distanceFromCampus: string;
@@ -20,8 +20,6 @@ export const PROVIDERS: Provider[] = [
     name: 'Maa Ki Rasoi — Homely Student Kitchen',
     serviceId: 'food',
     campusId: 'campus-hub',
-    rating: 4.9,
-    reviewsCount: 420,
     isVerified: true,
     verificationBadge: 'EaseHub Gold Hygiene Audited',
     distanceFromCampus: '400m from Campus Gate 2',
@@ -35,8 +33,6 @@ export const PROVIDERS: Provider[] = [
     name: 'Zenith Student Living — Block A',
     serviceId: 'stay',
     campusId: 'campus-hub',
-    rating: 4.8,
-    reviewsCount: 312,
     isVerified: true,
     verificationBadge: 'Legal Lease & Deposit Guarantee',
     distanceFromCampus: '650m from Main Academic Block',
@@ -50,8 +46,6 @@ export const PROVIDERS: Provider[] = [
     name: 'SpinCraft Smart Wash Lab',
     serviceId: 'laundry',
     campusId: 'campus-hub',
-    rating: 4.9,
-    reviewsCount: 580,
     isVerified: true,
     verificationBadge: 'Antimicrobial Wash Certified',
     distanceFromCampus: 'Hostel Doorstep Pickup',
@@ -65,8 +59,6 @@ export const PROVIDERS: Provider[] = [
     name: 'Iron Vault Athletic Club',
     serviceId: 'fitness',
     campusId: 'campus-hub',
-    rating: 4.7,
-    reviewsCount: 195,
     isVerified: true,
     verificationBadge: 'EaseHub Campus Partner',
     distanceFromCampus: '300m from North Gate',
@@ -80,8 +72,6 @@ export const PROVIDERS: Provider[] = [
     name: 'Volt Campus Shuttle Network',
     serviceId: 'transport',
     campusId: 'campus-hub',
-    rating: 4.8,
-    reviewsCount: 840,
     isVerified: true,
     verificationBadge: 'Campus Admin Recognized',
     distanceFromCampus: 'Station to Academic Block',
@@ -95,8 +85,6 @@ export const PROVIDERS: Provider[] = [
     name: 'HostelFix Emergency Techs',
     serviceId: 'maintenance',
     campusId: 'campus-hub',
-    rating: 4.9,
-    reviewsCount: 280,
     isVerified: true,
     verificationBadge: 'Police & Skill Verified',
     distanceFromCampus: 'On-Call Campus Techs',

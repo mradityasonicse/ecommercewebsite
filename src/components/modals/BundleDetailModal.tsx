@@ -80,7 +80,7 @@ export const BundleDetailModal: React.FC<BundleDetailModalProps> = ({ bundle, on
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               {bundle.servicesIncluded.map((s, idx) => (
                 <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: 'var(--color-text-primary)' }}>
-                  <Check size={16} color="var(--color-brand-green, #59A83E)" />
+                  <Check size={16} color="var(--color-brand-green)" />
                   <span>{s}</span>
                 </div>
               ))}
@@ -141,7 +141,7 @@ export const BundleDetailModal: React.FC<BundleDetailModalProps> = ({ bundle, on
         </div>
       ) : (
         <div style={{ textAlign: 'center', padding: '1.5rem 1rem' }}>
-          <CheckCircle2 size={48} color="var(--color-brand-green, #59A83E)" style={{ margin: '0 auto 1rem auto' }} />
+          <CheckCircle2 size={48} color="var(--color-brand-green)" style={{ margin: '0 auto 1rem auto' }} />
           <h3 style={{ fontSize: '1.4rem', fontFamily: 'var(--font-display, "Domine", serif)', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '0.5rem' }}>
             Pass Reservation Dispatched!
           </h3>

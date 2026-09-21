@@ -10,10 +10,9 @@ interface SortControlProps {
 export const SortControl: React.FC<SortControlProps> = ({ value, onChange }) => {
   const sortOptions: Array<{ id: ServiceSortOption; label: string }> = [
     { id: 'recommended', label: 'Sort: Recommended' },
-    { id: 'popular', label: 'Sort: Most Popular' },
-    { id: 'rating', label: 'Sort: Highest Rated' },
     { id: 'price-asc', label: 'Sort: Price: Low to High' },
     { id: 'price-desc', label: 'Sort: Price: High to Low' },
+    { id: 'newest', label: 'Sort: Newest Additions' },
   ];
 
   return (

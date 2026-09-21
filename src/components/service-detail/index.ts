@@ -9,5 +9,6 @@ export * from './ServiceProviderSection';
 export * from './ServiceReviews';
 export * from './ServiceFAQ';
 export * from './StickyServiceAction';
+export * from './StickyBookingSidebar';
 export * from './RelatedServices';
 export * from './ServiceStates';

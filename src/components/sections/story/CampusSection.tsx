@@ -41,18 +41,18 @@ export const CampusSection: React.FC<CampusSectionProps> = ({
               gap: '0.45rem',
               padding: '0.35rem 0.9rem',
               borderRadius: 'var(--radius-pill)',
-              backgroundColor: '#EDF6EF',
+              backgroundColor: 'rgba(59, 130, 246, 0.08)',
               border: '1px solid var(--color-border-subtle)',
               marginBottom: 'var(--space-3)',
             }}
           >
-            <School size={13} color="#0F382C" />
+            <School size={13} color="var(--color-brand-blue)" />
             <span
               style={{
                 fontSize: '0.74rem',
                 fontFamily: 'var(--font-body)',
                 fontWeight: 700,
-                color: '#0F382C',
+                color: 'var(--color-brand-blue)',
                 textTransform: 'uppercase',
                 letterSpacing: '0.1em',
               }}
@@ -63,44 +63,36 @@ export const CampusSection: React.FC<CampusSectionProps> = ({
 
           <h2
             style={{
-              fontSize: 'clamp(1.85rem, 3.5vw, 2.75rem)',
-              fontFamily: 'var(--font-display)',
-              fontWeight: 700,
+              fontSize: 'clamp(2rem, 3.5vw, 3rem)',
+              fontFamily: 'var(--font-serif, "Domine", serif)',
+              fontWeight: 600,
               lineHeight: 1.2,
               letterSpacing: '-0.02em',
               color: 'var(--color-text-primary)',
-              margin: '0 0 var(--space-3) 0',
+              margin: '0 0 var(--space-4) 0',
             }}
           >
-            Your Campus.{' '}
-            <span
-              style={{
-                color: 'var(--color-brand-blue)',
-              }}
-            >
-              Your Verified Ecosystem.
-            </span>
+            Operating Exclusively Within Verified Campus Geofences.
           </h2>
 
           <p
             style={{
-              fontSize: 'clamp(0.95rem, 1.2vw, 1.05rem)',
-              fontFamily: 'var(--font-body)',
+              fontSize: 'clamp(1rem, 1.3vw, 1.125rem)',
               color: 'var(--color-text-secondary)',
               lineHeight: 1.6,
               maxWidth: '640px',
               margin: '0 auto',
             }}
           >
-            EaseHub operates with dedicated local operations teams positioned right outside your university main gates.
+            EaseHub links directly with student unions, local kitchen networks, and verified private hostel gates within a strict 1.5 km perimeter.
           </p>
         </div>
 
-        {/* Currently Selected Campus Spotlight Banner */}
+        {/* Selected Campus Hub Card */}
         <div
           style={{
-            backgroundColor: '#FFFFFF',
-            border: '1.5px solid #0F382C',
+            backgroundColor: 'var(--color-surface-1)',
+            border: '1.5px solid var(--color-brand-blue)',
             borderRadius: 'var(--radius-lg)',
             padding: 'var(--space-6) var(--space-8)',
             marginBottom: 'var(--space-8)',
@@ -116,7 +108,7 @@ export const CampusSection: React.FC<CampusSectionProps> = ({
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: 'var(--space-2)' }}>
               <span
                 style={{
-                  backgroundColor: '#0F382C',
+                  backgroundColor: 'var(--color-brand-blue)',
                   color: '#FFFFFF',
                   padding: '0.2rem 0.65rem',
                   borderRadius: 'var(--radius-pill)',
@@ -134,28 +126,28 @@ export const CampusSection: React.FC<CampusSectionProps> = ({
               </span>
             </div>
 
-            <h3 style={{ fontSize: 'clamp(1.4rem, 2.2vw, 1.8rem)', fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--color-text-primary)', margin: '0 0 var(--space-2) 0' }}>
+            <h3 style={{ fontSize: 'clamp(1.4rem, 2.2vw, 1.8rem)', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 700, color: 'var(--color-text-primary)', margin: '0 0 var(--space-2) 0' }}>
               {selectedCampus.name}
             </h3>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>
-              <MapPin size={15} color="#0F382C" />
+              <MapPin size={15} color="var(--color-brand-blue)" />
               <span>Campus Ops HQ: <strong style={{ color: 'var(--color-text-primary)' }}>{selectedCampus.hubLocation}</strong></span>
             </div>
           </div>
 
           {/* Quick Metrics for Active Campus */}
           <div style={{ display: 'flex', gap: 'var(--space-4)', flexWrap: 'wrap' }}>
-            <div style={{ backgroundColor: '#EDF6EF', padding: 'var(--space-4) var(--space-6)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border-subtle)' }}>
+            <div style={{ backgroundColor: 'var(--color-surface-2)', padding: 'var(--space-4) var(--space-6)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border-subtle)' }}>
               <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginBottom: '0.2rem' }}>Enrolled Students</div>
-              <div style={{ fontSize: '1.4rem', fontFamily: 'var(--font-display)', fontWeight: 700, color: '#0F382C' }}>
+              <div style={{ fontSize: '1.4rem', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 700, color: 'var(--color-text-primary)' }}>
                 {selectedCampus.studentCount.toLocaleString()}+
               </div>
             </div>
 
-            <div style={{ backgroundColor: '#EDF6EF', padding: 'var(--space-4) var(--space-6)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border-subtle)' }}>
+            <div style={{ backgroundColor: 'var(--color-surface-2)', padding: 'var(--space-4) var(--space-6)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border-subtle)' }}>
               <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginBottom: '0.2rem' }}>Verified Providers</div>
-              <div style={{ fontSize: '1.4rem', fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--color-semantic-success)' }}>
+              <div style={{ fontSize: '1.4rem', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 700, color: 'var(--color-semantic-success)' }}>
                 {selectedCampus.activeProviders} Live
               </div>
             </div>
@@ -181,8 +173,8 @@ export const CampusSection: React.FC<CampusSectionProps> = ({
                 tabIndex={0}
                 onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onSelectCampus(campus); }}
                 style={{
-                  backgroundColor: '#FFFFFF',
-                  border: isCurrent ? '2px solid #0F382C' : '1px solid var(--color-border-subtle)',
+                  backgroundColor: 'var(--color-surface-1)',
+                  border: isCurrent ? '2px solid var(--color-brand-blue)' : '1px solid var(--color-border-subtle)',
                   borderRadius: 'var(--radius-lg)',
                   padding: 'var(--space-5)',
                   cursor: 'pointer',
@@ -209,8 +201,8 @@ export const CampusSection: React.FC<CampusSectionProps> = ({
                       fontFamily: 'var(--font-body)',
                       fontWeight: 600,
                       color: campus.status === 'active' ? '#2E7D32' : 'var(--color-brand-red)',
-                      backgroundColor: campus.status === 'active' ? '#EDF6EF' : '#FFDAD6',
-                      border: campus.status === 'active' ? '1px solid rgba(46, 125, 50, 0.25)' : '1px solid rgba(211, 69, 46, 0.25)',
+                      backgroundColor: campus.status === 'active' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+                      border: campus.status === 'active' ? '1px solid rgba(16, 185, 129, 0.25)' : '1px solid rgba(239, 68, 68, 0.25)',
                       padding: '0.18rem 0.5rem',
                       borderRadius: 'var(--radius-sm)',
                     }}
@@ -222,7 +214,7 @@ export const CampusSection: React.FC<CampusSectionProps> = ({
                   </span>
                 </div>
 
-                <h4 style={{ fontSize: '1rem', fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--color-text-primary)', margin: '0 0 var(--space-2) 0' }}>
+                <h4 style={{ fontSize: '1rem', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 700, color: 'var(--color-text-primary)', margin: '0 0 var(--space-2) 0' }}>
                   {campus.shortName}
                 </h4>
 
@@ -238,8 +230,8 @@ export const CampusSection: React.FC<CampusSectionProps> = ({
         {/* Bring EaseHub to Your College Callout */}
         <div
           style={{
-            backgroundColor: '#FFFFFF',
-            border: '1px dashed #0F382C',
+            backgroundColor: 'var(--color-surface-1)',
+            border: '1px dashed var(--color-brand-blue)',
             borderRadius: 'var(--radius-lg)',
             padding: 'var(--space-5) var(--space-6)',
             display: 'flex',
@@ -256,18 +248,18 @@ export const CampusSection: React.FC<CampusSectionProps> = ({
                 width: '40px',
                 height: '40px',
                 borderRadius: 'var(--radius-md)',
-                backgroundColor: '#EDF6EF',
+                backgroundColor: 'rgba(59, 130, 246, 0.08)',
                 border: '1px solid var(--color-border-subtle)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#0F382C',
+                color: 'var(--color-brand-blue)',
               }}
             >
               <PlusCircle size={20} />
             </div>
             <div>
-              <h4 style={{ fontSize: '1rem', fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--color-text-primary)', margin: '0 0 0.2rem 0' }}>
+              <h4 style={{ fontSize: '1rem', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 700, color: 'var(--color-text-primary)', margin: '0 0 0.2rem 0' }}>
                 Don't see your university listed yet?
               </h4>
               <p style={{ fontSize: '0.84rem', color: 'var(--color-text-secondary)', margin: 0 }}>
@@ -282,7 +274,7 @@ export const CampusSection: React.FC<CampusSectionProps> = ({
             style={{
               padding: '0.65rem 1.35rem',
               borderRadius: 'var(--radius-sm)',
-              backgroundColor: '#0F382C',
+              backgroundColor: 'var(--color-brand-blue)',
               color: '#FFFFFF',
               border: 'none',
               fontSize: '0.86rem',
@@ -296,10 +288,10 @@ export const CampusSection: React.FC<CampusSectionProps> = ({
               transition: 'all var(--duration-fast)',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = '#164E3E';
+              e.currentTarget.style.backgroundColor = 'var(--color-blue-hover)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = '#0F382C';
+              e.currentTarget.style.backgroundColor = 'var(--color-brand-blue)';
             }}
           >
             <span>Request Your Campus</span>

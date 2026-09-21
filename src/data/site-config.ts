@@ -3,7 +3,7 @@ export const SITE_CONFIG = {
   tagline: 'PG • LAUNDRY • MESS • & MORE',
   shortDescription: 'The student living ecosystem connecting university students with verified PG & housing, laundry, mess & food, and campus essentials.',
   stats: [
-    { label: 'Active University Students', value: '42,000+', trend: '+28% this semester' },
+    { label: 'Student Services Covered', value: 'PG • Mess • Laundry', trend: 'Verified local listings' },
     { label: 'Background Verified Providers', value: '280+', trend: '100% audit rate' },
     { label: 'Campus Hubs Operational', value: '6 Campuses', trend: 'Expanding to 14' },
     { label: 'Hours Saved Per Student', value: '18 hrs / mo', trend: 'Verified survey data' },

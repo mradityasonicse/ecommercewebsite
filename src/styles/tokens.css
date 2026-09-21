@@ -1,267 +1,356 @@
 /* ==========================================================================
-   EASEHUB DESIGN SYSTEM — CORE CSS TOKENS
-   Official EaseHub Brand Identity Specification:
-   - Deep Royal Navy (#12285A) — Primary brand anchor & "EASE" wordmark
-   - Campus Leaf Green (#58A940) — Secondary brand anchor & "HUB" wordmark
-   - Sunflower Gold (#FACA12) — Food & Vitality accent (cutlery mark & high-conversion CTAs)
-   - Crisp Modern Light Canvas (#F8FAFC & #FFFFFF)
+   EASEHUB DESIGN SYSTEM — CORE TOKENS SPECIFICATION (PHASE 1)
+   Architecture: Tokenized CSS Custom Properties
+   Visual Foundation:
+   - Primary Identity: Electric / Royal Blue (#3B82F6 / #12285A)
+   - Accent & Action: Signal Red (#EF4444) & Sunflower Gold (#FAC908)
+   - Foundations: Deep Royal Navy Canvas (#0A1633) & Obsidian Black (#060709)
+   - Principles: Precision over decoration, restrained elevation, high contrast.
    ========================================================================== */
 
 :root,
 :root[data-theme="primary"],
 html.theme-primary,
 body.theme-primary {
-  /* --- 1. Backgrounds & Foundations (Primary: Logo Deep Royal Navy Foundation #12285A) --- */
-  --color-bg-primary: #0A1633;          /* Primary Brand Dark Blue Canvas */
-  --color-bg-secondary: #08122B;        /* Deep Navy Inset Surface */
-  --color-bg-tertiary: #0E1E47;         /* Slate Navy Inset */
-  --color-bg-elevated: #132756;         /* Elevated Card Dark Navy */
-  --color-bg-inverse: #F8FAFC;          /* Inverse Light */
+  /* --- 1. Backgrounds & Foundations (Clean White & Soft Sage Campus Canvas) --- */
+  --color-background: #FFFFFF;          /* Pure Crisp White Canvas */
+  --color-bg-primary: #FFFFFF;          /* Primary Clean White */
+  --color-bg-secondary: #F8FAF7;        /* Soft Sage Tinted Surface */
+  --color-bg-tertiary: #EFF5EC;         /* Light Green Accent Surface */
+  --color-bg-elevated: #FFFFFF;         /* Crisp Elevated Container Surface */
+  --color-bg-inverse: #0B331A;          /* Deep Forest Green Inverse */
 
-  /* --- 2. Surface Hierarchy (Tactile Architectural Navy Cards) --- */
-  --color-surface-1: #132756;           /* Level 1 Navy Card Surface */
-  --color-surface-2: #0E1E45;           /* Level 2 Sub-surface / Navy Inset */
-  --color-surface-3: #18306B;           /* Level 3 Deep Navy Container */
-  --color-surface-4: #224491;           /* High container */
-  --color-surface: #132756;             /* compatibility alias */
-  --color-surface-hover: #1A3575;       /* compatibility alias */
-  --color-surface-elevated: #132756;    /* compatibility alias */
-  --color-surface-interactive: #132756;
-  --color-surface-active: #224491;
-  --color-surface-inverse: #F8FAFC;
-  --color-surface-glass: rgba(10, 22, 51, 0.92);
-  --color-surface-overlay: rgba(5, 12, 28, 0.75);
+  /* --- 2. Surface Hierarchy (Frosted White Glass & Clean Panels) --- */
+  --color-surface: #FFFFFF;             /* Base White Surface (Cards, Panels) */
+  --color-surface-1: #FFFFFF;           /* Level 1 Surface */
+  --color-surface-2: #F8FAF7;           /* Level 2 Sub-surface / Inset */
+  --color-surface-3: #EFF5EC;           /* Level 3 Inset Container */
+  --color-surface-4: #E2ECE0;           /* Level 4 Accent Container */
+  --color-surface-elevated: #FFFFFF;    /* Elevated Surface Token */
+  --color-surface-hover: #F2F7F0;       /* Surface Hover */
+  --color-surface-interactive: #FFFFFF; /* Interactive Base */
+  --color-surface-active: #E4EFE2;      /* Active / Pressed State */
+  --color-surface-inverse: #0B331A;
+  --color-surface-glass: rgba(255, 255, 255, 0.94);
+  --color-surface-overlay: rgba(15, 23, 42, 0.55);
 
-  /* --- 3. Primary Action & Collegiate Anchor (Deep Royal Navy #112758) --- */
-  --color-brand-navy: #112758;
-  --color-brand-blue: #3B82F6;          /* Vibrant Electric Blue for High Visibility on Navy */
-  --color-blue: #3B82F6;                /* compatibility alias */
-  --color-blue-hover: #60A5FA;
-  --color-blue-active: #2563EB;
-  --color-blue-light: #60A5FA;
-  --color-blue-dark: #1D4ED8;
-  --color-blue-subtle: rgba(59, 130, 246, 0.15);
-  --color-blue-glow: rgba(59, 130, 246, 0.35);
+  /* --- 3. Brand Identity Colors (Emerald Green & Sunflower Yellow) --- */
+  --color-brand-green: #15803D;         /* Vibrant Forest/Emerald Green */
+  --color-brand-navy: #0F5132;          /* Deep Forest Green Anchor */
+  --color-brand-blue: #15803D;          /* Primary Action Re-mapped to Green */
+  --color-blue: #15803D;                /* High-conversion primary */
+  --color-blue-hover: #16A34A;          /* Luminous Green hover */
+  --color-blue-active: #14532D;
+  --color-blue-light: #22C55E;
+  --color-blue-dark: #0F5132;
+  --color-blue-subtle: rgba(22, 163, 74, 0.12);
 
-  /* --- 4. Secondary Action & Verification (Campus Leaf Green #59A83E) --- */
-  --color-brand-green: #59A83E;
-  --color-brand-green-dark: #3E7B2B;    /* High contrast accessible text */
-  --color-brand-green-light: #6DC24F;
-  --color-green: #59A83E;
-  --color-green-hover: #4B9133;
-  --color-green-subtle: rgba(89, 168, 62, 0.16);
-  --color-brand-pine: #112758;          /* Aliased for backward compatibility */
-  --color-brand-forest: #59A83E;
+  /* Radiant Yellow & Saffron Accents */
+  --color-brand-gold: #F59E0B;          /* Vitality, Stars & Value Highlights */
+  --color-accent-gold: #FACC15;         /* Sunshine Yellow */
+  --color-gold-hover: #EAB308;
+  --color-gold-active: #CA8A04;
+  --color-gold-subtle: rgba(250, 204, 21, 0.24);
+  --color-gold-text: #854D0E;           /* High-contrast yellow text */
 
-  /* --- 5. Vitality & High-Conversion Accent (Sunflower Gold #FAC908) --- */
-  --color-brand-gold: #FAC908;
-  --color-accent-gold: #FAC908;
-  --color-gold-hover: #E5B507;
-  --color-gold-active: #D4A300;
-  --color-gold-light: #FDE47B;
-  --color-gold-subtle: rgba(250, 201, 8, 0.22);
-  --color-gold-text: #112758;           /* Deep Navy text on Sunflower Gold */
-
-  /* Red/Alert: Vibrant Crimson / Terracotta */
-  --color-brand-red: #EF4444;
-  --color-red: #EF4444;                 /* compatibility alias */
+  /* Urgent Signals & Deals */
+  --color-brand-red: #EF4444;           /* Coral Action Signal */
+  --color-red: #EF4444;
   --color-red-hover: #DC2626;
   --color-red-active: #B91C1C;
   --color-red-light: #F87171;
   --color-red-dark: #991B1B;
-  --color-red-subtle: rgba(239, 68, 68, 0.18);
-  --color-red-glow: rgba(239, 68, 68, 0.35);
+  --color-red-subtle: rgba(239, 68, 68, 0.1);
 
-  /* --- 6. Brand Neutrals & Scale --- */
-  --color-brand-white: #FFFFFF;
-  --color-white: #FFFFFF;
-  --color-neutral-white: #FFFFFF;
-  --color-neutral-50: #08122B;
-  --color-neutral-100: #0A1633;
-  --color-neutral-200: #0E1E45;
-  --color-neutral-300: #132756;
-  --color-neutral-400: #1E3870;
-  --color-neutral-500: #64748B;
-  --color-neutral-600: #94A3B8;
-  --color-neutral-700: #CBD5E1;
-  --color-neutral-800: #E2E8F0;
-  --color-neutral-850: #F1F5F9;
-  --color-neutral-900: #F8FAFC;
-  --color-neutral-950: #FFFFFF;
-  --color-neutral-black: #000000;
+  /* --- 4. Semantic Status Tokens --- */
+  --color-success: #15803D;
+  --color-success-subtle: rgba(22, 163, 74, 0.12);
+  --color-semantic-success: #15803D;
+  --color-semantic-success-bg: rgba(22, 163, 74, 0.1);
+  --color-semantic-success-border: rgba(22, 163, 74, 0.28);
+  --color-semantic-success-text: #15803D;
 
-  /* --- 7. Text Hierarchy (High-Contrast for Navy Primary Canvas) --- */
-  --color-text-primary: #FFFFFF;        /* Crisp White */
-  --color-text-secondary: #CBD5E1;      /* Slate Light */
-  --color-text-muted: #94A3B8;          /* Slate Supporting */
-  --color-text-disabled: #64748B;
-  --color-text-inverse: #0A1633;
-  --color-text-link: #FACA12;           /* Sunflower Gold links on Navy */
-  --color-text-link-hover: #58A940;     /* Campus Leaf Green */
+  --color-warning: #D97706;
+  --color-warning-subtle: rgba(245, 158, 11, 0.12);
+  --color-semantic-warning: #D97706;
+  --color-semantic-warning-bg: rgba(245, 158, 11, 0.1);
+  --color-semantic-warning-border: rgba(245, 158, 11, 0.28);
+  --color-semantic-warning-text: #B45309;
 
-  /* --- 8. Border Tokens (Navy Architectural Dividers) --- */
-  --color-border-subtle: #1E3870;       /* Dark Navy Border */
-  --color-border: #1E3870;
-  --color-border-default: #284D9E;
-  --color-border-hover: #3B6ACC;
-  --color-border-strong: #4A7CE0;
-  --color-border-focus: #FACA12;
-  --color-border-active: #FACA12;
-  --color-border-red: rgba(239, 68, 68, 0.4);
-
-  /* --- 9. Semantic Tokens --- */
-  --color-semantic-success: #58A940;
-  --color-semantic-success-bg: rgba(88, 169, 64, 0.16);
-  --color-semantic-success-border: rgba(88, 169, 64, 0.35);
-  --color-semantic-success-text: #6DBF55;
-
-  --color-semantic-warning: #FACA12;
-  --color-semantic-warning-bg: rgba(250, 202, 18, 0.18);
-  --color-semantic-warning-border: rgba(250, 202, 18, 0.4);
-  --color-semantic-warning-text: #FACA12;
-
+  --color-error: #EF4444;
   --color-semantic-error: #EF4444;
-  --color-semantic-error-bg: rgba(239, 68, 68, 0.18);
-  --color-semantic-error-border: rgba(239, 68, 68, 0.35);
-  --color-semantic-error-text: #F87171;
+  --color-semantic-error-bg: rgba(239, 68, 68, 0.1);
+  --color-semantic-error-border: rgba(239, 68, 68, 0.28);
+  --color-semantic-error-text: #DC2626;
 
-  --color-semantic-info: #3B82F6;
-  --color-semantic-info-bg: rgba(59, 130, 246, 0.15);
-  --color-semantic-info-border: rgba(59, 130, 246, 0.35);
-  --color-semantic-info-text: #60A5FA;
+  --color-info: #15803D;
+  --color-semantic-info: #15803D;
+  --color-semantic-info-bg: rgba(22, 163, 74, 0.1);
+  --color-semantic-info-border: rgba(22, 163, 74, 0.28);
+  --color-semantic-info-text: #15803D;
 
-  /* Aliases for backwards compatibility */
-  --color-success: var(--color-semantic-success);
-  --color-success-subtle: var(--color-semantic-success-bg);
-  --color-warning: var(--color-semantic-warning);
-  --color-warning-subtle: var(--color-semantic-warning-bg);
+  /* --- 5. Text Hierarchy Tokens (Crisp Charcoal Contrast on White) --- */
+  --color-text-primary: #0F172A;        /* Crisp Primary Ink Contrast */
+  --color-text-secondary: #334155;      /* Secondary Supporting Slate */
+  --color-text-muted: #64748B;          /* Muted / Caption Slate */
+  --color-text-disabled: #94A3B8;       /* Disabled State Text */
+  --color-text-inverse: #FFFFFF;        /* Inverse Light Text */
+  --color-text-link: #15803D;           /* Emerald Green Links */
+  --color-text-link-hover: #16A34A;
 
-  /* --- 9. Typography Fonts & Scales (Domine & Manrope) --- */
-  --font-display: 'Domine', Georgia, 'Times New Roman', serif;
-  --font-body: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  /* --- 6. Borders & Dividers (Crisp Green-Tinted Micro Borders) --- */
+  --color-border: rgba(22, 163, 74, 0.14);                 /* Base Structural Border */
+  --color-border-subtle: rgba(0, 0, 0, 0.07);              /* Subtle Card & Divider Border */
+  --color-border-default: rgba(22, 163, 74, 0.18);         /* Standard Interactive Border */
+  --color-border-hover: #16A34A;                           /* Hover Border */
+  --color-border-strong: rgba(22, 163, 74, 0.32);          /* Emphasized Border */
+  --color-border-focus: #15803D;                           /* Focus Indicator */
+  --color-border-active: #15803D;
 
-  /* Semantic Fluid Type Scale */
-  --text-display-xl: clamp(2.75rem, 5vw + 1rem, 4.5rem);       /* 44px - 72px */
-  --text-display-lg: clamp(2.25rem, 4vw + 0.8rem, 3.25rem);    /* 36px - 52px */
-  --text-display-md: clamp(1.75rem, 2.8vw + 0.6rem, 2.5rem);   /* 28px - 40px */
-  --text-heading-xl: clamp(1.5rem, 2.2vw + 0.5rem, 2.125rem);  /* 24px - 34px */
-  --text-heading-lg: clamp(1.35rem, 1.6vw + 0.4rem, 1.75rem);  /* 22px - 28px */
-  --text-heading-md: clamp(1.2rem, 1.1vw + 0.3rem, 1.375rem);  /* 19px - 22px */
-  --text-heading-sm: 1.125rem;                                /* 18px */
-  
-  --text-body-lg: 1rem;                                       /* 16px */
-  --text-body-md: 0.875rem;                                   /* 14px */
-  --text-body-sm: 0.8125rem;                                  /* 13px */
-  --text-body-xs: 0.75rem;                                    /* 12px */
+  /* --- 7. Typography Fonts & Centralized Semantic Tokens --- */
+  --font-display: 'Outfit', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  --text-label-lg: 1rem;                                      /* 16px */
-  --text-label-md: 0.75rem;                                   /* 12px */
-  --text-label-sm: 0.6875rem;                                 /* 11px */
+  /* Font Family Mappings */
+  --font-family-display: var(--font-display);
+  --font-family-h1: var(--font-display);
+  --font-family-h2: var(--font-display);
+  --font-family-h3: var(--font-display);
+  --font-family-h4: var(--font-body);
+  --font-family-body-lg: var(--font-body);
+  --font-family-body: var(--font-body);
+  --font-family-body-sm: var(--font-body);
+  --font-family-label: var(--font-body);
+  --font-family-caption: var(--font-body);
+  --font-family-metadata: var(--font-mono);
+  --font-family-nav: var(--font-body);
+  --font-family-button: var(--font-body);
+  --font-family-input: var(--font-body);
+  --font-family-status: var(--font-body);
 
-  --text-caption: 0.75rem;                                    /* 12px */
-  --text-eyebrow: 0.6875rem;                                  /* 11px */
+  /* Semantic Typography Sizes */
+  --text-display: clamp(2.25rem, 4vw, 3.25rem);                 /* Hero / Major Display */
+  --text-h1: clamp(1.75rem, 3vw, 2.35rem);                       /* Section Primary Title */
+  --text-h2: clamp(1.35rem, 2vw, 1.75rem);                       /* Subsection / Group Title */
+  --text-h3: clamp(1.125rem, 1.2vw, 1.25rem);                    /* Card Title */
+  --text-h4: 1rem;                                              /* Component / Module Header */
+  --text-body-lg: 1.0625rem;                                    /* Lead Paragraph (17px) */
+  --text-body: 0.9375rem;                                       /* Standard Body (15px) */
+  --text-body-md: 0.9375rem;                                    /* Alias */
+  --text-body-sm: 0.8125rem;                                    /* Supporting Body (13px) */
+  --text-body-xs: 0.75rem;                                      /* Microcopy (12px) */
+  --text-label: 0.8125rem;                                      /* Form Label / Tag (13px) */
+  --text-caption: 0.75rem;                                      /* Captions & Helper Text (12px) */
+  --text-metadata: 0.75rem;                                     /* Timestamps & References */
+  --text-nav: 0.875rem;                                         /* Navigation Item (14px) */
+  --text-button: 0.875rem;                                      /* Button CTA (14px) */
+  --text-input: 0.875rem;                                       /* Input & Select (14px) */
+  --text-status: 0.75rem;                                       /* Status Badge (12px) */
+  --text-eyebrow: 0.75rem;                                      /* Section Eyebrow Tag */
 
-  /* Compatibility aliases */
-  --text-display: var(--text-display-lg);
-  --text-h1: var(--text-heading-xl);
-  --text-h2: var(--text-heading-lg);
-  --text-h3: var(--text-heading-md);
-  --text-h4: var(--text-heading-sm);
-  --text-body: var(--text-body-md);
+  /* Semantic Typography Weights */
+  --weight-display: 700;
+  --weight-h1: 700;
+  --weight-h2: 600;
+  --weight-h3: 600;
+  --weight-h4: 600;
+  --weight-body-lg: 400;
+  --weight-body: 400;
+  --weight-body-sm: 400;
+  --weight-label: 600;
+  --weight-caption: 500;
+  --weight-metadata: 500;
+  --weight-nav: 500;
+  --weight-nav-active: 600;
+  --weight-button: 600;
+  --weight-input: 400;
+  --weight-status: 600;
+
+  /* Semantic Typography Line Heights */
+  --leading-display: 1.15;
+  --leading-h1: 1.2;
+  --leading-h2: 1.25;
+  --leading-h3: 1.35;
+  --leading-h4: 1.4;
+  --leading-body-lg: 1.6;
+  --leading-body: 1.55;
+  --leading-body-sm: 1.5;
+  --leading-label: 1.3;
+  --leading-caption: 1.4;
+  --leading-metadata: 1.4;
+  --leading-nav: 1.2;
+  --leading-button: 1.2;
+  --leading-input: 1.45;
+  --leading-status: 1.2;
+
+  /* Semantic Typography Letter Spacing (Precision Negative Tracking for Premium Feel) */
+  --tracking-display: -0.035em;
+  --tracking-h1: -0.03em;
+  --tracking-h2: -0.02em;
+  --tracking-h3: -0.015em;
+  --tracking-h4: -0.01em;
+  --tracking-body-lg: -0.005em;
+  --tracking-body: -0.005em;
+  --tracking-body-sm: 0em;
+  --tracking-label: 0.01em;
+  --tracking-caption: 0.01em;
+  --tracking-metadata: 0.02em;
+  --tracking-nav: -0.005em;
+  --tracking-button: 0.01em;
+  --tracking-input: 0em;
+  --tracking-status: 0.03em;
+  --tracking-uppercase: 0.06em;
+
+  /* Backward Compatibility Aliases */
+  --text-display-xl: var(--text-display);
+  --text-display-lg: var(--text-display);
+  --text-display-md: var(--text-h1);
+  --text-heading-xl: var(--text-h1);
+  --text-heading-lg: var(--text-h2);
+  --text-heading-md: var(--text-h3);
+  --text-heading-sm: var(--text-h4);
   --text-sm: var(--text-body-sm);
   --text-xs: var(--text-body-xs);
 
-  /* --- 10. Spacing Rhythm (8pt architectural rhythm matching DESIGN.md) --- */
+  /* --- 8. Systematic Spacing Rhythm (4, 8, 12, 16, 24, 32, 40, 48, 64, 80, 96, 120 px) --- */
   --space-0: 0px;
-  --space-1: 4px;       /* space-xs: 0.25rem */
-  --space-2: 8px;       /* space-sm: 0.5rem */
-  --space-3: 12px;      /* 0.75rem */
-  --space-4: 16px;      /* space-md: 1rem */
-  --space-5: 20px;      /* 1.25rem */
-  --space-6: 24px;      /* space-lg: 1.5rem */
-  --space-8: 32px;      /* 2rem */
-  --space-10: 40px;     /* space-xl: 2.5rem */
-  --space-12: 48px;     /* 3rem */
-  --space-16: 64px;     /* 4rem */
-  --space-20: 80px;     /* 5rem */
-  --space-24: 96px;     /* 6rem */
-  --space-30: 120px;    /* 7.5rem */
-  --space-32: 128px;    /* 8rem */
-  --space-40: 160px;    /* 10rem */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-30: 120px;
 
-  /* --- 11. Containers --- */
+  /* --- 9. Containers --- */
   --container-narrow: 896px;
   --container-default: 1280px;
   --container-wide: 1440px;
   --container-full: 100%;
   --container-text-max: 680px;
 
-  /* Compatibility aliases */
-  --container-sm: 640px;
-  --container-md: 896px;
-  --container-lg: 1120px;
-  --container-xl: 1280px;
-  --container-fluid: 94%;
-
-  /* --- 12. Radii (Restrained, Architectural Curvature from DESIGN.md) --- */
+  /* --- 10. Border Radius (Controlled, Architectural Scale) --- */
   --radius-none: 0px;
   --radius-xs: 2px;
-  --radius-sm: 4px;     /* 0.25rem: base inputs, tags, table cells */
-  --radius-md: 6px;     /* 0.375rem */
-  --radius-lg: 8px;     /* 0.5rem: housing cards, service panels, buttons */
-  --radius-xl: 12px;    /* 0.75rem: navigation bars, modals, hero containers */
-  --radius-2xl: 16px;
-  --radius-pill: 9999px;/* Pill exception: status tags, 3-service switcher */
+  --radius-sm: 4px;     /* Subtle tags, form controls, table cells */
+  --radius-md: 6px;     /* Standard form fields, buttons, card insets */
+  --radius-lg: 8px;     /* Standard cards, service panels */
+  --radius-xl: 12px;    /* Major containers, modals, sheet drawers */
+  --radius-2xl: 16px;   /* Hero containers */
+  --radius-pill: 9999px;/* Chips, avatars, indicator badges only */
   --radius-full: 9999px;
 
-  /* --- 13. Shadows & Elevation (Soft Tactile Standard with Navy Tint) --- */
+  /* --- 11. Shadows & Elevation (Soft, Natural Campus Depth) --- */
   --shadow-none: none;
-  --shadow-sm: 0 1px 3px 0 rgba(18, 40, 90, 0.04), 0 1px 2px 0 rgba(18, 40, 90, 0.02);
-  --shadow-md: 0 2px 8px -2px rgba(18, 40, 90, 0.06), 0 1px 2px 0 rgba(18, 40, 90, 0.03); /* Level 1 default */
-  --shadow-lg: 0 8px 24px -4px rgba(18, 40, 90, 0.1), 0 3px 6px -1px rgba(18, 40, 90, 0.04); /* Level 2 hover */
-  --shadow-xl: 0 20px 40px -8px rgba(18, 40, 90, 0.16); /* Level 3 modals */
-  --shadow-blue: 0 4px 16px rgba(18, 40, 90, 0.2);
-  --shadow-green: 0 4px 16px rgba(88, 169, 64, 0.25);
-  --shadow-red: 0 4px 16px rgba(211, 69, 46, 0.18);
-  --shadow-gold: 0 4px 16px rgba(250, 202, 18, 0.35);
-  --shadow-focus: 0 0 0 3px rgba(18, 40, 90, 0.15);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 16px -2px rgba(15, 81, 50, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 12px 30px -4px rgba(15, 81, 50, 0.12), 0 4px 10px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 48px -8px rgba(15, 81, 50, 0.15);
+  --shadow-focus: 0 0 0 3px rgba(22, 163, 74, 0.25);
 
-  /* --- 14. Motion Tokens (Master Motion System: Fast -> Smooth -> Controlled -> Premium) --- */
+  /* --- 12. Motion & Interaction Tokens --- */
   --duration-instant: 50ms;
-  --duration-micro: 140ms;     /* 120-160ms: micro-interactions, active press, icon shifts */
-  --duration-fast: 200ms;      /* 180-240ms: buttons, chips, tabs, search focus */
-  --duration-normal: 240ms;    /* legacy alias */
-  --duration-standard: 300ms;  /* 280-400ms: card hover, modal fade, drawer slide */
-  --duration-deliberate: 380ms;/* legacy alias */
-  --duration-emphasis: 480ms;  /* 450-650ms: section scroll reveal, hero entrance */
-  --duration-cinematic: 520ms;
-  --duration-slow: 450ms;
+  --duration-fast: 150ms;      /* Buttons, hover, toggles, chips */
+  --duration-standard: 250ms;  /* Card hover, modal fade, drawer slide */
+  --duration-emphasis: 350ms;  /* Hero transitions, section reveals */
+
+  /* Legacy duration aliases */
+  --duration-micro: 140ms;
+  --duration-normal: 240ms;
+  --duration-deliberate: 300ms;
+  --duration-cinematic: 350ms;
+  --duration-slow: 350ms;
 
   --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-tactile: cubic-bezier(0.2, 0.0, 0.0, 1.0);
-  --ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-enter: cubic-bezier(0.0, 0.0, 0.2, 1);
-  --ease-exit: cubic-bezier(0.4, 0.0, 1, 1);
-
-  --distance-micro: 2px;
-  --distance-sm: 4px;
-  --distance-md: 14px;
-  --distance-lg: 20px;
-
-  --scale-button-hover: 1.012;
-  --scale-button-active: 0.985;
-  --scale-card-hover: 1.0;
-  --scale-modal-enter: 0.988;
 }
 
-/* Accessibility: Support Reduced Motion */
+/* ==========================================================================
+   THEME 2: OBSIDIAN DARK MODE (Deep AMOLED & Velvet Slate)
+   ========================================================================== */
+:root[data-theme="dark"],
+html.dark,
+body.dark {
+  /* --- 1. Backgrounds (True Obsidian Pitch Black Canvas) --- */
+  --color-background: #090D16;          /* Deep Obsidian Midnight Canvas */
+  --color-bg-primary: #090D16;          /* Primary Canvas */
+  --color-bg-secondary: #0F172A;        /* Dark Slate Inset */
+  --color-bg-tertiary: #1E293B;         /* Charcoal Inset */
+  --color-bg-elevated: #111827;         /* Elevated Card Obsidian */
+  --color-bg-inverse: #FFFFFF;
+
+  /* --- 2. Surface Hierarchy --- */
+  --color-surface: #0F172A;             /* Level 1 Surface */
+  --color-surface-1: #0F172A;           /* Base Card Surface */
+  --color-surface-2: #1E293B;           /* Sub-surface / Inset */
+  --color-surface-3: #243048;           /* Level 3 Inset */
+  --color-surface-4: #2D3A54;           /* Level 4 Accent Container */
+  --color-surface-elevated: #151F32;    /* Elevated Surface */
+  --color-surface-hover: #1A2438;       /* Surface Hover */
+  --color-surface-interactive: #0F172A;
+  --color-surface-active: #222F46;
+  --color-surface-inverse: #F8FAFC;
+  --color-surface-glass: rgba(9, 13, 22, 0.92);
+  --color-surface-overlay: rgba(0, 0, 0, 0.85);
+
+  /* --- 3. Text Hierarchy --- */
+  --color-text-primary: #F8FAFC;        /* High-contrast Crisp White */
+  --color-text-secondary: #94A3B8;      /* Slate Light */
+  --color-text-muted: #64748B;          /* Slate Subdued */
+  --color-text-disabled: #475569;
+  --color-text-inverse: #090D16;
+  --color-text-link: #34D399;           /* Vibrant Emerald Mint */
+  --color-text-link-hover: #10B981;
+
+  /* --- 4. Borders & Dividers --- */
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-default: rgba(255, 255, 255, 0.14);
+  --color-border-hover: rgba(52, 211, 153, 0.4);
+  --color-border-strong: rgba(255, 255, 255, 0.24);
+  --color-border-focus: #10B981;
+  --color-border-active: #10B981;
+
+  /* --- 5. Brand Anchors in Dark Mode --- */
+  --color-brand-green: #10B981;         /* Bright Mint/Emerald */
+  --color-brand-blue: #10B981;
+  --color-blue: #10B981;
+  --color-blue-hover: #34D399;
+  --color-blue-active: #059669;
+  --color-blue-light: #6EE7B7;
+  --color-blue-dark: #064E3B;
+  --color-blue-subtle: rgba(16, 185, 129, 0.18);
+  --color-brand-navy: #090D16;
+  --color-brand-gold: #F59E0B;
+  --color-accent-gold: #FACC15;
+  --color-gold-text: #FDE047;
+  --color-brand-red: #F87171;
+
+  /* --- 6. Shadows --- */
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 4px 16px -2px rgba(0, 0, 0, 0.7);
+  --shadow-lg: 0 12px 32px -4px rgba(0, 0, 0, 0.85);
+  --shadow-xl: 0 24px 52px -8px rgba(0, 0, 0, 0.95);
+  --shadow-focus: 0 0 0 3px rgba(16, 185, 129, 0.35);
+}
+
+/* ==========================================================================
+   ACCESSIBILITY: PREFERS-REDUCED-MOTION
+   ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
   :root {
     --duration-instant: 0ms !important;
     --duration-fast: 0ms !important;
+    --duration-standard: 0ms !important;
+    --duration-emphasis: 0ms !important;
     --duration-normal: 0ms !important;
     --duration-deliberate: 0ms !important;
     --duration-cinematic: 0ms !important;
@@ -276,61 +365,3 @@ body.theme-primary {
     transform: none !important;
   }
 }
-
-/* ==========================================================================
-   THEME 1: OBSIDIAN PITCH BLACK (Dark Mode)
-   Requested: "and dark mode mai kuch aur rakhlo like black"
-   ========================================================================== */
-:root[data-theme="dark"],
-html.dark,
-body.dark {
-  /* --- 1. Backgrounds (True Obsidian Pitch Black Canvas) --- */
-  --color-bg-primary: #060709;          /* Sleek Obsidian Black Canvas */
-  --color-bg-secondary: #000000;        /* Pure AMOLED Black Inset */
-  --color-bg-tertiary: #0C0E14;         /* Charcoal Inset */
-  --color-bg-elevated: #11141D;         /* Elevated Card Obsidian */
-  --color-bg-inverse: #FFFFFF;
-
-  /* --- 2. Surface Hierarchy --- */
-  --color-surface-1: #0F121A;           /* Level 1 Obsidian Card Surface */
-  --color-surface-2: #080A0E;           /* Sub-surface Container */
-  --color-surface-3: #161A24;
-  --color-surface-4: #1E2331;
-  --color-surface: #0F121A;
-  --color-surface-hover: #171C27;
-  --color-surface-elevated: #11141D;
-  --color-surface-interactive: #0F121A;
-  --color-surface-active: #1E2331;
-  --color-surface-glass: rgba(6, 7, 9, 0.94);
-  --color-surface-overlay: rgba(0, 0, 0, 0.85);
-
-  /* --- 3. Text Hierarchy --- */
-  --color-text-primary: #FFFFFF;        /* Pure White Contrast */
-  --color-text-secondary: #94A3B8;      /* Slate Light */
-  --color-text-muted: #64748B;          /* Slate Subdued */
-  --color-text-disabled: #475569;
-  --color-text-inverse: #000000;
-  --color-text-link: #FACA12;           /* Sunflower Gold links */
-  --color-text-link-hover: #58A940;     /* Campus Leaf Green */
-
-  /* --- 4. Borders & Dividers --- */
-  --color-border-subtle: #1A1F2C;       /* Obsidian Border */
-  --color-border-default: #242B3D;
-  --color-border-hover: #37425C;
-  --color-border-focus: #FACA12;
-  --color-border-strong: #4B5A7D;
-
-  /* --- 5. Brand Anchors in Black Mode --- */
-  --color-brand-blue: #60A5FA;          /* Electric Blue Accent */
-  --color-blue: #60A5FA;
-  --color-brand-green: #59A83E;
-  --color-brand-gold: #FAC908;
-  --color-brand-navy: #112758;
-
-  /* --- 6. Shadows --- */
-  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.6);
-  --shadow-md: 0 4px 16px -2px rgba(0, 0, 0, 0.7);
-  --shadow-lg: 0 12px 32px -4px rgba(0, 0, 0, 0.85);
-  --shadow-xl: 0 24px 52px -8px rgba(0, 0, 0, 0.95);
-}
-

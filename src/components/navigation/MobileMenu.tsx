@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { X, ChevronDown, ChevronRight, MapPin, MessageCircle, Sun, Moon } from 'lucide-react';
-import { useTheme } from '../../context/ThemeContext';
+import {
+  X,
+  ChevronDown,
+  ChevronRight,
+  MapPin,
+  Package,
+  LayoutDashboard,
+  Shield,
+  User as UserIcon,
+  LogOut,
+  Sun,
+  Moon,
+} from 'lucide-react';
 import { BrandLogo } from '../brand/BrandLogo';
-import { PRIMARY_NAV_ITEMS, SERVICES_NAV_ITEMS } from '../../config/navigation';
 import { CAMPUSES, type Campus } from '../../data/campuses';
-import { ECOSYSTEM_SERVICES } from '../../data/services';
-import { UserActions } from './UserActions';
 import { SearchTrigger } from './SearchTrigger';
+import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
 
 export interface MobileMenuProps {
   isOpen: boolean;
@@ -17,6 +27,13 @@ export interface MobileMenuProps {
   onPartnerOpen?: () => void;
 }
 
+interface NavItemDef {
+  id: string;
+  label: string;
+  href: string;
+  badge?: string;
+}
+
 export const MobileMenu: React.FC<MobileMenuProps> = ({
   isOpen,
   onClose,
@@ -25,9 +42,18 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
   onRequestCampusOpen: _onRequestCampusOpen,
   onPartnerOpen: _onPartnerOpen,
 }) => {
+  const { user, isAuthenticated, signOut } = useAuth();
   const { theme, toggleTheme } = useTheme();
-  const [isServicesExpanded, setIsServicesExpanded] = useState<boolean>(true);
   const [isCampusPickerOpen, setIsCampusPickerOpen] = useState<boolean>(false);
+  const [activeHash, setActiveHash] = useState<string>('');
+
+  // Track active hash for visual feedback
+  useEffect(() => {
+    const updateHash = () => setActiveHash(window.location.hash.toLowerCase());
+    updateHash();
+    window.addEventListener('hashchange', updateHash);
+    return () => window.removeEventListener('hashchange', updateHash);
+  }, []);
 
   // Scroll lock and Escape listener
   useEffect(() => {
@@ -48,17 +74,63 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
 
   if (!isOpen) return null;
 
+  const role = user?.role || 'student';
+
+  const getNavItems = (): NavItemDef[] => {
+    if (!isAuthenticated) {
+      return [
+        { id: 'services', label: 'Services', href: '#core-services' },
+        { id: 'bundles', label: 'Student Bundles', href: '#bundles', badge: 'Save 15%' },
+      ];
+    }
+
+    if (role === 'provider') {
+      return [
+        { id: 'provider', label: 'Provider Portal', href: '#provider' },
+        { id: 'status', label: 'Verification Status', href: '#provider/status' },
+        { id: 'contact', label: 'Partner Helpdesk', href: '#contact' },
+      ];
+    }
+
+    if (role === 'admin') {
+      return [
+        { id: 'admin', label: 'Admin Console', href: '#admin' },
+        { id: 'services', label: 'Services Ecosystem', href: '#core-services' },
+        { id: 'account', label: 'Student Dashboard', href: '#account/dashboard' },
+      ];
+    }
+
+    // Default: Authenticated Student
+    return [
+      { id: 'services', label: 'Services', href: '#core-services' },
+      { id: 'bundles', label: 'Living Bundles', href: '#bundles' },
+      { id: 'requests', label: 'My Requests', href: '#account/requests' },
+    ];
+  };
+
+  const navItems = getNavItems();
+
   const handleLinkClick = (href: string) => {
     onClose();
-    const targetId = href.replace('#', '').split('?')[0];
-    const el = document.getElementById(targetId);
-    if (el) {
-      setTimeout(() => {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+    if (href.startsWith('#')) {
+      const targetId = href.replace('#', '').split('?')[0];
+      const el = document.getElementById(targetId);
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }, 120);
+      } else {
+        window.location.hash = href;
+      }
     } else {
-      window.location.hash = href;
+      window.location.href = href;
     }
+  };
+
+  const handleSignOut = () => {
+    onClose();
+    signOut();
+    window.location.hash = '';
   };
 
   return (
@@ -66,421 +138,550 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
       role="dialog"
       aria-modal="true"
       aria-label="Mobile Navigation Menu"
-      className="easehub-mobile-menu-overlay mobile-nav-backdrop"
+      id="mobile-nav-drawer"
+      className="easehub-mobile-nav-drawer"
       style={{
         position: 'fixed',
         inset: 0,
-        zIndex: 9990,
-        backgroundColor: 'rgba(5, 5, 5, 0.95)',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
+        zIndex: 999995,
         display: 'flex',
-        flexDirection: 'column',
+        justifyContent: 'flex-end',
       }}
     >
-      {/* Mobile Menu Top Header */}
+      {/* 1. Backdrop Overlay */}
       <div
+        onClick={onClose}
+        className="easehub-mobile-drawer-backdrop"
         style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.65)',
+          animation: 'mobileBackdropFade 0.2s ease-out forwards',
+        }}
+      />
+
+      {/* 2. Slide-In Drawer Panel */}
+      <div
+        className="easehub-mobile-drawer-panel"
+        style={{
+          position: 'relative',
+          width: 'min(340px, 86vw)',
+          height: '100%',
+          backgroundColor: 'var(--color-surface, #FFFFFF)',
+          borderLeft: '1px solid var(--color-border-subtle, #E2E8F0)',
+          boxShadow: 'var(--shadow-xl)',
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '1rem 1.25rem',
-          borderBottom: '1px solid var(--color-border-subtle)',
-          flexShrink: 0,
+          flexDirection: 'column',
+          zIndex: 999996,
+          animation: 'mobileDrawerSlide 0.25s var(--ease-smooth) forwards',
         }}
       >
-        <BrandLogo variant="mobile" />
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-          <button
-            type="button"
-            onClick={toggleTheme}
-            aria-label={`Toggle theme: currently ${theme === 'primary' ? 'Navy Blue' : 'Obsidian Black'}`}
-            title={`Switch visual theme (${theme === 'primary' ? 'Navy Blue' : 'Obsidian Black'})`}
-            style={{
-              width: '44px',
-              height: '44px',
-              borderRadius: 'var(--radius-sm)',
-              backgroundColor: theme === 'primary' ? '#132756' : '#0F121A',
-              border: theme === 'primary' ? '1.5px solid #284D9E' : '1.5px solid #242B3D',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              boxShadow: theme === 'primary' ? '0 2px 10px rgba(18, 40, 90, 0.4)' : '0 2px 10px rgba(0, 0, 0, 0.6)',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            {theme === 'primary' ? (
-              <Sun size={20} color="#FAC908" />
-            ) : (
-              <Moon size={20} color="#A78BFA" />
-            )}
-          </button>
+        {/* Drawer Header (Clean, Never Clipped, High-Trust) */}
+        <div
+          className="easehub-mobile-drawer-header"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '0 1.25rem',
+            borderBottom: '1px solid var(--color-border-subtle, #E2E8F0)',
+            flexShrink: 0,
+            height: '64px',
+            minHeight: '64px',
+            backgroundColor: 'var(--color-surface, #FFFFFF)',
+          }}
+        >
+          <BrandLogo variant="mobile" href="#" />
 
           <button
             type="button"
             onClick={onClose}
             aria-label="Close navigation menu"
+            className="easehub-spring-btn"
             style={{
-              width: '44px',
-              height: '44px',
-              borderRadius: 'var(--radius-sm)',
-              backgroundColor: 'var(--color-surface-2)',
-              border: '1px solid var(--color-border-default)',
-              color: 'var(--color-text-primary)',
+              width: '38px',
+              height: '38px',
+              borderRadius: '10px',
+              backgroundColor: 'var(--color-surface-2, #F1F5F9)',
+              border: '1px solid var(--color-border-subtle, #E2E8F0)',
+              color: 'var(--color-text-primary, #0F172A)',
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
+              outline: 'none',
+              padding: 0,
+              transition: 'all 0.15s ease',
             }}
           >
             <X size={20} />
           </button>
         </div>
-      </div>
 
-      {/* Scrollable Mobile Body */}
-      <div
-        style={{
-          flex: 1,
-          overflowY: 'auto',
-          padding: '1.25rem',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1.25rem',
-        }}
-      >
-        {/* Search Bar */}
-        <div>
-          <SearchTrigger variant="desktop" onTrigger={onClose} style={{ width: '100%' }} />
-        </div>
-
-        {/* Dedicated Responsive Theme Switcher Row */}
+        {/* Scrollable Drawer Content */}
         <div
           style={{
+            flex: 1,
+            overflowY: 'auto',
+            padding: '1.25rem 1.25rem calc(3rem + env(safe-area-inset-bottom, 20px)) 1.25rem',
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '0.75rem 1rem',
-            backgroundColor: 'var(--color-surface-1)',
-            borderRadius: 'var(--radius-md)',
-            border: '1px solid var(--color-border-default)',
+            flexDirection: 'column',
+            gap: '1.25rem',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-            <div
-              style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '50%',
-                backgroundColor: theme === 'primary' ? '#132756' : '#0F121A',
-                border: theme === 'primary' ? '1px solid #284D9E' : '1px solid #242B3D',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              {theme === 'primary' ? <Sun size={16} color="#FAC908" /> : <Moon size={16} color="#A78BFA" />}
-            </div>
-            <div>
-              <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-text-primary)' }}>
-                {theme === 'primary' ? 'Navy Blue Mode' : 'Pitch Black Mode'}
-              </div>
-              <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>
-                Visual appearance theme
-              </div>
-            </div>
+          {/* Quick Search */}
+          <div>
+            <SearchTrigger
+              variant="desktop"
+              onTrigger={onClose}
+              style={{ width: '100%', minWidth: '100%', padding: '0.55rem 0.85rem' }}
+            />
           </div>
-          <button
-            type="button"
-            onClick={toggleTheme}
+
+          {/* Campus Selector Row */}
+          <div
             style={{
-              padding: '0.4rem 0.85rem',
-              borderRadius: 'var(--radius-pill)',
-              backgroundColor: theme === 'primary' ? 'rgba(250, 201, 8, 0.15)' : 'rgba(167, 139, 250, 0.15)',
-              border: theme === 'primary' ? '1px solid rgba(250, 201, 8, 0.4)' : '1px solid rgba(167, 139, 250, 0.4)',
-              color: theme === 'primary' ? '#FAC908' : '#A78BFA',
-              fontSize: '0.75rem',
-              fontWeight: 700,
-              cursor: 'pointer',
-              whiteSpace: 'nowrap',
+              backgroundColor: 'var(--color-surface-2)',
+              borderRadius: 'var(--radius-md)',
+              border: '1px solid var(--color-border-subtle)',
+              overflow: 'hidden',
             }}
           >
-            Switch Theme
-          </button>
-        </div>
+            <button
+              type="button"
+              onClick={() => setIsCampusPickerOpen(!isCampusPickerOpen)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                width: '100%',
+                padding: '0.75rem 1rem',
+                backgroundColor: 'transparent',
+                border: 'none',
+                color: 'var(--color-text-primary)',
+                fontFamily: 'var(--font-sans)',
+                fontSize: 'var(--text-body-sm)',
+                fontWeight: 600,
+                cursor: 'pointer',
+                textAlign: 'left',
+                minHeight: '44px',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <MapPin size={16} color="var(--color-brand-blue)" />
+                <span>Hub: {selectedCampus.shortName}</span>
+              </div>
+              <ChevronDown
+                size={16}
+                color="var(--color-text-muted)"
+                style={{
+                  transform: isCampusPickerOpen ? 'rotate(180deg)' : 'none',
+                  transition: 'transform var(--duration-fast)',
+                }}
+              />
+            </button>
 
-        {/* University Campus Selector */}
-        <div
-          style={{
-            backgroundColor: 'var(--color-surface-1)',
-            borderRadius: 'var(--radius-md)',
-            border: '1px solid var(--color-border-default)',
-            overflow: 'hidden',
-          }}
-        >
-          <button
-            type="button"
-            onClick={() => setIsCampusPickerOpen(!isCampusPickerOpen)}
+            {isCampusPickerOpen && (
+              <div style={{ borderTop: '1px solid var(--color-border-subtle)', padding: '0.4rem' }}>
+                {CAMPUSES.map((c) => {
+                  const isSelected = selectedCampus.id === c.id;
+                  return (
+                    <button
+                      key={c.id}
+                      type="button"
+                      onClick={() => {
+                        onCampusChange(c);
+                        setIsCampusPickerOpen(false);
+                      }}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        width: '100%',
+                        padding: '0.6rem 0.75rem',
+                        borderRadius: 'var(--radius-sm)',
+                        backgroundColor: isSelected ? 'rgba(59, 130, 246, 0.12)' : 'transparent',
+                        color: isSelected ? 'var(--color-brand-blue)' : 'var(--color-text-primary)',
+                        border: 'none',
+                        textAlign: 'left',
+                        fontSize: 'var(--text-body-xs)',
+                        fontWeight: isSelected ? 700 : 500,
+                        cursor: 'pointer',
+                        minHeight: '44px',
+                      }}
+                    >
+                      <span>{c.name}</span>
+                      {isSelected && (
+                        <span
+                          style={{
+                            width: '6px',
+                            height: '6px',
+                            borderRadius: '50%',
+                            backgroundColor: 'var(--color-brand-blue)',
+                          }}
+                        />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* Theme Switcher in Mobile Drawer */}
+          <div
             style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              width: '100%',
-              padding: '0.85rem 1rem',
-              backgroundColor: 'transparent',
-              border: 'none',
-              color: 'var(--color-text-primary)',
-              fontFamily: 'var(--font-display)',
-              fontSize: 'var(--text-body-sm)',
-              fontWeight: 600,
-              cursor: 'pointer',
-              textAlign: 'left',
+              padding: '0.65rem 0.85rem',
+              backgroundColor: 'var(--color-surface-2)',
+              borderRadius: 'var(--radius-md)',
+              border: '1px solid var(--color-border-subtle)',
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <MapPin size={16} color="var(--color-brand-blue)" />
-              <span>Campus: {selectedCampus.shortName}</span>
+              {theme === 'primary' ? (
+                <Sun size={16} color="#F59E0B" />
+              ) : (
+                <Moon size={16} color="#A78BFA" />
+              )}
+              <span
+                style={{
+                  fontSize: '0.82rem',
+                  fontWeight: 600,
+                  color: 'var(--color-text-primary)',
+                  fontFamily: 'var(--font-sans)',
+                }}
+              >
+                {theme === 'primary' ? 'Light Theme' : 'Obsidian Dark'}
+              </span>
             </div>
-            <ChevronDown size={16} color="var(--color-text-muted)" style={{ transform: isCampusPickerOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
-          </button>
 
-          {isCampusPickerOpen && (
-            <div style={{ borderTop: '1px solid var(--color-border-subtle)', padding: '0.5rem' }}>
-              {CAMPUSES.map((c) => (
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="easehub-spring-btn"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                padding: '0.35rem 0.65rem',
+                borderRadius: '6px',
+                backgroundColor: 'var(--color-surface)',
+                border: '1px solid var(--color-border-subtle)',
+                color: 'var(--color-text-primary)',
+                fontSize: '0.74rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+              }}
+            >
+              <span>{theme === 'primary' ? 'Turn Dark On' : 'Turn Light On'}</span>
+            </button>
+          </div>
+
+          {/* Primary Navigation Links */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+            <span
+              style={{
+                fontSize: '0.70rem',
+                fontWeight: 700,
+                color: 'var(--color-text-muted)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+                marginBottom: '0.25rem',
+                paddingLeft: '0.5rem',
+              }}
+            >
+              Navigation
+            </span>
+
+            {navItems.map((item) => {
+              const isActive = activeHash.includes(item.href.replace('#', ''));
+
+              return (
                 <button
-                  key={c.id}
+                  key={item.id}
                   type="button"
-                  onClick={() => {
-                    onCampusChange(c);
-                    setIsCampusPickerOpen(false);
-                  }}
+                  onClick={() => handleLinkClick(item.href)}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    width: '100%',
-                    padding: '0.65rem 0.75rem',
-                    borderRadius: 'var(--radius-xs)',
-                    backgroundColor: selectedCampus.id === c.id ? 'var(--color-blue-subtle)' : 'transparent',
-                    color: selectedCampus.id === c.id ? 'var(--color-blue-light)' : 'var(--color-text-primary)',
+                    padding: '0.75rem 0.85rem',
+                    borderRadius: 'var(--radius-md)',
+                    backgroundColor: isActive ? 'var(--color-surface-2)' : 'transparent',
                     border: 'none',
-                    textAlign: 'left',
-                    fontSize: 'var(--text-body-xs)',
-                    fontWeight: selectedCampus.id === c.id ? 700 : 500,
+                    color: isActive ? '#FFFFFF' : 'var(--color-text-secondary)',
+                    fontSize: '0.90rem',
+                    fontFamily: 'var(--font-sans)',
+                    fontWeight: isActive ? 600 : 500,
                     cursor: 'pointer',
-                    minHeight: '44px',
+                    textAlign: 'left',
+                    minHeight: '46px',
+                    transition: 'background-color var(--duration-fast), color var(--duration-fast)',
                   }}
                 >
-                  <span>{c.name}</span>
-                  {selectedCampus.id === c.id && <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--color-brand-blue)' }} />}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    {isActive && (
+                      <span
+                        style={{
+                          width: '4px',
+                          height: '16px',
+                          borderRadius: '2px',
+                          backgroundColor: 'var(--color-brand-blue)',
+                        }}
+                      />
+                    )}
+                    <span>{item.label}</span>
+                  </div>
 
-        {/* Primary Links */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-          {PRIMARY_NAV_ITEMS.map((item) => {
-            if (item.isMegaMenu) {
-              return (
-                <div key={item.id} style={{ display: 'flex', flexDirection: 'column' }}>
-                  <button
-                    type="button"
-                    onClick={() => setIsServicesExpanded(!isServicesExpanded)}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      padding: '0.85rem 0.5rem',
-                      background: 'transparent',
-                      border: 'none',
-                      color: '#FFFFFF',
-                      fontSize: 'var(--text-heading-sm)',
-                      fontFamily: 'var(--font-display)',
-                      fontWeight: 700,
-                      cursor: 'pointer',
-                      minHeight: '48px',
-                    }}
-                  >
-                    <span>Services Ecosystem</span>
-                    <ChevronDown size={18} color="var(--color-text-muted)" style={{ transform: isServicesExpanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
-                  </button>
-
-                  {/* Expandable 8-Service Grid for Mobile */}
-                  {isServicesExpanded && (
-                    <div
+                  {item.badge ? (
+                    <span
                       style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(1, minmax(0, 1fr))',
-                        gap: '0.35rem',
-                        paddingLeft: '0.75rem',
-                        marginBottom: '0.75rem',
-                        borderLeft: '2px solid var(--color-border-subtle)',
+                        fontSize: '0.62rem',
+                        padding: '1px 6px',
+                        borderRadius: 'var(--radius-sm)',
+                        backgroundColor: 'var(--color-brand-red)',
+                        color: '#FFFFFF',
+                        fontWeight: 700,
                       }}
                     >
-                      {SERVICES_NAV_ITEMS.map((s) => (
-                        <button
-                          key={s.id}
-                          type="button"
-                          onClick={() => {
-                            onClose();
-                            const matched = ECOSYSTEM_SERVICES.find((srv) => srv.id === s.id);
-                            if (matched) {
-                              window.location.hash = `#services/${matched.slug}`;
-                            } else {
-                              window.location.hash = 'catalog';
-                            }
-                          }}
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            padding: '0.65rem 0.75rem',
-                            borderRadius: 'var(--radius-sm)',
-                            backgroundColor: 'var(--color-surface-1)',
-                            border: '1px solid var(--color-border-subtle)',
-                            color: 'var(--color-text-primary)',
-                            fontSize: 'var(--text-body-xs)',
-                            fontWeight: 600,
-                            cursor: 'pointer',
-                            textAlign: 'left',
-                            minHeight: '44px',
-                          }}
-                        >
-                          <span>{s.name.split('&')[0].trim()}</span>
-                          <span style={{ fontSize: '0.7rem', color: 'var(--color-blue-light)' }}>from {s.startingPrice}</span>
-                        </button>
-                      ))}
-                    </div>
+                      {item.badge}
+                    </span>
+                  ) : (
+                    <ChevronRight size={16} color="var(--color-text-muted)" />
                   )}
-                </div>
+                </button>
               );
-            }
-
-            return (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => handleLinkClick(item.href)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '0.85rem 0.5rem',
-                  background: 'transparent',
-                  border: 'none',
-                  color: 'var(--color-text-secondary)',
-                  fontSize: 'var(--text-heading-sm)',
-                  fontFamily: 'var(--font-display)',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                  minHeight: '48px',
-                }}
-              >
-                <span>{item.label}</span>
-                {item.badge ? (
-                  <span
-                    style={{
-                      fontSize: '0.65rem',
-                      padding: '0.1rem 0.4rem',
-                      borderRadius: 'var(--radius-pill)',
-                      backgroundColor: 'rgba(229, 36, 37, 0.15)',
-                      color: '#FFA0A0',
-                      border: '1px solid rgba(229, 36, 37, 0.3)',
-                    }}
-                  >
-                    {item.badge}
-                  </span>
-                ) : (
-                  <ChevronRight size={16} color="var(--color-text-muted)" />
-                )}
-              </button>
-            );
-          })}
-        </div>
-
-
-
-        {/* Student Live Chat & WhatsApp Card */}
-        <div
-          style={{
-            backgroundColor: 'var(--color-surface-2)',
-            border: '1px solid rgba(37, 211, 102, 0.35)',
-            borderRadius: 'var(--radius-md)',
-            padding: '0.75rem 0.875rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '0.75rem',
-            marginTop: '0.75rem',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
-            <div
-              style={{
-                width: '36px',
-                height: '36px',
-                borderRadius: '50%',
-                backgroundColor: '#25D366',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#FFFFFF',
-                flexShrink: 0,
-              }}
-            >
-              <MessageCircle size={18} strokeWidth={2.4} fill="currentColor" />
-            </div>
-            <div>
-              <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#FFFFFF' }}>
-                Need Help with Services?
-              </div>
-              <div style={{ fontSize: '0.7rem', color: '#10B981', fontWeight: 600 }}>
-                ● Online on WhatsApp • &lt; 2m reply
-              </div>
-            </div>
+            })}
           </div>
-          <button
-            type="button"
-            onClick={() => {
-              onClose();
-              window.dispatchEvent(new CustomEvent('easehub:open-chat'));
-            }}
+
+          {/* User Account / Auth Section at Bottom */}
+          <div
             style={{
-              backgroundColor: '#25D366',
-              color: '#FFFFFF',
-              border: 'none',
-              borderRadius: 'var(--radius-sm)',
-              padding: '0.45rem 0.75rem',
-              fontSize: '0.75rem',
-              fontWeight: 700,
-              cursor: 'pointer',
-              whiteSpace: 'nowrap',
+              marginTop: 'auto',
+              paddingTop: '1rem',
+              borderTop: '1px solid var(--color-border-subtle)',
             }}
           >
-            Chat Now
-          </button>
-        </div>
+            {isAuthenticated && user ? (
+              <div
+                style={{
+                  backgroundColor: 'var(--color-surface-2)',
+                  border: '1px solid var(--color-border-subtle)',
+                  borderRadius: 'var(--radius-md)',
+                  padding: '0.85rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.75rem',
+                }}
+              >
+                {/* User Summary Card */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                  <div
+                    style={{
+                      width: '36px',
+                      height: '36px',
+                      borderRadius: '50%',
+                      backgroundColor: 'rgba(59, 130, 246, 0.18)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'var(--color-brand-blue)',
+                      fontWeight: 700,
+                      fontSize: '0.85rem',
+                    }}
+                  >
+                    {user.name.charAt(0).toUpperCase()}
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                      <span
+                        style={{
+                          fontSize: '0.86rem',
+                          fontWeight: 700,
+                          color: '#FFFFFF',
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                        }}
+                      >
+                        {user.name}
+                      </span>
+                      <span
+                        style={{
+                          fontSize: '0.60rem',
+                          padding: '1px 5px',
+                          borderRadius: 'var(--radius-sm)',
+                          textTransform: 'uppercase',
+                          fontWeight: 700,
+                          backgroundColor:
+                            role === 'admin'
+                              ? 'rgba(239, 68, 68, 0.2)'
+                              : 'rgba(59, 130, 246, 0.2)',
+                          color:
+                            role === 'admin'
+                              ? 'var(--color-brand-red)'
+                              : 'var(--color-brand-blue)',
+                        }}
+                      >
+                        {role}
+                      </span>
+                    </div>
+                    <div
+                      style={{
+                        fontSize: '0.72rem',
+                        color: 'var(--color-text-muted)',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                      }}
+                    >
+                      {user.email}
+                    </div>
+                  </div>
+                </div>
 
-        {/* User Authentication Actions */}
-        <div style={{ marginTop: 'auto', paddingTop: '1.25rem' }}>
-          <UserActions
-            variant="mobile"
-            onSignIn={() => {
-              onClose();
-              window.location.hash = '#auth/sign-in';
-            }}
-            onGetStarted={() => {
-              onClose();
-              window.location.hash = '#auth/sign-up';
-            }}
-          />
+                {/* Quick Account Links */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.4rem' }}>
+                  <button
+                    type="button"
+                    onClick={() => handleLinkClick('#account/dashboard')}
+                    style={mobileQuickLinkStyle}
+                  >
+                    <LayoutDashboard size={14} color="var(--color-brand-blue)" />
+                    <span>Dashboard</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleLinkClick('#account/requests')}
+                    style={mobileQuickLinkStyle}
+                  >
+                    <Package size={14} color="var(--color-brand-blue)" />
+                    <span>Requests</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleLinkClick('#account/profile')}
+                    style={mobileQuickLinkStyle}
+                  >
+                    <UserIcon size={14} color="var(--color-brand-blue)" />
+                    <span>Profile</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleLinkClick('#account/settings')}
+                    style={mobileQuickLinkStyle}
+                  >
+                    <Shield size={14} color="var(--color-brand-blue)" />
+                    <span>Settings</span>
+                  </button>
+                </div>
+
+                {/* Sign Out Button */}
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '0.45rem',
+                    padding: '0.55rem',
+                    backgroundColor: 'transparent',
+                    border: '1px solid rgba(239, 68, 68, 0.3)',
+                    borderRadius: 'var(--radius-sm)',
+                    color: 'var(--color-brand-red)',
+                    fontSize: '0.80rem',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    minHeight: '40px',
+                  }}
+                >
+                  <LogOut size={14} />
+                  <span>Sign Out</span>
+                </button>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClose();
+                    window.location.hash = '#auth/sign-in';
+                  }}
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    borderRadius: 'var(--radius-md)',
+                    backgroundColor: '#F8FAFC',
+                    border: '1.5px solid #CBD5E1',
+                    color: '#0F172A',
+                    fontSize: '0.86rem',
+                    fontWeight: 700,
+                    fontFamily: 'var(--font-sans)',
+                    cursor: 'pointer',
+                    minHeight: '44px',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  Login to EaseHub
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClose();
+                    window.location.hash = '#auth/sign-up';
+                  }}
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    borderRadius: 'var(--radius-md)',
+                    backgroundColor: '#16A34A',
+                    border: 'none',
+                    color: '#FFFFFF',
+                    fontSize: '0.86rem',
+                    fontWeight: 700,
+                    fontFamily: 'var(--font-sans)',
+                    cursor: 'pointer',
+                    minHeight: '44px',
+                    boxShadow: '0 4px 12px rgba(22, 163, 74, 0.25)',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  Create Student Account
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes mobileBackdropFade {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes mobileDrawerSlide {
+          from { transform: translateX(100%); }
+          to { transform: translateX(0); }
+        }
+      `}</style>
     </div>
   );
+};
+
+const mobileQuickLinkStyle: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.45rem',
+  padding: '0.55rem 0.65rem',
+  backgroundColor: 'var(--color-surface-1)',
+  border: '1px solid var(--color-border-subtle)',
+  borderRadius: 'var(--radius-sm)',
+  color: '#FFFFFF',
+  fontSize: '0.78rem',
+  fontWeight: 600,
+  cursor: 'pointer',
+  minHeight: '40px',
 };

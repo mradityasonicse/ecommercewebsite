@@ -1,45 +1,41 @@
 import React from 'react';
-import { Star } from 'lucide-react';
+import { ShieldCheck, FileCheck, CheckCircle2, Award } from 'lucide-react';
 import { Container } from '../../primitives/Container';
 
 export const TestimonialsSection: React.FC = () => {
-  const testimonials = [
+  const standards = [
     {
-      name: 'Priya Sharma',
-      role: 'Engineering Student',
-      avatar: 'PS',
-      avatarBg: '#0F382C',
-      quote:
-        'EaseHub made my college life so much easier! No more worrying about meals or laundry.',
-      rating: 5,
+      icon: <ShieldCheck size={24} color="var(--color-brand-blue)" />,
+      title: 'In-Person Campus Audits',
+      description:
+        'Every listed mess kitchen, PG property, and laundry facility undergoes physical verification for hygiene, security, and true amenities.',
+      badge: 'Audit Standard',
     },
     {
-      name: 'Rahul Verma',
-      role: 'MBA Student',
-      avatar: 'RV',
-      avatarBg: '#164E3E',
-      quote:
-        'Found an amazing PG through EaseHub. The verification process gave me peace of mind.',
-      rating: 5,
+      icon: <FileCheck size={24} color="var(--color-brand-blue)" />,
+      title: 'Fixed Student Rate Cards',
+      description:
+        'Zero broker commissions, locked monthly tariffs, and standard written agreements protecting your security deposit.',
+      badge: 'Pricing Guarantee',
     },
     {
-      name: 'Ananya Patel',
-      role: 'Medical Student',
-      avatar: 'AP',
-      avatarBg: '#2E7D32',
-      quote:
-        'The food service is incredible. Fresh, home-style meals delivered right to my hostel!',
-      rating: 5,
+      icon: <CheckCircle2 size={24} color="var(--color-brand-blue)" />,
+      title: 'Verified Student ID Reviews',
+      description:
+        'Reviews are unlocked exclusively for enrolled students after a completed service request. Zero fake ratings or paid placements.',
+      badge: 'Authenticity Guarantee',
     },
   ];
 
   return (
     <section
-      id="testimonials"
-      aria-labelledby="testimonials-heading"
+      id="trust-standards"
+      aria-labelledby="standards-heading"
       style={{
-        padding: '5rem 0',
-        backgroundColor: 'var(--color-bg-primary, #FBF9F1)',
+        padding: 'var(--space-16) 0',
+        backgroundColor: 'var(--color-bg-primary)',
+        borderTop: '1px solid var(--color-border-subtle)',
+        borderBottom: '1px solid var(--color-border-subtle)',
       }}
     >
       <Container>
@@ -47,149 +43,155 @@ export const TestimonialsSection: React.FC = () => {
         <div
           style={{
             textAlign: 'center',
-            maxWidth: '640px',
-            margin: '0 auto 3.5rem',
+            maxWidth: '680px',
+            margin: '0 auto var(--space-12)',
           }}
         >
-          <h2
-            id="testimonials-heading"
+          <div
             style={{
-              fontFamily: 'Domine, serif',
-              fontSize: 'clamp(2rem, 3.5vw, 2.75rem)',
-              fontWeight: 700,
-              letterSpacing: '-0.02em',
-              color: 'var(--color-brand-blue, #0F382C)',
-              marginBottom: '0.75rem',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.45rem',
+              padding: '0.3rem 0.8rem',
+              borderRadius: 'var(--radius-pill)',
+              backgroundColor: 'rgba(59, 130, 246, 0.1)',
+              border: '1px solid rgba(59, 130, 246, 0.25)',
+              marginBottom: 'var(--space-3)',
             }}
           >
-            What Students Say
+            <Award size={14} color="var(--color-brand-blue)" />
+            <span
+              style={{
+                fontSize: '0.72rem',
+                fontFamily: 'var(--font-mono)',
+                fontWeight: 700,
+                color: 'var(--color-brand-blue)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+              }}
+            >
+              Institutional Standards
+            </span>
+          </div>
+
+          <h2
+            id="standards-heading"
+            style={{
+              fontFamily: 'var(--font-serif, "Domine", serif)',
+              fontSize: 'clamp(1.8rem, 3.2vw, 2.5rem)',
+              fontWeight: 600,
+              letterSpacing: '-0.02em',
+              color: 'var(--color-text-primary)',
+              margin: '0 0 var(--space-3) 0',
+              lineHeight: 1.25,
+            }}
+          >
+            Verified Campus Living Standards
           </h2>
           <p
             style={{
-              fontSize: '1.1rem',
-              color: 'var(--color-text-secondary, #414845)',
+              fontSize: 'var(--text-base)',
+              color: 'var(--color-text-secondary)',
               lineHeight: 1.6,
+              margin: 0,
             }}
           >
-            Trusted by verified campus scholars across university hubs
+            Built on physical verification, fixed student rate cards, and transparent provider agreements.
           </p>
         </div>
 
-        {/* 3 Testimonial Cards */}
+        {/* 3 Standards Cards */}
         <div
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '2rem',
+            gap: 'var(--space-6)',
           }}
         >
-          {testimonials.map((item, idx) => (
+          {standards.map((item, idx) => (
             <div
               key={idx}
               style={{
-                backgroundColor: '#FFFFFF',
-                border: '1px solid var(--color-border-subtle, #E8E4D5)',
-                borderRadius: '16px',
-                padding: '2.25rem 2rem',
+                backgroundColor: 'var(--color-surface-1)',
+                border: '1px solid var(--color-border-subtle)',
+                borderRadius: 'var(--radius-xl)',
+                padding: 'var(--space-8)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                boxShadow: '0 4px 20px rgba(15, 56, 44, 0.05)',
-                position: 'relative',
-                transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+                boxShadow: 'var(--shadow-sm)',
+                transition: 'transform var(--duration-fast), border-color var(--duration-fast)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-6px)';
-                e.currentTarget.style.boxShadow = '0 16px 32px rgba(15, 56, 44, 0.12)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.borderColor = 'var(--color-brand-blue)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'none';
-                e.currentTarget.style.boxShadow = '0 4px 20px rgba(15, 56, 44, 0.05)';
+                e.currentTarget.style.borderColor = 'var(--color-border-subtle)';
               }}
             >
               <div>
-                {/* 5-Star Rating */}
                 <div
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '0.25rem',
-                    marginBottom: '1.25rem',
+                    justifyContent: 'space-between',
+                    marginBottom: 'var(--space-4)',
                   }}
                 >
-                  {[...Array(item.rating)].map((_, i) => (
-                    <Star
-                      key={i}
-                      size={18}
-                      fill="#F59E0B"
-                      color="#F59E0B"
-                    />
-                  ))}
+                  <div
+                    style={{
+                      width: '44px',
+                      height: '44px',
+                      borderRadius: 'var(--radius-md)',
+                      backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    {item.icon}
+                  </div>
+
+                  <span
+                    style={{
+                      fontSize: '0.68rem',
+                      fontFamily: 'var(--font-mono)',
+                      color: 'var(--color-brand-blue)',
+                      backgroundColor: 'rgba(59, 130, 246, 0.08)',
+                      padding: '0.2rem 0.5rem',
+                      borderRadius: 'var(--radius-sm)',
+                      fontWeight: 600,
+                    }}
+                  >
+                    {item.badge}
+                  </span>
                 </div>
 
-                {/* Quote text */}
+                <h3
+                  style={{
+                    fontFamily: 'var(--font-serif, "Domine", serif)',
+                    fontSize: '1.2rem',
+                    fontWeight: 600,
+                    color: 'var(--color-text-primary)',
+                    margin: '0 0 var(--space-2) 0',
+                    lineHeight: 1.3,
+                  }}
+                >
+                  {item.title}
+                </h3>
+
                 <p
                   style={{
-                    fontSize: '1.025rem',
+                    fontSize: '0.88rem',
                     lineHeight: 1.6,
-                    color: 'var(--color-text-primary, #151D1A)',
-                    fontStyle: 'italic',
-                    marginBottom: '2rem',
+                    color: 'var(--color-text-secondary)',
+                    margin: 0,
                   }}
                 >
-                  "{item.quote}"
+                  {item.description}
                 </p>
-              </div>
-
-              {/* Author info */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '1rem',
-                  borderTop: '1px solid var(--color-border-subtle, #E8E4D5)',
-                  paddingTop: '1.25rem',
-                }}
-              >
-                <div
-                  style={{
-                    width: '44px',
-                    height: '44px',
-                    borderRadius: '50%',
-                    backgroundColor: item.avatarBg,
-                    color: '#FFFFFF',
-                    fontWeight: 700,
-                    fontSize: '0.9rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                  }}
-                >
-                  {item.avatar}
-                </div>
-                <div>
-                  <h4
-                    style={{
-                      fontFamily: 'Domine, serif',
-                      fontSize: '1rem',
-                      fontWeight: 700,
-                      color: 'var(--color-brand-blue, #0F382C)',
-                      margin: '0 0 0.15rem 0',
-                    }}
-                  >
-                    {item.name}
-                  </h4>
-                  <p
-                    style={{
-                      fontSize: '0.825rem',
-                      color: 'var(--color-text-muted, #6B736D)',
-                      margin: 0,
-                    }}
-                  >
-                    {item.role}
-                  </p>
-                </div>
               </div>
             </div>
           ))}

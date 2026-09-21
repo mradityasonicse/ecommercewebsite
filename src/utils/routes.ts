@@ -296,6 +296,63 @@ export function isAccountRoute(pathname: string, hash: string): boolean {
 }
 
 /**
+ * Checks if the current URL points to the OLX Campus Bazaar.
+ */
+export function isBazaarRoute(pathname: string, hash: string): boolean {
+  if (hash) {
+    const cleanHash = hash.replace(/^#\/?/, '').split('?')[0];
+    if (cleanHash === 'bazaar' || cleanHash.startsWith('bazaar/')) return true;
+  }
+  if (pathname) {
+    const cleanPath = pathname.replace(/^\//, '').split('?')[0];
+    if (cleanPath === 'bazaar' || cleanPath.startsWith('bazaar/')) return true;
+  }
+  return false;
+}
+
+/**
+ * Checks if the current URL points to Campus Chats / Negotiation.
+ */
+export function isChatRoute(pathname: string, hash: string): boolean {
+  if (hash) {
+    const cleanHash = hash.replace(/^#\/?/, '').split('?')[0];
+    if (cleanHash === 'chat' || cleanHash === 'chats' || cleanHash.startsWith('chat/')) return true;
+  }
+  if (pathname) {
+    const cleanPath = pathname.replace(/^\//, '').split('?')[0];
+    if (cleanPath === 'chat' || cleanPath === 'chats' || cleanPath.startsWith('chat/')) return true;
+  }
+  return false;
+}
+
+/**
+ * Checks if the current URL points to Admin Panel.
+ */
+export function isAdminRoute(pathname: string, hash: string): boolean {
+  if (hash) {
+    const cleanHash = hash.replace(/^#\/?/, '').split('?')[0];
+    if (cleanHash === 'admin' || cleanHash.startsWith('admin/')) return true;
+  }
+  if (pathname) {
+    const cleanPath = pathname.replace(/^\//, '').split('?')[0];
+    if (cleanPath === 'admin' || cleanPath.startsWith('admin/')) return true;
+  }
+  return false;
+}
+
+export function getBazaarHref(useHash = true): string {
+  return useHash ? '#bazaar' : '/bazaar';
+}
+
+export function getChatHref(useHash = true): string {
+  return useHash ? '#chat' : '/chat';
+}
+
+export function getAdminHref(useHash = true): string {
+  return useHash ? '#admin' : '/admin';
+}
+
+/**
  * Returns canonical href for the services discovery marketplace.
  * Supports deep linking with filter parameters.
  */

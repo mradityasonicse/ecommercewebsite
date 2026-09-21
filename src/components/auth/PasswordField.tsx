@@ -35,14 +35,14 @@ export const PasswordField: React.FC<PasswordFieldProps> = ({
           htmlFor={id}
           style={{
             fontSize: '0.75rem',
-            fontFamily: 'var(--font-display)',
+            fontFamily: 'var(--font-sans)',
             fontWeight: 700,
-            color: errorMessage ? 'var(--color-accent-red)' : 'var(--color-text-secondary)',
+            color: errorMessage ? '#DC2626' : '#334155',
             textTransform: 'uppercase',
             letterSpacing: '0.05em',
           }}
         >
-          {label} {required && <span style={{ color: 'var(--color-brand-red)' }}>*</span>}
+          {label} {required && <span style={{ color: '#DC2626' }}>*</span>}
         </label>
       )}
 
@@ -53,7 +53,7 @@ export const PasswordField: React.FC<PasswordFieldProps> = ({
             left: '14px',
             top: '50%',
             transform: 'translateY(-50%)',
-            color: 'var(--color-text-muted)',
+            color: '#64748B',
             display: 'flex',
             alignItems: 'center',
             pointerEvents: 'none',
@@ -77,22 +77,23 @@ export const PasswordField: React.FC<PasswordFieldProps> = ({
           style={{
             width: '100%',
             padding: '0.75rem 2.75rem 0.75rem 2.6rem',
-            backgroundColor: 'var(--color-surface-2)',
-            border: `1px solid ${errorMessage ? 'var(--color-accent-red)' : 'var(--color-border-subtle)'}`,
-            borderRadius: 'var(--radius-md)',
-            color: '#FFFFFF',
+            backgroundColor: '#FFFFFF',
+            border: `1.5px solid ${errorMessage ? '#DC2626' : '#CBD5E1'}`,
+            borderRadius: '10px',
+            color: '#0F172A',
             fontSize: '0.9rem',
             outline: 'none',
-            transition: 'border-color var(--duration-fast)',
+            transition: 'border-color 0.15s ease',
             opacity: disabled ? 0.6 : 1,
+            boxSizing: 'border-box',
           }}
           onFocus={(e) => {
-            e.currentTarget.style.borderColor = 'var(--color-brand-blue)';
+            e.currentTarget.style.borderColor = '#16A34A';
+            e.currentTarget.style.boxShadow = '0 0 0 3px rgba(22, 163, 74, 0.15)';
           }}
           onBlur={(e) => {
-            e.currentTarget.style.borderColor = errorMessage
-              ? 'var(--color-accent-red)'
-              : 'var(--color-border-subtle)';
+            e.currentTarget.style.borderColor = errorMessage ? '#DC2626' : '#CBD5E1';
+            e.currentTarget.style.boxShadow = 'none';
           }}
         />
 
@@ -109,8 +110,8 @@ export const PasswordField: React.FC<PasswordFieldProps> = ({
             transform: 'translateY(-50%)',
             background: 'none',
             border: 'none',
-            color: 'var(--color-text-muted)',
-            cursor: disabled ? 'not-allowed' : 'pointer',
+            color: '#64748B',
+            cursor: 'pointer',
             padding: '4px',
             display: 'flex',
             alignItems: 'center',
@@ -126,9 +127,9 @@ export const PasswordField: React.FC<PasswordFieldProps> = ({
           id={`${id}-error`}
           role="alert"
           style={{
-            fontSize: '0.72rem',
-            color: 'var(--color-accent-red)',
-            marginTop: '0.15rem',
+            fontSize: '0.75rem',
+            color: '#DC2626',
+            fontWeight: 600,
           }}
         >
           {errorMessage}

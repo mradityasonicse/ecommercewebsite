@@ -43,7 +43,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           backgroundColor: isScrolled ? 'rgba(251, 249, 241, 0.92)' : 'transparent',
           backdropFilter: isScrolled ? 'blur(16px)' : 'none',
           WebkitBackdropFilter: isScrolled ? 'blur(16px)' : 'none',
-          borderBottom: isScrolled ? '1px solid var(--color-border-subtle, #E8E4D5)' : '1px solid transparent',
+          borderBottom: isScrolled ? '1px solid var(--color-border-subtle)' : '1px solid transparent',
           padding: isScrolled ? '0.75rem 0' : '1.25rem 0'
         }}
       >
@@ -57,8 +57,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                   width: '32px',
                   height: '32px',
                   borderRadius: 'var(--radius-sm)',
-                  backgroundColor: '#f3fbf5',
-                  border: '1px solid var(--color-border-subtle, #E8E4D5)',
+                  backgroundColor: 'var(--color-surface-2)',
+                  border: '1px solid var(--color-border-subtle)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -71,7 +71,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     position: 'absolute',
                     width: '14px',
                     height: '14px',
-                    backgroundColor: 'var(--color-brand-blue, #0F382C)',
+                    backgroundColor: 'var(--color-brand-blue)',
                     transform: 'rotate(45deg)'
                   }}
                 />
@@ -94,16 +94,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                     fontWeight: 700,
                     fontSize: '1.25rem',
                     letterSpacing: '-0.02em',
-                    color: 'var(--color-text-primary, #151D1A)',
+                    color: 'var(--color-text-primary)',
                     lineHeight: 1
                   }}
                 >
-                  Ease<span style={{ color: 'var(--color-brand-blue, #0F382C)' }}>Hub</span>
+                  Ease<span style={{ color: 'var(--color-brand-blue)' }}>Hub</span>
                 </span>
                 <span
                   style={{
                     fontSize: '0.65rem',
-                    color: 'var(--color-text-muted, #6B736D)',
+                    color: 'var(--color-text-muted)',
                     letterSpacing: '0.08em',
                     textTransform: 'uppercase',
                     fontWeight: 600,
@@ -124,25 +124,25 @@ export const Navbar: React.FC<NavbarProps> = ({
                   alignItems: 'center',
                   gap: '0.5rem',
                   padding: '0.4rem 0.85rem',
-                  backgroundColor: '#f3fbf5',
-                  border: '1px solid var(--color-border-subtle, #E8E4D5)',
+                  backgroundColor: 'var(--color-surface-2)',
+                  border: '1px solid var(--color-border-subtle)',
                   borderRadius: 'var(--radius-full)',
                   fontSize: 'var(--text-xs)',
-                  color: 'var(--color-text-secondary, #414845)',
+                  color: 'var(--color-text-secondary)',
                   transition: 'all var(--duration-fast)'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--color-brand-blue, #0F382C)';
-                  e.currentTarget.style.color = 'var(--color-brand-blue, #0F382C)';
+                  e.currentTarget.style.borderColor = 'var(--color-brand-blue)';
+                  e.currentTarget.style.color = 'var(--color-brand-blue)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--color-border-subtle, #E8E4D5)';
-                  e.currentTarget.style.color = 'var(--color-text-secondary, #414845)';
+                  e.currentTarget.style.borderColor = 'var(--color-border-subtle)';
+                  e.currentTarget.style.color = 'var(--color-text-secondary)';
                 }}
               >
-                <MapPin size={13} color="var(--color-brand-blue, #0F382C)" />
-                <span style={{ color: 'var(--color-text-primary, #151D1A)', fontWeight: 600 }}>{selectedCampus.shortName}</span>
-                <span style={{ color: 'var(--color-text-muted, #6B736D)' }}>• {selectedCampus.city}</span>
+                <MapPin size={13} color="var(--color-brand-blue)" />
+                <span style={{ color: 'var(--color-text-primary)', fontWeight: 600 }}>{selectedCampus.shortName}</span>
+                <span style={{ color: 'var(--color-text-muted)' }}>• {selectedCampus.city}</span>
                 <ChevronDown size={12} />
               </button>
 
@@ -154,14 +154,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                     left: 0,
                     width: '300px',
                     backgroundColor: '#FFFFFF',
-                    border: '1px solid var(--color-border-subtle, #E8E4D5)',
+                    border: '1px solid var(--color-border-subtle)',
                     borderRadius: 'var(--radius-md)',
-                    boxShadow: '0 16px 40px rgba(15, 56, 44, 0.15)',
+                    boxShadow: '0 16px 40px rgba(59, 130, 246, 0.15)',
                     padding: '0.5rem',
                     zIndex: 9999
                   }}
                 >
-                  <div style={{ padding: '0.4rem 0.6rem', fontSize: '0.7rem', color: 'var(--color-text-muted, #6B736D)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
+                  <div style={{ padding: '0.4rem 0.6rem', fontSize: '0.7rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
                     Select University Hub
                   </div>
                   {CAMPUSES.map((c) => (
@@ -176,8 +176,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                         textAlign: 'left',
                         padding: '0.6rem 0.75rem',
                         borderRadius: 'var(--radius-xs)',
-                        backgroundColor: c.id === selectedCampus.id ? '#f3fbf5' : 'transparent',
-                        border: c.id === selectedCampus.id ? '1px solid rgba(15, 56, 44, 0.2)' : '1px solid transparent',
+                        backgroundColor: c.id === selectedCampus.id ? 'var(--color-surface-2)' : 'transparent',
+                        border: c.id === selectedCampus.id ? '1px solid rgba(59, 130, 246, 0.2)' : '1px solid transparent',
                         display: 'flex',
                         flexDirection: 'column',
                         gap: '2px',
@@ -185,16 +185,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                         transition: 'background-color var(--duration-fast)'
                       }}
                       onMouseEnter={(e) => {
-                        if (c.id !== selectedCampus.id) e.currentTarget.style.backgroundColor = 'var(--color-bg-primary, #FBF9F1)';
+                        if (c.id !== selectedCampus.id) e.currentTarget.style.backgroundColor = 'var(--color-bg-primary)';
                       }}
                       onMouseLeave={(e) => {
                         if (c.id !== selectedCampus.id) e.currentTarget.style.backgroundColor = 'transparent';
                       }}
                     >
-                      <span style={{ fontSize: 'var(--text-xs)', fontWeight: 600, color: c.id === selectedCampus.id ? 'var(--color-brand-blue, #0F382C)' : 'var(--color-text-primary, #151D1A)' }}>
+                      <span style={{ fontSize: 'var(--text-xs)', fontWeight: 600, color: c.id === selectedCampus.id ? 'var(--color-brand-blue)' : 'var(--color-text-primary)' }}>
                         {c.name}
                       </span>
-                      <span style={{ fontSize: '0.7rem', color: 'var(--color-text-muted, #6B736D)' }}>
+                      <span style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>
                         {c.city} • {c.activeProviders} Verified Providers
                       </span>
                     </button>
@@ -209,10 +209,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                       marginTop: '0.4rem',
                       padding: '0.5rem 0.75rem',
                       borderRadius: 'var(--radius-xs)',
-                      backgroundColor: '#f3fbf5',
-                      border: '1px dashed var(--color-border-subtle, #E8E4D5)',
+                      backgroundColor: 'var(--color-surface-2)',
+                      border: '1px dashed var(--color-border-subtle)',
                       fontSize: '0.75rem',
-                      color: 'var(--color-brand-blue, #0F382C)',
+                      color: 'var(--color-brand-blue)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -237,11 +237,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                   style={{
                     fontSize: 'var(--text-sm)',
                     fontWeight: 600,
-                    color: 'var(--color-text-secondary, #414845)',
+                    color: 'var(--color-text-secondary)',
                     transition: 'color var(--duration-fast)'
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-brand-blue, #0F382C)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-text-secondary, #414845)')}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-brand-blue)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-text-secondary)')}
                 >
                   {link.label}
                 </a>
@@ -255,7 +255,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 style={{
                   fontSize: 'var(--text-xs)',
                   fontWeight: 600,
-                  color: 'var(--color-text-secondary, #414845)',
+                  color: 'var(--color-text-secondary)',
                   padding: '0.5rem 0.75rem',
                   borderRadius: 'var(--radius-sm)',
                   backgroundColor: 'transparent',
@@ -263,8 +263,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                   cursor: 'pointer',
                   transition: 'color var(--duration-fast)'
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-brand-blue, #0F382C)')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-text-secondary, #414845)')}
+                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-brand-blue)')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-text-secondary)')}
               >
                 For Providers
               </button>
@@ -288,9 +288,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               style={{
                 display: 'none',
                 padding: '0.5rem',
-                color: 'var(--color-brand-blue, #0F382C)',
+                color: 'var(--color-brand-blue)',
                 borderRadius: 'var(--radius-sm)',
-                backgroundColor: 'rgba(15, 56, 44, 0.06)',
+                backgroundColor: 'rgba(59, 130, 246, 0.06)',
                 border: 'none',
                 cursor: 'pointer'
               }}
@@ -317,17 +317,17 @@ export const Navbar: React.FC<NavbarProps> = ({
               padding: '1rem',
               backgroundColor: '#FFFFFF',
               borderRadius: 'var(--radius-md)',
-              border: '1px solid var(--color-border-subtle, #E8E4D5)'
+              border: '1px solid var(--color-border-subtle)'
             }}
           >
-            <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted, #6B736D)', marginBottom: '0.35rem' }}>
+            <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginBottom: '0.35rem' }}>
               Active University Hub
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-brand-blue, #0F382C)', fontWeight: 700 }}>
-              <MapPin size={16} color="var(--color-brand-blue, #0F382C)" />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-brand-blue)', fontWeight: 700 }}>
+              <MapPin size={16} color="var(--color-brand-blue)" />
               <span>{selectedCampus.name}</span>
             </div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary, #414845)', marginTop: '0.25rem' }}>
+            <div style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginTop: '0.25rem' }}>
               {selectedCampus.activeProviders} Verified Partners Active
             </div>
           </div>
@@ -343,9 +343,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                   fontSize: '1.1rem',
                   fontFamily: 'Domine, serif',
                   fontWeight: 600,
-                  color: 'var(--color-text-primary, #151D1A)',
+                  color: 'var(--color-text-primary)',
                   padding: '0.6rem 0',
-                  borderBottom: '1px solid var(--color-border-subtle, #E8E4D5)'
+                  borderBottom: '1px solid var(--color-border-subtle)'
                 }}
               >
                 {link.label}

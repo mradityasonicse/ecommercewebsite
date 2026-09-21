@@ -78,11 +78,42 @@ ul, ol {
   list-style: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+h1 {
+  font-family: var(--font-family-h1);
+  font-size: var(--text-h1);
+  font-weight: var(--weight-h1);
+  line-height: var(--leading-h1);
+  letter-spacing: var(--tracking-h1);
+  color: var(--color-text-primary);
+  text-wrap: balance;
+}
+
+h2 {
+  font-family: var(--font-family-h2);
+  font-size: var(--text-h2);
+  font-weight: var(--weight-h2);
+  line-height: var(--leading-h2);
+  letter-spacing: var(--tracking-h2);
+  color: var(--color-text-primary);
+  text-wrap: balance;
+}
+
+h3 {
+  font-family: var(--font-family-h3);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-h3);
+  line-height: var(--leading-h3);
+  letter-spacing: var(--tracking-h3);
+  color: var(--color-text-primary);
+  text-wrap: balance;
+}
+
+h4, h5, h6 {
+  font-family: var(--font-family-h4);
+  font-size: var(--text-h4);
+  font-weight: var(--weight-h4);
+  line-height: var(--leading-h4);
+  letter-spacing: var(--tracking-h4);
   color: var(--color-text-primary);
 }
 

@@ -177,55 +177,35 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Luminous liquid shimmer beam on buttons */
-.easehub-btn::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -60%;
-  width: 40%;
-  height: 200%;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.28) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transform: rotate(25deg);
-  opacity: 0;
-  pointer-events: none;
-  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
-}
-
-/* Base button variant styles (Official EaseHub Brand: Deep Navy #12285A, Sunflower Gold #FACA12, Crisp Modern Outline) */
+/* Base button variant styles (Standardized Semantic Tokens) */
 .easehub-btn-primary {
-  background: #12285A !important;
+  background: var(--color-brand-blue) !important;
   color: #FFFFFF !important;
   font-weight: 600 !important;
-  border: 1px solid #12285A !important;
-  box-shadow: 0 2px 8px -2px rgba(18, 40, 90, 0.3), 0 1px 2px 0 rgba(18, 40, 90, 0.15) !important;
+  border: 1px solid var(--color-brand-blue) !important;
+  box-shadow: var(--shadow-sm) !important;
 }
 
 .easehub-btn-accent {
-  background: #FACA12 !important;
-  color: #12285A !important;
+  background: var(--color-brand-gold) !important;
+  color: #112758 !important;
   font-weight: 700 !important;
-  border: 1px solid #E5B60A !important;
-  box-shadow: 0 2px 8px rgba(250, 202, 18, 0.35) !important;
+  border: 1px solid var(--color-gold-hover) !important;
+  box-shadow: var(--shadow-sm) !important;
 }
 
 .easehub-btn-secondary,
 .easehub-btn-outline {
-  background: #FFFFFF !important;
-  color: #12285A !important;
-  border: 1px solid #E2E8F0 !important;
-  box-shadow: 0 1px 3px rgba(18, 40, 90, 0.05) !important;
+  background: var(--color-surface-1) !important;
+  color: var(--color-text-primary) !important;
+  border: 1px solid var(--color-border-default) !important;
+  box-shadow: var(--shadow-sm) !important;
 }
 
 .easehub-btn-tertiary {
   background: transparent !important;
   color: var(--color-text-primary) !important;
-  border: 1px solid #E2E8F0 !important;
+  border: 1px solid var(--color-border-subtle) !important;
 }
 
 .easehub-btn-ghost {
@@ -236,33 +216,28 @@
 
 .easehub-btn-danger,
 .easehub-btn-signal {
-  background: linear-gradient(135deg, #E85B44 0%, #D3452E 100%) !important;
+  background: var(--color-brand-red) !important;
   color: #FFFFFF !important;
-  border: 1px solid #D3452E !important;
-  box-shadow: 0 4px 14px rgba(211, 69, 46, 0.3) !important;
+  border: 1px solid var(--color-red-dark) !important;
+  box-shadow: var(--shadow-sm) !important;
 }
 
 .easehub-btn-white {
   background: #FFFFFF !important;
-  color: #12285A !important;
-  border: 1px solid #E2E8F0 !important;
-  box-shadow: 0 2px 8px rgba(18, 40, 90, 0.08) !important;
+  color: #0F172A !important;
+  border: 1px solid var(--color-border-default) !important;
+  box-shadow: var(--shadow-sm) !important;
 }
 
-/* Hover & Pointer Micro-Interactions */
+/* Hover & Pointer Micro-Interactions (Restrained Elevation) */
 @media (hover: hover) and (pointer: fine) {
   .easehub-btn:not(:disabled):hover {
-    transform: translateY(-2px) scale(1.02);
+    transform: translateY(-1px);
   }
 
-  .easehub-btn:not(:disabled):hover::after {
-    opacity: 1;
-    transform: translateX(380%) rotate(25deg);
-  }
-
-  /* Button Icon Motion (Arrow moves forward 3px on hover) */
+  /* Button Icon Motion (Arrow moves forward 2px on hover) */
   .easehub-btn:not(:disabled):hover .easehub-btn-icon-right {
-    transform: translateX(3px);
+    transform: translateX(2px);
   }
 
   .easehub-btn:not(:disabled):hover .easehub-btn-icon-left {
@@ -270,93 +245,78 @@
   }
 
   .easehub-btn-primary:not(:disabled):hover {
-    background: #0D1E45 !important;
-    color: #FFFFFF !important;
-    border-color: #0D1E45 !important;
-    box-shadow: 0 4px 14px rgba(18, 40, 90, 0.25) !important;
+    background: var(--color-blue-active) !important;
+    border-color: var(--color-blue-active) !important;
+    box-shadow: var(--shadow-md) !important;
   }
 
   .easehub-btn-accent:not(:disabled):hover {
-    background: #E5B60A !important;
-    color: #12285A !important;
-    border-color: #D4A300 !important;
-    box-shadow: 0 4px 14px rgba(250, 202, 18, 0.45) !important;
+    background: var(--color-gold-hover) !important;
+    border-color: var(--color-gold-active) !important;
+    box-shadow: var(--shadow-md) !important;
   }
 
   .easehub-btn-secondary:not(:disabled):hover,
   .easehub-btn-outline:not(:disabled):hover {
-    background: #F0F4FA !important;
-    border-color: #CBD5E1 !important;
-    color: #12285A !important;
-    box-shadow: 0 2px 8px rgba(18, 40, 90, 0.08) !important;
+    background: var(--color-surface-hover) !important;
+    border-color: var(--color-border-hover) !important;
+    color: var(--color-text-primary) !important;
+    box-shadow: var(--shadow-md) !important;
   }
 
   .easehub-btn-tertiary:not(:disabled):hover {
-    background: rgba(18, 40, 90, 0.05) !important;
-    border-color: #CBD5E1 !important;
-    color: #12285A !important;
+    background: var(--color-surface-hover) !important;
+    border-color: var(--color-border-default) !important;
+    color: var(--color-text-primary) !important;
   }
 
   .easehub-btn-ghost:not(:disabled):hover {
-    color: #12285A !important;
-    background: rgba(18, 40, 90, 0.05) !important;
+    color: var(--color-text-primary) !important;
+    background: var(--color-surface-hover) !important;
   }
 
   .easehub-btn-danger:not(:disabled):hover,
   .easehub-btn-signal:not(:disabled):hover {
-    background: linear-gradient(135deg, #FF7875 0%, #D3452E 100%) !important;
-    box-shadow: 0 6px 18px rgba(211, 69, 46, 0.4) !important;
+    background: var(--color-red-hover) !important;
+    border-color: var(--color-red-active) !important;
+    box-shadow: var(--shadow-md) !important;
   }
 
   .easehub-btn-white:not(:disabled):hover {
     background: #F8FAFC !important;
-    box-shadow: 0 4px 12px rgba(18, 40, 90, 0.12) !important;
+    box-shadow: var(--shadow-md) !important;
   }
 }
 
 /* Active & Touch Physics */
 .easehub-btn:not(:disabled):active {
-  transform: translateY(1px) scale(0.98) !important;
+  transform: translateY(1px) scale(0.99) !important;
   transition-duration: 80ms !important;
 }
 
 .easehub-btn-primary:not(:disabled):active {
-  background: #081430 !important;
-  color: #FFFFFF !important;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+  background: var(--color-blue-dark) !important;
+  box-shadow: none !important;
 }
 
 .easehub-btn-accent:not(:disabled):active {
-  background: #D4A300 !important;
-  color: #12285A !important;
+  background: var(--color-gold-active) !important;
 }
 
 .easehub-btn-secondary:not(:disabled):active,
 .easehub-btn-outline:not(:disabled):active {
-  background: #E2E8F0 !important;
-  border-color: #94A3B8 !important;
+  background: var(--color-surface-active) !important;
 }
 
 .easehub-btn-danger:not(:disabled):active,
 .easehub-btn-signal:not(:disabled):active {
-  background: #B83520 !important;
+  background: var(--color-red-active) !important;
 }
 
 /* Mobile Touch Active Optimization */
 @media (hover: none) {
   .easehub-btn:not(:disabled):active {
-    transform: scale(0.97) translateY(1px) !important;
-  }
-  .easehub-btn-primary:not(:disabled):active {
-    background: #002218 !important;
-    color: #FFFFFF !important;
-  }
-  .easehub-btn-secondary:not(:disabled):active,
-  .easehub-btn-outline:not(:disabled):active {
-    background: rgba(255, 255, 255, 0.2) !important;
-    border-color: rgba(255, 255, 255, 0.6) !important;
-    color: #FFFFFF !important;
-    box-shadow: 0 0 16px rgba(255, 255, 255, 0.3) !important;
+    transform: translateY(1px) !important;
   }
 }
 
@@ -432,65 +392,73 @@
 }
 
 .glass-nav {
-  background: rgba(10, 22, 51, 0.92);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--color-border-subtle);
-  transition: background-color var(--duration-normal) var(--ease-smooth),
-              border-color var(--duration-normal) var(--ease-smooth),
-              box-shadow var(--duration-normal) var(--ease-smooth);
+  border-bottom: 1px solid rgba(22, 163, 74, 0.12);
+  transition: background-color var(--duration-standard, 250ms) var(--ease-smooth),
+              border-color var(--duration-standard, 250ms) var(--ease-smooth),
+              box-shadow var(--duration-standard, 250ms) var(--ease-smooth);
 }
 
 .glass-nav-scrolled {
-  background: rgba(8, 18, 43, 0.97);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--color-border-default);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(22, 163, 74, 0.18);
+  box-shadow: 0 4px 20px -2px rgba(15, 81, 50, 0.08);
 }
 
 [data-theme="dark"] .glass-nav,
 .dark .glass-nav {
-  background: rgba(6, 7, 9, 0.94);
-  border-bottom: 1px solid var(--color-border-subtle);
+  background: rgba(9, 13, 22, 0.88);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 [data-theme="dark"] .glass-nav-scrolled,
 .dark .glass-nav-scrolled {
-  background: rgba(0, 0, 0, 0.98);
-  border-bottom: 1px solid var(--color-border-default);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.85);
+  background: rgba(9, 13, 22, 0.96);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.6);
 }
-
-
 
 /* --------------------------------------------------------------------------
    8. NAVIGATION & NAVBAR SPECIFIC UTILITIES (Phase 2)
    -------------------------------------------------------------------------- */
 
 .easehub-global-navbar {
-  transition: background-color var(--duration-normal, 240ms) var(--ease-smooth),
-              border-color var(--duration-normal, 240ms) var(--ease-smooth),
-              box-shadow var(--duration-normal, 240ms) var(--ease-smooth),
-              backdrop-filter var(--duration-normal, 240ms) var(--ease-smooth);
+  transition: background-color var(--duration-standard, 250ms) var(--ease-smooth),
+              border-color var(--duration-standard, 250ms) var(--ease-smooth),
+              box-shadow var(--duration-standard, 250ms) var(--ease-smooth);
 }
 
 .easehub-desktop-nav-inner {
-  height: 76px;
-  transition: height var(--duration-normal, 240ms) var(--ease-smooth);
+  height: 68px;
+  transition: height var(--duration-fast, 150ms) var(--ease-smooth);
 }
 
 .glass-nav-scrolled .easehub-desktop-nav-inner {
-  height: 64px;
+  height: 60px;
+}
+
+.easehub-brand-logo:focus-visible {
+  outline: 2px solid var(--color-brand-blue);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+.easehub-nav-item:focus-visible {
+  outline: 2px solid var(--color-brand-blue);
+  outline-offset: 4px;
 }
 
 .easehub-brand-logo {
-  transition: opacity var(--duration-fast, 150ms) var(--ease-standard);
+  transition: opacity var(--duration-fast) var(--ease-standard);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .easehub-brand-logo:hover .easehub-mark {
-    transform: scale(1.025);
+  .easehub-brand-logo:hover {
+    opacity: 0.92;
   }
 }
 
@@ -511,8 +479,8 @@
   border: none;
   cursor: pointer;
   outline: none;
-  transition: color var(--duration-fast, 150ms) var(--ease-standard),
-              background-color var(--duration-fast, 150ms) var(--ease-standard);
+  transition: color var(--duration-fast) var(--ease-standard),
+              background-color var(--duration-fast) var(--ease-standard);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -535,9 +503,8 @@
   height: 2px;
   background-color: var(--color-brand-blue);
   border-radius: 2px;
-  box-shadow: 0 0 8px var(--color-blue-glow);
   pointer-events: none;
-  transition: transform var(--duration-fast, 150ms) var(--ease-smooth);
+  transition: transform var(--duration-fast) var(--ease-smooth);
 }
 
 .nav-dropdown-menu {
@@ -615,6 +582,13 @@
     color: var(--color-text-primary) !important;
     border-color: var(--color-border-hover) !important;
   }
+}
+
+.easehub-search-trigger-compact:focus-visible,
+.easehub-theme-toggle-btn:focus-visible,
+.easehub-hamburger-btn:focus-visible {
+  outline: 2px solid var(--color-brand-blue) !important;
+  outline-offset: 2px !important;
 }
 
 .nav-dropdown-item {
@@ -749,6 +723,172 @@
 .easehub-tab-btn:active {
   transform: translateY(0.5px) scale(0.98);
   transition-duration: 80ms;
+}
+
+/* --------------------------------------------------------------------------
+   9.5 GOD-LEVEL RESPONSIVE SCROLL & MICRO-ANIMATIONS
+   Lightweight, GPU-composited micro-interactions with zero frame drops
+   -------------------------------------------------------------------------- */
+
+@keyframes easehubTabBounce {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.22) translateY(-2px);
+  }
+  65% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes easehubRadarPulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 8px rgba(22, 163, 74, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0);
+  }
+}
+
+@keyframes easehubBellWiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(14deg);
+  }
+  40% {
+    transform: rotate(-12deg);
+  }
+  60% {
+    transform: rotate(8deg);
+  }
+  80% {
+    transform: rotate(-4deg);
+  }
+}
+
+@keyframes easehubCheckBounce {
+  0% {
+    transform: scale(0.7);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes easehubBadgeFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes easehubShimmerSweep {
+  0% {
+    transform: translateX(-100%) rotate(25deg);
+  }
+  100% {
+    transform: translateX(200%) rotate(25deg);
+  }
+}
+
+/* Micro-interactive Lift on Hover (Cards & Containers) */
+.easehub-hover-lift {
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.2s ease !important;
+  will-change: transform, box-shadow;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .easehub-hover-lift:hover {
+    transform: translateY(-5px) scale(1.008) !important;
+    box-shadow: 0 16px 36px -8px rgba(15, 81, 50, 0.14), 0 4px 12px rgba(0, 0, 0, 0.04) !important;
+  }
+}
+
+.easehub-hover-lift:active {
+  transform: translateY(-1px) scale(0.995) !important;
+  transition-duration: 70ms !important;
+}
+
+/* Micro-interactive Tactile Spring Buttons */
+.easehub-spring-btn {
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.18s ease,
+              background-color 0.15s ease,
+              border-color 0.15s ease !important;
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .easehub-spring-btn:hover {
+    transform: translateY(-2px) scale(1.025) !important;
+    box-shadow: 0 6px 20px -3px rgba(22, 163, 74, 0.25) !important;
+  }
+}
+
+.easehub-spring-btn:active {
+  transform: translateY(1px) scale(0.96) !important;
+  transition-duration: 80ms !important;
+}
+
+/* Smooth Arrow Glide on Hover */
+.easehub-arrow-slide {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+*:hover > .easehub-arrow-slide,
+button:hover .easehub-arrow-slide,
+a:hover .easehub-arrow-slide {
+  transform: translateX(4px) !important;
+}
+
+/* Floating Bottom Navigation Tab Micro-Pop */
+.easehub-tab-pop {
+  animation: easehubTabBounce 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Live Radar Beacon */
+.easehub-live-beacon {
+  animation: easehubRadarPulse 2.2s infinite ease-in-out;
+}
+
+/* Alert Notification Wiggle */
+.easehub-bell-alert {
+  animation: easehubBellWiggle 1.8s infinite ease-in-out;
+  transform-origin: top center;
+}
+
+/* Interactive Checkbox Pop */
+.easehub-check-pop {
+  animation: easehubCheckBounce 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Subtle Hero Badge Floating Ambient */
+.easehub-ambient-badge {
+  animation: easehubBadgeFloat 3.5s infinite ease-in-out;
+}
+
+/* Scroll Reveal Container Hardware Acceleration */
+.scroll-reveal {
+  will-change: opacity, transform;
+  transform-origin: center top;
 }
 
 /* --------------------------------------------------------------------------

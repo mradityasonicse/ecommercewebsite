@@ -16,19 +16,20 @@ export const SearchTrigger: React.FC<SearchTriggerProps> = ({
   className = '',
   style = {},
 }) => {
+  const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform || '');
+
   const handleClick = useCallback(() => {
     if (onTrigger) {
       onTrigger();
-    } else {
-      const el = document.getElementById('discovery');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      return;
     }
+    window.dispatchEvent(new CustomEvent('easehub_open_command_palette'));
   }, [onTrigger]);
 
   // Global Cmd+K / Ctrl+K keyboard shortcut listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         handleClick();
       }
@@ -42,12 +43,14 @@ export const SearchTrigger: React.FC<SearchTriggerProps> = ({
       <button
         type="button"
         onClick={handleClick}
-        aria-label="Open search"
+        aria-label="Open search (Ctrl+K or ⌘K)"
         className={`easehub-search-trigger-compact ${className}`}
         style={{
-          width: '36px',
-          height: '36px',
-          borderRadius: 'var(--radius-sm)',
+          width: '38px',
+          height: '38px',
+          minWidth: '38px',
+          minHeight: '38px',
+          borderRadius: 'var(--radius-md)',
           backgroundColor: 'var(--color-surface-2)',
           border: '1px solid var(--color-border-default)',
           color: 'var(--color-text-secondary)',
@@ -56,6 +59,7 @@ export const SearchTrigger: React.FC<SearchTriggerProps> = ({
           justifyContent: 'center',
           cursor: 'pointer',
           outline: 'none',
+          padding: 0,
           ...style,
         }}
       >
@@ -69,22 +73,33 @@ export const SearchTrigger: React.FC<SearchTriggerProps> = ({
       type="button"
       onClick={handleClick}
       aria-label="Search verified campus services"
+      aria-keyshortcuts="Control+K Meta+K"
+      title={`Search catalog (${isMac ? '⌘K' : 'Ctrl+K'})`}
       className={`easehub-search-trigger ${className}`}
       style={{
         display: 'inline-flex',
         alignItems: 'center',
-        gap: '0.65rem',
-        padding: '0.45rem 0.85rem',
-        backgroundColor: 'var(--color-surface-1)',
-        border: '1px solid var(--color-border-default)',
-        borderRadius: 'var(--radius-pill)',
+        gap: '0.6rem',
+        padding: '0.42rem 0.85rem',
+        backgroundColor: 'var(--color-surface-2)',
+        border: '1px solid var(--color-border-subtle)',
+        borderRadius: 'var(--radius-md)',
         color: 'var(--color-text-muted)',
         fontSize: 'var(--text-body-xs)',
-        fontFamily: 'var(--font-body)',
+        fontFamily: 'var(--font-sans)',
         cursor: 'pointer',
         outline: 'none',
-        minWidth: '220px',
+        minWidth: '210px',
+        transition: 'border-color var(--duration-fast), background-color var(--duration-fast)',
         ...style,
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = 'var(--color-border-hover)';
+        e.currentTarget.style.backgroundColor = 'var(--color-surface-1)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = 'var(--color-border-subtle)';
+        e.currentTarget.style.backgroundColor = 'var(--color-surface-2)';
       }}
     >
       <Search size={14} color="var(--color-text-muted)" />
@@ -101,9 +116,10 @@ export const SearchTrigger: React.FC<SearchTriggerProps> = ({
           borderRadius: 'var(--radius-xs)',
           border: '1px solid var(--color-border-subtle)',
           flexShrink: 0,
+          userSelect: 'none',
         }}
       >
-        ⌘K
+        {isMac ? '⌘K' : 'Ctrl K'}
       </kbd>
     </button>
   );

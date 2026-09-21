@@ -1,0 +1,476 @@
+/* ==========================================================================
+   EASEHUB — AWWWARDS & FIGMA DESIGN SPECIFICATION
+   Visual Paradigms:
+   1. Awwwards "Site of the Day" Studio Aesthetics (Typography, Accolades, Fluid Cursor, Noise)
+   2. Figma Canvas Environment (Multiplayer Cursors, Dev Mode Inspector, Auto-layout Badges, Canvas Toolbar)
+   ========================================================================== */
+
+:root {
+  /* Figma Brand Color Tokens */
+  --figma-purple: #7B61FF;
+  --figma-purple-light: rgba(123, 97, 255, 0.15);
+  --figma-blue: #0D99FF;
+  --figma-blue-light: rgba(13, 153, 255, 0.15);
+  --figma-green: #00C980;
+  --figma-green-light: rgba(0, 201, 128, 0.15);
+  --figma-orange: #FF7262;
+  --figma-orange-light: rgba(255, 114, 98, 0.15);
+  --figma-yellow: #FFC700;
+  --figma-canvas-dark: #1E1E1E;
+  --figma-surface-dark: #2C2C2C;
+  --figma-border-dark: rgba(255, 255, 255, 0.12);
+
+  /* Awwwards Studio Tokens */
+  --awwwards-gold: #D4AF37;
+  --awwwards-gold-glow: rgba(212, 175, 55, 0.35);
+  --awwwards-black: #0D0D11;
+}
+
+/* --------------------------------------------------------------------------
+   1. FIGMA CANVAS BACKGROUND (Dot Matrix & Blueprint Grid)
+   -------------------------------------------------------------------------- */
+.figma-canvas-grid {
+  background-size: 24px 24px !important;
+  background-image: radial-gradient(circle, rgba(15, 23, 42, 0.14) 1.2px, transparent 1.2px) !important;
+}
+
+[data-theme="dark"] .figma-canvas-grid,
+.theme-dark .figma-canvas-grid {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.12) 1.2px, transparent 1.2px) !important;
+}
+
+.figma-canvas-blueprint {
+  background-size: 32px 32px !important;
+  background-image:
+    linear-gradient(to right, rgba(13, 153, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(13, 153, 255, 0.07) 1px, transparent 1px) !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. AWWWARDS FLOATING ACCIDADE BADGE
+   -------------------------------------------------------------------------- */
+.awwwards-badge-wrap {
+  position: fixed;
+  top: 84px;
+  right: 20px;
+  z-index: 9800;
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.awwwards-badge-wrap:hover {
+  transform: translateY(-2px) scale(1.03);
+}
+
+.awwwards-badge {
+  display: flex;
+  align-items: center;
+  background: #0B0F19;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 9999px;
+  padding: 6px 14px 6px 8px;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.15);
+  cursor: pointer;
+  backdrop-filter: blur(16px);
+  color: #FFFFFF;
+  text-decoration: none;
+  user-select: none;
+  transition: all 0.25s ease;
+}
+
+.awwwards-badge:hover {
+  border-color: #D4AF37;
+  box-shadow: 0 12px 35px -4px rgba(0, 0, 0, 0.6), 0 0 28px rgba(212, 175, 55, 0.3);
+}
+
+.awwwards-medal-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #F5D061 0%, #E6AF2E 50%, #A37000 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 9px;
+  color: #0B0F19;
+  box-shadow: 0 2px 8px rgba(230, 175, 46, 0.5);
+  flex-shrink: 0;
+}
+
+.awwwards-badge-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.awwwards-badge-title {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #D4AF37;
+  text-transform: uppercase;
+}
+
+.awwwards-badge-score {
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.awwwards-score-tag {
+  background: rgba(212, 175, 55, 0.2);
+  color: #FACC15;
+  font-size: 0.65rem;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-weight: 800;
+  font-family: var(--font-mono, monospace);
+}
+
+/* --------------------------------------------------------------------------
+   3. AWWWARDS CUSTOM CURSOR
+   -------------------------------------------------------------------------- */
+.awwwards-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: var(--figma-purple);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+  box-shadow: 0 0 10px rgba(123, 97, 255, 0.8);
+}
+
+.awwwards-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(123, 97, 255, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.2s ease,
+              background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.awwwards-cursor-ring.cursor-hovering {
+  width: 64px;
+  height: 64px;
+  border-color: rgba(13, 153, 255, 0.8);
+  background-color: rgba(123, 97, 255, 0.12);
+  backdrop-filter: blur(4px);
+}
+
+.awwwards-cursor-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.awwwards-cursor-ring.cursor-hovering .awwwards-cursor-label {
+  opacity: 1;
+}
+
+/* Hide custom cursor on mobile devices */
+@media (hover: none) and (pointer: coarse) {
+  .awwwards-cursor-dot,
+  .awwwards-cursor-ring {
+    display: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. FIGMA FLOATING TOOLBAR DOCK
+   -------------------------------------------------------------------------- */
+.figma-canvas-dock {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9850;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(24, 24, 27, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  padding: 5px 8px;
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(0, 0, 0, 0.2);
+  user-select: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.figma-canvas-dock:hover {
+  border-color: rgba(255, 255, 255, 0.24);
+  box-shadow: 0 20px 48px -6px rgba(0, 0, 0, 0.55), 0 0 20px rgba(123, 97, 255, 0.2);
+}
+
+.figma-dock-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 9999px;
+  background: transparent;
+  border: none;
+  color: #A1A1AA;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.figma-dock-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+}
+
+.figma-dock-btn.active {
+  background: #0D99FF;
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(13, 153, 255, 0.4);
+}
+
+.figma-dock-btn.active-dev {
+  background: #00C980;
+  color: #0B1E14;
+  box-shadow: 0 2px 8px rgba(0, 201, 128, 0.4);
+  font-weight: 700;
+}
+
+.figma-dock-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 0 3px;
+}
+
+.figma-dock-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  color: #71717A;
+  padding: 0 6px;
+}
+
+@media (max-width: 768px) {
+  .figma-canvas-dock {
+    bottom: 74px; /* Stack above mobile navigation */
+    transform: translateX(-50%) scale(0.92);
+    padding: 4px 6px;
+  }
+  .figma-dock-hide-mobile {
+    display: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. FIGMA MULTIPLAYER CURSORS
+   -------------------------------------------------------------------------- */
+.figma-remote-cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9890;
+  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.figma-cursor-pointer {
+  width: 16px;
+  height: 16px;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35));
+}
+
+.figma-cursor-pill {
+  position: absolute;
+  top: 14px;
+  left: 10px;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #FFFFFF;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.figma-cursor-chat-bubble {
+  position: absolute;
+  top: -28px;
+  left: 16px;
+  background: rgba(24, 24, 27, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 3px 10px;
+  border-radius: 8px 8px 8px 0px;
+  color: #F4F4F5;
+  font-size: 0.72rem;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  animation: figmaChatPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes figmaChatPop {
+  0% { opacity: 0; transform: translateY(4px) scale(0.9); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* --------------------------------------------------------------------------
+   6. FIGMA DEV MODE & AUTO-LAYOUT REDLINES
+   -------------------------------------------------------------------------- */
+.figma-dev-mode-active * {
+  cursor: crosshair !important;
+}
+
+.figma-inspect-highlight {
+  outline: 1.5px solid #0D99FF !important;
+  outline-offset: 2px !important;
+  position: relative;
+}
+
+.figma-inspect-tag {
+  position: absolute;
+  top: -22px;
+  left: 0;
+  background: #0D99FF;
+  color: #FFFFFF;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 10000;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* --------------------------------------------------------------------------
+   7. AWWWARDS SPOTLIGHT CARD HOVER EFFECT
+   -------------------------------------------------------------------------- */
+.awwwards-card-spotlight {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--color-border-subtle);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.awwwards-card-spotlight:hover {
+  transform: translateY(-4px);
+  border-color: rgba(123, 97, 255, 0.4);
+  box-shadow: 0 16px 40px -8px rgba(123, 97, 255, 0.12),
+              0 0 0 1px rgba(123, 97, 255, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   8. FIGMA CANVAS FRAME LABELS
+   -------------------------------------------------------------------------- */
+.figma-frame-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #71717A;
+  letter-spacing: 0.04em;
+  user-select: none;
+}
+
+.figma-frame-badge {
+  background: rgba(123, 97, 255, 0.12);
+  color: var(--figma-purple);
+  border: 1px solid rgba(123, 97, 255, 0.24);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+}
+
+/* --------------------------------------------------------------------------
+   9. GOD-LEVEL SMOOTH INTERACTIONS & 3D TILT CARDS
+   -------------------------------------------------------------------------- */
+.god-level-smooth {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.prize-dock-btn,
+.figma-dock-btn,
+.awwwards-badge {
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.2s ease,
+              border-color 0.2s ease !important;
+  will-change: transform;
+}
+
+.prize-dock-btn:hover {
+  transform: translateY(-2.5px) scale(1.02);
+  box-shadow: 0 10px 24px -4px rgba(22, 163, 74, 0.18);
+}
+
+.prize-dock-btn:active,
+.figma-dock-btn:active {
+  transform: scale(0.96);
+}
+
+/* Glass Spotlight Sheen for Bento & Service Cards */
+.awwwards-card-spotlight {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+.awwwards-card-spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(123, 97, 255, 0.08),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.awwwards-card-spotlight:hover::before {
+  opacity: 1;
+}

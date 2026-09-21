@@ -61,22 +61,22 @@ export const EmailVerification: React.FC<EmailVerificationProps> = ({
             width: '56px',
             height: '56px',
             borderRadius: '50%',
-            backgroundColor: 'rgba(255, 255, 255, 0.08)',
-            border: '1px solid rgba(255, 255, 255, 0.18)',
+            backgroundColor: '#DCFCE7',
+            border: '1.5px solid #86EFAC',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#FFFFFF',
+            color: '#15803D',
           }}
         >
           <RefreshCw size={24} className="animate-spin" style={{ animation: 'easehubSpin 1s linear infinite' }} />
         </div>
 
         <div>
-          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#FFFFFF', margin: '0 0 var(--space-2) 0' }}>
+          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', margin: '0 0 var(--space-2) 0' }}>
             Authenticating Domain
           </h3>
-          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', lineHeight: 1.6, margin: 0 }}>
+          <p style={{ fontSize: '0.88rem', color: '#64748B', lineHeight: 1.6, margin: 0 }}>
             Verifying your student email token against campus directory records...
           </p>
         </div>
@@ -93,22 +93,22 @@ export const EmailVerification: React.FC<EmailVerificationProps> = ({
             width: '56px',
             height: '56px',
             borderRadius: '50%',
-            backgroundColor: 'rgba(34, 197, 94, 0.1)',
-            border: '1px solid rgba(34, 197, 94, 0.25)',
+            backgroundColor: '#DCFCE7',
+            border: '1.5px solid #86EFAC',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#22C55E',
+            color: '#15803D',
           }}
         >
           <CheckCircle2 size={26} />
         </div>
 
         <div>
-          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#FFFFFF', margin: '0 0 var(--space-2) 0' }}>
+          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', margin: '0 0 var(--space-2) 0' }}>
             Email Verified Successfully
           </h3>
-          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', lineHeight: 1.6, margin: 0 }}>
+          <p style={{ fontSize: '0.88rem', color: '#64748B', lineHeight: 1.6, margin: 0 }}>
             {message}
           </p>
         </div>
@@ -139,22 +139,22 @@ export const EmailVerification: React.FC<EmailVerificationProps> = ({
             width: '56px',
             height: '56px',
             borderRadius: '50%',
-            backgroundColor: 'rgba(16, 185, 129, 0.12)',
-            border: '1px solid rgba(16, 185, 129, 0.25)',
+            backgroundColor: '#DCFCE7',
+            border: '1.5px solid #86EFAC',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#10B981',
+            color: '#15803D',
           }}
         >
           <ShieldCheck size={26} />
         </div>
 
         <div>
-          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#FFFFFF', margin: '0 0 var(--space-2) 0' }}>
+          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', margin: '0 0 var(--space-2) 0' }}>
             Email Already Verified
           </h3>
-          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', lineHeight: 1.6, margin: 0 }}>
+          <p style={{ fontSize: '0.88rem', color: '#64748B', lineHeight: 1.6, margin: 0 }}>
             {message}
           </p>
         </div>
@@ -179,22 +179,22 @@ export const EmailVerification: React.FC<EmailVerificationProps> = ({
           width: '56px',
           height: '56px',
           borderRadius: '50%',
-          backgroundColor: 'rgba(245, 158, 11, 0.1)',
-          border: '1px solid rgba(245, 158, 11, 0.25)',
+          backgroundColor: '#FEF3C7',
+          border: '1.5px solid #FDE68A',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: '#F59E0B',
+          color: '#D97706',
         }}
       >
         {state === 'expired' ? <Clock size={26} /> : <AlertCircle size={26} />}
       </div>
 
       <div>
-        <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#FFFFFF', margin: '0 0 var(--space-2) 0' }}>
+        <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', margin: '0 0 var(--space-2) 0' }}>
           {state === 'expired' ? 'Verification Link Expired' : 'Invalid Verification Link'}
         </h3>
-        <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', lineHeight: 1.6, margin: 0 }}>
+        <p style={{ fontSize: '0.88rem', color: '#64748B', lineHeight: 1.6, margin: 0 }}>
           {message}
         </p>
       </div>
@@ -203,12 +203,13 @@ export const EmailVerification: React.FC<EmailVerificationProps> = ({
         <div
           role="status"
           style={{
-            backgroundColor: 'rgba(34, 197, 94, 0.1)',
-            border: '1px solid rgba(34, 197, 94, 0.25)',
+            backgroundColor: '#DCFCE7',
+            border: '1px solid #86EFAC',
             borderRadius: 'var(--radius-md)',
             padding: '0.65rem 0.85rem',
-            color: '#22C55E',
-            fontSize: '0.8rem',
+            color: '#15803D',
+            fontWeight: 600,
+            fontSize: '0.82rem',
             width: '100%',
           }}
         >
@@ -219,7 +220,7 @@ export const EmailVerification: React.FC<EmailVerificationProps> = ({
       {/* Resend Form */}
       <form onSubmit={handleResend} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: '100%' }}>
         <div style={{ position: 'relative' }}>
-          <div style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)' }}>
+          <div style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#64748B' }}>
             <Mail size={16} />
           </div>
           <input
@@ -231,12 +232,13 @@ export const EmailVerification: React.FC<EmailVerificationProps> = ({
             style={{
               width: '100%',
               padding: '0.7rem 1rem 0.7rem 2.4rem',
-              backgroundColor: 'var(--color-surface-2)',
-              border: '1px solid var(--color-border-subtle)',
-              borderRadius: 'var(--radius-md)',
-              color: '#FFFFFF',
+              backgroundColor: '#FFFFFF',
+              border: '1.5px solid #CBD5E1',
+              borderRadius: '10px',
+              color: '#0F172A',
               fontSize: '0.88rem',
               outline: 'none',
+              boxSizing: 'border-box',
             }}
           />
         </div>

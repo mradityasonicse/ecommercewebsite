@@ -1,3 +1,4 @@
+import React from 'react';
 import { Compass, MapPin, School } from 'lucide-react';
 import { Container } from '../primitives/Container';
 import type { Campus } from '../../data/campuses';
@@ -15,78 +16,70 @@ export const DiscoveryHeader: React.FC<DiscoveryHeaderProps> = ({
     <div
       style={{
         position: 'relative',
-        paddingTop: 'var(--space-12)',
-        paddingBottom: 'var(--space-8)',
+        paddingTop: '6.5rem', // Offset for fixed navbar
+        paddingBottom: '2.5rem',
         borderBottom: '1px solid var(--color-border-subtle)',
-        background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(8, 10, 15, 0) 100%)',
+        backgroundColor: 'var(--color-bg-primary)',
       }}
     >
       <Container variant="wide">
-        <div style={{ maxWidth: '820px' }}>
+        <div style={{ maxWidth: '780px' }}>
           {/* Breadcrumb / Context Pill */}
           <div
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '0.5rem',
-              padding: '0.3rem 0.8rem',
+              gap: '0.45rem',
+              padding: '0.25rem 0.75rem',
               borderRadius: 'var(--radius-pill)',
-              backgroundColor: 'rgba(255, 255, 255, 0.08)',
-              border: '1px solid rgba(255, 255, 255, 0.18)',
-              marginBottom: 'var(--space-4)',
+              backgroundColor: 'var(--color-surface-2)',
+              border: '1px solid var(--color-border-subtle)',
+              marginBottom: '1rem',
             }}
           >
-            <Compass size={14} color="#FFFFFF" />
+            <Compass size={14} color="var(--color-brand-blue)" />
             <span
               style={{
-                fontSize: '0.72rem',
-                fontFamily: 'var(--font-display)',
+                fontSize: 'var(--text-caption)',
+                fontFamily: 'var(--font-family-caption)',
                 fontWeight: 700,
-                color: '#FFFFFF',
+                color: 'var(--color-text-secondary)',
                 textTransform: 'uppercase',
-                letterSpacing: '0.08em',
+                letterSpacing: 'var(--tracking-uppercase)',
               }}
             >
-              Campus Living Marketplace
+              Services Directory
             </span>
           </div>
 
-          {/* Editorial Headline */}
+          {/* Primary Heading */}
           <h1
             style={{
-              fontSize: 'clamp(2.4rem, 4.5vw, 3.75rem)',
-              fontFamily: 'var(--font-display)',
-              fontWeight: 800,
-              lineHeight: 1.1,
-              letterSpacing: '-0.03em',
-              color: '#FFFFFF',
-              margin: '0 0 var(--space-4) 0',
+              fontSize: 'var(--text-h1)',
+              fontFamily: 'var(--font-family-h1)',
+              fontWeight: 'var(--weight-h1)',
+              lineHeight: 'var(--leading-h1)',
+              letterSpacing: 'var(--tracking-h1)',
+              color: 'var(--color-text-primary)',
+              margin: '0 0 0.75rem 0',
+              textWrap: 'balance',
             }}
           >
-            Everything you need.{' '}
-            <span
-              style={{
-                background: 'linear-gradient(135deg, var(--color-brand-blue) 0%, #60A5FA 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              Right where you need it.
-            </span>
+            Browse verified student services.
           </h1>
 
-          {/* Editorial Supporting Copy */}
+          {/* Supporting Copy */}
           <p
             style={{
-              fontSize: 'clamp(1.05rem, 1.3vw, 1.2rem)',
-              fontFamily: 'var(--font-body)',
+              fontSize: 'var(--text-body-lg)',
+              fontFamily: 'var(--font-family-body-lg)',
               color: 'var(--color-text-secondary)',
-              lineHeight: 1.6,
-              margin: '0 0 var(--space-6) 0',
-              maxWidth: '680px',
+              lineHeight: 'var(--leading-body-lg)',
+              margin: '0 0 1.5rem 0',
+              textWrap: 'pretty',
             }}
           >
-            Explore everyday services designed around student life. Audited meal plans, zero-brokerage housing, doorstep laundry, and emergency repairs—verified for your campus.
+            Filter meal subscriptions, student accommodations, doorstep laundry, and campus repairs by category, price, and availability.
           </p>
 
           {/* Location / Campus Context Indicator */}
@@ -100,38 +93,24 @@ export const DiscoveryHeader: React.FC<DiscoveryHeaderProps> = ({
               backgroundColor: 'var(--color-surface-1)',
               border: '1px solid var(--color-border-subtle)',
               borderRadius: 'var(--radius-lg)',
-              fontSize: '0.85rem',
+              fontSize: 'var(--text-body-sm)',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--color-blue-light)' }}>
-              <School size={16} color="var(--color-brand-blue)" />
-              <span style={{ fontWeight: 600 }}>Active Campus:</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--color-brand-blue)' }}>
+              <School size={15} />
+              <span style={{ fontWeight: 600 }}>Active Hub:</span>
             </div>
 
-            <span style={{ color: '#FFFFFF', fontWeight: 700 }}>
+            <span style={{ color: 'var(--color-text-primary)', fontWeight: 700 }}>
               {selectedCampus.name}
             </span>
 
             <span style={{ color: 'var(--color-text-muted)' }}>•</span>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: 'var(--color-text-secondary)', fontSize: '0.8rem' }}>
-              <MapPin size={13} color="var(--color-text-muted)" />
-              <span>{selectedCampus.hubLocation}</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: 'var(--color-text-secondary)', fontSize: 'var(--text-caption)' }}>
+              <MapPin size={13} color="#EF4444" />
+              <span>{selectedCampus.hubLocation || 'Campus Operations Desk'}</span>
             </div>
-
-            <span
-              style={{
-                fontSize: '0.7rem',
-                fontFamily: 'var(--font-mono)',
-                color: '#4ADE80',
-                backgroundColor: 'rgba(34, 197, 94, 0.1)',
-                padding: '0.15rem 0.5rem',
-                borderRadius: 'var(--radius-sm)',
-                fontWeight: 700,
-              }}
-            >
-              {selectedCampus.activeProviders} Verified Partners
-            </span>
           </div>
         </div>
       </Container>

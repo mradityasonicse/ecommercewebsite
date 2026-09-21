@@ -9,6 +9,8 @@ import {
   parseBookingSlugFromUrl,
   parseAuthRouteFromUrl,
   isAccountRoute,
+  isChatRoute,
+  isAdminRoute,
   getBookingHref,
   getServiceHref,
   getAuthHref,
@@ -19,6 +21,11 @@ import {
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { BrandIntroSplash } from './components/intro/BrandIntroSplash';
 import { LoginGateModal } from './components/modals/LoginGateModal';
+import { RoleLoginGateModal, type UserPersona } from './components/auth/RoleLoginGateModal';
+import { RoleLoginPage } from './pages/RoleLoginPage';
+import { PgOwnerPortal } from './components/portals/PgOwnerPortal';
+import { MessPartnerPortal } from './components/portals/MessPartnerPortal';
+import { LaundryPartnerPortal } from './components/portals/LaundryPartnerPortal';
 
 // Global Layout Shell
 import { AppShell } from './components/layout/AppShell';
@@ -26,14 +33,21 @@ import { AppShell } from './components/layout/AppShell';
 // Storytelling Experience (Phase 4)
 import {
   BundlesSection,
+  ConnectedCampusPipeline,
 } from './components/sections/story';
 import { CoreServicesSection, type BookingTargetPayload } from './components/sections/story/CoreServicesSection';
+import { CampusBentoSection } from './components/sections/story/CampusBentoSection';
 import { WhatsAppBookingModal } from './components/modals/WhatsAppBookingModal';
 import { ThankYouTrustModal } from './components/modals/ThankYouTrustModal';
+import { OrderTrackerModal } from './components/modals/OrderTrackerModal';
+import { MidnightCanteenModal } from './components/canteen/MidnightCanteenModal';
+import { CommandPaletteModal } from './components/modals/CommandPaletteModal';
+import { PrizeWinningHero } from './components/sections/hero/PrizeWinningHero';
+import { DailyMessMenuModal } from './components/mess/DailyMessMenuModal';
+import { DailyMessMenuSection } from './components/sections/mess/DailyMessMenuSection';
 import type { BookingSubmissionData } from './utils/whatsapp';
 
-// Dedicated Service Discovery Marketplace Page (Phase 5)
-import { ServicesDiscoveryPage } from './pages/ServicesDiscoveryPage';
+// Storytelling Experience (Phase 4)
 
 // Dedicated Service Detail Page (Phase 6)
 import { ServiceDetailPage } from './pages/ServiceDetailPage';
@@ -47,14 +61,22 @@ import { AuthPage } from './pages/AuthPage';
 // Student Account Dashboard (Phase 8)
 import { AccountPage } from './pages/AccountPage';
 
+// Campus In-App Negotiation & Chat
+import { ChatPage } from './pages/ChatPage';
+
+// Enterprise Operations & Admin Console
+import { AdminPage } from './pages/AdminPage';
+
 // Modals & Drawers
 import { ProviderDetailModal } from './components/modals/ProviderDetailModal';
 import { ServiceDetailModal } from './components/modals/ServiceDetailModal';
 import { BundleDetailModal } from './components/modals/BundleDetailModal';
 import { RequestCampusDrawer } from './components/drawers/RequestCampusDrawer';
+import { NotificationCenterDrawer } from './components/modals/NotificationCenterDrawer';
 
 // Design System Showcase
 import { DesignSystemPage } from './pages/DesignSystemPage';
+import { MobilePreviewContainer } from './components/layout/MobilePreviewContainer';
 
 export type AppViewMode =
   | 'app'
@@ -63,7 +85,13 @@ export type AppViewMode =
   | 'service-booking'
   | 'auth'
   | 'account'
-  | 'design-system';
+  | 'design-system'
+  | 'chat'
+  | 'admin'
+  | 'pg-portal'
+  | 'mess-portal'
+  | 'laundry-portal'
+  | 'login';
 
 interface RouteState {
   view: AppViewMode;
@@ -76,26 +104,125 @@ interface RouteState {
 }
 
 function MainApp() {
-  const { user } = useAuth();
+  const { user: _user } = useAuth();
   const [selectedCampus, setSelectedCampus] = useState<Campus>(CAMPUSES[0]);
 
-  // Brand Intro & First-Visit Login Gate State
-  const [showIntro, setShowIntro] = useState<boolean>(() => {
-    if (typeof window === 'undefined') return false;
-    return !sessionStorage.getItem('easehub_intro_seen');
-  });
+  // Brand Cinematic Intro & Open-Out Animation State
+  const [showIntro, setShowIntro] = useState<boolean>(false);
   const [isLoginGateOpen, setIsLoginGateOpen] = useState(false);
+  const [isRoleGateOpen, setIsRoleGateOpen] = useState(false);
+
+  // User Persona Session Role: 'student' | 'pg_owner' | 'mess_partner' | 'laundry_partner' | 'admin' | null
+  // User mandate: "login page vagera ko proper fix karo sabse pahle login page aanachaiye then website usk according open hoga"
+  // If not logged in in this session, the login page is displayed FIRST!
+  const [currentUserRole, setCurrentUserRole] = useState<UserPersona | null>(() => {
+    if (typeof window === 'undefined') return null;
+    const currentHash = window.location.hash.toLowerCase();
+
+    // Explicit login or select-role hash
+    if (currentHash === '#login' || currentHash === '#select-role') return null;
+
+    // Direct portal deep links
+    if (currentHash === '#pg-portal') return 'pg_owner';
+    if (currentHash === '#mess-portal') return 'mess_partner';
+    if (currentHash === '#laundry-portal') return 'laundry_partner';
+    if (currentHash === '#admin') return 'admin';
+
+    // Session check: has user explicitly logged in during this session?
+    const isSessionLoggedIn = sessionStorage.getItem('easehub_session_logged_in');
+    if (isSessionLoggedIn === 'true') {
+      return (localStorage.getItem('easehub_current_role') as UserPersona) || 'student';
+    }
+
+    // Default on initial load: No role yet -> Login page comes first!
+    return null;
+  });
+
+  const handleSelectPersona = (role: UserPersona) => {
+    try {
+      sessionStorage.setItem('easehub_session_logged_in', 'true');
+      localStorage.setItem('easehub_current_role', role);
+      localStorage.setItem('easehub_user_role', role);
+      if (role === 'admin') {
+        sessionStorage.setItem('easehub_admin_auth', 'true');
+      }
+    } catch {}
+
+    setCurrentUserRole(role);
+    setIsRoleGateOpen(false);
+
+    if (role === 'pg_owner') {
+      navigateTo('pg-portal');
+    } else if (role === 'mess_partner') {
+      navigateTo('mess-portal');
+    } else if (role === 'laundry_partner') {
+      navigateTo('laundry-portal');
+    } else if (role === 'admin') {
+      navigateTo('admin');
+    } else {
+      navigateTo('app');
+    }
+  };
+
+  const handleRoleLogout = () => {
+    try {
+      sessionStorage.removeItem('easehub_session_logged_in');
+      sessionStorage.removeItem('easehub_admin_auth');
+      localStorage.removeItem('easehub_current_role');
+      localStorage.removeItem('easehub_user_role');
+    } catch {}
+    setCurrentUserRole(null);
+    navigateTo('login');
+  };
+
+  useEffect(() => {
+    const handleOpenRoleGate = () => {
+      handleRoleLogout();
+    };
+    window.addEventListener('easehub_open_role_gate', handleOpenRoleGate);
+    return () => window.removeEventListener('easehub_open_role_gate', handleOpenRoleGate);
+  }, []);
+
+  useEffect(() => {
+    const handleCheckLoginHash = () => {
+      const h = window.location.hash.toLowerCase();
+      if (h === '#login' || h === '#select-role') {
+        setCurrentUserRole(null);
+      }
+    };
+    window.addEventListener('hashchange', handleCheckLoginHash);
+    return () => window.removeEventListener('hashchange', handleCheckLoginHash);
+  }, []);
+
+  useEffect(() => {
+    const handleCheckIntro = () => {
+      const isHashIntro = window.location.hash === '#intro';
+      const isPathIntro = window.location.pathname === '/intro' || window.location.pathname.endsWith('/intro');
+      if (isHashIntro || isPathIntro) {
+        setShowIntro(true);
+      }
+    };
+    const handleOpenIntroEvent = () => setShowIntro(true);
+
+    window.addEventListener('hashchange', handleCheckIntro);
+    window.addEventListener('popstate', handleCheckIntro);
+    window.addEventListener('easehub:open-intro', handleOpenIntroEvent);
+    handleCheckIntro();
+
+    return () => {
+      window.removeEventListener('hashchange', handleCheckIntro);
+      window.removeEventListener('popstate', handleCheckIntro);
+      window.removeEventListener('easehub:open-intro', handleOpenIntroEvent);
+    };
+  }, []);
 
   const handleIntroComplete = () => {
     setShowIntro(false);
-    try {
-      sessionStorage.setItem('easehub_intro_seen', 'true');
-    } catch {
-      // Storage unavailable
+    if (window.location.hash === '#intro') {
+      window.location.hash = '#home';
     }
-    // Automatically display the login gate after the intro if not authenticated
-    if (!user) {
-      setIsLoginGateOpen(true);
+    if (window.location.pathname === '/intro' || window.location.pathname.endsWith('/intro')) {
+      window.history.replaceState({}, '', window.location.hash || '/#home');
     }
   };
 
@@ -106,19 +233,55 @@ function MainApp() {
   const [isRequestCampusOpen, setIsRequestCampusOpen] = useState(false);
   const [activeBookingPayload, setActiveBookingPayload] = useState<BookingTargetPayload | null>(null);
   const [thankYouBookingData, setThankYouBookingData] = useState<BookingSubmissionData | null>(null);
+  const [isOrderTrackerOpen, setIsOrderTrackerOpen] = useState(false);
+  const [trackerTab, setTrackerTab] = useState<'mess' | 'laundry' | 'pg'>('mess');
+  const [trackerOrderId, setTrackerOrderId] = useState<string | undefined>(undefined);
+  const [isCanteenOpen, setIsCanteenOpen] = useState(false);
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+  const [isMessMenuOpen, setIsMessMenuOpen] = useState(false);
+  const [isNotificationCenterOpen, setIsNotificationCenterOpen] = useState(false);
 
   // Parse route state from current browser URL
   const getRouteStateFromUrl = (): RouteState => {
     if (typeof window === 'undefined') return { view: 'app', serviceSlug: '' };
     const path = window.location.pathname.toLowerCase();
     const hash = window.location.hash.toLowerCase();
+    // 0. Explicit Login Gate (#login, /login, #select-role)
+    if (hash === '#login' || path === '/login' || hash === '#select-role') {
+      return { view: 'login', serviceSlug: '' };
+    }
 
-    // 1. Design System Showcase
+    // 0. Operations / Admin Management Console (#admin, /admin)
+    if (isAdminRoute(window.location.pathname, window.location.hash)) {
+      return { view: 'admin', serviceSlug: '' };
+    }
+
+    // 0.1 PG Owner Portal (#pg-portal, /pg-portal)
+    if (hash === '#pg-portal' || path === '/pg-portal' || hash.startsWith('#pg-portal?')) {
+      return { view: 'pg-portal', serviceSlug: '' };
+    }
+
+    // 0.2 Mess Partner Portal (#mess-portal, /mess-portal)
+    if (hash === '#mess-portal' || path === '/mess-portal' || hash.startsWith('#mess-portal?')) {
+      return { view: 'mess-portal', serviceSlug: '' };
+    }
+
+    // 0.3 Laundry Partner Portal (#laundry-portal, /laundry-portal)
+    if (hash === '#laundry-portal' || path === '/laundry-portal' || hash.startsWith('#laundry-portal?')) {
+      return { view: 'laundry-portal', serviceSlug: '' };
+    }
+
+    // 2. Campus In-App Negotiation & Chats (#chat, #chats, /chat) - Redirect to home app
+    if (isChatRoute(window.location.pathname, window.location.hash)) {
+      return { view: 'app', serviceSlug: '' };
+    }
+
+    // 3. Design System Showcase
     if (hash === '#design-system' || path === '/design-system') {
       return { view: 'design-system', serviceSlug: '' };
     }
 
-    // 2. Booking / Service Request Flow (/services/[slug]/book)
+    // 4. Booking / Service Request Flow (/services/[slug]/book)
     const bookingMatch = parseBookingSlugFromUrl(window.location.pathname, window.location.hash);
     if (bookingMatch) {
       return {
@@ -128,7 +291,7 @@ function MainApp() {
       };
     }
 
-    // 3. Auth Views (#auth/sign-in, #auth/sign-up, #auth/forgot-password, #auth/reset-password, #auth/verify-email, #auth/error)
+    // 5. Auth Views (#auth/sign-in, #auth/sign-up, #auth/forgot-password, #auth/reset-password, #auth/verify-email, #auth/error)
     const authMatch = parseAuthRouteFromUrl(window.location.pathname, window.location.hash);
     if (authMatch) {
       return {
@@ -141,29 +304,47 @@ function MainApp() {
       };
     }
 
-    // 4. Student Account Dashboard (#account)
+    // 6. Student Account Dashboard (#account)
     if (isAccountRoute(window.location.pathname, window.location.hash)) {
       return { view: 'account', serviceSlug: '' };
     }
 
-    // 6. Individual Service Detail (#services/[slug])
+    // 7. Individual Service Detail (#services/[slug])
     const serviceSlug = parseServiceSlugFromUrl(window.location.pathname, window.location.hash);
     if (serviceSlug) {
       return { view: 'service-detail', serviceSlug };
     }
 
-    // 7. Services Standalone Marketplace/Catalog (#catalog, #services-catalog, #marketplace, /catalog)
+    // 8. Normalize #catalog, #services-catalog, #marketplace, or query parameters to main homepage
     if (
       hash === '#catalog' ||
       hash.startsWith('#catalog?') ||
       hash === '#services-catalog' ||
       hash === '#marketplace' ||
+      hash.startsWith('#services?') ||
       path.startsWith('/catalog')
     ) {
-      return { view: 'services', serviceSlug: '' };
+      let targetCategory = 'pg';
+      if (hash.includes('maintenance') || hash.includes('repair') || hash.includes('cleaning') || hash.includes('extra')) {
+        targetCategory = 'extra';
+      } else if (hash.includes('food') || hash.includes('mess') || hash.includes('meal')) {
+        targetCategory = 'meals';
+      } else if (hash.includes('laundry')) {
+        targetCategory = 'laundry';
+      } else if (hash.includes('hostel') || hash.includes('pg')) {
+        targetCategory = 'pg';
+      }
+
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent('easehub:select-category', { detail: { category: targetCategory } }));
+        const el = document.getElementById('core-services');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 60);
+
+      return { view: 'app', serviceSlug: '' };
     }
 
-    // 8. Default Unified Storytelling Homepage
+    // 9. Default Unified Storytelling Homepage
     return { view: 'app', serviceSlug: '' };
   };
 
@@ -183,6 +364,9 @@ function MainApp() {
           'account',
           'auth',
           'design-system',
+          'chat',
+          'chats',
+          'admin',
         ];
         if (!nonSectionRoutes.includes(id) && !id.startsWith('services/')) {
           setTimeout(() => {
@@ -213,6 +397,10 @@ function MainApp() {
         'account',
         'auth',
         'design-system',
+        'bazaar',
+        'chat',
+        'chats',
+        'admin',
       ];
       if (!nonSectionRoutes.includes(id) && !id.startsWith('services/')) {
         setTimeout(() => {
@@ -225,6 +413,86 @@ function MainApp() {
     }
   }, []);
 
+  // Listen for Live Tracker modal requests across components
+  useEffect(() => {
+    const handleOpenTracker = (e: any) => {
+      if (e?.detail?.tab) setTrackerTab(e.detail.tab);
+      if (e?.detail?.orderId) setTrackerOrderId(e.detail.orderId);
+      setIsOrderTrackerOpen(true);
+    };
+    window.addEventListener('easehub_open_order_tracker', handleOpenTracker as any);
+
+    const checkTrackHash = () => {
+      const h = window.location.hash.toLowerCase();
+      if (h === '#track' || h === '#tracker' || h.startsWith('#track?')) {
+        if (h.includes('kind=pg') || h.includes('tab=pg')) setTrackerTab('pg');
+        else if (h.includes('kind=laundry') || h.includes('tab=laundry')) setTrackerTab('laundry');
+        else if (h.includes('kind=mess') || h.includes('tab=mess')) setTrackerTab('mess');
+        setIsOrderTrackerOpen(true);
+      }
+    };
+
+    checkTrackHash();
+    window.addEventListener('hashchange', checkTrackHash);
+
+    return () => {
+      window.removeEventListener('easehub_open_order_tracker', handleOpenTracker as any);
+      window.removeEventListener('hashchange', checkTrackHash);
+    };
+  }, []);
+
+  // Listen for Command Palette events & keyboard shortcuts
+  useEffect(() => {
+    const handleOpenCommandPalette = () => setIsCommandPaletteOpen(true);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsCommandPaletteOpen((prev) => !prev);
+      }
+    };
+
+    window.addEventListener('easehub_open_command_palette', handleOpenCommandPalette);
+    window.addEventListener('keydown', handleKeyDown);
+
+    const handleOpenMessMenu = () => setIsMessMenuOpen(true);
+    window.addEventListener('easehub_open_mess_menu', handleOpenMessMenu);
+
+    const handleOpenNotifs = () => setIsNotificationCenterOpen(true);
+    window.addEventListener('easehub_open_notifications', handleOpenNotifs);
+
+    const checkHashEvents = () => {
+      const h = window.location.hash.toLowerCase();
+      if (h === '#mess-menu') {
+        setIsMessMenuOpen(true);
+      } else if (h === '#notifications' || h === '#alerts') {
+        setIsNotificationCenterOpen(true);
+      } else {
+        // Automatically dismiss popups when navigating to account, services, or home
+        setIsMessMenuOpen(false);
+      }
+    };
+    checkHashEvents();
+    window.addEventListener('hashchange', checkHashEvents);
+
+    return () => {
+      window.removeEventListener('easehub_open_command_palette', handleOpenCommandPalette);
+      window.removeEventListener('easehub_open_mess_menu', handleOpenMessMenu);
+      window.removeEventListener('easehub_open_notifications', handleOpenNotifs);
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('hashchange', checkHashEvents);
+    };
+  }, []);
+
+  // Close all floating overlays whenever leaving main app view
+  useEffect(() => {
+    if (routeState.view !== 'app') {
+      setIsMessMenuOpen(false);
+      setIsCanteenOpen(false);
+      setIsCommandPaletteOpen(false);
+    }
+  }, [routeState.view]);
+
   const navigateTo = (
     mode: AppViewMode,
     slug?: string,
@@ -232,7 +500,19 @@ function MainApp() {
     authMode?: AuthViewMode,
     returnTo?: string
   ) => {
-    if (mode === 'design-system') {
+    if (mode === 'login') {
+      window.location.hash = 'login';
+    } else if (mode === 'admin') {
+      window.location.hash = 'admin';
+    } else if (mode === 'pg-portal') {
+      window.location.hash = 'pg-portal';
+    } else if (mode === 'mess-portal') {
+      window.location.hash = 'mess-portal';
+    } else if (mode === 'laundry-portal') {
+      window.location.hash = 'laundry-portal';
+    } else if (mode === 'chat') {
+      window.location.hash = 'chat';
+    } else if (mode === 'design-system') {
       window.location.hash = 'design-system';
     } else if (mode === 'service-booking' && slug) {
       window.location.hash = getBookingHref(slug, optionId);
@@ -300,6 +580,17 @@ function MainApp() {
     );
   }
 
+  // Dedicated Role Login Screen: Shown FIRST before website opens, or when visiting #login
+  if (!currentUserRole || routeState.view === 'login') {
+    return (
+      <RoleLoginPage
+        onLogin={(role) => {
+          handleSelectPersona(role);
+        }}
+      />
+    );
+  }
+
   // Standalone Auth Layout View
   if (routeState.view === 'auth') {
     return (
@@ -327,8 +618,39 @@ function MainApp() {
       selectedCampus={selectedCampus}
       onCampusChange={setSelectedCampus}
       onRequestCampusOpen={() => setIsRequestCampusOpen(true)}
+      onOpenTracker={() => setIsOrderTrackerOpen(true)}
+      onOpenNotifications={() => setIsNotificationCenterOpen(true)}
+      onNavigateHome={() => navigateTo('app')}
+      onNavigateServices={() => navigateTo('services')}
+      onNavigateAccount={() => navigateTo('account')}
     >
-      {routeState.view === 'service-booking' ? (
+
+
+      {routeState.view === 'admin' ? (
+        /* ENTERPRISE ADMIN OPERATIONS CONSOLE */
+        <AdminPage />
+      ) : routeState.view === 'pg-portal' ? (
+        /* PG OWNER ROOM VACANCY & AVAILABILITY PORTAL */
+        <PgOwnerPortal
+          onBackToApp={() => navigateTo('app')}
+          onSwitchRole={handleRoleLogout}
+        />
+      ) : routeState.view === 'mess-portal' ? (
+        /* MESS PARTNER KITCHEN & ARRIVAL PIPELINE PORTAL */
+        <MessPartnerPortal
+          onBackToApp={() => navigateTo('app')}
+          onSwitchRole={handleRoleLogout}
+        />
+      ) : routeState.view === 'laundry-portal' ? (
+        /* LAUNDRY PARTNER SCHEDULED PICKUP & WASH QUEUE PORTAL */
+        <LaundryPartnerPortal
+          onBackToApp={() => navigateTo('app')}
+          onSwitchRole={handleRoleLogout}
+        />
+      ) : routeState.view === 'chat' ? (
+        /* REAL-TIME IN-APP NEGOTIATION & CHAT HUB */
+        <ChatPage />
+      ) : routeState.view === 'service-booking' ? (
         /* PHASE 7: BOOKING & SERVICE REQUEST FLOW */
         <BookingPage
           slug={routeState.serviceSlug}
@@ -354,25 +676,57 @@ function MainApp() {
           onSelectOption={(opt) => navigateTo('service-booking', routeState.serviceSlug, opt.id)}
           onSelectProvider={(p) => setSelectedProvider(p)}
         />
-      ) : routeState.view === 'services' ? (
-        /* DEDICATED SERVICE DISCOVERY EXPERIENCE (Phase 5) */
-        <ServicesDiscoveryPage
-          selectedCampus={selectedCampus}
-          onCampusChange={setSelectedCampus}
-          onRequestCampusOpen={() => setIsRequestCampusOpen(true)}
-          onSelectService={(service) => navigateTo('service-detail', service.slug)}
-          onNavigateHome={() => navigateTo('app')}
-        />
       ) : (
-        /* HOMEPAGE REFERENCE EXPERIENCE (Matching https://luminous-baklava-6113b3.netlify.app/) */
+        /* HOMEPAGE REFERENCE EXPERIENCE (Unified Storefront) */
         <>
+          {/* 0. Prize-Winning Cinematic Hero Section */}
+          <PrizeWinningHero
+            selectedCampus={selectedCampus}
+            onOpenQuickCategory={(cat) => {
+              window.dispatchEvent(
+                new CustomEvent('easehub:select-category', { detail: { category: cat } })
+              );
+              const el = document.getElementById('core-services');
+              if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+            onOpenCanteen={() => setIsCanteenOpen(true)}
+            onOpenTracker={() => setIsOrderTrackerOpen(true)}
+            onOpenSearch={() => setIsCommandPaletteOpen(true)}
+          />
+
+          {/* 0.5 Connected Campus Pipeline (How EaseHub Seamlessly Connects Stay, Mess, Laundry & Canteen) */}
+          <ConnectedCampusPipeline
+            onExploreBundles={() => {
+              const el = document.getElementById('bundles');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
+            onOpenMessMenu={() => setIsMessMenuOpen(true)}
+            onOpenTracker={() => setIsOrderTrackerOpen(true)}
+          />
+
           {/* 1. Core Services & Card Catalog (Primary Focus: PG, Mess, Laundry, Extra Services, Contact) */}
           <CoreServicesSection
             selectedCampus={selectedCampus}
             onOpenBooking={(payload) => setActiveBookingPayload(payload)}
           />
 
-          {/* 2. Simplification & Smart Living Bundles */}
+          {/* 1.5 Live Daily Mess Menu Board (Breakfast, Lunch, Dinner) */}
+          <DailyMessMenuSection onOpenFullMenu={() => setIsMessMenuOpen(true)} />
+
+          {/* 2. Curated Campus Intelligence Bento Grid */}
+          <CampusBentoSection
+            selectedCampus={selectedCampus}
+            onOpenTracker={() => setIsOrderTrackerOpen(true)}
+            onOpenCanteen={() => setIsCanteenOpen(true)}
+            onOpenBooking={(category) => {
+              const s = ECOSYSTEM_SERVICES.find((srv) => srv.category === category || srv.slug === category);
+              navigateTo('service-booking', s ? s.slug : category);
+            }}
+          />
+
+          {/* 3. Simplification & Smart Living Bundles */}
           <BundlesSection
             onSelectBundle={setSelectedBundle}
           />
@@ -432,6 +786,44 @@ function MainApp() {
       <ThankYouTrustModal
         data={thankYouBookingData}
         onClose={() => setThankYouBookingData(null)}
+        onOpenTracker={(tab, orderId) => {
+          setThankYouBookingData(null);
+          if (tab) setTrackerTab(tab);
+          if (orderId) setTrackerOrderId(orderId);
+          setIsOrderTrackerOpen(true);
+        }}
+      />
+
+      {/* 24h Order and Laundry Status Tracker Modal */}
+      <OrderTrackerModal
+        isOpen={isOrderTrackerOpen}
+        onClose={() => setIsOrderTrackerOpen(false)}
+        defaultTab={trackerTab}
+        orderId={trackerOrderId}
+      />
+
+      {/* 🔔 Campus Notifications Center Drawer */}
+      <NotificationCenterDrawer
+        isOpen={isNotificationCenterOpen}
+        onClose={() => setIsNotificationCenterOpen(false)}
+        onOpenTracker={(orderId) => {
+          if (orderId) setTrackerOrderId(orderId);
+          setIsOrderTrackerOpen(true);
+        }}
+        onNavigateAccount={() => navigateTo('account')}
+      />
+
+      {/* 🌙 "Night Owl" Midnight Canteen & Exam Deliveries Modal */}
+      <MidnightCanteenModal
+        isOpen={isCanteenOpen}
+        onClose={() => setIsCanteenOpen(false)}
+        selectedCampus={selectedCampus}
+      />
+
+      {/* 🍲 Live Campus Daily Mess Menu Board (Breakfast, Lunch, Dinner) */}
+      <DailyMessMenuModal
+        isOpen={isMessMenuOpen}
+        onClose={() => setIsMessMenuOpen(false)}
       />
 
       {/* 1. Cinematic Brand Intro Splash Animation on Launch */}
@@ -445,6 +837,70 @@ function MainApp() {
           setIsLoginGateOpen(false);
         }}
       />
+
+      {/* 2.5 Multi-Role Campus Access Gate (Student, PG, Mess, Laundry, Admin) */}
+      <RoleLoginGateModal
+        isOpen={isRoleGateOpen}
+        onClose={() => setIsRoleGateOpen(false)}
+        onSelectRole={handleSelectPersona}
+      />
+
+      {/* ⌘K Global Spotlight Command Palette */}
+      <CommandPaletteModal
+        isOpen={isCommandPaletteOpen}
+        onClose={() => setIsCommandPaletteOpen(false)}
+        onSelectAction={(actionId, payload) => {
+          if (actionId === 'tracker') {
+            setIsOrderTrackerOpen(true);
+          } else if (actionId === 'canteen') {
+            setIsCanteenOpen(true);
+          } else if (actionId === 'mess-menu') {
+            setIsMessMenuOpen(true);
+          } else if (actionId === 'account') {
+            navigateTo('account');
+          } else if (actionId === 'service-booking' && payload) {
+            navigateTo('service-booking', payload);
+          }
+        }}
+      />
+      {/* Floating 1-Tap Mobile View Trigger */}
+      <button
+        type="button"
+        onClick={() => {
+          window.dispatchEvent(new CustomEvent('easehub:toggle-mobile-view'));
+        }}
+        className="easehub-floating-mobile-trigger"
+        style={{
+          position: 'fixed',
+          bottom: '22px',
+          left: '22px',
+          zIndex: 9940,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.45rem',
+          padding: '0.55rem 1rem',
+          backgroundColor: '#0F172A',
+          color: '#FFFFFF',
+          border: '1.5px solid #334155',
+          borderRadius: '9999px',
+          fontSize: '0.82rem',
+          fontWeight: 800,
+          cursor: 'pointer',
+          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.25)',
+          transition: 'transform 0.15s ease, background-color 0.15s ease',
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = '#1E293B';
+          e.currentTarget.style.transform = 'translateY(-2px) scale(1.03)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = '#0F172A';
+          e.currentTarget.style.transform = 'none';
+        }}
+      >
+        <span style={{ fontSize: '1rem' }}>📱</span>
+        <span>1-Tap Mobile View</span>
+      </button>
     </AppShell>
   );
 }
@@ -452,7 +908,9 @@ function MainApp() {
 export function App() {
   return (
     <AuthProvider>
-      <MainApp />
+      <MobilePreviewContainer>
+        <MainApp />
+      </MobilePreviewContainer>
     </AuthProvider>
   );
 }

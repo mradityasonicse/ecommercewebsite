@@ -19,11 +19,11 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
   children,
   variant = 'fade-up',
   delay = 0,
-  duration = 380,
-  distance = 20,
+  duration = 420,
+  distance = 24,
   className = '',
-  threshold = 0.12,
-  rootMargin = '0px 0px -40px 0px',
+  threshold = 0.06,
+  rootMargin = '0px 0px -25px 0px',
   style = {},
   ...props
 }) => {

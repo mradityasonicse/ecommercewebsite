@@ -41,22 +41,23 @@ export const SmartBundles: React.FC<SmartBundlesProps> = ({ onSelectBundle }) =>
                 alignItems: 'center',
                 padding: '4px',
                 backgroundColor: 'var(--color-surface)',
-                borderRadius: 'var(--radius-full)',
+                borderRadius: 'var(--radius-md)',
                 border: '1px solid var(--color-border)'
               }}
             >
               <button
                 onClick={() => setBillingCycle('monthly')}
                 style={{
-                  padding: '0.5rem 1.25rem',
-                  borderRadius: 'var(--radius-full)',
+                  padding: '0.45rem 1.15rem',
+                  borderRadius: 'var(--radius-sm)',
                   fontSize: 'var(--text-xs)',
                   fontWeight: 600,
                   fontFamily: 'var(--font-display)',
                   cursor: 'pointer',
-                  backgroundColor: billingCycle === 'monthly' ? 'var(--color-blue)' : 'transparent',
-                  color: billingCycle === 'monthly' ? 'var(--color-white)' : 'var(--color-text-secondary)',
-                  transition: 'all var(--duration-fast)'
+                  backgroundColor: billingCycle === 'monthly' ? 'var(--color-brand-blue)' : 'transparent',
+                  color: '#FFFFFF',
+                  transition: 'all var(--duration-fast)',
+                  border: 'none',
                 }}
               >
                 Monthly Plan
@@ -64,28 +65,30 @@ export const SmartBundles: React.FC<SmartBundlesProps> = ({ onSelectBundle }) =>
               <button
                 onClick={() => setBillingCycle('semester')}
                 style={{
-                  padding: '0.5rem 1.25rem',
-                  borderRadius: 'var(--radius-full)',
+                  padding: '0.45rem 1.15rem',
+                  borderRadius: 'var(--radius-sm)',
                   fontSize: 'var(--text-xs)',
                   fontWeight: 600,
                   fontFamily: 'var(--font-display)',
                   cursor: 'pointer',
-                  backgroundColor: billingCycle === 'semester' ? 'var(--color-blue)' : 'transparent',
-                  color: billingCycle === 'semester' ? 'var(--color-white)' : 'var(--color-text-secondary)',
+                  backgroundColor: billingCycle === 'semester' ? 'var(--color-brand-blue)' : 'transparent',
+                  color: '#FFFFFF',
                   transition: 'all var(--duration-fast)',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '6px'
+                  gap: '6px',
+                  border: 'none',
                 }}
               >
                 <span>Semester Pass (5 Months)</span>
                 <span
                   style={{
-                    backgroundColor: 'var(--color-red)',
+                    backgroundColor: 'var(--color-brand-red)',
                     color: '#fff',
                     padding: '1px 6px',
-                    borderRadius: 'var(--radius-full)',
-                    fontSize: '0.65rem'
+                    borderRadius: 'var(--radius-sm)',
+                    fontSize: '0.65rem',
+                    fontWeight: 700,
                   }}
                 >
                   Save 15% More
@@ -120,16 +123,16 @@ export const SmartBundles: React.FC<SmartBundlesProps> = ({ onSelectBundle }) =>
                   style={{
                     backgroundColor: 'var(--color-surface)',
                     border: bundle.isPopular
-                      ? '2px solid var(--color-blue)'
+                      ? '2px solid var(--color-brand-blue)'
                       : '1px solid var(--color-border)',
-                    borderRadius: 'var(--radius-xl)',
+                    borderRadius: 'var(--radius-lg)',
                     padding: '2rem',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
                     height: '100%',
                     position: 'relative',
-                    boxShadow: bundle.isPopular ? '0 12px 36px var(--color-blue-glow)' : 'none'
+                    boxShadow: bundle.isPopular ? 'var(--shadow-md)' : 'var(--shadow-sm)'
                   }}
                 >
                   {/* Top Popular Highlight */}
@@ -140,12 +143,12 @@ export const SmartBundles: React.FC<SmartBundlesProps> = ({ onSelectBundle }) =>
                         top: '-12px',
                         left: '50%',
                         transform: 'translateX(-50%)',
-                        backgroundColor: 'var(--color-blue)',
-                        color: 'var(--color-white)',
+                        backgroundColor: 'var(--color-brand-blue)',
+                        color: '#FFFFFF',
                         fontSize: '0.7rem',
                         fontWeight: 700,
-                        padding: '0.25rem 0.85rem',
-                        borderRadius: 'var(--radius-full)',
+                        padding: '0.2rem 0.75rem',
+                        borderRadius: 'var(--radius-sm)',
                         fontFamily: 'var(--font-display)',
                         letterSpacing: '0.04em',
                         textTransform: 'uppercase'

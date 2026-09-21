@@ -13,13 +13,21 @@ import { buildBookingWhatsAppUrl } from '../../utils/whatsapp';
 interface ThankYouTrustModalProps {
   data: BookingSubmissionData | null;
   onClose: () => void;
+  onOpenTracker?: (tab?: 'mess' | 'laundry' | 'pg', orderId?: string) => void;
 }
 
 export const ThankYouTrustModal: React.FC<ThankYouTrustModalProps> = ({
   data,
   onClose,
+  onOpenTracker,
 }) => {
   if (!data) return null;
+
+  const detectedKind = (data.serviceName || '').toLowerCase().includes('pg')
+    ? 'pg'
+    : (data.serviceName || '').toLowerCase().includes('laundry')
+    ? 'laundry'
+    : 'mess';
 
   const whatsappUrl = buildBookingWhatsAppUrl(data);
 
@@ -31,9 +39,9 @@ export const ThankYouTrustModal: React.FC<ThankYouTrustModalProps> = ({
         position: 'fixed',
         inset: 0,
         zIndex: 10000,
-        backgroundColor: 'rgba(6, 7, 9, 0.78)',
-        backdropFilter: 'blur(8px)',
-        WebkitBackdropFilter: 'blur(8px)',
+        backgroundColor: 'rgba(15, 23, 42, 0.45)',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -48,10 +56,10 @@ export const ThankYouTrustModal: React.FC<ThankYouTrustModalProps> = ({
         style={{
           width: '100%',
           maxWidth: '540px',
-          backgroundColor: 'var(--color-surface-1)',
-          border: '1px solid var(--color-border-subtle)',
+          backgroundColor: '#FFFFFF',
+          border: '1.5px solid rgba(22, 163, 74, 0.25)',
           borderRadius: 'var(--radius-xl)',
-          boxShadow: '0 24px 64px -8px rgba(0, 0, 0, 0.8), 0 4px 16px rgba(0, 0, 0, 0.4)',
+          boxShadow: '0 24px 64px -8px rgba(22, 163, 74, 0.18), 0 4px 16px rgba(0, 0, 0, 0.06)',
           overflow: 'hidden',
           textAlign: 'center',
           padding: 'var(--space-8)',
@@ -130,7 +138,7 @@ export const ThankYouTrustModal: React.FC<ThankYouTrustModalProps> = ({
         {/* Reference & Summary Card */}
         <div
           style={{
-            backgroundColor: '#f3fbf5',
+            backgroundColor: 'var(--color-surface-2)',
             border: '1px solid var(--color-border-subtle)',
             borderRadius: 'var(--radius-xl)',
             padding: 'var(--space-5)',
@@ -175,6 +183,31 @@ export const ThankYouTrustModal: React.FC<ThankYouTrustModalProps> = ({
 
         {/* CTA Buttons */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          {onOpenTracker && (
+            <button
+              type="button"
+              onClick={() => onOpenTracker(detectedKind, data.referenceId)}
+              style={{
+                padding: '0.95rem 1.4rem',
+                borderRadius: 'var(--radius-xl)',
+                background: 'linear-gradient(135deg, #2563EB, #1D4ED8)',
+                color: '#FFFFFF',
+                fontSize: '0.95rem',
+                fontWeight: 800,
+                border: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.5rem',
+                boxShadow: '0 8px 25px rgba(37, 99, 235, 0.35)',
+                cursor: 'pointer',
+              }}
+            >
+              <Clock size={18} color="#FFFFFF" />
+              <span>📡 Track Live Status Now (#{data.referenceId})</span>
+            </button>
+          )}
+
           <a
             href={whatsappUrl}
             target="_blank"
@@ -183,7 +216,7 @@ export const ThankYouTrustModal: React.FC<ThankYouTrustModalProps> = ({
               padding: '0.9rem 1.4rem',
               borderRadius: 'var(--radius-xl)',
               backgroundColor: '#25D366',
-              color: '#0F382C',
+              color: '#0A1633',
               fontSize: '0.95rem',
               fontWeight: 800,
               textDecoration: 'none',
@@ -194,7 +227,7 @@ export const ThankYouTrustModal: React.FC<ThankYouTrustModalProps> = ({
               boxShadow: '0 8px 24px rgba(37, 211, 102, 0.25)',
             }}
           >
-            <MessageCircle size={18} color="#0F382C" />
+            <MessageCircle size={18} color="#0A1633" />
             <span>Open in WhatsApp</span>
           </a>
 

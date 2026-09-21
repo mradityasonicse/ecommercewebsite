@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { X, Check, SlidersHorizontal } from 'lucide-react';
+import { X, Check, SlidersHorizontal, ArrowRight, RotateCcw } from 'lucide-react';
 import type { Campus } from '../../data/campuses';
 import { CAMPUSES } from '../../data/campuses';
-import type { ServiceCategory, ServiceFilterParams, ServiceSortOption } from '../../types/service';
+import type { ServiceCategory, ServiceFilterParams } from '../../types/service';
 
 interface FilterDrawerProps {
   isOpen: boolean;
@@ -53,6 +53,14 @@ export const FilterDrawer: React.FC<FilterDrawerProps> = ({
 
   if (!isOpen) return null;
 
+  const pricePresets: Array<{ label: string; value: number | undefined }> = [
+    { label: 'Any Price', value: undefined },
+    { label: 'Under ₹200', value: 200 },
+    { label: 'Under ₹500', value: 500 },
+    { label: 'Under ₹1,500', value: 1500 },
+    { label: 'Under ₹7,000', value: 7000 },
+  ];
+
   const content = (
     <div
       role="dialog"
@@ -73,25 +81,26 @@ export const FilterDrawer: React.FC<FilterDrawerProps> = ({
         style={{
           position: 'absolute',
           inset: 0,
-          backgroundColor: 'rgba(15, 56, 44, 0.45)',
-          backdropFilter: 'blur(6px)',
-          WebkitBackdropFilter: 'blur(6px)',
+          backgroundColor: 'rgba(5, 12, 28, 0.82)',
+          backdropFilter: 'blur(4px)',
+          WebkitBackdropFilter: 'blur(4px)',
         }}
       />
 
-      {/* Drawer Panel */}
+      {/* Drawer Sheet Container */}
       <div
         style={{
           position: 'relative',
-          backgroundColor: 'var(--color-bg-primary, #FBF9F1)',
-          borderTop: '1px solid var(--color-border-subtle, #E8E4D5)',
-          borderTopLeftRadius: 'var(--radius-2xl)',
-          borderTopRightRadius: 'var(--radius-2xl)',
-          maxHeight: '85vh',
+          backgroundColor: 'var(--color-surface-1)',
+          borderTop: '1px solid var(--color-border-subtle)',
+          borderTopLeftRadius: 'var(--radius-xl)',
+          borderTopRightRadius: 'var(--radius-xl)',
+          maxHeight: '88vh',
           display: 'flex',
           flexDirection: 'column',
-          boxShadow: '0 -10px 40px rgba(15, 56, 44, 0.2)',
+          boxShadow: '0 -12px 36px rgba(0, 0, 0, 0.6)',
           overflow: 'hidden',
+          width: '100%',
         }}
       >
         {/* Drawer Header */}
@@ -101,55 +110,74 @@ export const FilterDrawer: React.FC<FilterDrawerProps> = ({
             alignItems: 'center',
             justifyContent: 'space-between',
             padding: '1.25rem 1.5rem',
-            borderBottom: '1px solid var(--color-border-subtle, #E8E4D5)',
-            backgroundColor: '#FFFFFF',
+            borderBottom: '1px solid var(--color-border-subtle)',
+            backgroundColor: 'var(--color-surface-1)',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <SlidersHorizontal size={18} color="var(--color-brand-blue, #0F382C)" />
-            <h2 style={{ fontSize: '1.15rem', fontFamily: 'Domine, serif', fontWeight: 700, color: 'var(--color-brand-blue, #0F382C)', margin: 0 }}>
-              Filters & Sorting
+            <SlidersHorizontal size={18} color="var(--color-brand-blue)" />
+            <h2
+              style={{
+                fontSize: 'var(--text-h3)',
+                fontFamily: 'var(--font-family-h3)',
+                fontWeight: 700,
+                color: 'var(--color-text-primary)',
+                margin: 0,
+              }}
+            >
+              Filters & Discovery
             </h2>
           </div>
 
           <button
             type="button"
             onClick={onClose}
-            aria-label="Close filters"
+            aria-label="Close filter drawer"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              width: '32px',
-              height: '32px',
-              borderRadius: '50%',
-              backgroundColor: 'rgba(15, 56, 44, 0.05)',
-              border: 'none',
-              color: 'var(--color-text-secondary, #414845)',
+              width: '36px',
+              height: '36px',
+              minWidth: '36px',
+              minHeight: '36px',
+              borderRadius: 'var(--radius-pill)',
+              backgroundColor: 'var(--color-surface-2)',
+              border: '1px solid var(--color-border-subtle)',
+              color: 'var(--color-text-secondary)',
               cursor: 'pointer',
-              transition: 'background-color 0.15s ease',
+              padding: 0,
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(15, 56, 44, 0.12)')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(15, 56, 44, 0.05)')}
           >
             <X size={16} />
           </button>
         </div>
 
-        {/* Drawer Scrollable Content */}
+        {/* Scrollable Filter Options */}
         <div
           style={{
             padding: '1.5rem',
             overflowY: 'auto',
             display: 'flex',
             flexDirection: 'column',
-            gap: '1.5rem',
+            gap: '1.75rem',
           }}
         >
-          {/* 1. Campus Selection */}
+          {/* 1. University Campus / Area */}
           <div>
-            <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-brand-blue, #0F382C)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.65rem' }}>
-              University Campus
+            <label
+              style={{
+                display: 'block',
+                fontSize: 'var(--text-caption)',
+                fontFamily: 'var(--font-family-caption)',
+                fontWeight: 700,
+                color: 'var(--color-text-muted)',
+                textTransform: 'uppercase',
+                letterSpacing: 'var(--tracking-uppercase)',
+                marginBottom: '0.65rem',
+              }}
+            >
+              University Campus / Hub
             </label>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.45rem' }}>
               {CAMPUSES.map((c) => {
@@ -166,49 +194,65 @@ export const FilterDrawer: React.FC<FilterDrawerProps> = ({
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      padding: '0.65rem 0.9rem',
+                      padding: '0.75rem 1rem',
+                      minHeight: '44px',
                       borderRadius: 'var(--radius-md)',
-                      backgroundColor: isSelected ? 'var(--color-brand-blue, #0F382C)' : '#FFFFFF',
-                      border: isSelected ? '1px solid var(--color-brand-blue, #0F382C)' : '1px solid var(--color-border-subtle, #E8E4D5)',
-                      color: isSelected ? '#FFFFFF' : 'var(--color-text-primary, #151D1A)',
-                      fontSize: '0.85rem',
+                      backgroundColor: isSelected ? 'var(--color-surface-3)' : 'var(--color-surface-2)',
+                      border: isSelected ? '1px solid var(--color-brand-blue)' : '1px solid var(--color-border-subtle)',
+                      color: isSelected ? '#FFFFFF' : 'var(--color-text-secondary)',
+                      fontSize: 'var(--text-body-sm)',
                       fontWeight: isSelected ? 700 : 500,
                       cursor: 'pointer',
                       textAlign: 'left',
-                      boxShadow: isSelected ? '0 2px 8px rgba(15, 56, 44, 0.2)' : '0 1px 2px rgba(15, 56, 44, 0.03)',
-                      transition: 'all 0.15s ease',
                     }}
                   >
                     <span>{c.name}</span>
-                    {isSelected && <Check size={16} color="var(--color-accent-gold, #F8CE37)" />}
+                    {isSelected && <Check size={16} color="var(--color-brand-blue)" />}
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* 2. Category Selection */}
+          {/* 2. Service Category */}
           <div>
-            <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-brand-blue, #0F382C)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.65rem' }}>
-              Service Category
+            <label
+              style={{
+                display: 'block',
+                fontSize: 'var(--text-caption)',
+                fontFamily: 'var(--font-family-caption)',
+                fontWeight: 700,
+                color: 'var(--color-text-muted)',
+                textTransform: 'uppercase',
+                letterSpacing: 'var(--tracking-uppercase)',
+                marginBottom: '0.65rem',
+              }}
+            >
+              Category
             </label>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
               <button
                 type="button"
                 onClick={() => onFiltersChange({ ...filters, category: 'all' })}
                 style={{
-                  padding: '0.45rem 0.85rem',
+                  padding: '0.45rem 0.95rem',
+                  minHeight: '38px',
                   borderRadius: 'var(--radius-pill)',
-                  border: (!filters.category || filters.category === 'all') ? '1px solid var(--color-brand-blue, #0F382C)' : '1px solid var(--color-border-subtle, #E8E4D5)',
-                  backgroundColor: (!filters.category || filters.category === 'all') ? 'var(--color-brand-blue, #0F382C)' : '#FFFFFF',
-                  color: (!filters.category || filters.category === 'all') ? '#FFFFFF' : 'var(--color-text-secondary, #414845)',
-                  fontSize: '0.8rem',
+                  border: !filters.category || filters.category === 'all'
+                    ? '1px solid var(--color-brand-blue)'
+                    : '1px solid var(--color-border-subtle)',
+                  backgroundColor: !filters.category || filters.category === 'all'
+                    ? 'var(--color-brand-blue)'
+                    : 'var(--color-surface-2)',
+                  color: !filters.category || filters.category === 'all'
+                    ? '#FFFFFF'
+                    : 'var(--color-text-secondary)',
+                  fontSize: 'var(--text-body-xs)',
                   fontWeight: 600,
                   cursor: 'pointer',
-                  transition: 'all 0.15s ease',
                 }}
               >
-                All Categories
+                All Services
               </button>
 
               {categories.map((cat) => {
@@ -219,15 +263,19 @@ export const FilterDrawer: React.FC<FilterDrawerProps> = ({
                     type="button"
                     onClick={() => onFiltersChange({ ...filters, category: cat.id })}
                     style={{
-                      padding: '0.45rem 0.85rem',
+                      padding: '0.45rem 0.95rem',
+                      minHeight: '38px',
                       borderRadius: 'var(--radius-pill)',
-                      border: isSelected ? '1px solid var(--color-brand-blue, #0F382C)' : '1px solid var(--color-border-subtle, #E8E4D5)',
-                      backgroundColor: isSelected ? 'var(--color-brand-blue, #0F382C)' : '#FFFFFF',
-                      color: isSelected ? '#FFFFFF' : 'var(--color-text-secondary, #414845)',
-                      fontSize: '0.8rem',
+                      border: isSelected
+                        ? '1px solid var(--color-brand-blue)'
+                        : '1px solid var(--color-border-subtle)',
+                      backgroundColor: isSelected
+                        ? 'var(--color-brand-blue)'
+                        : 'var(--color-surface-2)',
+                      color: isSelected ? '#FFFFFF' : 'var(--color-text-secondary)',
+                      fontSize: 'var(--text-body-xs)',
                       fontWeight: 600,
                       cursor: 'pointer',
-                      transition: 'all 0.15s ease',
                     }}
                   >
                     {cat.label}
@@ -237,12 +285,23 @@ export const FilterDrawer: React.FC<FilterDrawerProps> = ({
             </div>
           </div>
 
-          {/* 3. Availability Filter */}
+          {/* 3. Availability Status */}
           <div>
-            <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-brand-blue, #0F382C)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.65rem' }}>
+            <label
+              style={{
+                display: 'block',
+                fontSize: 'var(--text-caption)',
+                fontFamily: 'var(--font-family-caption)',
+                fontWeight: 700,
+                color: 'var(--color-text-muted)',
+                textTransform: 'uppercase',
+                letterSpacing: 'var(--tracking-uppercase)',
+                marginBottom: '0.65rem',
+              }}
+            >
               Availability
             </label>
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '0.5rem' }}>
               {[
                 { id: 'all', label: 'All Statuses' },
                 { id: 'available', label: 'Available Now' },
@@ -255,15 +314,19 @@ export const FilterDrawer: React.FC<FilterDrawerProps> = ({
                     type="button"
                     onClick={() => onFiltersChange({ ...filters, availability: st.id as any })}
                     style={{
-                      padding: '0.45rem 0.85rem',
-                      borderRadius: 'var(--radius-pill)',
-                      border: isSelected ? '1px solid var(--color-brand-blue, #0F382C)' : '1px solid var(--color-border-subtle, #E8E4D5)',
-                      backgroundColor: isSelected ? 'var(--color-brand-blue, #0F382C)' : '#FFFFFF',
-                      color: isSelected ? '#FFFFFF' : 'var(--color-text-secondary, #414845)',
-                      fontSize: '0.8rem',
-                      fontWeight: 600,
+                      padding: '0.55rem 0.85rem',
+                      minHeight: '40px',
+                      borderRadius: 'var(--radius-md)',
+                      border: isSelected
+                        ? '1px solid var(--color-brand-blue)'
+                        : '1px solid var(--color-border-subtle)',
+                      backgroundColor: isSelected
+                        ? 'var(--color-surface-3)'
+                        : 'var(--color-surface-2)',
+                      color: isSelected ? '#FFFFFF' : 'var(--color-text-secondary)',
+                      fontSize: 'var(--text-body-xs)',
+                      fontWeight: isSelected ? 700 : 500,
                       cursor: 'pointer',
-                      transition: 'all 0.15s ease',
                     }}
                   >
                     {st.label}
@@ -273,44 +336,47 @@ export const FilterDrawer: React.FC<FilterDrawerProps> = ({
             </div>
           </div>
 
-          {/* 4. Sort By */}
+          {/* 4. Price Presets */}
           <div>
-            <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-brand-blue, #0F382C)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.65rem' }}>
-              Sort Order
+            <label
+              style={{
+                display: 'block',
+                fontSize: 'var(--text-caption)',
+                fontFamily: 'var(--font-family-caption)',
+                fontWeight: 700,
+                color: 'var(--color-text-muted)',
+                textTransform: 'uppercase',
+                letterSpacing: 'var(--tracking-uppercase)',
+                marginBottom: '0.65rem',
+              }}
+            >
+              Maximum Starting Price
             </label>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.45rem' }}>
-              {[
-                { id: 'recommended', label: 'Recommended' },
-                { id: 'popular', label: 'Most Popular' },
-                { id: 'rating', label: 'Highest Rated' },
-                { id: 'price-asc', label: 'Price: Low to High' },
-                { id: 'price-desc', label: 'Price: High to Low' },
-              ].map((s) => {
-                const isSelected = (filters.sort || 'recommended') === s.id;
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
+              {pricePresets.map((preset, idx) => {
+                const isSelected = filters.maxPrice === preset.value;
                 return (
                   <button
-                    key={s.id}
+                    key={idx}
                     type="button"
-                    onClick={() => onFiltersChange({ ...filters, sort: s.id as ServiceSortOption })}
+                    onClick={() => onFiltersChange({ ...filters, maxPrice: preset.value })}
                     style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      padding: '0.6rem 0.9rem',
-                      borderRadius: 'var(--radius-md)',
-                      backgroundColor: isSelected ? 'var(--color-brand-blue, #0F382C)' : '#FFFFFF',
-                      border: isSelected ? '1px solid var(--color-brand-blue, #0F382C)' : '1px solid var(--color-border-subtle, #E8E4D5)',
-                      color: isSelected ? '#FFFFFF' : 'var(--color-text-primary, #151D1A)',
-                      fontSize: '0.85rem',
+                      padding: '0.45rem 0.85rem',
+                      minHeight: '36px',
+                      borderRadius: 'var(--radius-pill)',
+                      border: isSelected
+                        ? '1px solid var(--color-brand-gold)'
+                        : '1px solid var(--color-border-subtle)',
+                      backgroundColor: isSelected
+                        ? 'var(--color-surface-3)'
+                        : 'var(--color-surface-2)',
+                      color: isSelected ? 'var(--color-brand-gold)' : 'var(--color-text-secondary)',
+                      fontSize: 'var(--text-body-xs)',
                       fontWeight: isSelected ? 700 : 500,
                       cursor: 'pointer',
-                      textAlign: 'left',
-                      boxShadow: isSelected ? '0 2px 8px rgba(15, 56, 44, 0.2)' : '0 1px 2px rgba(15, 56, 44, 0.03)',
-                      transition: 'all 0.15s ease',
                     }}
                   >
-                    <span>{s.label}</span>
-                    {isSelected && <Check size={16} color="var(--color-accent-gold, #F8CE37)" />}
+                    {preset.label}
                   </button>
                 );
               })}
@@ -322,10 +388,11 @@ export const FilterDrawer: React.FC<FilterDrawerProps> = ({
         <div
           style={{
             padding: '1rem 1.5rem',
-            borderTop: '1px solid var(--color-border-subtle, #E8E4D5)',
-            backgroundColor: '#FFFFFF',
+            borderTop: '1px solid var(--color-border-subtle)',
+            backgroundColor: 'var(--color-surface-1)',
             display: 'flex',
             alignItems: 'center',
+            justifyContent: 'space-between',
             gap: '1rem',
           }}
         >
@@ -333,51 +400,50 @@ export const FilterDrawer: React.FC<FilterDrawerProps> = ({
             type="button"
             onClick={onClearFilters}
             style={{
-              flex: 1,
-              padding: '0.75rem',
-              borderRadius: 'var(--radius-md)',
-              backgroundColor: '#FFFFFF',
-              border: '1px solid var(--color-border-subtle, #E8E4D5)',
-              color: 'var(--color-text-secondary, #414845)',
-              fontSize: '0.85rem',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              background: 'none',
+              border: 'none',
+              color: 'var(--color-text-muted)',
+              fontSize: 'var(--text-body-sm)',
               fontWeight: 600,
               cursor: 'pointer',
-              transition: 'background-color 0.15s ease',
+              padding: '0.5rem',
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--color-bg-primary, #FBF9F1)')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#FFFFFF')}
           >
-            Clear Filters
+            <RotateCcw size={14} />
+            <span>Reset All</span>
           </button>
 
           <button
             type="button"
             onClick={onClose}
             style={{
-              flex: 2,
-              padding: '0.75rem',
-              borderRadius: 'var(--radius-md)',
-              backgroundColor: 'var(--color-accent-gold, #F8CE37)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem',
+              padding: '0.75rem 1.5rem',
+              minHeight: '44px',
+              borderRadius: 'var(--radius-pill)',
+              backgroundColor: 'var(--color-brand-blue)',
+              color: '#FFFFFF',
               border: 'none',
-              color: '#0F382C',
-              fontSize: '0.85rem',
+              fontSize: 'var(--text-button)',
+              fontFamily: 'var(--font-family-button)',
               fontWeight: 700,
               cursor: 'pointer',
-              boxShadow: '0 4px 14px rgba(248, 206, 55, 0.35)',
-              transition: 'transform 0.15s ease',
+              boxShadow: '0 4px 14px rgba(37, 99, 235, 0.35)',
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-1px)')}
-            onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
           >
-            Show {totalResultsCount} Results
+            <span>Show {totalResultsCount} {totalResultsCount === 1 ? 'Service' : 'Services'}</span>
+            <ArrowRight size={16} />
           </button>
         </div>
       </div>
     </div>
   );
 
-  if (typeof document !== 'undefined') {
-    return createPortal(content, document.body);
-  }
-  return content;
+  return typeof document !== 'undefined' ? createPortal(content, document.body) : null;
 };

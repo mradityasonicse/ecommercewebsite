@@ -139,10 +139,10 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
       aria-label="Student Authentication and Profile Hub"
       style={{
         position: 'relative',
-        backgroundColor: 'var(--color-bg-primary, #FBF9F1)',
+        backgroundColor: 'var(--color-bg-primary)',
         paddingTop: 'var(--space-16)',
         paddingBottom: 'var(--space-16)',
-        borderBottom: '1px solid var(--color-border-subtle, #E8E4D5)',
+        borderBottom: '1px solid var(--color-border-subtle)',
       }}
     >
       <Container variant="wide">
@@ -155,18 +155,18 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
               gap: '0.45rem',
               padding: '0.35rem 0.9rem',
               borderRadius: 'var(--radius-pill)',
-              backgroundColor: 'rgba(15, 56, 44, 0.06)',
-              border: '1px solid rgba(15, 56, 44, 0.16)',
+              backgroundColor: 'rgba(59, 130, 246, 0.06)',
+              border: '1px solid rgba(59, 130, 246, 0.16)',
               marginBottom: 'var(--space-3)',
             }}
           >
-            <ShieldCheck size={14} color="#0F382C" />
+            <ShieldCheck size={14} color="var(--color-brand-blue)" />
             <span
               style={{
                 fontSize: '0.74rem',
                 fontFamily: 'var(--font-sans)',
                 fontWeight: 700,
-                color: 'var(--color-brand-blue, #0F382C)',
+                color: 'var(--color-brand-blue)',
                 textTransform: 'uppercase',
                 letterSpacing: '0.1em',
               }}
@@ -182,21 +182,21 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
               fontWeight: 600,
               lineHeight: 1.2,
               letterSpacing: '-0.02em',
-              color: 'var(--color-text-primary, #151D1A)',
+              color: 'var(--color-text-primary)',
               margin: '0 0 var(--space-3) 0',
             }}
           >
             {isAuthenticated ? (
               <>
                 Your Verified Student Profile.{' '}
-                <span style={{ color: 'var(--color-brand-blue, #0F382C)' }}>
+                <span style={{ color: 'var(--color-brand-blue)' }}>
                   Ready to Book.
                 </span>
               </>
             ) : (
               <>
                 Sign In to Access Student Rates.{' '}
-                <span style={{ color: 'var(--color-brand-blue, #0F382C)' }}>
+                <span style={{ color: 'var(--color-brand-blue)' }}>
                   Instant Verification.
                 </span>
               </>
@@ -206,7 +206,7 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
           <p
             style={{
               fontSize: 'clamp(0.95rem, 1.2vw, 1.05rem)',
-              color: 'var(--color-text-secondary, #414845)',
+              color: 'var(--color-text-secondary)',
               lineHeight: 1.6,
               maxWidth: '620px',
               margin: '0 auto',
@@ -269,7 +269,7 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
               maxWidth: '920px',
               margin: '0 auto',
               backgroundColor: 'var(--color-surface-1, #FFFFFF)',
-              border: '1px solid var(--color-border-subtle, #E8E4D5)',
+              border: '1px solid var(--color-border-subtle)',
               borderRadius: 'var(--radius-2xl)',
               padding: 'var(--space-8)',
               boxShadow: 'var(--shadow-md)',
@@ -283,7 +283,7 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                 flexWrap: 'wrap',
                 gap: 'var(--space-6)',
                 paddingBottom: 'var(--space-6)',
-                borderBottom: '1px solid var(--color-border-subtle, #E8E4D5)',
+                borderBottom: '1px solid var(--color-border-subtle)',
               }}
             >
               {/* User Avatar & Identity */}
@@ -293,8 +293,8 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                     width: '68px',
                     height: '68px',
                     borderRadius: 'var(--radius-full)',
-                    backgroundColor: '#f3fbf5',
-                    border: '2px solid var(--color-brand-blue, #0F382C)',
+                    backgroundColor: 'var(--color-surface-2)',
+                    border: '2px solid var(--color-brand-blue)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -309,7 +309,7 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
                   ) : (
-                    <span style={{ fontSize: '1.75rem', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 700, color: '#0F382C' }}>
+                    <span style={{ fontSize: '1.75rem', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 700, color: 'var(--color-brand-blue)' }}>
                       {user.name.charAt(0).toUpperCase()}
                     </span>
                   )}
@@ -317,7 +317,7 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
 
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-                    <h3 style={{ margin: 0, fontSize: '1.35rem', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 600, color: 'var(--color-text-primary, #151D1A)' }}>
+                    <h3 style={{ margin: 0, fontSize: '1.35rem', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 600, color: 'var(--color-text-primary)' }}>
                       {user.name}
                     </h3>
                     <span
@@ -339,7 +339,7 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                     </span>
                   </div>
 
-                  <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--color-text-secondary, #414845)' }}>
+                  <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--color-text-secondary)' }}>
                     {user.email} • {user.phone || '+91 98765 43210'}
                   </p>
                 </div>
@@ -359,7 +359,7 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                     borderRadius: 'var(--radius-md)',
                     backgroundColor: '#25D366',
                     border: '1px solid #20BA5A',
-                    color: '#0F382C',
+                    color: 'var(--color-brand-blue)',
                     fontSize: '0.84rem',
                     fontWeight: 700,
                     textDecoration: 'none',
@@ -367,7 +367,7 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                     boxShadow: 'var(--shadow-sm)',
                   }}
                 >
-                  <MessageCircle size={15} color="#0F382C" />
+                  <MessageCircle size={15} color="var(--color-brand-blue)" />
                   <span>WhatsApp Admin</span>
                 </a>
 
@@ -381,20 +381,20 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                     padding: '0.55rem 0.95rem',
                     borderRadius: 'var(--radius-md)',
                     backgroundColor: '#FFFFFF',
-                    border: '1px solid var(--color-border-subtle, #E8E4D5)',
-                    color: 'var(--color-text-secondary, #414845)',
+                    border: '1px solid var(--color-border-subtle)',
+                    color: 'var(--color-text-secondary)',
                     fontSize: '0.84rem',
                     fontWeight: 600,
                     cursor: 'pointer',
                     transition: 'all var(--duration-fast)',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = 'var(--color-brand-blue, #0F382C)';
-                    e.currentTarget.style.color = 'var(--color-brand-blue, #0F382C)';
+                    e.currentTarget.style.borderColor = 'var(--color-brand-blue)';
+                    e.currentTarget.style.color = 'var(--color-brand-blue)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = 'var(--color-border-subtle, #E8E4D5)';
-                    e.currentTarget.style.color = 'var(--color-text-secondary, #414845)';
+                    e.currentTarget.style.borderColor = 'var(--color-border-subtle)';
+                    e.currentTarget.style.color = 'var(--color-text-secondary)';
                   }}
                 >
                   <LogOut size={14} />
@@ -478,10 +478,10 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
               }}
             >
               <div>
-                <h4 style={{ margin: '0 0 0.25rem 0', fontSize: '1.05rem', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 600, color: 'var(--color-text-primary, #151D1A)' }}>
+                <h4 style={{ margin: '0 0 0.25rem 0', fontSize: '1.05rem', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 600, color: 'var(--color-text-primary)' }}>
                   Explore Core Campus Services
                 </h4>
-                <p style={{ margin: 0, fontSize: '0.86rem', color: 'var(--color-text-secondary, #414845)' }}>
+                <p style={{ margin: 0, fontSize: '0.86rem', color: 'var(--color-text-secondary)' }}>
                   Pick your Mess, PG, or Laundry package below. Bookings will automatically use your verified student profile.
                 </p>
               </div>
@@ -499,7 +499,7 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                 style={{
                   padding: '0.75rem 1.4rem',
                   backgroundColor: 'var(--color-accent-gold, #F8CE37)',
-                  color: 'var(--color-brand-blue, #0F382C)',
+                  color: 'var(--color-brand-blue)',
                   border: 'none',
                   borderRadius: 'var(--radius-md)',
                   fontSize: '0.92rem',
@@ -534,7 +534,7 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
               maxWidth: '680px',
               margin: '0 auto',
               backgroundColor: 'var(--color-surface-1, #FFFFFF)',
-              border: '1px solid var(--color-border-subtle, #E8E4D5)',
+              border: '1px solid var(--color-border-subtle)',
               borderRadius: 'var(--radius-2xl)',
               padding: 'var(--space-8)',
               boxShadow: 'var(--shadow-md)',
@@ -546,11 +546,11 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                 display: 'grid',
                 gridTemplateColumns: 'repeat(3, 1fr)',
                 gap: '0.5rem',
-                backgroundColor: '#f3fbf5',
+                backgroundColor: 'var(--color-surface-2)',
                 padding: '0.35rem',
                 borderRadius: 'var(--radius-lg)',
                 marginBottom: 'var(--space-6)',
-                border: '1px solid var(--color-border-subtle, #E8E4D5)',
+                border: '1px solid var(--color-border-subtle)',
               }}
             >
               <button
@@ -559,8 +559,8 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                 style={{
                   padding: '0.65rem 0.5rem',
                   borderRadius: 'var(--radius-md)',
-                  backgroundColor: authMethod === 'google' ? '#0F382C' : 'transparent',
-                  color: authMethod === 'google' ? '#FFFFFF' : 'var(--color-text-secondary, #414845)',
+                  backgroundColor: authMethod === 'google' ? 'var(--color-brand-blue)' : 'transparent',
+                  color: authMethod === 'google' ? '#FFFFFF' : 'var(--color-text-secondary)',
                   fontWeight: authMethod === 'google' ? 700 : 500,
                   fontSize: '0.85rem',
                   border: 'none',
@@ -577,8 +577,8 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                 style={{
                   padding: '0.65rem 0.5rem',
                   borderRadius: 'var(--radius-md)',
-                  backgroundColor: authMethod === 'email' ? '#0F382C' : 'transparent',
-                  color: authMethod === 'email' ? '#FFFFFF' : 'var(--color-text-secondary, #414845)',
+                  backgroundColor: authMethod === 'email' ? 'var(--color-brand-blue)' : 'transparent',
+                  color: authMethod === 'email' ? '#FFFFFF' : 'var(--color-text-secondary)',
                   fontWeight: authMethod === 'email' ? 700 : 500,
                   fontSize: '0.85rem',
                   border: 'none',
@@ -595,8 +595,8 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                 style={{
                   padding: '0.65rem 0.5rem',
                   borderRadius: 'var(--radius-md)',
-                  backgroundColor: authMethod === 'phone' ? '#0F382C' : 'transparent',
-                  color: authMethod === 'phone' ? '#FFFFFF' : 'var(--color-text-secondary, #414845)',
+                  backgroundColor: authMethod === 'phone' ? 'var(--color-brand-blue)' : 'transparent',
+                  color: authMethod === 'phone' ? '#FFFFFF' : 'var(--color-text-secondary)',
                   fontWeight: authMethod === 'phone' ? 700 : 500,
                   fontSize: '0.85rem',
                   border: 'none',
@@ -611,8 +611,8 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
             {/* TAB 1: GOOGLE ONE-CLICK LOGIN */}
             {authMethod === 'google' && (
               <div style={{ textAlign: 'center', padding: 'var(--space-4) 0' }}>
-                <p style={{ fontSize: '0.92rem', color: 'var(--color-text-secondary, #414845)', lineHeight: 1.6, marginBottom: 'var(--space-6)' }}>
-                  Sign in with your university Google account or personal Gmail to instantly unlock verified campus rates and WhatsApp sync.
+                <p style={{ fontSize: '0.92rem', color: 'var(--color-text-secondary)', lineHeight: 1.6, marginBottom: 'var(--space-6)' }}>
+                  Sign in with your university Google account or personal Gmail to access verified campus rates and WhatsApp updates.
                 </p>
 
                 <button
@@ -624,8 +624,8 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                     padding: '0.95rem 1.5rem',
                     borderRadius: 'var(--radius-xl)',
                     backgroundColor: '#FFFFFF',
-                    color: 'var(--color-text-primary, #151D1A)',
-                    border: '1px solid var(--color-border-subtle, #E8E4D5)',
+                    color: 'var(--color-text-primary)',
+                    border: '1px solid var(--color-border-subtle)',
                     fontSize: '1rem',
                     fontWeight: 700,
                     cursor: loading ? 'wait' : 'pointer',
@@ -666,7 +666,7 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                   <span>{loading ? 'Authenticating Google Session...' : 'Continue with Google'}</span>
                 </button>
 
-                <div style={{ marginTop: 'var(--space-4)', fontSize: '0.8rem', color: 'var(--color-text-muted, #6B736D)' }}>
+                <div style={{ marginTop: 'var(--space-4)', fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>
                   🔒 Secure OAuth 2.0 • No password required
                 </div>
               </div>
@@ -678,14 +678,14 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                 <div>
                   <label
                     htmlFor="scroll-auth-email"
-                    style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--color-text-primary, #151D1A)', marginBottom: '0.4rem' }}
+                    style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '0.4rem' }}
                   >
                     Institutional or Personal Email
                   </label>
                   <div style={{ position: 'relative' }}>
                     <Mail
                       size={17}
-                      color="#6B736D"
+                      color="var(--color-text-muted)"
                       style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }}
                     />
                     <input
@@ -699,9 +699,9 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                         width: '100%',
                         padding: '0.8rem 1rem 0.8rem 2.8rem',
                         backgroundColor: '#FFFFFF',
-                        border: '1px solid var(--color-border-subtle, #E8E4D5)',
+                        border: '1px solid var(--color-border-subtle)',
                         borderRadius: 'var(--radius-lg)',
-                        color: 'var(--color-text-primary, #151D1A)',
+                        color: 'var(--color-text-primary)',
                         fontSize: '0.95rem',
                         outline: 'none',
                         boxSizing: 'border-box',
@@ -714,7 +714,7 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
                     <label
                       htmlFor="scroll-auth-password"
-                      style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--color-text-primary, #151D1A)' }}
+                      style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--color-text-primary)' }}
                     >
                       Password
                     </label>
@@ -724,7 +724,7 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                       style={{
                         background: 'none',
                         border: 'none',
-                        color: 'var(--color-brand-blue, #0F382C)',
+                        color: 'var(--color-brand-blue)',
                         fontSize: '0.78rem',
                         fontWeight: 700,
                         cursor: 'pointer',
@@ -738,7 +738,7 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                   <div style={{ position: 'relative' }}>
                     <Lock
                       size={17}
-                      color="#6B736D"
+                      color="var(--color-text-muted)"
                       style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }}
                     />
                     <input
@@ -752,9 +752,9 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                         width: '100%',
                         padding: '0.8rem 1rem 0.8rem 2.8rem',
                         backgroundColor: '#FFFFFF',
-                        border: '1px solid var(--color-border-subtle, #E8E4D5)',
+                        border: '1px solid var(--color-border-subtle)',
                         borderRadius: 'var(--radius-lg)',
-                        color: 'var(--color-text-primary, #151D1A)',
+                        color: 'var(--color-text-primary)',
                         fontSize: '0.95rem',
                         outline: 'none',
                         boxSizing: 'border-box',
@@ -771,7 +771,7 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                     marginTop: '0.5rem',
                     padding: '0.85rem',
                     borderRadius: 'var(--radius-lg)',
-                    backgroundColor: 'var(--color-brand-blue, #0F382C)',
+                    backgroundColor: 'var(--color-brand-blue)',
                     color: '#FFFFFF',
                     border: 'none',
                     fontSize: '0.96rem',
@@ -796,14 +796,14 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                 <div>
                   <label
                     htmlFor="scroll-auth-student-name"
-                    style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--color-text-primary, #151D1A)', marginBottom: '0.4rem' }}
+                    style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '0.4rem' }}
                   >
                     Your Name (Optional)
                   </label>
                   <div style={{ position: 'relative' }}>
                     <User
                       size={17}
-                      color="#6B736D"
+                      color="var(--color-text-muted)"
                       style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }}
                     />
                     <input
@@ -816,9 +816,9 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                         width: '100%',
                         padding: '0.8rem 1rem 0.8rem 2.8rem',
                         backgroundColor: '#FFFFFF',
-                        border: '1px solid var(--color-border-subtle, #E8E4D5)',
+                        border: '1px solid var(--color-border-subtle)',
                         borderRadius: 'var(--radius-lg)',
-                        color: 'var(--color-text-primary, #151D1A)',
+                        color: 'var(--color-text-primary)',
                         fontSize: '0.95rem',
                         outline: 'none',
                         boxSizing: 'border-box',
@@ -830,7 +830,7 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                 <div>
                   <label
                     htmlFor="scroll-auth-phone"
-                    style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--color-text-primary, #151D1A)', marginBottom: '0.4rem' }}
+                    style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '0.4rem' }}
                   >
                     10-Digit Mobile Number
                   </label>
@@ -838,7 +838,7 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                     <div style={{ position: 'relative', flex: 1 }}>
                       <Phone
                         size={17}
-                        color="#6B736D"
+                        color="var(--color-text-muted)"
                         style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }}
                       />
                       <input
@@ -852,9 +852,9 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                           width: '100%',
                           padding: '0.8rem 1rem 0.8rem 2.8rem',
                           backgroundColor: '#FFFFFF',
-                          border: '1px solid var(--color-border-subtle, #E8E4D5)',
+                          border: '1px solid var(--color-border-subtle)',
                           borderRadius: 'var(--radius-lg)',
-                          color: 'var(--color-text-primary, #151D1A)',
+                          color: 'var(--color-text-primary)',
                           fontSize: '0.95rem',
                           outline: 'none',
                           boxSizing: 'border-box',
@@ -868,9 +868,9 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                       style={{
                         padding: '0 1rem',
                         borderRadius: 'var(--radius-lg)',
-                        backgroundColor: '#f3fbf5',
-                        border: '1px solid var(--color-border-subtle, #E8E4D5)',
-                        color: 'var(--color-brand-blue, #0F382C)',
+                        backgroundColor: 'var(--color-surface-2)',
+                        border: '1px solid var(--color-border-subtle)',
+                        color: 'var(--color-brand-blue)',
                         fontSize: '0.85rem',
                         fontWeight: 700,
                         cursor: 'pointer',
@@ -886,7 +886,7 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                   <div>
                     <label
                       htmlFor="scroll-auth-otp"
-                      style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--color-text-primary, #151D1A)', marginBottom: '0.4rem' }}
+                      style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '0.4rem' }}
                     >
                       Enter 6-Digit OTP (Mock auto-filled: 123456)
                     </label>
@@ -902,9 +902,9 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                         width: '100%',
                         padding: '0.8rem 1rem',
                         backgroundColor: '#FFFFFF',
-                        border: '1px solid var(--color-border-subtle, #E8E4D5)',
+                        border: '1px solid var(--color-border-subtle)',
                         borderRadius: 'var(--radius-lg)',
-                        color: 'var(--color-text-primary, #151D1A)',
+                        color: 'var(--color-text-primary)',
                         fontSize: '1.1rem',
                         letterSpacing: '0.2em',
                         textAlign: 'center',
@@ -923,7 +923,7 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
                     marginTop: '0.5rem',
                     padding: '0.85rem',
                     borderRadius: 'var(--radius-lg)',
-                    backgroundColor: 'var(--color-brand-blue, #0F382C)',
+                    backgroundColor: 'var(--color-brand-blue)',
                     color: '#FFFFFF',
                     border: 'none',
                     fontSize: '0.96rem',
@@ -947,18 +947,18 @@ export const ScrollAuthProfileSection: React.FC<ScrollAuthProfileSectionProps> =
               style={{
                 marginTop: 'var(--space-6)',
                 paddingTop: 'var(--space-4)',
-                borderTop: '1px solid var(--color-border-subtle, #E8E4D5)',
+                borderTop: '1px solid var(--color-border-subtle)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 flexWrap: 'wrap',
                 gap: '0.75rem',
                 fontSize: '0.78rem',
-                color: 'var(--color-text-muted, #6B736D)',
+                color: 'var(--color-text-muted)',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                <ShieldCheck size={14} color="#0F382C" />
+                <ShieldCheck size={14} color="var(--color-brand-blue)" />
                 <span>Verified Escrow Protection</span>
               </div>
               <div>

@@ -78,7 +78,7 @@ export const ServiceNotFound: React.FC<ServiceNotFoundProps> = ({
             fontSize: 'clamp(1.75rem, 4vw, 2.25rem)',
             fontFamily: 'var(--font-serif, "Domine", serif)',
             fontWeight: 600,
-            color: 'var(--color-text-primary, #151D1A)',
+            color: 'var(--color-text-primary)',
             letterSpacing: '-0.02em',
             marginBottom: 'var(--space-4)',
           }}
@@ -89,7 +89,7 @@ export const ServiceNotFound: React.FC<ServiceNotFoundProps> = ({
         <p
           style={{
             fontSize: 'var(--text-base)',
-            color: 'var(--color-text-secondary, #414845)',
+            color: 'var(--color-text-secondary)',
             lineHeight: 1.6,
             marginBottom: 'var(--space-8)',
           }}
@@ -98,9 +98,9 @@ export const ServiceNotFound: React.FC<ServiceNotFoundProps> = ({
           <code
             style={{
               fontFamily: 'var(--font-mono)',
-              color: 'var(--color-brand-blue, #0F382C)',
-              backgroundColor: '#f3fbf5',
-              border: '1px solid var(--color-border-subtle, #E8E4D5)',
+              color: 'var(--color-brand-blue)',
+              backgroundColor: 'var(--color-surface-2)',
+              border: '1px solid var(--color-border-subtle)',
               padding: '0.2rem 0.45rem',
               borderRadius: 'var(--radius-xs)',
               fontSize: '0.85em',
@@ -283,7 +283,7 @@ export const ServiceUnavailable: React.FC<ServiceUnavailableProps> = ({
             fontSize: 'var(--text-2xl)',
             fontFamily: 'var(--font-serif, "Domine", serif)',
             fontWeight: 600,
-            color: 'var(--color-text-primary, #151D1A)',
+            color: 'var(--color-text-primary)',
             letterSpacing: '-0.02em',
             marginBottom: 'var(--space-3)',
           }}

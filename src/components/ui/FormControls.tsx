@@ -343,7 +343,7 @@ export const Select: React.FC<SelectProps> = ({
               key={opt.value}
               value={opt.value}
               disabled={opt.disabled}
-              style={{ backgroundColor: '#0D111A', color: '#F8FAFC' }}
+              style={{ backgroundColor: '#FFFFFF', color: '#0F172A' }}
             >
               {opt.label}
             </option>

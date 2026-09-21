@@ -85,7 +85,7 @@ export const BookingPriceSummary: React.FC<BookingPriceSummaryProps> = ({
             style={{
               fontSize: '0.72rem',
               color: 'var(--color-text-secondary)',
-              backgroundColor: '#f3fbf5',
+              backgroundColor: 'var(--color-surface-2)',
               padding: '0.4rem 0.6rem',
               borderRadius: 'var(--radius-sm)',
               border: '1px solid var(--color-border-subtle)',

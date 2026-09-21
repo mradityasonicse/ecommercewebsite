@@ -2,9 +2,16 @@ import React from 'react';
 import { 
   ArrowRight, 
   CheckCircle2,
-  PackageCheck
+  PackageCheck,
+  Wifi,
+  Sparkles,
 } from 'lucide-react';
+import {
+  MessCulinaryIcon,
+  LaundryAquaIcon,
+} from '../../icons/ProfessionalCategoryIcons';
 import { Container } from '../../primitives/Container';
+import { ScrollReveal } from '../../motion/ScrollReveal';
 import { BUNDLES, type Bundle } from '../../../data/bundles';
 
 interface BundlesSectionProps {
@@ -18,203 +25,218 @@ export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }
       aria-label="Smart Living Bundles"
       style={{
         position: 'relative',
-        backgroundColor: 'var(--color-bg-primary)',
-        paddingTop: 'var(--space-20)',
-        paddingBottom: 'var(--space-20)',
-        borderBottom: '1px solid var(--color-border-subtle)',
+        backgroundColor: '#FFFFFF',
+        paddingTop: '5rem',
+        paddingBottom: '5rem',
+        borderBottom: '1.5px solid rgba(22, 163, 74, 0.15)',
       }}
     >
       <Container variant="wide">
         {/* Section Header */}
-        <div style={{ maxWidth: '820px', margin: '0 auto', textAlign: 'center', marginBottom: 'var(--space-10)' }}>
+        <ScrollReveal variant="fade-up">
+          <div style={{ maxWidth: '820px', margin: '0 auto', textAlign: 'center', marginBottom: '2.5rem' }}>
+            <div
+              className="easehub-ambient-badge"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.45rem',
+                padding: '0.35rem 0.9rem',
+                borderRadius: '9999px',
+                backgroundColor: '#DCFCE7',
+                border: '1px solid #86EFAC',
+                marginBottom: '0.75rem',
+              }}
+            >
+              <PackageCheck size={14} color="#15803D" />
+              <span
+                style={{
+                  fontSize: '0.75rem',
+                  fontWeight: 800,
+                  color: '#15803D',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.06em',
+                }}
+              >
+                All-In-One Hostel Living Passes
+              </span>
+            </div>
+
+            <h2
+              style={{
+                fontSize: 'clamp(1.85rem, 3.2vw, 2.5rem)',
+                fontWeight: 800,
+                lineHeight: 1.2,
+                letterSpacing: '-0.03em',
+                color: '#0F172A',
+                margin: '0 0 0.75rem 0',
+              }}
+            >
+              Room + Khana + Laundry.{' '}
+              <span style={{ color: '#16A34A' }}>
+                Ek Saath Sorted.
+              </span>
+            </h2>
+
+            <p
+              style={{
+                fontSize: '1rem',
+                color: '#334155',
+                lineHeight: 1.6,
+                maxWidth: '65ch',
+                margin: '0 auto',
+                fontWeight: 500,
+              }}
+            >
+              Apna verified PG room, daily 3-time garam ghar jaisa tiffin, aur gate laundry ek saath combo mein lo. Ek single monthly bill, 34% ki direct bachat, aur zero broker tension.
+            </p>
+          </div>
+
+          {/* The Equation Card */}
           <div
+            className="easehub-hover-lift"
             style={{
-              display: 'inline-flex',
+              maxWidth: '920px',
+              margin: '0 auto 2.5rem auto',
+              backgroundColor: '#F8FAF7',
+              border: '1.5px solid rgba(22, 163, 74, 0.2)',
+              borderRadius: '16px',
+              padding: '1rem 1.5rem',
+              display: 'flex',
               alignItems: 'center',
-              gap: '0.45rem',
-              padding: '0.35rem 0.9rem',
-              borderRadius: 'var(--radius-pill)',
-              backgroundColor: 'var(--color-surface-2)',
-              border: '1px solid var(--color-border-subtle)',
-              marginBottom: 'var(--space-3)',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              gap: '0.75rem',
+              boxShadow: '0 2px 10px rgba(0,0,0,0.02)',
             }}
           >
-            <PackageCheck size={14} color="var(--color-brand-gold)" />
-            <span
-              style={{
-                fontSize: '0.74rem',
-                fontFamily: 'var(--font-body)',
-                fontWeight: 700,
-                color: 'var(--color-brand-gold)',
-                textTransform: 'uppercase',
-                letterSpacing: '0.1em',
-              }}
-            >
-              Curated Living Passes
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.92rem', color: '#0F172A', fontWeight: 600, flexWrap: 'wrap', justifyContent: 'center' }}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', backgroundColor: '#FFFFFF', border: '1px solid rgba(22, 163, 74, 0.2)', padding: '0.4rem 0.85rem', borderRadius: '8px', color: '#0F172A', fontWeight: 700 }}>
+                <MessCulinaryIcon size={16} /> Daily Mess
+              </span>
+              <span style={{ color: '#16A34A', fontWeight: 800, fontSize: '1.1rem' }}>+</span>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', backgroundColor: '#FFFFFF', border: '1px solid rgba(22, 163, 74, 0.2)', padding: '0.4rem 0.85rem', borderRadius: '8px', color: '#0F172A', fontWeight: 700 }}>
+                <LaundryAquaIcon size={16} /> Doorstep Laundry
+              </span>
+              <span style={{ color: '#16A34A', fontWeight: 800, fontSize: '1.1rem' }}>+</span>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', backgroundColor: '#FFFFFF', border: '1px solid rgba(22, 163, 74, 0.2)', padding: '0.4rem 0.85rem', borderRadius: '8px', color: '#0F172A', fontWeight: 700 }}>
+                <Wifi size={16} color="#2563EB" /> Gigabit Wi-Fi
+              </span>
+              <span style={{ color: '#16A34A', fontWeight: 800, fontSize: '1.1rem' }}>=</span>
+              <span style={{ backgroundColor: '#DCFCE7', color: '#15803D', border: '1px solid #86EFAC', padding: '0.4rem 0.95rem', borderRadius: '9999px', fontWeight: 800, fontSize: '0.85rem' }}>
+                1 Bill • Save ~34% Monthly
+              </span>
+            </div>
           </div>
-
-          <h2
-            style={{
-              fontSize: 'clamp(1.85rem, 3.5vw, 2.75rem)',
-              fontFamily: 'var(--font-display)',
-              fontWeight: 700,
-              lineHeight: 1.2,
-              letterSpacing: '-0.02em',
-              color: 'var(--color-text-primary)',
-              margin: '0 0 var(--space-3) 0',
-            }}
-          >
-            Smart Bundles.{' '}
-            <span
-              style={{
-                color: 'var(--color-brand-gold)',
-              }}
-            >
-              One Simple Equation.
-            </span>
-          </h2>
-
-          <p
-            style={{
-              fontSize: 'clamp(0.95rem, 1.2vw, 1.05rem)',
-              fontFamily: 'var(--font-body)',
-              color: 'var(--color-text-secondary)',
-              lineHeight: 1.6,
-              maxWidth: '680px',
-              margin: '0 auto',
-            }}
-          >
-            Combine accommodation, campus dining, and doorstep laundry into a unified semester subscription. Verified providers, guaranteed student rates, single checkout.
-          </p>
-        </div>
-
-        {/* The Equation Card */}
-        <div
-          style={{
-            maxWidth: '920px',
-            margin: '0 auto var(--space-10) auto',
-            backgroundColor: 'var(--color-surface-1)',
-            border: '1px solid var(--color-border-subtle)',
-            borderRadius: 'var(--radius-lg)',
-            padding: 'var(--space-5) var(--space-6)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            gap: 'var(--space-3)',
-            boxShadow: 'var(--shadow-sm)',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.86rem', color: 'var(--color-text-primary)', fontWeight: 600, flexWrap: 'wrap', justifyContent: 'center' }}>
-            <span style={{ backgroundColor: 'var(--color-surface-2)', border: '1px solid var(--color-border-subtle)', padding: '0.35rem 0.75rem', borderRadius: 'var(--radius-sm)', color: 'var(--color-text-primary)' }}>
-              🍱 Daily Mess
-            </span>
-            <span style={{ color: 'var(--color-brand-gold)', fontWeight: 800, fontSize: '1rem' }}>+</span>
-            <span style={{ backgroundColor: 'var(--color-surface-2)', border: '1px solid var(--color-border-subtle)', padding: '0.35rem 0.75rem', borderRadius: 'var(--radius-sm)', color: 'var(--color-text-primary)' }}>
-              👕 Doorstep Laundry
-            </span>
-            <span style={{ color: 'var(--color-brand-gold)', fontWeight: 800, fontSize: '1rem' }}>+</span>
-            <span style={{ backgroundColor: 'var(--color-surface-2)', border: '1px solid var(--color-border-subtle)', padding: '0.35rem 0.75rem', borderRadius: 'var(--radius-sm)', color: 'var(--color-text-primary)' }}>
-              ⚡ Gigabit Wi-Fi
-            </span>
-            <span style={{ color: 'var(--color-brand-gold)', fontWeight: 800, fontSize: '1rem' }}>=</span>
-            <span style={{ backgroundColor: 'var(--color-brand-gold)', color: '#12285A', padding: '0.35rem 0.85rem', borderRadius: 'var(--radius-sm)', fontWeight: 800 }}>
-              1 Bill • Save ~34% Monthly
-            </span>
-          </div>
-        </div>
+        </ScrollReveal>
 
         {/* 3 Bundle Cards */}
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
-            gap: 'var(--space-6)',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
+            gap: '1.75rem',
+            alignItems: 'stretch',
           }}
         >
-          {BUNDLES.map((bundle) => {
+          {BUNDLES.map((bundle, index) => {
             const isFeatured = bundle.isPopular;
             return (
-              <div
-                key={bundle.id}
-                onClick={() => onSelectBundle(bundle)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onSelectBundle(bundle); }}
-                style={{
-                  backgroundColor: 'var(--color-surface-1)',
-                  border: isFeatured ? '2px solid var(--color-brand-gold, #FAC908)' : '1px solid var(--color-border-subtle)',
-                  borderRadius: 'var(--radius-lg)',
-                  padding: 'var(--space-6)',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  position: 'relative',
-                  transition: 'transform var(--duration-fast, 200ms) var(--ease-smooth), box-shadow var(--duration-fast, 200ms) var(--ease-smooth)',
-                  boxShadow: isFeatured ? '0 8px 24px rgba(0, 0, 0, 0.45)' : 'var(--shadow-sm)',
-                }}
+              <ScrollReveal key={bundle.id} variant="fade-up" delay={index * 120}>
+                <div
+                  className="easehub-hover-lift"
+                  onClick={() => onSelectBundle(bundle)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onSelectBundle(bundle); }}
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    border: isFeatured ? '2px solid #16A34A' : '1.5px solid rgba(22, 163, 74, 0.2)',
+                    borderRadius: '20px',
+                    padding: 'clamp(1.25rem, 2.5vw, 1.75rem)',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    position: 'relative',
+                    height: '100%',
+                    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                    boxShadow: isFeatured ? '0 12px 32px rgba(22, 163, 74, 0.15)' : '0 4px 16px rgba(0, 0, 0, 0.04)',
+                  }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.boxShadow = isFeatured ? '0 14px 32px rgba(0, 0, 0, 0.6)' : 'var(--shadow-lg)';
+                  e.currentTarget.style.boxShadow = isFeatured ? '0 16px 40px rgba(22, 163, 74, 0.22)' : '0 10px 24px rgba(0, 0, 0, 0.08)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'none';
-                  e.currentTarget.style.boxShadow = isFeatured ? '0 8px 24px rgba(0, 0, 0, 0.45)' : 'var(--shadow-sm)';
+                  e.currentTarget.style.boxShadow = isFeatured ? '0 12px 32px rgba(22, 163, 74, 0.15)' : '0 4px 16px rgba(0, 0, 0, 0.04)';
                 }}
               >
-                {/* Popular Pill */}
-                {isFeatured && (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: '-12px',
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      backgroundColor: 'var(--color-brand-gold, #FAC908)',
-                      color: 'var(--color-brand-navy, #112758)',
-                      fontSize: '0.7rem',
-                      fontFamily: 'var(--font-body)',
-                      fontWeight: 800,
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.08em',
-                      padding: '0.25rem 0.85rem',
-                      borderRadius: 'var(--radius-pill)',
-                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
-                    }}
-                  >
-                    ★ {bundle.badge}
-                  </div>
-                )}
-
                 <div>
-                  {!isFeatured && (
-                    <div style={{ marginBottom: 'var(--space-3)' }}>
+                  {/* Clean, Non-Overlapping Badge Header Row */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', minHeight: '28px' }}>
+                    {isFeatured ? (
                       <span
                         style={{
-                          fontSize: '0.7rem',
+                          fontSize: '0.72rem',
                           fontFamily: 'var(--font-body)',
-                          color: 'var(--color-brand-gold)',
-                          backgroundColor: 'var(--color-surface-2)',
-                          border: '1px solid var(--color-border-subtle)',
-                          padding: '0.2rem 0.55rem',
-                          borderRadius: 'var(--radius-sm)',
-                          fontWeight: 600,
+                          fontWeight: 800,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.05em',
+                          padding: '0.25rem 0.75rem',
+                          borderRadius: '9999px',
+                          backgroundColor: '#16A34A',
+                          color: '#FFFFFF',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.35rem',
+                          boxShadow: '0 2px 8px rgba(22, 163, 74, 0.3)',
+                        }}
+                      >
+                        <Sparkles size={12} fill="currentColor" />
+                        {bundle.badge}
+                      </span>
+                    ) : (
+                      <span
+                        style={{
+                          fontSize: '0.72rem',
+                          color: '#15803D',
+                          backgroundColor: '#DCFCE7',
+                          border: '1px solid #86EFAC',
+                          padding: '0.2rem 0.6rem',
+                          borderRadius: '6px',
+                          fontWeight: 700,
                         }}
                       >
                         {bundle.badge}
                       </span>
-                    </div>
-                  )}
+                    )}
+
+                    {isFeatured && (
+                      <span
+                        style={{
+                          fontSize: '0.68rem',
+                          fontWeight: 800,
+                          backgroundColor: '#FEF08A',
+                          color: '#854D0E',
+                          padding: '0.2rem 0.5rem',
+                          borderRadius: '4px',
+                          border: '1px solid #FACC15',
+                        }}
+                      >
+                        ★ TOP CHOICE
+                      </span>
+                    )}
+                  </div>
 
                   <h3
                     style={{
-                      fontSize: '1.25rem',
-                      fontFamily: 'var(--font-display)',
-                      fontWeight: 700,
-                      color: 'var(--color-text-primary)',
-                      margin: '0 0 var(--space-2) 0',
+                      fontSize: '1.35rem',
+                      fontWeight: 800,
+                      color: '#0F172A',
+                      lineHeight: 1.3,
+                      letterSpacing: '-0.02em',
+                      margin: '0 0 0.5rem 0',
                     }}
                   >
                     {bundle.name}
@@ -222,72 +244,126 @@ export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }
 
                   <p
                     style={{
-                      fontFamily: 'var(--font-body)',
                       fontSize: '0.86rem',
-                      color: 'var(--color-text-secondary)',
+                      color: '#475569',
                       lineHeight: 1.5,
-                      margin: '0 0 var(--space-5) 0',
+                      margin: '0 0 1.25rem 0',
                     }}
                   >
                     {bundle.tagline}
                   </p>
 
-                  {/* Pricing Box */}
+                  {/* High-Contrast, Crystal Clear Pricing Box */}
                   <div
                     style={{
-                      backgroundColor: 'var(--color-surface-2)',
-                      border: '1px solid var(--color-border-subtle)',
-                      borderRadius: 'var(--radius-md)',
-                      padding: 'var(--space-4) var(--space-5)',
-                      marginBottom: 'var(--space-5)',
+                      backgroundColor: '#F8FAF7',
+                      border: '1.5px solid rgba(22, 163, 74, 0.2)',
+                      borderRadius: '14px',
+                      padding: '0.85rem 1rem',
+                      marginBottom: '1.25rem',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
+                      flexWrap: 'wrap',
+                      gap: '0.65rem',
                     }}
                   >
-                    <div>
-                      <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.4rem' }}>
-                        <span style={{ fontSize: '1.5rem', fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--color-brand-gold)' }}>
-                          ₹{bundle.bundlePrice.toLocaleString()}
+                    <div style={{ minWidth: 0, flex: '1 1 auto' }}>
+                      <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.35rem', flexWrap: 'nowrap' }}>
+                        <span
+                          style={{
+                            fontSize: 'clamp(1.35rem, 2.6vw, 1.65rem)',
+                            fontWeight: 900,
+                            color: '#0F172A',
+                            letterSpacing: '-0.02em',
+                            whiteSpace: 'nowrap',
+                            display: 'inline-block',
+                          }}
+                        >
+                          ₹{bundle.bundlePrice.toLocaleString('en-IN')}
                         </span>
-                        <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
+                        <span
+                          style={{
+                            fontSize: '0.8rem',
+                            color: '#475569',
+                            fontWeight: 600,
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
                           /{bundle.billingPeriod}
                         </span>
                       </div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', textDecoration: 'line-through' }}>
-                        Standard Rate: ₹{bundle.originalPrice.toLocaleString()}
+                      <div
+                        style={{
+                          fontSize: '0.74rem',
+                          color: '#64748B',
+                          textDecoration: 'line-through',
+                          fontWeight: 500,
+                          marginTop: '2px',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        Standard Rate: ₹{bundle.originalPrice.toLocaleString('en-IN')}
                       </div>
                     </div>
 
                     <div
                       style={{
-                        backgroundColor: 'rgba(88, 169, 64, 0.2)',
-                        color: '#6DBF55',
-                        border: '1px solid rgba(88, 169, 64, 0.35)',
-                        padding: '0.3rem 0.6rem',
-                        borderRadius: 'var(--radius-sm)',
-                        fontSize: '0.74rem',
-                        fontFamily: 'var(--font-body)',
-                        fontWeight: 700,
+                        backgroundColor: '#DCFCE7',
+                        color: '#15803D',
+                        border: '1px solid #86EFAC',
+                        padding: '0.35rem 0.65rem',
+                        borderRadius: '8px',
+                        fontSize: '0.78rem',
+                        fontWeight: 800,
+                        whiteSpace: 'nowrap',
+                        flexShrink: 0,
+                        alignSelf: 'center',
                       }}
                     >
                       {bundle.savingsPercentage}% Off
                     </div>
                   </div>
 
-                  {/* Services Included */}
-                  <div style={{ marginBottom: 'var(--space-6)' }}>
-                    <div style={{ fontSize: '0.74rem', fontFamily: 'var(--font-body)', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 'var(--space-3)' }}>
+                  {/* Services Included List */}
+                  <div style={{ marginBottom: '1.25rem' }}>
+                    <div style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: '#475569', letterSpacing: '0.05em', marginBottom: '0.75rem' }}>
                       Services Included in Pass
                     </div>
-                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
                       {bundle.servicesIncluded.map((srv, idx) => (
-                        <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.84rem', color: 'var(--color-text-primary)' }}>
-                          <CheckCircle2 size={15} color="#58A940" style={{ marginTop: '2px', flexShrink: 0 }} />
-                          <span>{srv}</span>
+                        <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.85rem', color: '#0F172A', fontWeight: 600 }}>
+                          <CheckCircle2 size={16} color="#16A34A" style={{ marginTop: '2px', flexShrink: 0 }} />
+                          <span style={{ lineHeight: 1.4 }}>{srv}</span>
                         </li>
                       ))}
                     </ul>
+                  </div>
+
+                  {/* Natural Student Real-Life Assurance Pill */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.4rem',
+                      padding: '0.45rem 0.75rem',
+                      borderRadius: '8px',
+                      backgroundColor: isFeatured ? '#FEF9C3' : '#F0FDF4',
+                      border: isFeatured ? '1px solid #FDE047' : '1px solid #BBF7D0',
+                      fontSize: '0.75rem',
+                      fontWeight: 700,
+                      color: isFeatured ? '#854D0E' : '#15803D',
+                      marginBottom: '1.25rem',
+                    }}
+                  >
+                    <Sparkles size={14} color={isFeatured ? '#854D0E' : '#15803D'} style={{ flexShrink: 0 }} />
+                    <span>
+                      {bundle.id === 'freshman-starter'
+                        ? 'Ghar jate waqt mess 1-click pause • Zero Brokerage'
+                        : bundle.id === 'semester-all-in'
+                        ? 'Hot tiffin direct to room + Ironed laundry bag'
+                        : 'Exam time 2 AM hot Maggi & 12h express laundry'}
+                    </span>
                   </div>
                 </div>
 
@@ -298,46 +374,40 @@ export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }
                     e.stopPropagation();
                     onSelectBundle(bundle);
                   }}
-                  className="easehub-btn-tactile"
+                  className="easehub-btn-tactile easehub-spring-btn"
                   style={{
                     width: '100%',
                     padding: '0.75rem 1rem',
-                    borderRadius: 'var(--radius-sm)',
-                    backgroundColor: isFeatured ? 'var(--color-brand-gold, #FAC908)' : 'var(--color-surface-2)',
-                    color: isFeatured ? 'var(--color-brand-navy, #112758)' : 'var(--color-text-primary)',
-                    border: isFeatured ? 'none' : '1px solid var(--color-border-subtle)',
+                    borderRadius: '12px',
+                    backgroundColor: isFeatured ? '#16A34A' : '#F0FDF4',
+                    color: isFeatured ? '#FFFFFF' : '#15803D',
+                    border: isFeatured ? 'none' : '1.5px solid #86EFAC',
                     fontSize: '0.88rem',
-                    fontFamily: 'var(--font-body)',
-                    fontWeight: 700,
+                    fontWeight: 800,
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '0.5rem',
                     cursor: 'pointer',
-                    transition: 'all var(--duration-fast, 200ms) var(--ease-smooth)',
-                    boxShadow: 'var(--shadow-sm)',
+                    transition: 'all 0.15s ease',
+                    boxShadow: isFeatured ? '0 4px 14px rgba(22, 163, 74, 0.35)' : 'none',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = isFeatured ? '#E5B507' : 'var(--color-surface-3)';
+                    e.currentTarget.style.backgroundColor = isFeatured ? '#15803D' : '#DCFCE7';
                     e.currentTarget.style.transform = 'translateY(-1px)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = isFeatured ? 'var(--color-brand-gold, #FAC908)' : 'var(--color-surface-2)';
+                    e.currentTarget.style.backgroundColor = isFeatured ? '#16A34A' : '#F0FDF4';
                     e.currentTarget.style.transform = 'translateY(0)';
-                  }}
-                  onMouseDown={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0.5px) scale(0.985)';
-                  }}
-                  onMouseUp={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-1px)';
                   }}
                 >
                   <span>Explore Bundle Details</span>
-                  <ArrowRight size={14} className="easehub-icon-nudge" />
+                  <ArrowRight size={15} className="easehub-arrow-slide" />
                 </button>
               </div>
-            );
-          })}
+            </ScrollReveal>
+          );
+        })}
         </div>
       </Container>
     </section>

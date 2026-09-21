@@ -33,18 +33,18 @@ export const ServiceFAQ: React.FC<ServiceFAQProps> = ({ faqs, serviceName }) => 
             gap: '0.45rem',
             padding: '0.35rem 0.85rem',
             borderRadius: 'var(--radius-pill)',
-            backgroundColor: 'rgba(15, 56, 44, 0.06)',
-            border: '1px solid rgba(15, 56, 44, 0.16)',
+            backgroundColor: 'rgba(59, 130, 246, 0.06)',
+            border: '1px solid rgba(59, 130, 246, 0.16)',
             fontSize: '0.72rem',
             fontFamily: 'var(--font-sans)',
             fontWeight: 700,
-            color: 'var(--color-brand-blue, #0F382C)',
+            color: 'var(--color-brand-blue)',
             textTransform: 'uppercase',
             letterSpacing: '0.08em',
             marginBottom: 'var(--space-3)',
           }}
         >
-          <HelpCircle size={13} color="var(--color-brand-blue, #0F382C)" />
+          <HelpCircle size={13} color="var(--color-brand-blue)" />
           <span>Student Inquiries</span>
         </div>
 
@@ -53,7 +53,7 @@ export const ServiceFAQ: React.FC<ServiceFAQProps> = ({ faqs, serviceName }) => 
             fontSize: 'clamp(1.8rem, 2.8vw, 2.4rem)',
             fontFamily: 'var(--font-serif, "Domine", serif)',
             fontWeight: 600,
-            color: 'var(--color-text-primary, #151D1A)',
+            color: 'var(--color-text-primary)',
             lineHeight: 1.2,
             margin: '0 0 var(--space-3) 0',
           }}
@@ -61,7 +61,7 @@ export const ServiceFAQ: React.FC<ServiceFAQProps> = ({ faqs, serviceName }) => 
           Frequently Asked Questions.
         </h2>
 
-        <p style={{ fontSize: '0.96rem', color: 'var(--color-text-secondary, #414845)', lineHeight: 1.6, margin: 0 }}>
+        <p style={{ fontSize: '0.96rem', color: 'var(--color-text-secondary)', lineHeight: 1.6, margin: 0 }}>
           Everything you need to know about pausing, billing safeguards, and campus delivery rules.
         </p>
       </div>
@@ -83,8 +83,8 @@ export const ServiceFAQ: React.FC<ServiceFAQProps> = ({ faqs, serviceName }) => 
             <div
               key={idx}
               style={{
-                backgroundColor: isOpen ? '#f3fbf5' : '#FFFFFF',
-                border: isOpen ? '1px solid var(--color-brand-blue, #0F382C)' : '1px solid var(--color-border-subtle, #E8E4D5)',
+                backgroundColor: isOpen ? 'var(--color-surface-2)' : '#FFFFFF',
+                border: isOpen ? '1px solid var(--color-brand-blue)' : '1px solid var(--color-border-subtle)',
                 borderRadius: 'var(--radius-xl)',
                 overflow: 'hidden',
                 boxShadow: 'var(--shadow-sm)',
@@ -106,7 +106,7 @@ export const ServiceFAQ: React.FC<ServiceFAQProps> = ({ faqs, serviceName }) => 
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     gap: '1rem',
-                    color: 'var(--color-text-primary, #151D1A)',
+                    color: 'var(--color-text-primary)',
                     fontSize: '1.02rem',
                     fontFamily: 'var(--font-serif, "Domine", serif)',
                     fontWeight: 600,

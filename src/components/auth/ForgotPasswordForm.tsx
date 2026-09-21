@@ -25,30 +25,30 @@ export const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({ onSwitch
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
       {successMessage ? (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', textAlign: 'center', alignItems: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', textAlign: 'center', alignItems: 'center' }}>
           <div
             style={{
-              width: '48px',
-              height: '48px',
+              width: '52px',
+              height: '52px',
               borderRadius: '50%',
-              backgroundColor: 'rgba(34, 197, 94, 0.12)',
-              border: '1px solid rgba(34, 197, 94, 0.3)',
+              backgroundColor: '#DCFCE7',
+              border: '1.5px solid #86EFAC',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#22C55E',
+              color: '#15803D',
             }}
           >
             <CheckCircle2 size={28} />
           </div>
 
-          <h3 style={{ fontSize: '1.25rem', fontFamily: 'var(--font-display)', fontWeight: 800, color: '#FFFFFF', margin: 0 }}>
+          <h3 style={{ fontSize: '1.25rem', fontFamily: 'var(--font-sans)', fontWeight: 800, color: '#0F172A', margin: 0 }}>
             Check Your Email
           </h3>
 
-          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', lineHeight: 1.5, margin: 0 }}>
+          <p style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5, margin: 0 }}>
             {successMessage}
           </p>
 
@@ -59,18 +59,18 @@ export const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({ onSwitch
             icon={<ArrowLeft size={16} />}
             iconPosition="left"
             onClick={() => onSwitchMode('sign-in')}
-            style={{ marginTop: 'var(--space-3)' }}
+            style={{ marginTop: '0.75rem' }}
           >
             Return to Sign In
           </Button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: '100%' }}>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
           <div>
-            <h3 style={{ fontSize: '1.25rem', fontFamily: 'var(--font-display)', fontWeight: 800, color: '#FFFFFF', margin: '0 0 var(--space-2) 0' }}>
+            <h3 style={{ fontSize: '1.25rem', fontFamily: 'var(--font-sans)', fontWeight: 800, color: '#0F172A', margin: '0 0 0.4rem 0' }}>
               Reset Your Password
             </h3>
-            <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', margin: 0, lineHeight: 1.5 }}>
+            <p style={{ fontSize: '0.85rem', color: '#64748B', margin: 0, lineHeight: 1.5 }}>
               Enter the university or personal email associated with your account. We'll send instructions to securely set a new password.
             </p>
           </div>
@@ -80,16 +80,17 @@ export const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({ onSwitch
               htmlFor="reset-email"
               style={{
                 fontSize: '0.75rem',
-                fontFamily: 'var(--font-display)',
+                fontFamily: 'var(--font-sans)',
                 fontWeight: 700,
-                color: 'var(--color-text-secondary)',
+                color: '#334155',
                 textTransform: 'uppercase',
+                letterSpacing: '0.04em',
               }}
             >
               Registered Email
             </label>
             <div style={{ position: 'relative' }}>
-              <div style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)' }}>
+              <div style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#64748B' }}>
                 <Mail size={16} />
               </div>
               <input
@@ -102,12 +103,13 @@ export const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({ onSwitch
                 style={{
                   width: '100%',
                   padding: '0.75rem 1rem 0.75rem 2.4rem',
-                  backgroundColor: 'var(--color-surface-2)',
-                  border: '1px solid var(--color-border-subtle)',
-                  borderRadius: 'var(--radius-md)',
-                  color: '#FFFFFF',
+                  backgroundColor: '#FFFFFF',
+                  border: '1.5px solid #CBD5E1',
+                  borderRadius: '10px',
+                  color: '#0F172A',
                   fontSize: '0.9rem',
                   outline: 'none',
+                  boxSizing: 'border-box',
                 }}
               />
             </div>
@@ -120,6 +122,7 @@ export const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({ onSwitch
             loading={isLoading}
             fullWidth
             icon={<ArrowRight size={16} />}
+            style={{ backgroundColor: '#15803D' }}
           >
             Send Reset Instructions
           </Button>
@@ -134,10 +137,11 @@ export const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({ onSwitch
               gap: '0.4rem',
               background: 'none',
               border: 'none',
-              color: 'var(--color-text-secondary)',
-              fontSize: '0.8rem',
+              color: '#15803D',
+              fontWeight: 700,
+              fontSize: '0.82rem',
               cursor: 'pointer',
-              marginTop: 'var(--space-1)',
+              marginTop: '0.25rem',
             }}
           >
             <ArrowLeft size={14} /> Back to Sign In

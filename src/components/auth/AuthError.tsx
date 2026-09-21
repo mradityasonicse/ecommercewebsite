@@ -96,22 +96,22 @@ export const AuthError: React.FC<AuthErrorProps> = ({
           width: '56px',
           height: '56px',
           borderRadius: '50%',
-          backgroundColor: 'rgba(239, 68, 68, 0.1)',
-          border: '1px solid rgba(239, 68, 68, 0.25)',
+          backgroundColor: '#FEE2E2',
+          border: '1.5px solid #FECACA',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: 'var(--color-accent-red)',
+          color: '#DC2626',
         }}
       >
         <ShieldAlert size={28} />
       </div>
 
       <div>
-        <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#FFFFFF', margin: '0 0 var(--space-2) 0' }}>
+        <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', margin: '0 0 var(--space-2) 0' }}>
           {title}
         </h3>
-        <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', lineHeight: 1.6, margin: 0 }}>
+        <p style={{ fontSize: '0.88rem', color: '#64748B', lineHeight: 1.6, margin: 0 }}>
           {desc}
         </p>
       </div>

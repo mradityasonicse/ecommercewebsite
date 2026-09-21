@@ -39,7 +39,7 @@ export const STUDENT_STORIES: StudentStory[] = [
     avatarText: 'RD',
     university: 'Verified Campus Resident',
     course: 'Mechanical Engineering, 4th Year',
-    quote: 'The Exam Crunch bundle was a lifesaver during placement semester. Midnight food slots meant I didn’t have to survive on instant noodles, and the express laundry turnaround was seamless.',
+    quote: 'The Exam Crunch bundle was a lifesaver during placement semester. Midnight food slots meant I didn’t have to survive on instant noodles, and the express laundry turnaround was consistently on time.',
     servicesUsed: ['Exam Crunch Pack', 'High-Speed Wi-Fi', 'Gym Pass'],
     metricsSaved: '100% Exam Focus Kept',
     verifiedStudent: true

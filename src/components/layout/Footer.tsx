@@ -98,7 +98,7 @@ export const Footer: React.FC<FooterProps> = ({
                 borderRadius: 'var(--radius-pill)',
                 backgroundColor: '#EDF6EF',
                 border: '1px solid var(--color-border-subtle)',
-                color: '#0F382C',
+                color: 'var(--color-brand-blue)',
                 fontSize: '0.78rem',
                 fontFamily: 'var(--font-body)',
                 fontWeight: 600,
@@ -112,7 +112,7 @@ export const Footer: React.FC<FooterProps> = ({
                 e.currentTarget.style.backgroundColor = '#EDF6EF';
               }}
             >
-              <MessageCircle size={14} color="#0F382C" />
+              <MessageCircle size={14} color="var(--color-brand-blue)" />
               <span>WhatsApp Support</span>
             </a>
 

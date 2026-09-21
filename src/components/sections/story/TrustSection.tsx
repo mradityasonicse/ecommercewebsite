@@ -5,7 +5,8 @@ import {
   Zap, 
   CheckCircle2, 
   Award,
-  FileCheck2
+  FileCheck2,
+  Star,
 } from 'lucide-react';
 import { Container } from '../../primitives/Container';
 import { SITE_CONFIG } from '../../../data/site-config';
@@ -240,8 +241,8 @@ export const TrustSection: React.FC = () => {
           </div>
 
           <div>
-            <div style={{ fontSize: 'clamp(1.8rem, 3vw, 2.4rem)', fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--color-brand-gold)', lineHeight: 1.1 }}>
-              4.8 ★
+            <div style={{ fontSize: 'clamp(1.8rem, 3vw, 2.4rem)', fontFamily: 'var(--font-display)', fontWeight: 700, color: 'var(--color-brand-gold)', lineHeight: 1.1, display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+              4.8 <Star size={24} fill="currentColor" color="currentColor" />
             </div>
             <div style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', marginTop: '0.25rem', fontWeight: 600 }}>
               Student Rating from 12+ Campuses

@@ -104,13 +104,13 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                 color: isSelected ? '#FFFFFF' : 'var(--color-text-primary)',
                 cursor: 'pointer',
                 transition: 'all var(--duration-fast)',
-                boxShadow: isSelected ? '0 4px 14px rgba(15, 56, 44, 0.25)' : 'var(--shadow-sm)',
+                boxShadow: isSelected ? '0 4px 14px rgba(59, 130, 246, 0.25)' : 'var(--shadow-sm)',
                 position: 'relative',
               }}
               onMouseEnter={(e) => {
                 if (!isSelected) {
                   e.currentTarget.style.borderColor = 'var(--color-brand-blue)';
-                  e.currentTarget.style.backgroundColor = '#f3fbf5';
+                  e.currentTarget.style.backgroundColor = 'var(--color-surface-2)';
                 }
               }}
               onMouseLeave={(e) => {

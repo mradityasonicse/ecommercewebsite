@@ -26,21 +26,21 @@ export const RequestCampusDrawer: React.FC<RequestCampusDrawerProps> = ({ isOpen
       {!submitted ? (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--color-brand-blue, #0F382C)', fontSize: 'var(--text-xs)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.4rem' }}>
-              <Building2 size={14} color="var(--color-brand-blue, #0F382C)" />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--color-brand-blue)', fontSize: 'var(--text-xs)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '0.4rem' }}>
+              <Building2 size={14} color="var(--color-brand-blue)" />
               <span>Campus Expansion Pipeline</span>
             </div>
-            <h4 style={{ fontSize: '1.25rem', fontFamily: 'Domine, serif', fontWeight: 700, color: 'var(--color-brand-blue, #0F382C)', marginBottom: '0.4rem' }}>
+            <h4 style={{ fontSize: '1.25rem', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '0.4rem' }}>
               Bring EaseHub to Your University
             </h4>
-            <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-secondary, #414845)', lineHeight: 1.55 }}>
+            <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-secondary)', lineHeight: 1.55 }}>
               When 200 students from a campus register interest, our on-ground team conducts audits and onboards verified mess, PG, and laundry partners in under 3 weeks.
             </p>
           </div>
 
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div>
-              <label style={{ display: 'block', fontSize: 'var(--text-xs)', fontWeight: 600, color: 'var(--color-text-secondary, #414845)', marginBottom: '0.4rem' }}>
+              <label style={{ display: 'block', fontSize: 'var(--text-xs)', fontWeight: 600, color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>
                 University / College Name *
               </label>
               <input
@@ -52,19 +52,18 @@ export const RequestCampusDrawer: React.FC<RequestCampusDrawerProps> = ({ isOpen
                 style={{
                   width: '100%',
                   padding: '0.75rem',
-                  backgroundColor: '#FFFFFF',
+                  backgroundColor: 'var(--color-surface-1)',
                   borderRadius: 'var(--radius-sm)',
-                  border: '1px solid var(--color-border-subtle, #E8E4D5)',
-                  color: 'var(--color-text-primary, #151D1A)',
+                  border: '1px solid var(--color-border-subtle)',
+                  color: 'var(--color-text-primary)',
                   fontSize: 'var(--text-xs)',
                   outline: 'none',
-                  boxShadow: '0 1px 2px rgba(15, 56, 44, 0.04)'
                 }}
               />
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: 'var(--text-xs)', fontWeight: 600, color: 'var(--color-text-secondary, #414845)', marginBottom: '0.4rem' }}>
+              <label style={{ display: 'block', fontSize: 'var(--text-xs)', fontWeight: 600, color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>
                 Campus City / State *
               </label>
               <input
@@ -76,19 +75,18 @@ export const RequestCampusDrawer: React.FC<RequestCampusDrawerProps> = ({ isOpen
                 style={{
                   width: '100%',
                   padding: '0.75rem',
-                  backgroundColor: '#FFFFFF',
+                  backgroundColor: 'var(--color-surface-1)',
                   borderRadius: 'var(--radius-sm)',
-                  border: '1px solid var(--color-border-subtle, #E8E4D5)',
-                  color: 'var(--color-text-primary, #151D1A)',
+                  border: '1px solid var(--color-border-subtle)',
+                  color: 'var(--color-text-primary)',
                   fontSize: 'var(--text-xs)',
                   outline: 'none',
-                  boxShadow: '0 1px 2px rgba(15, 56, 44, 0.04)'
                 }}
               />
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: 'var(--text-xs)', fontWeight: 600, color: 'var(--color-text-secondary, #414845)', marginBottom: '0.4rem' }}>
+              <label style={{ display: 'block', fontSize: 'var(--text-xs)', fontWeight: 600, color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>
                 Your Student Email *
               </label>
               <input
@@ -100,19 +98,18 @@ export const RequestCampusDrawer: React.FC<RequestCampusDrawerProps> = ({ isOpen
                 style={{
                   width: '100%',
                   padding: '0.75rem',
-                  backgroundColor: '#FFFFFF',
+                  backgroundColor: 'var(--color-surface-1)',
                   borderRadius: 'var(--radius-sm)',
-                  border: '1px solid var(--color-border-subtle, #E8E4D5)',
-                  color: 'var(--color-text-primary, #151D1A)',
+                  border: '1px solid var(--color-border-subtle)',
+                  color: 'var(--color-text-primary)',
                   fontSize: 'var(--text-xs)',
                   outline: 'none',
-                  boxShadow: '0 1px 2px rgba(15, 56, 44, 0.04)'
                 }}
               />
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: 'var(--text-xs)', fontWeight: 600, color: 'var(--color-text-secondary, #414845)', marginBottom: '0.4rem' }}>
+              <label style={{ display: 'block', fontSize: 'var(--text-xs)', fontWeight: 600, color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>
                 Estimated Campus Hostellers
               </label>
               <select
@@ -121,13 +118,12 @@ export const RequestCampusDrawer: React.FC<RequestCampusDrawerProps> = ({ isOpen
                 style={{
                   width: '100%',
                   padding: '0.75rem',
-                  backgroundColor: '#FFFFFF',
+                  backgroundColor: 'var(--color-surface-1)',
                   borderRadius: 'var(--radius-sm)',
-                  border: '1px solid var(--color-border-subtle, #E8E4D5)',
-                  color: 'var(--color-text-primary, #151D1A)',
+                  border: '1px solid var(--color-border-subtle)',
+                  color: 'var(--color-text-primary)',
                   fontSize: 'var(--text-xs)',
                   outline: 'none',
-                  boxShadow: '0 1px 2px rgba(15, 56, 44, 0.04)'
                 }}
               >
                 <option value="50-200">50 - 200 Students</option>
@@ -144,13 +140,13 @@ export const RequestCampusDrawer: React.FC<RequestCampusDrawerProps> = ({ isOpen
         </div>
       ) : (
         <div style={{ textAlign: 'center', padding: '2.5rem 1rem' }}>
-          <CheckCircle2 size={48} color="#2E7D32" style={{ margin: '0 auto 1rem auto' }} />
-          <h3 style={{ fontSize: 'var(--text-h4)', fontFamily: 'Domine, serif', fontWeight: 700, color: 'var(--color-brand-blue, #0F382C)', marginBottom: '0.5rem' }}>
+          <CheckCircle2 size={48} color="var(--color-success)" style={{ margin: '0 auto 1rem auto' }} />
+          <h3 style={{ fontSize: 'var(--text-h4)', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '0.5rem' }}>
             Nomination Recorded!
           </h3>
-          <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-secondary, #414845)', lineHeight: 1.6, marginBottom: '1.5rem' }}>
-            We’ve added <strong style={{ color: 'var(--color-brand-blue, #0F382C)' }}>{collegeName}</strong> to our expansion watch list.
-            We will alert <strong style={{ color: 'var(--color-brand-blue, #0F382C)' }}>{email}</strong> the moment verification audits begin.
+          <p style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-secondary)', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+            We’ve added <strong style={{ color: 'var(--color-brand-blue)' }}>{collegeName}</strong> to our expansion watch list.
+            We will alert <strong style={{ color: 'var(--color-brand-blue)' }}>{email}</strong> the moment verification audits begin.
           </p>
           <Button
             variant="outline"

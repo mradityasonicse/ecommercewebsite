@@ -45,9 +45,8 @@ export const Drawer: React.FC<DrawerProps> = ({
         position: 'fixed',
         inset: 0,
         zIndex: 9995,
-        backgroundColor: 'rgba(15, 56, 44, 0.45)',
-        backdropFilter: 'blur(8px)',
-        WebkitBackdropFilter: 'blur(8px)',
+        backgroundColor: 'rgba(15, 23, 42, 0.45)',
+        backdropFilter: 'blur(4px)',
         display: 'flex',
         justifyContent: position === 'right' ? 'flex-end' : 'flex-start',
         animation: 'easeRevealFade 0.2s ease-out forwards'
@@ -59,11 +58,11 @@ export const Drawer: React.FC<DrawerProps> = ({
           width: '100%',
           maxWidth: width,
           height: '100%',
-          backgroundColor: 'var(--color-bg-primary, #FBF9F1)',
-          color: 'var(--color-text-primary, #151D1A)',
-          borderLeft: position === 'right' ? '1px solid var(--color-border-subtle, #E8E4D5)' : 'none',
-          borderRight: position === 'left' ? '1px solid var(--color-border-subtle, #E8E4D5)' : 'none',
-          boxShadow: '0 20px 60px rgba(15, 56, 44, 0.25)',
+          backgroundColor: '#FFFFFF',
+          color: '#0F172A',
+          borderLeft: position === 'right' ? '1.5px solid rgba(22, 163, 74, 0.2)' : 'none',
+          borderRight: position === 'left' ? '1.5px solid rgba(22, 163, 74, 0.2)' : 'none',
+          boxShadow: 'var(--shadow-xl)',
           display: 'flex',
           flexDirection: 'column',
           animation: 'easeRevealFade 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards'
@@ -76,11 +75,11 @@ export const Drawer: React.FC<DrawerProps> = ({
             alignItems: 'center',
             justifyContent: 'space-between',
             padding: '1.25rem 1.5rem',
-            borderBottom: '1px solid var(--color-border-subtle, #E8E4D5)',
-            backgroundColor: 'var(--color-surface, #FFFFFF)'
+            borderBottom: '1px solid rgba(22, 163, 74, 0.15)',
+            backgroundColor: '#F8FAF7'
           }}
         >
-          <h3 style={{ fontSize: 'var(--text-h4)', fontFamily: 'Domine, serif', fontWeight: 700, margin: 0, color: 'var(--color-brand-blue, #0F382C)' }}>
+          <h3 style={{ fontSize: 'var(--text-h4)', fontFamily: 'var(--font-serif, "Domine", serif)', fontWeight: 700, margin: 0, color: '#0F172A' }}>
             {title}
           </h3>
           <button
@@ -93,19 +92,19 @@ export const Drawer: React.FC<DrawerProps> = ({
               width: '32px',
               height: '32px',
               borderRadius: 'var(--radius-sm)',
-              color: 'var(--color-text-secondary, #414845)',
-              backgroundColor: 'rgba(15, 56, 44, 0.05)',
-              border: 'none',
+              color: '#475569',
+              backgroundColor: 'rgba(15, 23, 42, 0.05)',
+              border: '1px solid rgba(22, 163, 74, 0.15)',
               cursor: 'pointer',
               transition: 'background-color 0.15s ease, color 0.15s ease'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(15, 56, 44, 0.12)';
-              e.currentTarget.style.color = 'var(--color-brand-blue, #0F382C)';
+              e.currentTarget.style.backgroundColor = 'rgba(22, 163, 74, 0.12)';
+              e.currentTarget.style.color = '#15803D';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(15, 56, 44, 0.05)';
-              e.currentTarget.style.color = 'var(--color-text-secondary, #414845)';
+              e.currentTarget.style.backgroundColor = 'rgba(15, 23, 42, 0.05)';
+              e.currentTarget.style.color = '#475569';
             }}
           >
             <X size={20} />

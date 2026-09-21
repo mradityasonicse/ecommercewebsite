@@ -42,21 +42,14 @@ export const Heading: React.FC<HeadingProps> = ({
 }) => {
 
   const getGradientStyle = (): React.CSSProperties => {
+    if (color) return { color };
     if (gradient === 'blue') {
-      return {
-        background: 'linear-gradient(135deg, #FFFFFF 30%, #93C5FD 100%)',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-      };
+      return { color: 'var(--color-brand-blue)' };
     }
     if (gradient === 'electric') {
-      return {
-        background: 'linear-gradient(135deg, #3B82F6 0%, #60A5FA 100%)',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-      };
+      return { color: 'var(--color-brand-gold)' };
     }
-    return { color: color || 'var(--color-text-primary)' };
+    return { color: 'var(--color-text-primary)' };
   };
 
   return React.createElement(

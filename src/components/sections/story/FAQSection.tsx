@@ -104,7 +104,7 @@ export const FAQSection: React.FC = () => {
                     ? '0 6px 20px rgba(0, 0, 0, 0.05)'
                     : '0 2px 8px rgba(0, 0, 0, 0.02)',
                   borderColor: isOpen
-                    ? 'var(--color-brand-blue, #0F382C)'
+                    ? 'var(--color-brand-blue)'
                     : 'var(--color-border-default, #E2E8F0)',
                 }}
               >

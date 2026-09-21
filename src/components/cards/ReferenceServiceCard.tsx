@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, CheckCircle2 } from 'lucide-react';
+import { MapPin, CheckCircle2, MessageCircle } from 'lucide-react';
 import type { CatalogItem } from '../../data/referenceCatalog';
 
 interface ReferenceServiceCardProps {
@@ -25,17 +25,17 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{
-        backgroundColor: 'var(--color-surface-1)',
-        borderRadius: '16px',
-        border: `1px solid ${isHovered ? 'var(--color-border-hover)' : 'var(--color-border-subtle)'}`,
+        backgroundColor: '#FFFFFF',
+        borderRadius: '20px',
+        border: `1px solid ${isHovered ? '#16A34A' : 'rgba(22, 163, 74, 0.18)'}`,
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
         boxShadow: isHovered
-          ? '0 14px 32px -6px rgba(0, 0, 0, 0.55), 0 4px 12px rgba(0, 0, 0, 0.3)'
-          : '0 2px 8px -2px rgba(0, 0, 0, 0.35)',
-        transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
-        transition: 'transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.22s cubic-bezier(0.16, 1, 0.3, 1)',
+          ? '0 20px 40px -8px rgba(15, 81, 50, 0.15), 0 0 20px rgba(22, 163, 74, 0.12)'
+          : '0 4px 18px -2px rgba(15, 81, 50, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04)',
+        transform: isHovered ? 'translateY(-6px)' : 'translateY(0)',
+        transition: 'transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.28s ease',
         position: 'relative',
         willChange: 'transform',
       }}
@@ -47,7 +47,7 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
           width: '100%',
           height: '215px',
           overflow: 'hidden',
-          backgroundColor: 'var(--color-surface-2)',
+          backgroundColor: '#F8FAF7',
         }}
       >
         <img
@@ -64,33 +64,27 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
           }}
         />
 
-        {/* Top-Right Pill Badge (MALE / FEMALE / UNISEX / VEG / NON-VEG) */}
+        {/* Top-Right Badge (MALE / FEMALE / UNISEX / VEG / NON-VEG) */}
         {item.badge && (
           <div
             style={{
               position: 'absolute',
               top: '12px',
               right: '12px',
-              backgroundColor: 'var(--color-surface-glass)',
-              backdropFilter: 'blur(8px)',
+              backgroundColor: item.badgeVariant === 'female' ? '#FFF1F2' : '#FEF9C3',
               borderRadius: '9999px',
-              padding: '4px 12px',
-              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
-              border: '1px solid var(--color-border-subtle)',
+              padding: '3px 11px',
+              border: item.badgeVariant === 'female' ? '1px solid #FECDD3' : '1px solid #FDE047',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
             }}
           >
             <span
               style={{
-                fontSize: '0.72rem',
-                fontFamily: 'var(--font-display, sans-serif)',
-                fontWeight: 700,
-                letterSpacing: '0.06em',
-                color:
-                  item.badgeVariant === 'female'
-                    ? '#F43F5E'
-                    : item.badgeVariant === 'male'
-                    ? 'var(--color-brand-blue)'
-                    : 'var(--color-brand-gold)',
+                fontSize: '0.68rem',
+                fontFamily: 'var(--font-mono, monospace)',
+                fontWeight: 800,
+                letterSpacing: '0.08em',
+                color: item.badgeVariant === 'female' ? '#E11D48' : '#854D0E',
                 textTransform: 'uppercase',
               }}
             >
@@ -114,13 +108,14 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
           {/* Title */}
           <h3
             style={{
-              fontSize: '1.15rem',
-              fontFamily: 'var(--font-display, sans-serif)',
-              fontWeight: 700,
+              fontSize: 'var(--text-h3)',
+              fontFamily: 'var(--font-family-h3)',
+              fontWeight: 'var(--weight-h3)',
               color: 'var(--color-text-primary)',
               margin: '0 0 0.5rem 0',
-              lineHeight: 1.35,
-              letterSpacing: '-0.01em',
+              lineHeight: 'var(--leading-h3)',
+              letterSpacing: 'var(--tracking-h3)',
+              textWrap: 'balance',
             }}
           >
             {item.name}
@@ -132,10 +127,12 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
               display: 'flex',
               alignItems: 'flex-start',
               gap: '0.45rem',
-              color: 'var(--color-text-secondary)',
-              fontSize: '0.86rem',
-              lineHeight: 1.45,
-              marginBottom: '0.75rem',
+              color: '#334155',
+              fontSize: 'var(--text-body-sm)',
+              fontFamily: 'var(--font-family-body-sm)',
+              lineHeight: 'var(--leading-body-sm)',
+              marginBottom: '0.5rem',
+              fontWeight: 500,
             }}
           >
             <MapPin
@@ -153,6 +150,79 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
             >
               {item.address}
             </span>
+          </div>
+
+          {/* Ecosystem Connection Ribbon (Shows How Services Connect) */}
+          <div style={{ marginBottom: '0.75rem' }}>
+            {item.category === 'pg' ? (
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.3rem',
+                  fontSize: '0.72rem',
+                  fontWeight: 700,
+                  backgroundColor: '#EFF5EC',
+                  color: '#15803D',
+                  border: '1px solid #86EFAC',
+                  borderRadius: '6px',
+                  padding: '2px 8px',
+                }}
+              >
+                <span>⚡ Auto-paired with Daily Mess &amp; Doorstep Laundry</span>
+              </span>
+            ) : item.category === 'meals' ? (
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.3rem',
+                  fontSize: '0.72rem',
+                  fontWeight: 700,
+                  backgroundColor: '#FEFCE8',
+                  color: '#854D0E',
+                  border: '1px solid #FDE047',
+                  borderRadius: '6px',
+                  padding: '2px 8px',
+                }}
+              >
+                <span>⚡ Warm delivery direct to your PG / Hostel gate</span>
+              </span>
+            ) : item.category === 'laundry' ? (
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.3rem',
+                  fontSize: '0.72rem',
+                  fontWeight: 700,
+                  backgroundColor: '#E0F2FE',
+                  color: '#0369A1',
+                  border: '1px solid #BAE6FD',
+                  borderRadius: '6px',
+                  padding: '2px 8px',
+                }}
+              >
+                <span>⚡ Scheduled gate pickup synced with your hostel block</span>
+              </span>
+            ) : (
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.3rem',
+                  fontSize: '0.72rem',
+                  fontWeight: 700,
+                  backgroundColor: '#F3E8FF',
+                  color: '#6B21A8',
+                  border: '1px solid #DDD6FE',
+                  borderRadius: '6px',
+                  padding: '2px 8px',
+                }}
+              >
+                <span>⚡ Included in Campus Saver Bundles</span>
+              </span>
+            )}
           </div>
 
           {/* Optional Key Feature Badges */}
@@ -173,15 +243,16 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
                     alignItems: 'center',
                     gap: '0.25rem',
                     fontSize: '0.72rem',
-                    fontWeight: 500,
-                    color: 'var(--color-text-secondary)',
-                    backgroundColor: 'var(--color-surface-2)',
-                    border: '1px solid var(--color-border-subtle)',
-                    borderRadius: '6px',
-                    padding: '2px 7px',
+                    fontWeight: 600,
+                    color: '#1E293B',
+                    backgroundColor: '#F8FAF7',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: 'var(--radius-sm)',
+                    padding: '2px 8px',
+                    lineHeight: 'var(--leading-caption)',
                   }}
                 >
-                  <CheckCircle2 size={11} color="#58A940" />
+                  <CheckCircle2 size={12} color="#16A34A" />
                   {feat}
                 </span>
               ))}
@@ -193,7 +264,7 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
         <div
           style={{
             paddingTop: '0.9rem',
-            borderTop: '1px solid var(--color-border-subtle)',
+            borderTop: '1px solid #E2E8F0',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -206,23 +277,24 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span
               style={{
-                fontSize: '0.74rem',
-                color: 'var(--color-text-muted)',
-                fontWeight: 500,
+                fontSize: '0.72rem',
+                color: '#475569',
+                fontWeight: 700,
                 lineHeight: 1,
-                marginBottom: '2px',
+                marginBottom: '3px',
               }}
             >
               Starts from
             </span>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.2rem' }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.25rem' }}>
               <span
                 style={{
-                  fontSize: '1.25rem',
-                  fontWeight: 800,
-                  fontFamily: 'var(--font-display, sans-serif)',
-                  color: 'var(--color-brand-gold)',
-                  lineHeight: 1.1,
+                  fontSize: '1.45rem',
+                  fontWeight: 900,
+                  fontFamily: 'var(--font-display)',
+                  color: '#0F172A',
+                  letterSpacing: '-0.02em',
+                  lineHeight: 1.15,
                 }}
               >
                 {item.priceText}
@@ -230,9 +302,9 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
               {item.periodText && (
                 <span
                   style={{
-                    fontSize: '0.75rem',
-                    color: 'var(--color-text-muted)',
-                    fontWeight: 500,
+                    fontSize: '0.8rem',
+                    color: '#475569',
+                    fontWeight: 600,
                   }}
                 >
                   {item.periodText.replace('per ', '/')}
@@ -241,84 +313,71 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
             </div>
           </div>
 
-          {/* Right: Two Action Buttons */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', flexWrap: 'wrap' }}>
-            {/* WhatsApp Outline Button */}
+          {/* Right: Unified Action Buttons */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexShrink: 0 }}>
+            {/* WhatsApp Icon Button */}
             <button
               type="button"
+              className="easehub-spring-btn"
               onClick={handleWhatsApp}
               aria-label={`Inquire about ${item.name} on WhatsApp`}
-              className="easehub-btn-tactile"
+              title="Chat with Verified Provider on WhatsApp"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.3rem',
-                border: '1.5px solid #22C55E',
-                backgroundColor: 'rgba(34, 197, 94, 0.15)',
-                color: '#22C55E',
-                borderRadius: '8px',
-                padding: '0.48rem 0.85rem',
-                fontSize: '0.84rem',
-                fontWeight: 600,
+                justifyContent: 'center',
+                width: '38px',
+                height: '38px',
+                borderRadius: '10px',
+                border: '1px solid rgba(22, 163, 74, 0.28)',
+                backgroundColor: 'rgba(22, 163, 74, 0.08)',
+                color: '#15803D',
                 cursor: 'pointer',
-                outline: 'none',
-                transition: 'all var(--duration-fast, 200ms) var(--ease-smooth)',
+                transition: 'all 0.18s ease',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(34, 197, 94, 0.25)';
+                e.currentTarget.style.backgroundColor = 'rgba(22, 163, 74, 0.16)';
                 e.currentTarget.style.transform = 'translateY(-1px)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(34, 197, 94, 0.15)';
+                e.currentTarget.style.backgroundColor = 'rgba(22, 163, 74, 0.08)';
                 e.currentTarget.style.transform = 'translateY(0)';
-              }}
-              onMouseDown={(e) => {
-                e.currentTarget.style.transform = 'translateY(0.5px) scale(0.98)';
-              }}
-              onMouseUp={(e) => {
-                e.currentTarget.style.transform = 'translateY(-1px)';
               }}
             >
-              <span>WhatsApp</span>
+              <MessageCircle size={18} />
             </button>
 
-            {/* Book Now Solid Button */}
+            {/* Book Now Primary Button */}
             <button
               type="button"
+              className="easehub-spring-btn"
               onClick={() => onBookNow(item)}
               aria-label={`Book ${item.name} now`}
-              className="easehub-btn-tactile"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.35rem',
-                border: 'none',
-                backgroundColor: '#2563EB',
+                justifyContent: 'center',
+                padding: '0.55rem 1.15rem',
+                borderRadius: '10px',
+                border: '1px solid rgba(22, 163, 74, 0.2)',
+                background: 'linear-gradient(135deg, #16A34A 0%, #15803D 100%)',
                 color: '#FFFFFF',
-                borderRadius: '8px',
-                padding: '0.52rem 0.95rem',
                 fontSize: '0.84rem',
-                fontWeight: 600,
+                fontWeight: 700,
+                letterSpacing: '0.01em',
                 cursor: 'pointer',
-                outline: 'none',
-                boxShadow: '0 2px 6px rgba(0, 0, 0, 0.25)',
-                transition: 'all var(--duration-fast, 200ms) var(--ease-smooth)',
+                boxShadow: '0 4px 14px rgba(22, 163, 74, 0.35)',
+                transition: 'all 0.22s cubic-bezier(0.16, 1, 0.3, 1)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#1D4ED8';
-                e.currentTarget.style.transform = 'translateY(-1px)';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.35)';
+                e.currentTarget.style.background = 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 8px 22px rgba(22, 163, 74, 0.45)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = '#2563EB';
+                e.currentTarget.style.background = 'linear-gradient(135deg, #16A34A 0%, #15803D 100%)';
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.25)';
-              }}
-              onMouseDown={(e) => {
-                e.currentTarget.style.transform = 'translateY(0.5px) scale(0.98)';
-              }}
-              onMouseUp={(e) => {
-                e.currentTarget.style.transform = 'translateY(-1px)';
+                e.currentTarget.style.boxShadow = '0 4px 14px rgba(22, 163, 74, 0.35)';
               }}
             >
               <span>Book Now</span>

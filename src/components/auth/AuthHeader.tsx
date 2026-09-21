@@ -20,19 +20,19 @@ export const AuthHeader: React.FC<AuthHeaderProps> = ({
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.35rem',
-            padding: '0.2rem 0.55rem',
-            backgroundColor: 'rgba(255, 255, 255, 0.08)',
-            border: '1px solid rgba(255, 255, 255, 0.18)',
-            borderRadius: 'var(--radius-pill)',
-            color: '#FFFFFF',
-            fontSize: '0.68rem',
+            padding: '0.25rem 0.65rem',
+            backgroundColor: '#DCFCE7',
+            border: '1px solid #86EFAC',
+            borderRadius: '9999px',
+            color: '#15803D',
+            fontSize: '0.72rem',
             fontFamily: 'var(--font-mono)',
             fontWeight: 700,
             textTransform: 'uppercase',
             width: 'max-content',
           }}
         >
-          <ShieldCheck size={12} /> {badge}
+          <ShieldCheck size={12} color="#15803D" /> {badge}
         </div>
       )}
 
@@ -41,7 +41,7 @@ export const AuthHeader: React.FC<AuthHeaderProps> = ({
           fontSize: 'clamp(1.35rem, 2.5vw, 1.65rem)',
           fontFamily: 'var(--font-display)',
           fontWeight: 800,
-          color: '#FFFFFF',
+          color: '#0F172A',
           margin: 0,
           lineHeight: 1.25,
         }}
@@ -51,8 +51,8 @@ export const AuthHeader: React.FC<AuthHeaderProps> = ({
 
       <p
         style={{
-          fontSize: '0.85rem',
-          color: 'var(--color-text-secondary)',
+          fontSize: '0.88rem',
+          color: '#64748B',
           lineHeight: 1.55,
           margin: 0,
         }}

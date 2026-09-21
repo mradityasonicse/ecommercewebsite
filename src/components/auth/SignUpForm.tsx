@@ -73,7 +73,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', width: '100%' }}>
+    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', width: '100%' }}>
       {errorMessage && (
         <div
           role="alert"
@@ -82,11 +82,12 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             alignItems: 'center',
             gap: '0.5rem',
             padding: '0.65rem 0.85rem',
-            borderRadius: 'var(--radius-md)',
-            backgroundColor: 'rgba(239, 68, 68, 0.1)',
-            border: '1px solid rgba(239, 68, 68, 0.25)',
-            color: '#EF4444',
+            borderRadius: '10px',
+            backgroundColor: '#FEE2E2',
+            border: '1px solid #F87171',
+            color: '#B91C1C',
             fontSize: '0.82rem',
+            fontWeight: 600,
           }}
         >
           <AlertCircle size={16} />
@@ -99,17 +100,18 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
         <label
           htmlFor="signup-name"
           style={{
-            fontSize: '0.72rem',
-            fontFamily: 'var(--font-display)',
+            fontSize: '0.74rem',
+            fontFamily: 'var(--font-sans)',
             fontWeight: 700,
-            color: 'var(--color-text-secondary)',
+            color: '#334155',
             textTransform: 'uppercase',
+            letterSpacing: '0.04em',
           }}
         >
           Full Name
         </label>
         <div style={{ position: 'relative' }}>
-          <div style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)' }}>
+          <div style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#64748B' }}>
             <UserIcon size={16} />
           </div>
           <input
@@ -122,12 +124,13 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             style={{
               width: '100%',
               padding: '0.7rem 1rem 0.7rem 2.4rem',
-              backgroundColor: 'var(--color-surface-2)',
-              border: '1px solid var(--color-border-subtle)',
-              borderRadius: 'var(--radius-md)',
-              color: '#FFFFFF',
+              backgroundColor: '#FFFFFF',
+              border: '1.5px solid #CBD5E1',
+              borderRadius: '10px',
+              color: '#0F172A',
               fontSize: '0.88rem',
               outline: 'none',
+              boxSizing: 'border-box',
             }}
           />
         </div>
@@ -138,17 +141,18 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
         <label
           htmlFor="signup-email"
           style={{
-            fontSize: '0.72rem',
-            fontFamily: 'var(--font-display)',
+            fontSize: '0.74rem',
+            fontFamily: 'var(--font-sans)',
             fontWeight: 700,
-            color: 'var(--color-text-secondary)',
+            color: '#334155',
             textTransform: 'uppercase',
+            letterSpacing: '0.04em',
           }}
         >
           University Email
         </label>
         <div style={{ position: 'relative' }}>
-          <div style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)' }}>
+          <div style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#64748B' }}>
             <Mail size={16} />
           </div>
           <input
@@ -161,12 +165,13 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             style={{
               width: '100%',
               padding: '0.7rem 1rem 0.7rem 2.4rem',
-              backgroundColor: 'var(--color-surface-2)',
-              border: '1px solid var(--color-border-subtle)',
-              borderRadius: 'var(--radius-md)',
-              color: '#FFFFFF',
+              backgroundColor: '#FFFFFF',
+              border: '1.5px solid #CBD5E1',
+              borderRadius: '10px',
+              color: '#0F172A',
               fontSize: '0.88rem',
               outline: 'none',
+              boxSizing: 'border-box',
             }}
           />
         </div>
@@ -177,17 +182,18 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
         <label
           htmlFor="signup-phone"
           style={{
-            fontSize: '0.72rem',
-            fontFamily: 'var(--font-display)',
+            fontSize: '0.74rem',
+            fontFamily: 'var(--font-sans)',
             fontWeight: 700,
-            color: 'var(--color-text-secondary)',
+            color: '#334155',
             textTransform: 'uppercase',
+            letterSpacing: '0.04em',
           }}
         >
           Mobile Number
         </label>
         <div style={{ position: 'relative' }}>
-          <div style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)' }}>
+          <div style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#64748B' }}>
             <Phone size={16} />
           </div>
           <input
@@ -200,12 +206,13 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             style={{
               width: '100%',
               padding: '0.7rem 1rem 0.7rem 2.4rem',
-              backgroundColor: 'var(--color-surface-2)',
-              border: '1px solid var(--color-border-subtle)',
-              borderRadius: 'var(--radius-md)',
-              color: '#FFFFFF',
+              backgroundColor: '#FFFFFF',
+              border: '1.5px solid #CBD5E1',
+              borderRadius: '10px',
+              color: '#0F172A',
               fontSize: '0.88rem',
               outline: 'none',
+              boxSizing: 'border-box',
             }}
           />
         </div>
@@ -216,17 +223,18 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
         <label
           htmlFor="signup-campus"
           style={{
-            fontSize: '0.72rem',
-            fontFamily: 'var(--font-display)',
+            fontSize: '0.74rem',
+            fontFamily: 'var(--font-sans)',
             fontWeight: 700,
-            color: 'var(--color-text-secondary)',
+            color: '#334155',
             textTransform: 'uppercase',
+            letterSpacing: '0.04em',
           }}
         >
           University Campus
         </label>
         <div style={{ position: 'relative' }}>
-          <div style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)' }}>
+          <div style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#64748B' }}>
             <Building size={16} />
           </div>
           <select
@@ -236,17 +244,18 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             style={{
               width: '100%',
               padding: '0.7rem 1rem 0.7rem 2.4rem',
-              backgroundColor: 'var(--color-surface-2)',
-              border: '1px solid var(--color-border-subtle)',
-              borderRadius: 'var(--radius-md)',
-              color: '#FFFFFF',
+              backgroundColor: '#FFFFFF',
+              border: '1.5px solid #CBD5E1',
+              borderRadius: '10px',
+              color: '#0F172A',
               fontSize: '0.88rem',
               outline: 'none',
               cursor: 'pointer',
+              boxSizing: 'border-box',
             }}
           >
             {CAMPUSES.map((c) => (
-              <option key={c.id} value={c.id} style={{ backgroundColor: '#111625', color: '#FFFFFF' }}>
+              <option key={c.id} value={c.id} style={{ backgroundColor: '#FFFFFF', color: '#0F172A' }}>
                 {c.name}
               </option>
             ))}
@@ -259,17 +268,18 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
         <label
           htmlFor="signup-password"
           style={{
-            fontSize: '0.72rem',
-            fontFamily: 'var(--font-display)',
+            fontSize: '0.74rem',
+            fontFamily: 'var(--font-sans)',
             fontWeight: 700,
-            color: 'var(--color-text-secondary)',
+            color: '#334155',
             textTransform: 'uppercase',
+            letterSpacing: '0.04em',
           }}
         >
           Create Password
         </label>
         <div style={{ position: 'relative' }}>
-          <div style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)' }}>
+          <div style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#64748B' }}>
             <Lock size={16} />
           </div>
           <input
@@ -283,12 +293,13 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
             style={{
               width: '100%',
               padding: '0.7rem 1rem 0.7rem 2.4rem',
-              backgroundColor: 'var(--color-surface-2)',
-              border: '1px solid var(--color-border-subtle)',
-              borderRadius: 'var(--radius-md)',
-              color: '#FFFFFF',
+              backgroundColor: '#FFFFFF',
+              border: '1.5px solid #CBD5E1',
+              borderRadius: '10px',
+              color: '#0F172A',
               fontSize: '0.88rem',
               outline: 'none',
+              boxSizing: 'border-box',
             }}
           />
         </div>
@@ -302,10 +313,10 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
           type="checkbox"
           checked={agreeTerms}
           onChange={(e) => setAgreeTerms(e.target.checked)}
-          style={{ accentColor: 'var(--color-brand-blue)', marginTop: '2px', cursor: 'pointer' }}
+          style={{ accentColor: '#16A34A', marginTop: '2px', cursor: 'pointer' }}
         />
-        <label htmlFor="terms-check" style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', lineHeight: 1.4, cursor: 'pointer' }}>
-          I confirm I am an enrolled student and agree to EaseHub Student Terms & Campus Service Standards.
+        <label htmlFor="terms-check" style={{ fontSize: '0.75rem', color: '#64748B', lineHeight: 1.4, cursor: 'pointer' }}>
+          I confirm I am an enrolled student and agree to EaseHub Student Terms &amp; Campus Service Standards.
         </label>
       </div>
 
@@ -317,13 +328,13 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
         loading={isLoading}
         fullWidth
         icon={<ArrowRight size={16} />}
-        style={{ marginTop: 'var(--space-2)' }}
+        style={{ marginTop: '0.35rem', backgroundColor: '#15803D' }}
       >
         Complete Registration
       </Button>
 
       {/* Switch to Sign In */}
-      <div style={{ textAlign: 'center', marginTop: 'var(--space-1)', fontSize: '0.82rem', color: 'var(--color-text-secondary)' }}>
+      <div style={{ textAlign: 'center', marginTop: '0.25rem', fontSize: '0.82rem', color: '#64748B' }}>
         Already have an account?{' '}
         <button
           type="button"
@@ -331,7 +342,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
           style={{
             background: 'none',
             border: 'none',
-            color: 'var(--color-blue-light)',
+            color: '#15803D',
             fontWeight: 700,
             cursor: 'pointer',
             textDecoration: 'underline',

@@ -485,7 +485,7 @@ export const SERVICE_DETAILS: Record<string, ServiceDetail> = {
     inclusions: [
       'Guaranteed seat reservations on morning exam shuttles',
       'Live GPS shuttle arrival countdown',
-      'Seamless UPI or semester transit pass tap-and-go',
+      'Direct UPI or semester transit pass tap-and-go',
     ],
     exclusions: [
       'Private outstation inter-city cab hire',

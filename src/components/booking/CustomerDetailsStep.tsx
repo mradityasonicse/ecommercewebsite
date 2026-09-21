@@ -79,7 +79,7 @@ export const CustomerDetailsStep: React.FC<CustomerDetailsStepProps> = ({
               }}
               onFocus={(e) => {
                 e.currentTarget.style.borderColor = 'var(--color-brand-blue)';
-                e.currentTarget.style.boxShadow = '0 0 0 3px rgba(15, 56, 44, 0.1)';
+                e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
               }}
               onBlur={(e) => {
                 e.currentTarget.style.borderColor = errors.name ? 'var(--color-brand-red)' : 'var(--color-border-subtle)';
@@ -132,7 +132,7 @@ export const CustomerDetailsStep: React.FC<CustomerDetailsStepProps> = ({
               }}
               onFocus={(e) => {
                 e.currentTarget.style.borderColor = 'var(--color-brand-blue)';
-                e.currentTarget.style.boxShadow = '0 0 0 3px rgba(15, 56, 44, 0.1)';
+                e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
               }}
               onBlur={(e) => {
                 e.currentTarget.style.borderColor = errors.phone ? 'var(--color-brand-red)' : 'var(--color-border-subtle)';
@@ -185,7 +185,7 @@ export const CustomerDetailsStep: React.FC<CustomerDetailsStepProps> = ({
               }}
               onFocus={(e) => {
                 e.currentTarget.style.borderColor = 'var(--color-brand-blue)';
-                e.currentTarget.style.boxShadow = '0 0 0 3px rgba(15, 56, 44, 0.1)';
+                e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
               }}
               onBlur={(e) => {
                 e.currentTarget.style.borderColor = errors.email ? 'var(--color-brand-red)' : 'var(--color-border-subtle)';
@@ -242,7 +242,7 @@ export const CustomerDetailsStep: React.FC<CustomerDetailsStepProps> = ({
               }}
             >
               {CAMPUSES.map((c) => (
-                <option key={c.id} value={c.id} style={{ backgroundColor: '#FFFFFF', color: '#151D1A' }}>
+                <option key={c.id} value={c.id} style={{ backgroundColor: 'var(--color-surface-1)', color: 'var(--color-text-primary)' }}>
                   {c.name}
                 </option>
               ))}
@@ -290,7 +290,7 @@ export const CustomerDetailsStep: React.FC<CustomerDetailsStepProps> = ({
                   }}
                   onFocus={(e) => {
                     e.currentTarget.style.borderColor = 'var(--color-brand-blue)';
-                    e.currentTarget.style.boxShadow = '0 0 0 3px rgba(15, 56, 44, 0.1)';
+                    e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
                   }}
                   onBlur={(e) => {
                     e.currentTarget.style.borderColor = errors.hostelBlock ? 'var(--color-brand-red)' : 'var(--color-border-subtle)';
@@ -339,7 +339,7 @@ export const CustomerDetailsStep: React.FC<CustomerDetailsStepProps> = ({
                 }}
                 onFocus={(e) => {
                   e.currentTarget.style.borderColor = 'var(--color-brand-blue)';
-                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(15, 56, 44, 0.1)';
+                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
                 }}
                 onBlur={(e) => {
                   e.currentTarget.style.borderColor = errors.roomNumber ? 'var(--color-brand-red)' : 'var(--color-border-subtle)';
@@ -396,7 +396,7 @@ export const CustomerDetailsStep: React.FC<CustomerDetailsStepProps> = ({
           }}
           onFocus={(e) => {
             e.currentTarget.style.borderColor = 'var(--color-brand-blue)';
-            e.currentTarget.style.boxShadow = '0 0 0 3px rgba(15, 56, 44, 0.1)';
+            e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
           }}
           onBlur={(e) => {
             e.currentTarget.style.borderColor = 'var(--color-border-subtle)';

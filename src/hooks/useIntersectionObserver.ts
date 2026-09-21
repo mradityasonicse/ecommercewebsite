@@ -30,6 +30,9 @@ export function useIntersectionObserver<T extends HTMLElement = HTMLDivElement>(
 
     if (freezeOnceVisible && isVisible) return;
 
+    // Detect if element is inside mobile simulator viewport
+    const effectiveRoot = root !== null ? root : (node.closest('#easehub-mobile-simulator-viewport') as HTMLElement | null);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -41,7 +44,7 @@ export function useIntersectionObserver<T extends HTMLElement = HTMLDivElement>(
           setIsVisible(false);
         }
       },
-      { threshold, root, rootMargin }
+      { threshold, root: effectiveRoot, rootMargin }
     );
 
     observer.observe(node);
