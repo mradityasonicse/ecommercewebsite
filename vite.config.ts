@@ -4,6 +4,14 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    allowedHosts: true,
+    host: '0.0.0.0',
+  },
+  preview: {
+    allowedHosts: true,
+    host: '0.0.0.0',
+  },
   build: {
     rollupOptions: {
       output: {
