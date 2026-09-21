@@ -1383,5 +1383,91 @@ body.mobile-preview-active .easehub-mobile-nav-drawer .easehub-mobile-drawer-hea
   color: #10B981 !important;
 }
 
+/* ==========================================================================
+   CAMPUS BENTO SECTION THEME STYLING (PERFECT CONTRAST & GAP BALANCE)
+   ========================================================================= */
+.bento-card-bg {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  color: #0F172A;
+}
+
+.bento-inset-box {
+  background-color: #F8FAF7;
+  border: 1px solid #E2E8F0;
+  color: #0F172A;
+}
+
+.bento-inset-btn {
+  background-color: #F8FAF7;
+  border: 1px solid #CBD5E1;
+  color: #0F172A;
+}
+.bento-inset-btn:hover {
+  background-color: #DCFCE7;
+  color: #15803D;
+  border-color: #86EFAC;
+}
+
+.bento-feature-text {
+  color: #1E293B;
+}
+
+.bento-craving-pill {
+  background-color: #FFFFFF;
+  color: #1E293B;
+  border: 1px solid #E2E8F0;
+}
+
+.bento-nightowl-card {
+  background: linear-gradient(135deg, #F0FDF4 0%, #FEFCE8 50%, #FFFFFF 100%);
+  border: 1.5px solid #86EFAC;
+}
+
+/* Dark Mode Bento Overrides */
+[data-theme="dark"] .bento-card-bg {
+  background-color: var(--color-surface-1, #0F172A) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #F8FAFC !important;
+}
+
+[data-theme="dark"] .bento-inset-box {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #F8FAFC !important;
+}
+
+[data-theme="dark"] .bento-inset-btn {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  color: #F8FAFC !important;
+}
+[data-theme="dark"] .bento-inset-btn:hover {
+  background-color: rgba(16, 185, 129, 0.2) !important;
+  border-color: #10B981 !important;
+  color: #34D399 !important;
+}
+
+[data-theme="dark"] .bento-feature-text {
+  color: #F1F5F9 !important;
+}
+
+[data-theme="dark"] .bento-craving-pill {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: #F8FAFC !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+[data-theme="dark"] .bento-nightowl-card {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.96) 0%, rgba(20, 30, 48, 0.96) 50%, rgba(15, 23, 42, 0.96) 100%) !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+[data-theme="dark"] .bento-meal-tabs {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+
 
 
