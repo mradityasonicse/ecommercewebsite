@@ -30,4 +30,5 @@ export interface GatewaySettings {
   supportPhone: string;
   announcementText: string;
   isEscrowProtectionActive: boolean;
+  qrImageUrl?: string;
 }

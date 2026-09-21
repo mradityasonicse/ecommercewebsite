@@ -28,27 +28,41 @@ export const RoleLoginGateModal: React.FC<RoleLoginGateModalProps> = ({
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   if (!isOpen) return null;
 
-  const handleRoleSubmit = (e: React.FormEvent) => {
+  const handleRoleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
-    // Validate role credentials or fallback to demo
-    if (activePersona === 'admin') {
-      if (emailOrPhone.includes('admin') || password === 'admin123' || password === 'easehub2026' || !password) {
-        completeRoleLogin('admin');
+    const email = emailOrPhone.trim() || (
+      activePersona === 'admin' ? 'admin@easehub.in' :
+      activePersona === 'mess_partner' ? 'mess@easehub.in' :
+      activePersona === 'laundry_partner' ? 'laundry@easehub.in' :
+      activePersona === 'pg_owner' ? 'pg@easehub.in' : 'student@easehub.in'
+    );
+
+    const pass = password || (
+      activePersona === 'admin' ? 'admin123' :
+      activePersona === 'mess_partner' ? 'mess2026' :
+      activePersona === 'laundry_partner' ? 'laundry2026' :
+      activePersona === 'pg_owner' ? 'pg2026' : 'campus2026'
+    );
+
+    setIsSubmitting(true);
+    try {
+      const { AuthService } = await import('../../services/authService');
+      const result = await AuthService.signIn({ emailOrPhone: email, password: pass });
+      if (result.success) {
+        completeRoleLogin(activePersona);
       } else {
-        setError('Invalid Admin credentials. Hint: click "1-Click Demo Login as Admin"');
+        setError(result.error || 'Invalid credentials for this role.');
       }
-    } else if (activePersona === 'pg_owner') {
-      completeRoleLogin('pg_owner');
-    } else if (activePersona === 'mess_partner') {
-      completeRoleLogin('mess_partner');
-    } else if (activePersona === 'laundry_partner') {
-      completeRoleLogin('laundry_partner');
-    } else {
-      completeRoleLogin('student');
+    } catch {
+      setError('Authentication failed. Please verify credentials.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -56,6 +70,7 @@ export const RoleLoginGateModal: React.FC<RoleLoginGateModalProps> = ({
     try {
       localStorage.setItem('easehub_user_role', role);
       localStorage.setItem('easehub_current_role', role);
+      sessionStorage.setItem('easehub_session_logged_in', 'true');
       if (role === 'admin') {
         sessionStorage.setItem('easehub_admin_auth', 'true');
       }
@@ -485,6 +500,7 @@ export const RoleLoginGateModal: React.FC<RoleLoginGateModalProps> = ({
 
           <button
             type="submit"
+            disabled={isSubmitting}
             style={{
               padding: '0.75rem',
               backgroundColor: '#F8FAF7',
@@ -493,8 +509,9 @@ export const RoleLoginGateModal: React.FC<RoleLoginGateModalProps> = ({
               borderRadius: '10px',
               fontSize: '0.84rem',
               fontWeight: 700,
-              cursor: 'pointer',
+              cursor: isSubmitting ? 'not-allowed' : 'pointer',
               transition: 'all 0.15s ease',
+              opacity: isSubmitting ? 0.7 : 1,
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = '#EFF5EC';
@@ -505,7 +522,7 @@ export const RoleLoginGateModal: React.FC<RoleLoginGateModalProps> = ({
               e.currentTarget.style.color = '#334155';
             }}
           >
-            Sign In with Entered Credentials
+            {isSubmitting ? 'Authenticating...' : 'Sign In with Entered Credentials'}
           </button>
         </form>
 

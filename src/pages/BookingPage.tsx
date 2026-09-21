@@ -256,6 +256,7 @@ export const BookingPage: React.FC<BookingPageProps> = ({
         actionType: actionConfig.actionType,
         optionId: selectedOption?.id,
         optionName: selectedOption?.name,
+        providerName: (service as any).provider?.name || (service.slug === 'mess' ? 'Annapurna Royal Dining' : service.name),
         customer: bookingState.customer,
         schedule: bookingState.schedule,
         notes: bookingState.customer.notes || bookingState.notes,

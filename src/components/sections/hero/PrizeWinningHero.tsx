@@ -491,51 +491,169 @@ export const PrizeWinningHero: React.FC<PrizeWinningHeroProps> = ({
             </ScrollReveal>
           </div>
 
-          {/* 6. Live Trust & Operational Metrics Ribbon */}
+          {/* 6. Live Trust & Operational Metrics Ribbon (Fixed Responsive Layout matching Awwwards E-Commerce Standards) */}
           <ScrollReveal variant="fade-up" delay={200}>
             <div
+              className="easehub-hero-trust-ribbon"
               style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))',
-                gap: '1.25rem',
-                padding: '1.25rem 1.75rem',
-                backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                backdropFilter: 'blur(12px)',
-                borderRadius: 'var(--radius-xl)',
-                border: '1.5px solid rgba(22, 163, 74, 0.2)',
-                boxShadow: '0 4px 20px rgba(22, 163, 74, 0.08)',
-                marginTop: '1.5rem',
+                display: 'flex',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+                justifyContent: 'space-around',
+                gap: '1.25rem 2rem',
+                padding: '1.25rem 2rem',
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+                borderRadius: '20px',
+                border: '1.5px solid rgba(22, 163, 74, 0.25)',
+                boxShadow: '0 10px 30px -5px rgba(22, 163, 74, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.8) inset',
+                marginTop: '1.75rem',
+                width: '100%',
+                maxWidth: '100%',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                <ShieldCheck size={20} color="#16A34A" />
+              {/* Item 1 */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.85rem',
+                  flex: '1 1 200px',
+                  minWidth: '180px',
+                }}
+              >
+                <div
+                  style={{
+                    width: '42px',
+                    height: '42px',
+                    borderRadius: '12px',
+                    backgroundColor: '#DCFCE7',
+                    border: '1px solid #86EFAC',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#15803D',
+                    flexShrink: 0,
+                  }}
+                >
+                  <ShieldCheck size={22} strokeWidth={2.4} />
+                </div>
                 <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#0F172A' }}>100% Verified</div>
-                  <div style={{ fontSize: '0.74rem', color: '#64748B' }}>Biometric & gate checked</div>
+                  <div style={{ fontSize: '0.96rem', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.01em', lineHeight: 1.2 }}>
+                    100% Verified
+                  </div>
+                  <div style={{ fontSize: '0.76rem', color: '#64748B', fontWeight: 500, marginTop: '2px' }}>
+                    Biometric & gate checked
+                  </div>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                <Star size={20} color="#EAB308" />
+              {/* Item 2 */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.85rem',
+                  flex: '1 1 200px',
+                  minWidth: '180px',
+                }}
+              >
+                <div
+                  style={{
+                    width: '42px',
+                    height: '42px',
+                    borderRadius: '12px',
+                    backgroundColor: '#FEF9C3',
+                    border: '1px solid #FDE047',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#CA8A04',
+                    flexShrink: 0,
+                  }}
+                >
+                  <Star size={22} strokeWidth={2.4} />
+                </div>
                 <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#0F172A' }}>4.9 / 5.0 Rating</div>
-                  <div style={{ fontSize: '0.74rem', color: '#64748B' }}>1,400+ hostellers</div>
+                  <div style={{ fontSize: '0.96rem', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.01em', lineHeight: 1.2 }}>
+                    4.9 / 5.0 Rating
+                  </div>
+                  <div style={{ fontSize: '0.76rem', color: '#64748B', fontWeight: 500, marginTop: '2px' }}>
+                    1,400+ campus hostellers
+                  </div>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                <Clock size={20} color="#15803D" />
+              {/* Item 3 */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.85rem',
+                  flex: '1 1 200px',
+                  minWidth: '180px',
+                }}
+              >
+                <div
+                  style={{
+                    width: '42px',
+                    height: '42px',
+                    borderRadius: '12px',
+                    backgroundColor: '#EFF6FF',
+                    border: '1px solid #BFDBFE',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#2563EB',
+                    flexShrink: 0,
+                  }}
+                >
+                  <Clock size={22} strokeWidth={2.4} />
+                </div>
                 <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#0F172A' }}>&lt; 15-Min Dispatch</div>
-                  <div style={{ fontSize: '0.74rem', color: '#64748B' }}>Midnight canteen speed</div>
+                  <div style={{ fontSize: '0.96rem', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.01em', lineHeight: 1.2 }}>
+                    &lt; 15-Min Dispatch
+                  </div>
+                  <div style={{ fontSize: '0.76rem', color: '#64748B', fontWeight: 500, marginTop: '2px' }}>
+                    Midnight canteen speed
+                  </div>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                <Zap size={20} color="#D97706" />
+              {/* Item 4 */}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.85rem',
+                  flex: '1 1 200px',
+                  minWidth: '180px',
+                }}
+              >
+                <div
+                  style={{
+                    width: '42px',
+                    height: '42px',
+                    borderRadius: '12px',
+                    backgroundColor: '#FEF3C7',
+                    border: '1px solid #FDE68A',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#D97706',
+                    flexShrink: 0,
+                  }}
+                >
+                  <Zap size={22} strokeWidth={2.4} />
+                </div>
                 <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#0F172A' }}>₹0 Brokerage</div>
-                  <div style={{ fontSize: '0.74rem', color: '#64748B' }}>Direct campus rates</div>
+                  <div style={{ fontSize: '0.96rem', fontWeight: 900, color: '#0F172A', letterSpacing: '-0.01em', lineHeight: 1.2 }}>
+                    ₹0 Brokerage
+                  </div>
+                  <div style={{ fontSize: '0.76rem', color: '#64748B', fontWeight: 500, marginTop: '2px' }}>
+                    Direct campus rates
+                  </div>
                 </div>
               </div>
             </div>

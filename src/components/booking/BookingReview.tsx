@@ -273,6 +273,103 @@ export const BookingReview: React.FC<BookingReviewProps> = ({
           )}
         </div>
 
+        {/* PhonePe Payment QR Card */}
+        <div
+          style={{
+            padding: 'var(--space-5)',
+            borderRadius: 'var(--radius-lg)',
+            backgroundColor: '#0F172A',
+            color: '#FFFFFF',
+            border: '1.5px solid #5F259F',
+            boxShadow: '0 8px 24px rgba(95, 37, 159, 0.2)',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.75rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <div
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '8px',
+                  backgroundColor: '#5F259F',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontWeight: 900,
+                  fontSize: '0.85rem',
+                }}
+              >
+                पे
+              </div>
+              <div>
+                <div style={{ fontWeight: 800, fontSize: '0.92rem', color: '#FFFFFF' }}>
+                  PhonePe Payment QR Code
+                </div>
+                <div style={{ fontSize: '0.74rem', color: '#A78BFA' }}>
+                  anshu kumar kedia • 0% Extra Charges
+                </div>
+              </div>
+            </div>
+
+            <span
+              style={{
+                fontSize: '0.7rem',
+                fontWeight: 800,
+                padding: '0.15rem 0.5rem',
+                borderRadius: '9999px',
+                backgroundColor: '#059669',
+                color: '#FFFFFF',
+              }}
+            >
+              ACCEPTED HERE
+            </span>
+          </div>
+
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1.25rem',
+              flexWrap: 'wrap',
+              backgroundColor: '#1E293B',
+              borderRadius: '12px',
+              padding: '1rem',
+              border: '1px solid #334155',
+            }}
+          >
+            <div
+              style={{
+                backgroundColor: '#000000',
+                padding: '6px',
+                borderRadius: '10px',
+                border: '1.5px solid #5F259F',
+                display: 'inline-block',
+              }}
+            >
+              <img
+                src="/payment-qr.jpg"
+                alt="PhonePe Payment QR - anshu kumar kedia"
+                style={{ width: '130px', height: 'auto', display: 'block', borderRadius: '6px' }}
+              />
+            </div>
+
+            <div style={{ flex: 1, minWidth: '180px', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              <div style={{ fontSize: '0.82rem', color: '#E2E8F0', fontWeight: 600 }}>
+                Scan with PhonePe or any UPI app to pay directly.
+              </div>
+              <div style={{ fontSize: '0.75rem', color: '#94A3B8' }}>
+                UPI ID: <code style={{ color: '#34D399', fontWeight: 700 }}>6201614778@ibl</code>
+              </div>
+              <div style={{ fontSize: '0.72rem', color: '#94A3B8' }}>
+                Payee: <strong style={{ color: '#FFFFFF' }}>anshu kumar kedia</strong>
+              </div>
+              <div style={{ fontSize: '0.7rem', color: '#64748B', marginTop: '0.2rem' }}>
+                You can also choose to pay later at arrival / hostel gate.
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Safeguard badge */}
         <div
           style={{

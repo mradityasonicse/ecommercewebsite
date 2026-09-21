@@ -20,6 +20,7 @@ export interface StudentProfile {
   roomNumber?: string;
   studentId?: string;
   avatarUrl?: string;
+  bio?: string;
 }
 
 export interface NotificationPreferences {

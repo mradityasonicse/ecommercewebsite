@@ -62,7 +62,6 @@ export const UpiPaymentModal: React.FC<UpiPaymentModalProps> = ({
   if (!isOpen) return null;
 
   const upiIntentUri = PaymentService.buildUpiIntentUri(amount, generatedOrderId, itemTitle);
-  const dynamicQrUrl = PaymentService.getDynamicQrCodeUrl(amount, generatedOrderId, itemTitle);
 
   const handleCopyUpi = () => {
     navigator.clipboard.writeText(settings.adminUpiId);
@@ -355,26 +354,33 @@ export const UpiPaymentModal: React.FC<UpiPaymentModalProps> = ({
                   alignItems: 'center',
                 }}
               >
-                {/* QR Box */}
+                {/* PhonePe Official QR Box */}
                 <div style={{ textAlign: 'center' }}>
                   <div
                     style={{
                       display: 'inline-block',
-                      backgroundColor: '#FFFFFF',
-                      padding: '10px',
-                      borderRadius: '0.75rem',
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-                      border: '1px solid #E2E8F0',
+                      backgroundColor: '#0A0A0A',
+                      padding: '8px',
+                      borderRadius: '0.85rem',
+                      boxShadow: '0 8px 24px rgba(95, 37, 159, 0.25)',
+                      border: '2px solid #5F259F',
+                      overflow: 'hidden',
                     }}
                   >
                     <img
-                      src={dynamicQrUrl}
-                      alt="Scan to Pay via UPI"
-                      style={{ width: '150px', height: '150px', display: 'block' }}
+                      src={settings.qrImageUrl || '/payment-qr.jpg'}
+                      alt="Official PhonePe QR Code - anshu kumar kedia"
+                      style={{ width: '170px', height: 'auto', display: 'block', borderRadius: '6px' }}
                     />
                   </div>
-                  <div style={{ marginTop: '0.5rem', fontSize: '0.72rem', color: '#475569', fontWeight: 500 }}>
-                    Scan with Google Pay, PhonePe, Paytm, etc.
+                  <div style={{ marginTop: '0.45rem', fontSize: '0.76rem', color: '#5F259F', fontWeight: 800 }}>
+                    PhonePe Accepted Here
+                  </div>
+                  <div style={{ fontSize: '0.72rem', color: '#334155', fontWeight: 600 }}>
+                    anshu kumar kedia
+                  </div>
+                  <div style={{ fontSize: '0.68rem', color: '#64748B', marginTop: '0.15rem' }}>
+                    Scan with PhonePe, GPay, Paytm or any UPI App
                   </div>
                 </div>
 

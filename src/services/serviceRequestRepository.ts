@@ -221,17 +221,98 @@ const INITIAL_DEMO_REQUESTS: ServiceRequest[] = [
       },
     ],
   },
+  {
+    id: 'EH-553191',
+    serviceSlug: 'mess',
+    serviceName: 'Hygienic Mess & Tiffin Subscriptions',
+    actionType: 'booking',
+    optionId: 'opt-mess-lunch-dinner',
+    optionName: 'Lunch & Dinner 2-Meal Executive',
+    providerName: 'Annapurna Royal Dining',
+    customer: {
+      name: 'Priya Sharma',
+      phone: '+91 98234 56789',
+      email: 'priya.sharma@campus.edu',
+      studentId: 'STU-2024-118',
+      campusId: 'campus-hub',
+      campusName: 'Campus Living Hub',
+      hostelBlock: 'Kasturba Girls Hostel (Block A)',
+      roomNumber: '215',
+      notes: 'Pure Vegetarian, No Garlic, Jain preparation preferred.',
+    },
+    schedule: {
+      date: 'Daily Regular (Semester)',
+      timeSlot: 'Lunch: 12:30 PM | Dinner: 8:00 PM',
+    },
+    notes: 'Pure Vegetarian, No Garlic, Jain preparation preferred.',
+    status: 'confirmed',
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 12).toISOString(),
+    estimatedPrice: '₹2,600 /month',
+    timeline: [
+      {
+        id: 'ps-1',
+        status: 'confirmed',
+        title: 'Subscription Active',
+        description: 'Semester 2-meal dietary profile activated. Tiffin bag #42 assigned.',
+        timestamp: new Date(Date.now() - 1000 * 60 * 60 * 12).toISOString(),
+        actor: 'Dietary Desk',
+      },
+    ],
+  },
+  {
+    id: 'EH-553192',
+    serviceSlug: 'mess',
+    serviceName: 'Hygienic Mess & Tiffin Subscriptions',
+    actionType: 'booking',
+    optionId: 'opt-mess-north-thali',
+    optionName: 'North Indian Deluxe Thali (Daily Tiffin)',
+    providerName: 'Annapurna Royal Dining',
+    customer: {
+      name: 'Rohan Gupta',
+      phone: '+91 91234 87654',
+      email: 'rohan.gupta@campus.edu',
+      studentId: 'STU-2024-075',
+      campusId: 'campus-hub',
+      campusName: 'Campus Living Hub',
+      hostelBlock: 'Aryabhatta Hostel (Block B)',
+      roomNumber: '108',
+      notes: 'Extra chapatis please, deliver at hostel security desk.',
+    },
+    schedule: {
+      date: 'Today',
+      timeSlot: 'Dinner: 8:00 PM - 9:30 PM',
+    },
+    notes: 'Extra chapatis please, deliver at hostel security desk.',
+    status: 'in_progress',
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 5).toISOString(),
+    estimatedPrice: '₹3,200 /month',
+    timeline: [
+      {
+        id: 'rg-1',
+        status: 'in_progress',
+        title: 'Tiffin in Transit',
+        description: 'Tiffin packed in thermal canister. Van out for delivery.',
+        timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
+        actor: 'Kitchen Dispatch',
+      },
+    ],
+  },
 ];
 
 export class ServiceRequestRepository {
   private static getStoredRequests(): ServiceRequest[] {
     if (typeof window === 'undefined') return INITIAL_DEMO_REQUESTS;
     try {
-      const stored = sessionStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        return JSON.parse(stored);
+      const localStored = localStorage.getItem(STORAGE_KEY);
+      if (localStored) {
+        return JSON.parse(localStored);
       }
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_DEMO_REQUESTS));
+      const sessionStored = sessionStorage.getItem(STORAGE_KEY);
+      if (sessionStored) {
+        localStorage.setItem(STORAGE_KEY, sessionStored);
+        return JSON.parse(sessionStored);
+      }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_DEMO_REQUESTS));
       return INITIAL_DEMO_REQUESTS;
     } catch {
       return INITIAL_DEMO_REQUESTS;
@@ -241,7 +322,9 @@ export class ServiceRequestRepository {
   private static saveStoredRequests(requests: ServiceRequest[]): void {
     if (typeof window === 'undefined') return;
     try {
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(requests));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(requests));
+      // Cross-tab and intra-app reactive update
+      window.dispatchEvent(new CustomEvent('easehub_requests_updated'));
     } catch {
       // Storage unavailable
     }
@@ -417,12 +500,108 @@ export class ServiceRequestRepository {
     await new Promise((resolve) => setTimeout(resolve, 200));
     const requests = this.getStoredRequests();
     const normalized = emailOrPhone.trim().toLowerCase();
-    return requests.filter(
+    const matches = requests.filter(
       (r) =>
         r.customer.email.toLowerCase() === normalized ||
         (r.customer.phone && r.customer.phone.replace(/\D/g, '').includes(normalized.replace(/\D/g, ''))) ||
         (normalized.includes('student@easehub.in') && r.customer.email.toLowerCase().includes('student@easehub.in'))
     );
+
+    if (
+      matches.length === 0 &&
+      !normalized.includes('admin@') &&
+      !normalized.includes('mess@') &&
+      !normalized.includes('laundry@') &&
+      !normalized.includes('pg@')
+    ) {
+      const studentDisplayName = normalized.includes('@')
+        ? normalized.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())
+        : 'Campus Scholar';
+
+      const starterRequests: ServiceRequest[] = [
+        {
+          id: `EH-MESS-${Math.floor(1000 + Math.random() * 9000)}`,
+          serviceSlug: 'mess',
+          serviceName: 'Daily 2-Meal Fresh Mess Tiffin',
+          actionType: 'booking',
+          optionId: 'opt-mess-monthly',
+          optionName: 'Standard 2-Meal Monthly Pass (Breakfast + Dinner)',
+          providerName: 'Annapurna Campus Dining',
+          customer: {
+            name: studentDisplayName,
+            phone: '+91 98765 43210',
+            email: normalized,
+            studentId: 'STU-2024-042',
+            campusId: 'campus-hub',
+            campusName: 'Campus Living Hub',
+            hostelBlock: 'Block B',
+            roomNumber: '304',
+            notes: 'Hot breakfast delivered daily at 7:45 AM.',
+          },
+          schedule: {
+            date: 'Active Term Pass',
+            timeSlot: '7:30 AM - 8:30 AM (Breakfast) & 8:00 PM - 9:30 PM (Dinner)',
+          },
+          notes: 'Standard vegetarian balanced student diet with milk & fruits.',
+          status: 'confirmed',
+          createdAt: new Date().toISOString(),
+          estimatedPrice: '₹2,400 /month',
+          timeline: [
+            {
+              id: 't-mess-1',
+              status: 'confirmed',
+              title: 'Mess Plan Synchronized',
+              description: 'Annapurna Kitchen synchronized meal token with room timetable.',
+              timestamp: new Date().toISOString(),
+              actor: 'Annapurna Campus Dining',
+            },
+          ],
+        },
+        {
+          id: `EH-PG-${Math.floor(1000 + Math.random() * 9000)}`,
+          serviceSlug: 'pg',
+          serviceName: 'Verified PG / Hostel Room',
+          actionType: 'booking',
+          optionId: 'opt-pg-single',
+          optionName: 'Twin Sharing Room with AC & Wi-Fi',
+          providerName: 'Royal Living PG & Hostels',
+          customer: {
+            name: studentDisplayName,
+            phone: '+91 98765 43210',
+            email: normalized,
+            studentId: 'STU-2024-042',
+            campusId: 'campus-hub',
+            campusName: 'Campus Living Hub',
+            hostelBlock: 'Block B',
+            roomNumber: '304',
+            notes: 'Biometric fingerprint registered for gate entry.',
+          },
+          schedule: {
+            date: 'Term 2026',
+            timeSlot: '24x7 Room Access',
+          },
+          notes: 'Bed 304-A, study table with charging board ready.',
+          status: 'confirmed',
+          createdAt: new Date().toISOString(),
+          estimatedPrice: '₹3,500 /month',
+          timeline: [
+            {
+              id: 't-pg-1',
+              status: 'confirmed',
+              title: 'Room Allocation Confirmed',
+              description: 'Key handover completed and biometric entry activated.',
+              timestamp: new Date().toISOString(),
+              actor: 'Royal Living Warden',
+            },
+          ],
+        },
+      ];
+
+      this.saveStoredRequests([...starterRequests, ...requests]);
+      return starterRequests;
+    }
+
+    return matches;
   }
 
   /**
@@ -471,6 +650,89 @@ export class ServiceRequestRepository {
 
     // Sort descending by timestamp
     return activity.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+  }
+
+  /**
+   * Returns all bookings specifically for Mess and Tiffin subscriptions.
+   * Enables the Mess Partner Console to monitor who booked, delivery rooms, and preferences.
+   */
+  public static async getMessBookings(): Promise<ServiceRequest[]> {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    const requests = this.getStoredRequests();
+    return requests.filter(
+      (r) =>
+        r.serviceSlug === 'mess' ||
+        r.serviceSlug.includes('food') ||
+        r.serviceSlug.includes('tiffin') ||
+        (r.providerName && r.providerName.toLowerCase().includes('mess')) ||
+        (r.providerName && r.providerName.toLowerCase().includes('annapurna')) ||
+        (r.optionName && r.optionName.toLowerCase().includes('meal'))
+    );
+  }
+
+  /**
+   * Allows the Mess Partner or Admin to update a student's booking status
+   * (e.g. from pending to confirmed, cooking, gate arrived, delivered)
+   * Appends timeline event and dispatches real-time student notification.
+   */
+  public static async updateBookingStatus(
+    requestId: string,
+    newStatus: RequestStatus,
+    statusNote?: string
+  ): Promise<{ success: boolean; request?: ServiceRequest; error?: string }> {
+    await new Promise((resolve) => setTimeout(resolve, 150));
+    const requests = this.getStoredRequests();
+    const idx = requests.findIndex((r) => r.id.toLowerCase() === requestId.toLowerCase());
+
+    if (idx === -1) {
+      return { success: false, error: 'Booking not found.' };
+    }
+
+    const target = requests[idx];
+    const statusLabels: Record<RequestStatus, string> = {
+      draft: 'Drafted',
+      pending: 'Awaiting Kitchen Confirmation',
+      accepted: 'Kitchen Accepted Order',
+      confirmed: 'Confirmed & Scheduled',
+      in_progress: 'Khana Ban Raha Hai / Packing',
+      completed: 'Delivered to Hostel',
+      cancelled: 'Subscription Cancelled',
+    };
+
+    const newTimelineEvent: RequestTimelineEvent = {
+      id: `tl-${Date.now().toString(36)}`,
+      status: newStatus,
+      title: statusLabels[newStatus] || `Status updated to ${newStatus}`,
+      description: statusNote || `Status updated by kitchen team: ${statusLabels[newStatus]}.`,
+      timestamp: new Date().toISOString(),
+      actor: 'Annapurna Mess Desk',
+    };
+
+    const updatedRequest: ServiceRequest = {
+      ...target,
+      status: newStatus,
+      timeline: [...(target.timeline || []), newTimelineEvent],
+    };
+
+    requests[idx] = updatedRequest;
+    this.saveStoredRequests(requests);
+
+    // Notify the specific student immediately
+    NotificationService.createNotification({
+      userId: target.customer.email,
+      type: 'request_update',
+      title: `Mess Status: ${statusLabels[newStatus]}`,
+      description: statusNote || `Your mess booking (${target.id}) has been updated to "${statusLabels[newStatus]}". Scheduled for ${target.schedule?.date || 'Today'}.`,
+      targetUrl: `#account/requests/${target.id}`,
+      priority: newStatus === 'in_progress' || newStatus === 'completed' ? 'high' : 'normal',
+      metadata: {
+        requestId: target.id,
+        serviceSlug: target.serviceSlug,
+        actor: 'Annapurna Mess Partner',
+      },
+    });
+
+    return { success: true, request: updatedRequest };
   }
 
   /**

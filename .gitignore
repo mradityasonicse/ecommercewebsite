@@ -53,3 +53,13 @@ inspect_bundle.js
 !public/*.svg
 !src/assets/*.png
 !src/assets/*.svg
+!src/assets/*.jpg
+!public/*.jpg
+
+# Agent IDE metadata
+.agent/
+.agents/
+.gemini/
+.gsd/
+.clinerules
+.roomodes

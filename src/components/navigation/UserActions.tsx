@@ -8,9 +8,12 @@ import {
   LayoutDashboard,
   Shield,
   ChevronDown,
+  ShoppingBag,
+  Sparkles,
 } from 'lucide-react';
 import type { UserRole } from '../../types/auth';
 import { useAuth } from '../../context/AuthContext';
+import { useCart } from '../../context/CartContext';
 import { NotificationService } from '../../services/notificationService';
 
 export interface UserActionsProps {
@@ -30,6 +33,7 @@ export const UserActions: React.FC<UserActionsProps> = ({
   style = {},
 }) => {
   const { user, isAuthenticated, signOut } = useAuth();
+  const { toggleCart, itemCount } = useCart();
   const isMobile = variant === 'mobile';
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -535,12 +539,35 @@ export const UserActions: React.FC<UserActionsProps> = ({
 
                 <button
                   type="button"
+                  onClick={() => handleNavigate('#account/services')}
+                  className="nav-dropdown-item"
+                  style={{ ...dropdownItemStyle, color: '#16A34A', fontWeight: 700 }}
+                >
+                  <Sparkles size={14} color="#16A34A" />
+                  <span>My Services (Active Hub)</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsDropdownOpen(false);
+                    toggleCart();
+                  }}
+                  className="nav-dropdown-item"
+                  style={dropdownItemStyle}
+                >
+                  <ShoppingBag size={14} color="var(--color-brand-blue)" />
+                  <span>Campus Cart ({itemCount})</span>
+                </button>
+
+                <button
+                  type="button"
                   onClick={() => handleNavigate('#account/requests')}
                   className="nav-dropdown-item"
                   style={dropdownItemStyle}
                 >
                   <Package size={14} color="var(--color-brand-blue)" />
-                  <span>My Requests</span>
+                  <span>Order History</span>
                 </button>
 
                 <button

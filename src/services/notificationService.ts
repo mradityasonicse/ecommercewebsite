@@ -118,6 +118,9 @@ export class NotificationService {
     return all.filter(
       (n) =>
         n.userId.toLowerCase() === normalized ||
+        n.userId.toLowerCase() === 'all' ||
+        n.userId.toLowerCase() === 'all_students' ||
+        n.userId.toLowerCase() === 'students' ||
         n.userId === 'usr-student-aditya' || // fallback demo notifications for student experience
         normalized.includes('student@easehub.in')
     );
@@ -141,6 +144,8 @@ export class NotificationService {
       if (
         !userIdOrEmail ||
         n.userId.toLowerCase() === normalized ||
+        n.userId === 'all' ||
+        n.userId === 'all_students' ||
         n.userId === 'usr-student-aditya' ||
         (normalized && normalized.includes('student@easehub.in'))
       ) {
@@ -162,6 +167,22 @@ export class NotificationService {
     };
     const all = this.getStored();
     this.save([newNotif, ...all]);
+
+    // Dispatch global toast for any open student tab
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(
+        new CustomEvent('easehub_notification_toast', {
+          detail: {
+            title: payload.title,
+            message: payload.description,
+            type: payload.type || 'request_update',
+            targetUrl: payload.targetUrl,
+          },
+        })
+      );
+      window.dispatchEvent(new CustomEvent('easehub_notifications_updated'));
+    }
+
     return newNotif;
   }
 

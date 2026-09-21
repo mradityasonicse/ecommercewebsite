@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { MapPin, CheckCircle2, MessageCircle } from 'lucide-react';
+import { MapPin, CheckCircle2, MessageCircle, ShoppingBag } from 'lucide-react';
 import type { CatalogItem } from '../../data/referenceCatalog';
+import { useCart } from '../../context/CartContext';
 
 interface ReferenceServiceCardProps {
   item: CatalogItem;
@@ -9,6 +10,24 @@ interface ReferenceServiceCardProps {
 
 export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item, onBookNow }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const { addItem } = useCart();
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const numPrice = item.priceText ? parseInt(item.priceText.replace(/\D/g, ''), 10) || 499 : (item.price || 499);
+    addItem({
+      id: `item-${item.id}`,
+      slug: item.category === 'pg' ? 'hostel' : item.category === 'meals' ? 'mess' : item.category,
+      name: item.name,
+      category: item.category,
+      priceText: item.priceText || `₹${numPrice}`,
+      numericPrice: numPrice,
+      periodText: item.periodText,
+      imageUrl: item.image,
+      providerName: 'Verified EaseHub Partner',
+      optionName: item.badgeText || 'Campus Verified Package',
+    });
+  };
 
   // WhatsApp concierge dispatch URL with pre-filled inquiry text
   const handleWhatsApp = (e: React.MouseEvent) => {
@@ -300,14 +319,14 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
           )}
 
           {/* Right: Unified Action Buttons */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexShrink: 0 }}>
-            {/* WhatsApp Icon Button */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', flexShrink: 0 }}>
+            {/* Quick Add to Cart Button */}
             <button
               type="button"
               className="easehub-spring-btn"
-              onClick={handleWhatsApp}
-              aria-label={`Inquire about ${item.name} on WhatsApp`}
-              title="Chat with Verified Provider on WhatsApp"
+              onClick={handleAddToCart}
+              aria-label={`Add ${item.name} to Campus Cart`}
+              title="Add to Campus Cart"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -322,7 +341,7 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
                 transition: 'all 0.18s ease',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(22, 163, 74, 0.16)';
+                e.currentTarget.style.backgroundColor = '#DCFCE7';
                 e.currentTarget.style.transform = 'translateY(-1px)';
               }}
               onMouseLeave={(e) => {
@@ -330,7 +349,41 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
-              <MessageCircle size={18} />
+              <ShoppingBag size={17} />
+            </button>
+
+            {/* WhatsApp Icon Button */}
+            <button
+              type="button"
+              className="easehub-spring-btn"
+              onClick={handleWhatsApp}
+              aria-label={`Inquire about ${item.name} on WhatsApp`}
+              title="Chat with Verified Provider on WhatsApp"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '38px',
+                height: '38px',
+                borderRadius: '10px',
+                border: '1px solid #E2E8F0',
+                backgroundColor: '#F8FAFC',
+                color: '#64748B',
+                cursor: 'pointer',
+                transition: 'all 0.18s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#F1F5F9';
+                e.currentTarget.style.color = '#15803D';
+                e.currentTarget.style.transform = 'translateY(-1px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#F8FAFC';
+                e.currentTarget.style.color = '#64748B';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+            >
+              <MessageCircle size={17} />
             </button>
 
             {/* Book Now Primary Button */}
@@ -343,7 +396,7 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                padding: '0.55rem 1.15rem',
+                padding: '0.55rem 1rem',
                 borderRadius: '10px',
                 border: '1px solid rgba(22, 163, 74, 0.2)',
                 background: 'linear-gradient(135deg, #16A34A 0%, #15803D 100%)',
@@ -366,7 +419,7 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
                 e.currentTarget.style.boxShadow = '0 4px 14px rgba(22, 163, 74, 0.35)';
               }}
             >
-              <span>Book Now</span>
+              <span>Book</span>
             </button>
           </div>
         </div>

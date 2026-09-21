@@ -4,14 +4,15 @@ const TRANSACTIONS_KEY = 'easehub_payment_transactions';
 const GATEWAY_SETTINGS_KEY = 'easehub_gateway_settings';
 
 export const DEFAULT_GATEWAY_SETTINGS: GatewaySettings = {
-  adminUpiId: 'easehub@okhdfcbank',
-  payeeName: 'EaseHub Campus Services',
-  merchantCode: 'EASEHUB_RUNGTA',
+  adminUpiId: '6201614778@ibl',
+  payeeName: 'anshu kumar kedia',
+  merchantCode: 'PHONEPE_EASEHUB',
   isManualUpiEnabled: true,
   isCodEnabled: true,
-  supportPhone: '+91 91790 60786',
-  announcementText: '🔥 New: Intra-Campus 30-min delivery active for all Hostel Blocks!',
+  supportPhone: '+91 62016 14778',
+  announcementText: '🔥 Instant PhonePe UPI: Scan PhonePe QR code to pay instantly!',
   isEscrowProtectionActive: true,
+  qrImageUrl: '/payment-qr.jpg',
 };
 
 const SEED_TRANSACTIONS: PaymentTransaction[] = [
@@ -26,7 +27,7 @@ const SEED_TRANSACTIONS: PaymentTransaction[] = [
     category: 'food-mess',
     amount: 2499,
     paymentMethod: 'upi_qr',
-    upiIdUsed: 'easehub@okhdfcbank',
+    upiIdUsed: '6201614778@ibl',
     utrNumber: '425918274019',
     status: 'pending_verification',
     timestamp: new Date(Date.now() - 1000 * 60 * 35).toISOString(),
@@ -43,7 +44,7 @@ const SEED_TRANSACTIONS: PaymentTransaction[] = [
     category: 'laundry',
     amount: 599,
     paymentMethod: 'upi_qr',
-    upiIdUsed: 'easehub@okhdfcbank',
+    upiIdUsed: '6201614778@ibl',
     utrNumber: '425890123984',
     status: 'verified',
     timestamp: new Date(Date.now() - 1000 * 60 * 180).toISOString(),
@@ -61,7 +62,7 @@ const SEED_TRANSACTIONS: PaymentTransaction[] = [
     category: 'extra',
     amount: 850,
     paymentMethod: 'upi_intent',
-    upiIdUsed: 'easehub@okhdfcbank',
+    upiIdUsed: '6201614778@ibl',
     utrNumber: '425781290345',
     status: 'verified',
     timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
@@ -74,7 +75,25 @@ export class PaymentService {
     if (typeof window === 'undefined') return DEFAULT_GATEWAY_SETTINGS;
     try {
       const saved = localStorage.getItem(GATEWAY_SETTINGS_KEY);
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        // Auto-migrate legacy demo UPI IDs to user's real UPI ID
+        if (
+          !parsed.adminUpiId ||
+          parsed.adminUpiId === 'easehub@okhdfcbank' ||
+          parsed.adminUpiId === 'easehub@icici'
+        ) {
+          parsed.adminUpiId = '6201614778@ibl';
+        }
+        if (!parsed.qrImageUrl) {
+          parsed.qrImageUrl = '/payment-qr.jpg';
+        }
+        if (!parsed.payeeName || parsed.payeeName === 'EaseHub Campus Services') {
+          parsed.payeeName = 'anshu kumar kedia';
+        }
+        localStorage.setItem(GATEWAY_SETTINGS_KEY, JSON.stringify(parsed));
+        return parsed;
+      }
     } catch {
       // Fallback
     }

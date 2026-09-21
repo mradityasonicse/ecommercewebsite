@@ -43,17 +43,36 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // Initialize session on mount
+  // Initialize session on mount and subscribe to reactive auth events
   useEffect(() => {
     let isMounted = true;
-    AuthService.getCurrentUser().then((currentUser) => {
+
+    const syncUser = () => {
+      AuthService.getCurrentUser().then((currentUser) => {
+        if (isMounted) {
+          setUser(currentUser);
+          setIsLoading(false);
+        }
+      });
+    };
+
+    syncUser();
+
+    const handleAuthChanged = (e: Event) => {
+      const customEv = e as CustomEvent<User | null>;
       if (isMounted) {
-        setUser(currentUser);
+        setUser(customEv.detail || null);
         setIsLoading(false);
       }
-    });
+    };
+
+    window.addEventListener('easehub_auth_changed', handleAuthChanged);
+    window.addEventListener('storage', syncUser);
+
     return () => {
       isMounted = false;
+      window.removeEventListener('easehub_auth_changed', handleAuthChanged);
+      window.removeEventListener('storage', syncUser);
     };
   }, []);
 

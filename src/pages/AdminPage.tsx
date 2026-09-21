@@ -2275,19 +2275,15 @@ export const AdminPage: React.FC = () => {
             <div style={{ gridColumn: 'span 5' }}>
               <div style={{ ...glassCardStyle, textAlign: 'center' }}>
                 <h4 style={{ fontSize: '1.05rem', fontWeight: 700, margin: '0 0 0.5rem', color: '#FFFFFF' }}>Live Scannable QR Code</h4>
-                <div style={{ backgroundColor: '#FFFFFF', padding: '1.25rem', borderRadius: '16px', display: 'inline-block', marginBottom: '1rem' }}>
-                  <svg width="180" height="180" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="100" height="100" fill="white" />
-                    <rect x="10" y="10" width="26" height="26" rx="4" fill="#0A1633" /><rect x="15" y="15" width="16" height="16" rx="2" fill="white" /><rect x="19" y="19" width="8" height="8" fill="#3B82F6" />
-                    <rect x="64" y="10" width="26" height="26" rx="4" fill="#0A1633" /><rect x="69" y="15" width="16" height="16" rx="2" fill="white" /><rect x="73" y="19" width="8" height="8" fill="#3B82F6" />
-                    <rect x="10" y="64" width="26" height="26" rx="4" fill="#0A1633" /><rect x="15" y="69" width="16" height="16" rx="2" fill="white" /><rect x="19" y="73" width="8" height="8" fill="#3B82F6" />
-                    <rect x="42" y="14" width="6" height="6" fill="#0A1633" /><rect x="52" y="24" width="6" height="6" fill="#0A1633" />
-                    <rect x="42" y="34" width="16" height="16" rx="2" fill="#2563EB" /><rect x="45" y="37" width="10" height="10" fill="white" /><rect x="48" y="40" width="4" height="4" fill="#2563EB" />
-                    <rect x="14" y="44" width="6" height="6" fill="#0A1633" /><rect x="24" y="52" width="6" height="6" fill="#0A1633" /><rect x="64" y="44" width="8" height="8" fill="#0A1633" />
-                    <rect x="44" y="64" width="6" height="6" fill="#0A1633" /><rect x="54" y="74" width="8" height="8" fill="#0A1633" />
-                  </svg>
+                <div style={{ backgroundColor: '#FFFFFF', padding: '1rem', borderRadius: '16px', display: 'inline-block', marginBottom: '1rem' }}>
+                  <img
+                    src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=${encodeURIComponent(gatewaySettings.adminUpiId)}&pn=${encodeURIComponent(gatewaySettings.payeeName)}&cu=INR&margin=8`}
+                    alt={`Scannable UPI QR for ${gatewaySettings.adminUpiId}`}
+                    style={{ width: '180px', height: '180px', display: 'block', borderRadius: '8px' }}
+                  />
                 </div>
-                <div style={{ fontFamily: 'monospace', fontWeight: 700, color: '#10B981', fontSize: '0.9rem' }}>{gatewaySettings.adminUpiId}</div>
+                <div style={{ fontFamily: 'monospace', fontWeight: 700, color: '#10B981', fontSize: '0.95rem' }}>{gatewaySettings.adminUpiId}</div>
+                <div style={{ fontSize: '0.75rem', color: '#94A3B8', marginTop: '0.35rem' }}>Scan with GPay / PhonePe / Paytm / BHIM</div>
               </div>
             </div>
           </div>

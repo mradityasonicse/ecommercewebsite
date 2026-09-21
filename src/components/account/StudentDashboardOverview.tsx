@@ -18,6 +18,7 @@ import {
   SprayCan,
   Wrench,
   CheckCircle2,
+  Sparkles,
 } from 'lucide-react';
 import type { User } from '../../types/auth';
 import type { ServiceRequest } from '../../types/booking';
@@ -82,8 +83,14 @@ export const StudentDashboardOverview: React.FC<StudentDashboardOverviewProps> =
 
     loadDashboardData();
 
+    const handleUpdate = () => loadDashboardData();
+    window.addEventListener('easehub_requests_updated', handleUpdate);
+    window.addEventListener('easehub_notifications_updated', handleUpdate);
+
     return () => {
       isMounted = false;
+      window.removeEventListener('easehub_requests_updated', handleUpdate);
+      window.removeEventListener('easehub_notifications_updated', handleUpdate);
     };
   }, [user.email]);
 
@@ -170,18 +177,30 @@ export const StudentDashboardOverview: React.FC<StudentDashboardOverviewProps> =
         </div>
 
         {/* Action button */}
-        <Button
-          variant="primary"
-          size="md"
-          icon={<ArrowRight size={14} />}
-          iconPosition="right"
-          onClick={() => {
-            if (onNavigateToServices) onNavigateToServices();
-            else window.location.hash = '#services';
-          }}
-        >
-          Book a Service
-        </Button>
+        {/* Action buttons */}
+        <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap' }}>
+          <Button
+            variant="secondary"
+            size="md"
+            icon={<Sparkles size={14} color="#16A34A" />}
+            onClick={() => onNavigateToTab('services')}
+          >
+            My Services Hub
+          </Button>
+
+          <Button
+            variant="primary"
+            size="md"
+            icon={<ArrowRight size={14} />}
+            iconPosition="right"
+            onClick={() => {
+              if (onNavigateToServices) onNavigateToServices();
+              else window.location.hash = '#catalog';
+            }}
+          >
+            Book a Service
+          </Button>
+        </div>
       </div>
 
       {/* 2. Quick Actions Toolbar */}
@@ -194,9 +213,18 @@ export const StudentDashboardOverview: React.FC<StudentDashboardOverviewProps> =
       >
         <button
           type="button"
+          onClick={() => onNavigateToTab('services')}
+          style={{ ...quickActionButtonStyle, borderColor: '#86EFAC', backgroundColor: '#F0FDF4' }}
+        >
+          <Sparkles size={18} color="#15803D" />
+          <span style={{ fontWeight: 800, color: '#15803D' }}>My Services (Active)</span>
+        </button>
+
+        <button
+          type="button"
           onClick={() => {
             if (onNavigateToServices) onNavigateToServices();
-            else window.location.hash = '#services';
+            else window.location.hash = '#catalog';
           }}
           style={quickActionButtonStyle}
         >
@@ -210,7 +238,7 @@ export const StudentDashboardOverview: React.FC<StudentDashboardOverviewProps> =
           style={quickActionButtonStyle}
         >
           <Package size={18} color="var(--color-brand-blue)" />
-          <span style={{ fontWeight: 600 }}>My Requests</span>
+          <span style={{ fontWeight: 600 }}>Order History</span>
         </button>
 
         <button

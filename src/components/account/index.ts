@@ -8,3 +8,4 @@ export { RequestStatusBadge } from './RequestStatusBadge';
 export { RequestTimeline } from './RequestTimeline';
 export { RequestDetailPage } from './RequestDetailPage';
 export { StudentDashboardOverview } from './StudentDashboardOverview';
+export { AccountServicesTab } from './AccountServicesTab';

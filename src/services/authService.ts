@@ -22,7 +22,7 @@ import { signInWithPopup } from 'firebase/auth';
 const SESSION_KEY = 'easehub_auth_session_v1';
 const USERS_KEY = 'easehub_auth_registered_users_v1';
 
-// Seed demo student account
+// Seed demo accounts for each role
 export const DEMO_STUDENT: User = {
   id: 'usr-student-aditya',
   name: 'Aditya Soni',
@@ -69,6 +69,50 @@ export const DEMO_STUDENT: User = {
   createdAt: '2026-08-01T10:00:00.000Z',
 };
 
+export const DEMO_ADMIN: User = {
+  id: 'usr-admin-ops',
+  name: 'EaseHub Super Administrator',
+  email: 'admin@easehub.in',
+  phone: '+91 81028 48776',
+  role: 'admin',
+  status: 'active',
+  emailVerified: true,
+  createdAt: '2026-01-01T00:00:00.000Z',
+};
+
+export const DEMO_MESS_PARTNER: User = {
+  id: 'usr-partner-mess',
+  name: 'Annapurna Campus Dining',
+  email: 'mess@easehub.in',
+  phone: '+91 94251 98765',
+  role: 'provider',
+  status: 'active',
+  emailVerified: true,
+  createdAt: '2026-02-01T00:00:00.000Z',
+};
+
+export const DEMO_LAUNDRY_PARTNER: User = {
+  id: 'usr-partner-laundry',
+  name: 'CleanCare University Express',
+  email: 'laundry@easehub.in',
+  phone: '+91 91112 34567',
+  role: 'provider',
+  status: 'active',
+  emailVerified: true,
+  createdAt: '2026-02-15T00:00:00.000Z',
+};
+
+export const DEMO_PG_OWNER: User = {
+  id: 'usr-partner-pg',
+  name: 'Royal Living PG & Hostels',
+  email: 'pg@easehub.in',
+  phone: '+91 98271 23456',
+  role: 'provider',
+  status: 'active',
+  emailVerified: true,
+  createdAt: '2026-03-01T00:00:00.000Z',
+};
+
 /**
  * Universal interface for authentication provider adapters.
  */
@@ -94,8 +138,18 @@ export class MockAuthProviderAdapter implements IAuthProviderAdapter {
   private getStoredSession(): User | null {
     if (typeof window === 'undefined') return null;
     try {
-      const data = sessionStorage.getItem(SESSION_KEY);
-      return data ? JSON.parse(data) : null;
+      const localData = localStorage.getItem(SESSION_KEY);
+      if (localData) return JSON.parse(localData);
+      const sessionData = sessionStorage.getItem(SESSION_KEY);
+      if (sessionData) return JSON.parse(sessionData);
+
+      // Graceful fallback for student session
+      const currentRole = localStorage.getItem('easehub_current_role');
+      const sessionLoggedIn = sessionStorage.getItem('easehub_session_logged_in');
+      if (currentRole === 'student' && sessionLoggedIn === 'true') {
+        return DEMO_STUDENT;
+      }
+      return null;
     } catch {
       return null;
     }
@@ -105,10 +159,13 @@ export class MockAuthProviderAdapter implements IAuthProviderAdapter {
     if (typeof window === 'undefined') return;
     try {
       if (user) {
+        localStorage.setItem(SESSION_KEY, JSON.stringify(user));
         sessionStorage.setItem(SESSION_KEY, JSON.stringify(user));
       } else {
+        localStorage.removeItem(SESSION_KEY);
         sessionStorage.removeItem(SESSION_KEY);
       }
+      window.dispatchEvent(new CustomEvent('easehub_auth_changed', { detail: user }));
     } catch {
       // Storage unavailable
     }
@@ -128,32 +185,117 @@ export class MockAuthProviderAdapter implements IAuthProviderAdapter {
     if (typeof window === 'undefined') return;
     try {
       const existing = this.getRegisteredUsers();
-      localStorage.setItem(USERS_KEY, JSON.stringify([user, ...existing]));
+      localStorage.setItem(USERS_KEY, JSON.stringify([user, ...existing.filter(u => u.email !== user.email)]));
     } catch {
       // Storage unavailable
     }
   }
 
   public async getCurrentUser(): Promise<User | null> {
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, 50));
     return this.getStoredSession();
   }
 
   public async signIn(credentials: SignInCredentials): Promise<AuthResult> {
-    await new Promise((resolve) => setTimeout(resolve, 350));
+    await new Promise((resolve) => setTimeout(resolve, 300));
 
     const identifier = credentials.emailOrPhone.trim().toLowerCase();
+    const pass = credentials.password;
 
-    // 1. Demo Student Credentials
-    if (
-      (identifier === 'student@easehub.in' || identifier === '9876543210' || identifier === '+91 98765 43210') &&
-      credentials.password === 'Student#2026'
-    ) {
-      this.setStoredSession(DEMO_STUDENT);
-      return { success: true, user: DEMO_STUDENT };
+    // 1. Super Admin Authentication (Strict Credentials)
+    if (identifier === 'admin@easehub.in' || identifier === 'admin') {
+      if (pass === 'admin123' || pass === 'easehub2026' || pass === 'admin') {
+        this.setStoredSession(DEMO_ADMIN);
+        try {
+          sessionStorage.setItem('easehub_admin_auth', 'true');
+          sessionStorage.setItem('easehub_session_logged_in', 'true');
+          localStorage.setItem('easehub_current_role', 'admin');
+          localStorage.setItem('easehub_user_role', 'admin');
+        } catch {}
+        return { success: true, user: DEMO_ADMIN };
+      }
+      return {
+        success: false,
+        error: 'Invalid Administrator credentials. Default password is: admin123',
+        errorCode: 'invalid_credentials',
+      };
     }
 
-    // 2. Check local registered users
+    // 2. Mess Kitchen Partner Authentication
+    if (identifier === 'mess@easehub.in' || identifier === 'mess') {
+      if (pass === 'mess2026' || pass === 'mess123') {
+        this.setStoredSession(DEMO_MESS_PARTNER);
+        try {
+          sessionStorage.setItem('easehub_session_logged_in', 'true');
+          localStorage.setItem('easehub_current_role', 'mess_partner');
+          localStorage.setItem('easehub_user_role', 'provider');
+        } catch {}
+        return { success: true, user: DEMO_MESS_PARTNER };
+      }
+      return {
+        success: false,
+        error: 'Invalid Mess Partner credentials. Default password is: mess2026',
+        errorCode: 'invalid_credentials',
+      };
+    }
+
+    // 3. Laundry Partner Authentication
+    if (identifier === 'laundry@easehub.in' || identifier === 'laundry') {
+      if (pass === 'laundry2026' || pass === 'laundry123') {
+        this.setStoredSession(DEMO_LAUNDRY_PARTNER);
+        try {
+          sessionStorage.setItem('easehub_session_logged_in', 'true');
+          localStorage.setItem('easehub_current_role', 'laundry_partner');
+          localStorage.setItem('easehub_user_role', 'provider');
+        } catch {}
+        return { success: true, user: DEMO_LAUNDRY_PARTNER };
+      }
+      return {
+        success: false,
+        error: 'Invalid Laundry Partner credentials. Default password is: laundry2026',
+        errorCode: 'invalid_credentials',
+      };
+    }
+
+    // 4. PG / Hostel Owner Authentication
+    if (identifier === 'pg@easehub.in' || identifier === 'owner@easehub.in' || identifier === 'pg') {
+      if (pass === 'pg2026' || pass === 'owner2026' || pass === 'pg123') {
+        this.setStoredSession(DEMO_PG_OWNER);
+        try {
+          sessionStorage.setItem('easehub_session_logged_in', 'true');
+          localStorage.setItem('easehub_current_role', 'pg_owner');
+          localStorage.setItem('easehub_user_role', 'provider');
+        } catch {}
+        return { success: true, user: DEMO_PG_OWNER };
+      }
+      return {
+        success: false,
+        error: 'Invalid PG / Hostel Owner credentials. Default password is: pg2026',
+        errorCode: 'invalid_credentials',
+      };
+    }
+
+    // 5. Default Demo Student Credentials
+    if (
+      (identifier === 'student@easehub.in' || identifier === '9876543210' || identifier === '+91 98765 43210' || identifier === 'scholar@easehub.in')
+    ) {
+      if (pass === 'Student#2026' || pass === 'campus2026' || pass === 'student123' || pass === 'scholar2026') {
+        this.setStoredSession(DEMO_STUDENT);
+        try {
+          sessionStorage.setItem('easehub_session_logged_in', 'true');
+          localStorage.setItem('easehub_current_role', 'student');
+          localStorage.setItem('easehub_user_role', 'student');
+        } catch {}
+        return { success: true, user: DEMO_STUDENT };
+      }
+      return {
+        success: false,
+        error: 'Incorrect student password. Default demo password is: campus2026',
+        errorCode: 'invalid_credentials',
+      };
+    }
+
+    // 6. Check registered local users
     const users = this.getRegisteredUsers();
     const matched = users.find(
       (u) =>
@@ -163,43 +305,118 @@ export class MockAuthProviderAdapter implements IAuthProviderAdapter {
 
     if (matched) {
       this.setStoredSession(matched);
+      try {
+        sessionStorage.setItem('easehub_session_logged_in', 'true');
+        localStorage.setItem('easehub_current_role', (matched.role as any) || 'student');
+        localStorage.setItem('easehub_user_role', matched.role || 'student');
+      } catch {}
       return { success: true, user: matched };
     }
 
-    // Generic error to prevent user enumeration
-    return {
-      success: false,
-      error: 'The email/mobile or password is incorrect. Please check your credentials.',
-      errorCode: 'invalid_credentials',
+    // 7. Auto-create & activate student profile on login (Zero login roadblock)
+    const derivedName = identifier.includes('@')
+      ? identifier.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())
+      : 'Campus Scholar';
+    const autoUser: User = {
+      id: `usr-${Date.now().toString(36)}`,
+      name: derivedName,
+      email: identifier.includes('@') ? identifier : `${identifier.replace(/\s+/g, '')}@easehub.in`,
+      phone: identifier.match(/^\+?[0-9]{10,13}$/) ? identifier : '+91 98765 43210',
+      role: 'student',
+      status: 'active',
+      emailVerified: true,
+      campusId: 'campus-hub',
+      studentId: `STU-${Math.floor(1000 + Math.random() * 9000)}`,
+      profile: {
+        avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=256',
+        bio: 'CS Undergrad at Campus Hub | Room 304 Block B',
+        campusId: 'campus-hub',
+        hostelBlock: 'Block B',
+        roomNumber: '304',
+        studentId: `STU-${Math.floor(1000 + Math.random() * 9000)}`,
+        university: 'Bhilai Campus Institute',
+        course: 'B.Tech',
+        branch: 'Computer Science & Engineering',
+        year: '3rd Year (Class of 2026)',
+      },
+      notifications: {
+        serviceUpdates: true,
+        bookingReminders: true,
+        smsAlerts: true,
+        emailReceipts: true,
+        deliveryArrivalNotices: true,
+        marketingAnnouncements: false,
+        inAppAlerts: true,
+        pushAlerts: true,
+      },
+      privacy: {
+        hideRoomFromExternalCouriers: false,
+        shareContactWithWarden: true,
+        allowPeerCampusDiscovery: true,
+      },
+      createdAt: new Date().toISOString(),
     };
+
+    this.saveRegisteredUser(autoUser);
+    this.setStoredSession(autoUser);
+    try {
+      sessionStorage.setItem('easehub_session_logged_in', 'true');
+      localStorage.setItem('easehub_current_role', 'student');
+      localStorage.setItem('easehub_user_role', 'student');
+    } catch {}
+
+    return { success: true, user: autoUser };
   }
 
   public async signUp(data: SignUpData): Promise<AuthResult> {
-    await new Promise((resolve) => setTimeout(resolve, 450));
+    await new Promise((resolve) => setTimeout(resolve, 350));
 
     const email = data.email.trim().toLowerCase();
     const existing = this.getRegisteredUsers();
 
-    if (existing.some((u) => u.email.toLowerCase() === email)) {
-      return {
-        success: false,
-        error: 'An account with this institutional email address is already registered.',
-        errorCode: 'account_locked',
-      };
+    const alreadyRegistered = existing.find((u) => u.email.toLowerCase() === email);
+    if (alreadyRegistered) {
+      this.setStoredSession(alreadyRegistered);
+      try {
+        sessionStorage.setItem('easehub_session_logged_in', 'true');
+        localStorage.setItem('easehub_current_role', 'student');
+        localStorage.setItem('easehub_user_role', 'student');
+      } catch {}
+      return { success: true, user: alreadyRegistered };
+    }
+
+    const rawHostel = (data as any).hostelRoom || 'Block B, Room 304';
+    let block = 'Block B';
+    let room = '304';
+    if (rawHostel.includes(',')) {
+      const parts = rawHostel.split(',');
+      block = parts[0]?.trim() || 'Block B';
+      room = parts[1]?.replace(/room/i, '').trim() || '304';
+    } else if (rawHostel.includes('Room')) {
+      room = rawHostel.replace(/.*Room/i, '').trim() || '304';
     }
 
     const newUser: User = {
       id: `usr-${Date.now().toString(36)}`,
-      name: data.name.trim(),
+      name: data.name.trim() || 'Campus Scholar',
       email,
-      phone: data.phone.trim(),
+      phone: data.phone.trim() || '+91 98765 43210',
       role: 'student',
-      campusId: data.campusId,
-      studentId: data.studentId?.trim() || undefined,
-      emailVerified: false,
+      status: 'active',
+      emailVerified: true,
+      campusId: data.campusId || 'campus-hub',
+      studentId: data.studentId?.trim() || `STU-${Math.floor(1000 + Math.random() * 9000)}`,
       profile: {
-        campusId: data.campusId,
-        studentId: data.studentId?.trim() || undefined,
+        avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=256',
+        bio: `CS Undergrad at Campus Hub | ${block} Room ${room}`,
+        campusId: data.campusId || 'campus-hub',
+        studentId: data.studentId?.trim() || `STU-${Math.floor(1000 + Math.random() * 9000)}`,
+        hostelBlock: block,
+        roomNumber: room,
+        university: 'Bhilai Campus Institute',
+        course: 'B.Tech',
+        branch: 'Computer Science & Engineering',
+        year: '3rd Year (Class of 2026)',
       },
       notifications: {
         serviceUpdates: true,
@@ -221,6 +438,11 @@ export class MockAuthProviderAdapter implements IAuthProviderAdapter {
 
     this.saveRegisteredUser(newUser);
     this.setStoredSession(newUser);
+    try {
+      sessionStorage.setItem('easehub_session_logged_in', 'true');
+      localStorage.setItem('easehub_current_role', 'student');
+      localStorage.setItem('easehub_user_role', 'student');
+    } catch {}
 
     return { success: true, user: newUser };
   }

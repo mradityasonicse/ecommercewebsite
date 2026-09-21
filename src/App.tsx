@@ -19,6 +19,8 @@ import {
 
 // Auth Context Provider
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { CartProvider } from './context/CartContext';
+import { CartDrawer } from './components/cart/CartDrawer';
 import { BrandIntroSplash } from './components/intro/BrandIntroSplash';
 import { LoginGateModal } from './components/modals/LoginGateModal';
 import { RoleLoginGateModal, type UserPersona } from './components/auth/RoleLoginGateModal';
@@ -150,7 +152,7 @@ function MainApp() {
     } else if (role === 'admin') {
       navigateTo('admin');
     } else {
-      navigateTo('app');
+      navigateTo('account');
     }
   };
 
@@ -922,6 +924,9 @@ function MainApp() {
         <span style={{ fontSize: '1rem' }}>📱</span>
         <span>1-Tap Mobile View</span>
       </button>
+
+      {/* Campus Commerce Slide-Over Cart Drawer */}
+      <CartDrawer />
     </AppShell>
   );
 }
@@ -929,9 +934,11 @@ function MainApp() {
 export function App() {
   return (
     <AuthProvider>
-      <MobilePreviewContainer>
-        <MainApp />
-      </MobilePreviewContainer>
+      <CartProvider>
+        <MobilePreviewContainer>
+          <MainApp />
+        </MobilePreviewContainer>
+      </CartProvider>
     </AuthProvider>
   );
 }

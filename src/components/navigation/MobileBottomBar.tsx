@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import {
   Home,
   Grid3X3,
+  ShoppingBag,
   Bell,
   User as UserIcon,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { useCart } from '../../context/CartContext';
 import { NotificationService } from '../../services/notificationService';
 
 export interface MobileBottomBarProps {
@@ -26,7 +28,8 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({
   className = '',
 }) => {
   const { user } = useAuth();
-  const [activeTab, setActiveTab] = useState<'home' | 'services' | 'notifications' | 'account'>('home');
+  const { toggleCart, itemCount } = useCart();
+  const [activeTab, setActiveTab] = useState<'home' | 'services' | 'orders' | 'notifications' | 'account'>('home');
   const [unreadCount, setUnreadCount] = useState<number>(0);
 
   // Sync unread notifications count in real time
@@ -62,7 +65,7 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({
   }, []);
 
   const handleTabClick = (
-    tab: 'home' | 'services' | 'notifications' | 'account',
+    tab: 'home' | 'services' | 'orders' | 'notifications' | 'account',
     action?: () => void,
     defaultHref?: string
   ) => {
@@ -186,7 +189,78 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({
           </span>
         </button>
 
-        {/* 3. Notification Tab (Alerts) */}
+        {/* 3. Orders / Cart Tab */}
+        <button
+          type="button"
+          onClick={() => {
+            setActiveTab('orders');
+            toggleCart();
+          }}
+          className="easehub-tab-btn"
+          aria-label={`View Orders & Cart (${itemCount} items)`}
+          style={{
+            position: 'relative',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '5px 8px',
+            background: 'none',
+            border: 'none',
+            color: activeTab === 'orders' ? '#15803D' : '#64748B',
+            cursor: 'pointer',
+            transition: 'color 0.2s ease, transform 0.2s ease',
+            flex: 1,
+            gap: '3px',
+          }}
+        >
+          {activeTab === 'orders' && (
+            <span
+              style={{
+                position: 'absolute',
+                top: '-3px',
+                width: '16px',
+                height: '3px',
+                borderRadius: '3px',
+                backgroundColor: '#16A34A',
+                boxShadow: '0 0 8px rgba(22, 163, 74, 0.5)',
+              }}
+            />
+          )}
+          <div style={{ position: 'relative' }}>
+            <span className={itemCount > 0 ? 'easehub-tab-pop' : ''} style={{ display: 'inline-flex' }}>
+              <ShoppingBag size={19} strokeWidth={activeTab === 'orders' ? 2.5 : 2} color={activeTab === 'orders' ? '#15803D' : '#64748B'} />
+            </span>
+            {itemCount > 0 && (
+              <span
+                style={{
+                  position: 'absolute',
+                  top: '-4px',
+                  right: '-8px',
+                  backgroundColor: '#16A34A',
+                  color: '#FFFFFF',
+                  fontSize: '9px',
+                  fontWeight: 900,
+                  width: '15px',
+                  height: '15px',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  border: '1.5px solid #FFFFFF',
+                  boxShadow: '0 1px 4px rgba(22, 163, 74, 0.4)',
+                }}
+              >
+                {itemCount > 9 ? '9+' : itemCount}
+              </span>
+            )}
+          </div>
+          <span style={{ fontSize: '10px', fontWeight: activeTab === 'orders' ? 800 : 600, letterSpacing: '0.02em', color: activeTab === 'orders' ? '#15803D' : '#64748B' }}>
+            Orders
+          </span>
+        </button>
+
+        {/* 4. Notification Tab (Alerts) */}
         <button
           type="button"
           onClick={() => {
