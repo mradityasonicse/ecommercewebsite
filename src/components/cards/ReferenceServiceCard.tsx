@@ -152,78 +152,7 @@ export const ReferenceServiceCard: React.FC<ReferenceServiceCardProps> = ({ item
             </span>
           </div>
 
-          {/* Ecosystem Connection Ribbon (Shows How Services Connect) */}
-          <div style={{ marginBottom: '0.75rem' }}>
-            {item.category === 'pg' ? (
-              <span
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.3rem',
-                  fontSize: '0.72rem',
-                  fontWeight: 700,
-                  backgroundColor: '#EFF5EC',
-                  color: '#15803D',
-                  border: '1px solid #86EFAC',
-                  borderRadius: '6px',
-                  padding: '2px 8px',
-                }}
-              >
-                <span>⚡ Auto-paired with Daily Mess &amp; Doorstep Laundry</span>
-              </span>
-            ) : item.category === 'meals' ? (
-              <span
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.3rem',
-                  fontSize: '0.72rem',
-                  fontWeight: 700,
-                  backgroundColor: '#FEFCE8',
-                  color: '#854D0E',
-                  border: '1px solid #FDE047',
-                  borderRadius: '6px',
-                  padding: '2px 8px',
-                }}
-              >
-                <span>⚡ Warm delivery direct to your PG / Hostel gate</span>
-              </span>
-            ) : item.category === 'laundry' ? (
-              <span
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.3rem',
-                  fontSize: '0.72rem',
-                  fontWeight: 700,
-                  backgroundColor: '#E0F2FE',
-                  color: '#0369A1',
-                  border: '1px solid #BAE6FD',
-                  borderRadius: '6px',
-                  padding: '2px 8px',
-                }}
-              >
-                <span>⚡ Scheduled gate pickup synced with your hostel block</span>
-              </span>
-            ) : (
-              <span
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.3rem',
-                  fontSize: '0.72rem',
-                  fontWeight: 700,
-                  backgroundColor: '#F3E8FF',
-                  color: '#6B21A8',
-                  border: '1px solid #DDD6FE',
-                  borderRadius: '6px',
-                  padding: '2px 8px',
-                }}
-              >
-                <span>⚡ Included in Campus Saver Bundles</span>
-              </span>
-            )}
-          </div>
+
 
           {/* Optional Key Feature Badges */}
           {item.features && item.features.length > 0 && (

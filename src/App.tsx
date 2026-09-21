@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { CAMPUSES, type Campus } from './data/campuses';
 import type { Provider } from './data/providers';
 import { ECOSYSTEM_SERVICES, type EcosystemService } from './data/services';
@@ -23,9 +23,11 @@ import { BrandIntroSplash } from './components/intro/BrandIntroSplash';
 import { LoginGateModal } from './components/modals/LoginGateModal';
 import { RoleLoginGateModal, type UserPersona } from './components/auth/RoleLoginGateModal';
 import { RoleLoginPage } from './pages/RoleLoginPage';
-import { PgOwnerPortal } from './components/portals/PgOwnerPortal';
-import { MessPartnerPortal } from './components/portals/MessPartnerPortal';
-import { LaundryPartnerPortal } from './components/portals/LaundryPartnerPortal';
+
+// Code-split heavy secondary portals for instant initial load
+const PgOwnerPortal = lazy(() => import('./components/portals/PgOwnerPortal').then(m => ({ default: m.PgOwnerPortal })));
+const MessPartnerPortal = lazy(() => import('./components/portals/MessPartnerPortal').then(m => ({ default: m.MessPartnerPortal })));
+const LaundryPartnerPortal = lazy(() => import('./components/portals/LaundryPartnerPortal').then(m => ({ default: m.LaundryPartnerPortal })));
 
 // Global Layout Shell
 import { AppShell } from './components/layout/AppShell';
@@ -49,23 +51,14 @@ import type { BookingSubmissionData } from './utils/whatsapp';
 
 // Storytelling Experience (Phase 4)
 
-// Dedicated Service Detail Page (Phase 6)
-import { ServiceDetailPage } from './pages/ServiceDetailPage';
-
-// Service Booking & Request Page (Phase 7)
-import { BookingPage } from './pages/BookingPage';
-
-// Authentication Pages (Phase 8)
-import { AuthPage } from './pages/AuthPage';
-
-// Student Account Dashboard (Phase 8)
-import { AccountPage } from './pages/AccountPage';
-
-// Campus In-App Negotiation & Chat
-import { ChatPage } from './pages/ChatPage';
-
-// Enterprise Operations & Admin Console
-import { AdminPage } from './pages/AdminPage';
+// Code-split secondary pages for instant initial load
+const ServiceDetailPage = lazy(() => import('./pages/ServiceDetailPage').then(m => ({ default: m.ServiceDetailPage })));
+const BookingPage = lazy(() => import('./pages/BookingPage').then(m => ({ default: m.BookingPage })));
+const AuthPage = lazy(() => import('./pages/AuthPage').then(m => ({ default: m.AuthPage })));
+const AccountPage = lazy(() => import('./pages/AccountPage').then(m => ({ default: m.AccountPage })));
+const ChatPage = lazy(() => import('./pages/ChatPage').then(m => ({ default: m.ChatPage })));
+const AdminPage = lazy(() => import('./pages/AdminPage').then(m => ({ default: m.AdminPage })));
+const DesignSystemPage = lazy(() => import('./pages/DesignSystemPage').then(m => ({ default: m.DesignSystemPage })));
 
 // Modals & Drawers
 import { ProviderDetailModal } from './components/modals/ProviderDetailModal';
@@ -73,9 +66,6 @@ import { ServiceDetailModal } from './components/modals/ServiceDetailModal';
 import { BundleDetailModal } from './components/modals/BundleDetailModal';
 import { RequestCampusDrawer } from './components/drawers/RequestCampusDrawer';
 import { NotificationCenterDrawer } from './components/modals/NotificationCenterDrawer';
-
-// Design System Showcase
-import { DesignSystemPage } from './pages/DesignSystemPage';
 import { MobilePreviewContainer } from './components/layout/MobilePreviewContainer';
 
 export type AppViewMode =
@@ -541,42 +531,44 @@ function MainApp() {
   // Standalone Design System View
   if (routeState.view === 'design-system') {
     return (
-      <div className="easehub-root" style={{ minHeight: '100vh', backgroundColor: 'var(--color-bg-primary)' }}>
-        <DesignSystemPage />
-        <button
-          onClick={() => navigateTo('app')}
-          style={{
-            position: 'fixed',
-            bottom: '24px',
-            right: '24px',
-            zIndex: 9999,
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            padding: '0.65rem 1.1rem',
-            backgroundColor: '#1E293B',
-            color: '#FFFFFF',
-            borderRadius: 'var(--radius-pill)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            fontSize: '0.8rem',
-            fontFamily: 'var(--font-display)',
-            fontWeight: 700,
-            cursor: 'pointer',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
-            transition: 'transform var(--duration-fast), background-color var(--duration-fast)',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.backgroundColor = '#334155';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'none';
-            e.currentTarget.style.backgroundColor = '#1E293B';
-          }}
-        >
-          <span>🏠 Return to Homepage</span>
-        </button>
-      </div>
+      <Suspense fallback={<div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading...</div>}>
+        <div className="easehub-root" style={{ minHeight: '100vh', backgroundColor: 'var(--color-bg-primary)' }}>
+          <DesignSystemPage />
+          <button
+            onClick={() => navigateTo('app')}
+            style={{
+              position: 'fixed',
+              bottom: '24px',
+              right: '24px',
+              zIndex: 9999,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              padding: '0.65rem 1.1rem',
+              backgroundColor: '#1E293B',
+              color: '#FFFFFF',
+              borderRadius: 'var(--radius-pill)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              fontSize: '0.8rem',
+              fontFamily: 'var(--font-display)',
+              fontWeight: 700,
+              cursor: 'pointer',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
+              transition: 'transform var(--duration-fast), background-color var(--duration-fast)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.backgroundColor = '#334155';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'none';
+              e.currentTarget.style.backgroundColor = '#1E293B';
+            }}
+          >
+            <span>🏠 Return to Homepage</span>
+          </button>
+        </div>
+      </Suspense>
     );
   }
 
@@ -594,22 +586,24 @@ function MainApp() {
   // Standalone Auth Layout View
   if (routeState.view === 'auth') {
     return (
-      <AuthPage
-        initialMode={routeState.authMode || 'sign-in'}
-        returnTo={routeState.returnTo}
-        token={routeState.token}
-        errorCode={routeState.errorCode}
-        onBackToApp={() => navigateTo('app')}
-        onAuthSuccess={() => {
-          if (routeState.returnTo) {
-            window.location.href = routeState.returnTo.startsWith('#')
-              ? routeState.returnTo
-              : `#${routeState.returnTo}`;
-          } else {
-            navigateTo('account');
-          }
-        }}
-      />
+      <Suspense fallback={<div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading...</div>}>
+        <AuthPage
+          initialMode={routeState.authMode || 'sign-in'}
+          returnTo={routeState.returnTo}
+          token={routeState.token}
+          errorCode={routeState.errorCode}
+          onBackToApp={() => navigateTo('app')}
+          onAuthSuccess={() => {
+            if (routeState.returnTo) {
+              window.location.href = routeState.returnTo.startsWith('#')
+                ? routeState.returnTo
+                : `#${routeState.returnTo}`;
+            } else {
+              navigateTo('account');
+            }
+          }}
+        />
+      </Suspense>
     );
   }
 
@@ -624,8 +618,7 @@ function MainApp() {
       onNavigateServices={() => navigateTo('services')}
       onNavigateAccount={() => navigateTo('account')}
     >
-
-
+      <Suspense fallback={<div style={{ minHeight: '50vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#16A34A', fontWeight: 600 }}>Loading...</div>}>
       {routeState.view === 'admin' ? (
         /* ENTERPRISE ADMIN OPERATIONS CONSOLE */
         <AdminPage />
@@ -732,137 +725,164 @@ function MainApp() {
           />
         </>
       )}
+      </Suspense>
 
-      {/* Global Interactive Modals & Drawers */}
-      <ProviderDetailModal
-        provider={selectedProvider}
-        onClose={() => setSelectedProvider(null)}
-        onBookService={(category) => {
-          setSelectedProvider(null);
-          const s = ECOSYSTEM_SERVICES.find((srv) => srv.category === category || srv.slug === category);
-          navigateTo('service-booking', s ? s.slug : 'mess');
-        }}
-      />
+      {/* Global Interactive Modals & Drawers - Rendered only when active */}
+      {selectedProvider && (
+        <ProviderDetailModal
+          provider={selectedProvider}
+          onClose={() => setSelectedProvider(null)}
+          onBookService={(category) => {
+            setSelectedProvider(null);
+            const s = ECOSYSTEM_SERVICES.find((srv) => srv.category === category || srv.slug === category);
+            navigateTo('service-booking', s ? s.slug : 'mess');
+          }}
+        />
+      )}
 
-      <ServiceDetailModal
-        service={selectedService}
-        onClose={() => setSelectedService(null)}
-        onExploreProviders={() => {
-          setSelectedService(null);
-          navigateTo('services');
-        }}
-        onBookService={(slug) => {
-          setSelectedService(null);
-          navigateTo('service-booking', slug);
-        }}
-      />
+      {selectedService && (
+        <ServiceDetailModal
+          service={selectedService}
+          onClose={() => setSelectedService(null)}
+          onExploreProviders={() => {
+            setSelectedService(null);
+            navigateTo('services');
+          }}
+          onBookService={(slug) => {
+            setSelectedService(null);
+            navigateTo('service-booking', slug);
+          }}
+        />
+      )}
 
-      <BundleDetailModal
-        bundle={selectedBundle}
-        onClose={() => setSelectedBundle(null)}
-        onViewPass={() => {
-          setSelectedBundle(null);
-          navigateTo('account');
-        }}
-      />
+      {selectedBundle && (
+        <BundleDetailModal
+          bundle={selectedBundle}
+          onClose={() => setSelectedBundle(null)}
+          onViewPass={() => {
+            setSelectedBundle(null);
+            navigateTo('account');
+          }}
+        />
+      )}
 
-      <RequestCampusDrawer
-        isOpen={isRequestCampusOpen}
-        onClose={() => setIsRequestCampusOpen(false)}
-      />
+      {isRequestCampusOpen && (
+        <RequestCampusDrawer
+          isOpen={isRequestCampusOpen}
+          onClose={() => setIsRequestCampusOpen(false)}
+        />
+      )}
 
       {/* Direct Interactive WhatsApp Booking Form Modal */}
-      <WhatsAppBookingModal
-        payload={activeBookingPayload}
-        selectedCampus={selectedCampus}
-        onClose={() => setActiveBookingPayload(null)}
-        onBookingSubmitted={(data) => {
-          setActiveBookingPayload(null);
-          setThankYouBookingData(data);
-        }}
-      />
+      {activeBookingPayload && (
+        <WhatsAppBookingModal
+          payload={activeBookingPayload}
+          selectedCampus={selectedCampus}
+          onClose={() => setActiveBookingPayload(null)}
+          onBookingSubmitted={(data) => {
+            setActiveBookingPayload(null);
+            setThankYouBookingData(data);
+          }}
+        />
+      )}
 
       {/* Thank You for Your Trust! Confirmation Modal */}
-      <ThankYouTrustModal
-        data={thankYouBookingData}
-        onClose={() => setThankYouBookingData(null)}
-        onOpenTracker={(tab, orderId) => {
-          setThankYouBookingData(null);
-          if (tab) setTrackerTab(tab);
-          if (orderId) setTrackerOrderId(orderId);
-          setIsOrderTrackerOpen(true);
-        }}
-      />
+      {thankYouBookingData && (
+        <ThankYouTrustModal
+          data={thankYouBookingData}
+          onClose={() => setThankYouBookingData(null)}
+          onOpenTracker={(tab, orderId) => {
+            setThankYouBookingData(null);
+            if (tab) setTrackerTab(tab);
+            if (orderId) setTrackerOrderId(orderId);
+            setIsOrderTrackerOpen(true);
+          }}
+        />
+      )}
 
       {/* 24h Order and Laundry Status Tracker Modal */}
-      <OrderTrackerModal
-        isOpen={isOrderTrackerOpen}
-        onClose={() => setIsOrderTrackerOpen(false)}
-        defaultTab={trackerTab}
-        orderId={trackerOrderId}
-      />
+      {isOrderTrackerOpen && (
+        <OrderTrackerModal
+          isOpen={isOrderTrackerOpen}
+          onClose={() => setIsOrderTrackerOpen(false)}
+          defaultTab={trackerTab}
+          orderId={trackerOrderId}
+        />
+      )}
 
       {/* 🔔 Campus Notifications Center Drawer */}
-      <NotificationCenterDrawer
-        isOpen={isNotificationCenterOpen}
-        onClose={() => setIsNotificationCenterOpen(false)}
-        onOpenTracker={(orderId) => {
-          if (orderId) setTrackerOrderId(orderId);
-          setIsOrderTrackerOpen(true);
-        }}
-        onNavigateAccount={() => navigateTo('account')}
-      />
+      {isNotificationCenterOpen && (
+        <NotificationCenterDrawer
+          isOpen={isNotificationCenterOpen}
+          onClose={() => setIsNotificationCenterOpen(false)}
+          onOpenTracker={(orderId) => {
+            if (orderId) setTrackerOrderId(orderId);
+            setIsOrderTrackerOpen(true);
+          }}
+          onNavigateAccount={() => navigateTo('account')}
+        />
+      )}
 
       {/* 🌙 "Night Owl" Midnight Canteen & Exam Deliveries Modal */}
-      <MidnightCanteenModal
-        isOpen={isCanteenOpen}
-        onClose={() => setIsCanteenOpen(false)}
-        selectedCampus={selectedCampus}
-      />
+      {isCanteenOpen && (
+        <MidnightCanteenModal
+          isOpen={isCanteenOpen}
+          onClose={() => setIsCanteenOpen(false)}
+          selectedCampus={selectedCampus}
+        />
+      )}
 
       {/* 🍲 Live Campus Daily Mess Menu Board (Breakfast, Lunch, Dinner) */}
-      <DailyMessMenuModal
-        isOpen={isMessMenuOpen}
-        onClose={() => setIsMessMenuOpen(false)}
-      />
+      {isMessMenuOpen && (
+        <DailyMessMenuModal
+          isOpen={isMessMenuOpen}
+          onClose={() => setIsMessMenuOpen(false)}
+        />
+      )}
 
       {/* 1. Cinematic Brand Intro Splash Animation on Launch */}
       {showIntro && <BrandIntroSplash onComplete={handleIntroComplete} />}
 
       {/* 2. Above-Image Login Gate with Direct Google and Mobile/Mail OTP */}
-      <LoginGateModal
-        isOpen={isLoginGateOpen}
-        onClose={() => setIsLoginGateOpen(false)}
-        onSuccess={() => {
-          setIsLoginGateOpen(false);
-        }}
-      />
+      {isLoginGateOpen && (
+        <LoginGateModal
+          isOpen={isLoginGateOpen}
+          onClose={() => setIsLoginGateOpen(false)}
+          onSuccess={() => {
+            setIsLoginGateOpen(false);
+          }}
+        />
+      )}
 
       {/* 2.5 Multi-Role Campus Access Gate (Student, PG, Mess, Laundry, Admin) */}
-      <RoleLoginGateModal
-        isOpen={isRoleGateOpen}
-        onClose={() => setIsRoleGateOpen(false)}
-        onSelectRole={handleSelectPersona}
-      />
+      {isRoleGateOpen && (
+        <RoleLoginGateModal
+          isOpen={isRoleGateOpen}
+          onClose={() => setIsRoleGateOpen(false)}
+          onSelectRole={handleSelectPersona}
+        />
+      )}
 
       {/* ⌘K Global Spotlight Command Palette */}
-      <CommandPaletteModal
-        isOpen={isCommandPaletteOpen}
-        onClose={() => setIsCommandPaletteOpen(false)}
-        onSelectAction={(actionId, payload) => {
-          if (actionId === 'tracker') {
-            setIsOrderTrackerOpen(true);
-          } else if (actionId === 'canteen') {
-            setIsCanteenOpen(true);
-          } else if (actionId === 'mess-menu') {
-            setIsMessMenuOpen(true);
-          } else if (actionId === 'account') {
-            navigateTo('account');
-          } else if (actionId === 'service-booking' && payload) {
-            navigateTo('service-booking', payload);
-          }
-        }}
-      />
+      {isCommandPaletteOpen && (
+        <CommandPaletteModal
+          isOpen={isCommandPaletteOpen}
+          onClose={() => setIsCommandPaletteOpen(false)}
+          onSelectAction={(actionId, payload) => {
+            if (actionId === 'tracker') {
+              setIsOrderTrackerOpen(true);
+            } else if (actionId === 'canteen') {
+              setIsCanteenOpen(true);
+            } else if (actionId === 'mess-menu') {
+              setIsMessMenuOpen(true);
+            } else if (actionId === 'account') {
+              navigateTo('account');
+            } else if (actionId === 'service-booking' && payload) {
+              navigateTo('service-booking', payload);
+            }
+          }}
+        />
+      )}
       {/* Floating 1-Tap Mobile View Trigger */}
       <button
         type="button"
