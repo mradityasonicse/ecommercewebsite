@@ -203,6 +203,9 @@ export const WhatsAppBookingModal: React.FC<WhatsAppBookingModalProps> = ({
         style={{
           width: '100%',
           maxWidth: '600px',
+          maxHeight: 'calc(100dvh - 28px)',
+          display: 'flex',
+          flexDirection: 'column',
           backgroundColor: '#FFFFFF',
           border: '1.5px solid rgba(22, 163, 74, 0.22)',
           borderRadius: '24px',
@@ -312,7 +315,7 @@ export const WhatsAppBookingModal: React.FC<WhatsAppBookingModalProps> = ({
         {/* STEP 1: STUDENT & ROOM DETAILS */}
         {/* ========================================================================= */}
         {step === 1 && (
-          <form onSubmit={handleProceedToPayment} style={{ padding: '1.5rem' }}>
+          <form onSubmit={handleProceedToPayment} style={{ padding: 'clamp(1rem, 3vw, 1.5rem)', flex: 1, overflowY: 'auto' }}>
             {formError && (
               <div
                 style={{
@@ -545,7 +548,7 @@ export const WhatsAppBookingModal: React.FC<WhatsAppBookingModalProps> = ({
         {/* STEP 2: INSTANT ONLINE UPI QR PAYMENT */}
         {/* ========================================================================= */}
         {step === 2 && (
-          <form onSubmit={handleFinalSubmit} style={{ padding: '1.5rem' }}>
+          <form onSubmit={handleFinalSubmit} style={{ padding: 'clamp(1rem, 3vw, 1.5rem)', flex: 1, overflowY: 'auto' }}>
             <div
               style={{
                 display: 'flex',

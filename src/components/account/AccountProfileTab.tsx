@@ -287,7 +287,7 @@ export const AccountProfileTab: React.FC<AccountProfileTabProps> = ({ user, onUp
 
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-              <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#FFFFFF', margin: 0 }}>
+              <h2 style={{ fontSize: 'clamp(1.15rem, 2.5vw, 1.35rem)', fontWeight: 800, color: 'var(--color-text-primary, #0F172A)', margin: 0 }}>
                 {user.name}
               </h2>
               {user.emailVerified ? (
@@ -389,19 +389,19 @@ export const AccountProfileTab: React.FC<AccountProfileTabProps> = ({ user, onUp
       </div>
 
       {/* Main Profile Grid: Identity & Academic Information */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 'var(--space-6)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: 'var(--space-6)' }}>
         {/* Card 1: Personal Identity */}
         <div
           style={{
             backgroundColor: 'var(--color-surface-1)',
             border: '1px solid var(--color-border-subtle)',
             borderRadius: 'var(--radius-xl)',
-            padding: 'var(--space-6)',
+            padding: 'clamp(1rem, 2.5vw, var(--space-6))',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: 'var(--space-4)' }}>
             <UserIcon size={18} color="var(--color-brand-blue)" />
-            <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#FFFFFF', margin: 0 }}>
+            <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-text-primary, #0F172A)', margin: 0 }}>
               Personal Identity
             </h3>
           </div>
@@ -464,12 +464,12 @@ export const AccountProfileTab: React.FC<AccountProfileTabProps> = ({ user, onUp
             backgroundColor: 'var(--color-surface-1)',
             border: '1px solid var(--color-border-subtle)',
             borderRadius: 'var(--radius-xl)',
-            padding: 'var(--space-6)',
+            padding: 'clamp(1rem, 2.5vw, var(--space-6))',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: 'var(--space-4)' }}>
             <GraduationCap size={18} color="var(--color-brand-blue)" />
-            <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#FFFFFF', margin: 0 }}>
+            <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-text-primary, #0F172A)', margin: 0 }}>
               Academic & Campus Residence
             </h3>
           </div>
@@ -621,18 +621,20 @@ const fieldLabelStyle: React.CSSProperties = {
 
 const inputStyle: React.CSSProperties = {
   width: '100%',
+  minHeight: '44px',
   padding: '0.65rem 0.85rem',
   backgroundColor: 'var(--color-surface-2)',
   border: '1px solid var(--color-brand-blue)',
   borderRadius: 'var(--radius-md)',
-  color: '#FFFFFF',
-  fontSize: '0.88rem',
+  color: 'var(--color-text-primary, #0F172A)',
+  fontSize: '16px',
   outline: 'none',
+  boxSizing: 'border-box',
 };
 
 const readOnlyValueStyle: React.CSSProperties = {
   fontSize: '0.9rem',
   fontWeight: 600,
-  color: '#FFFFFF',
+  color: 'var(--color-text-primary, #0F172A)',
   padding: '0.2rem 0',
 };

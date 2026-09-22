@@ -752,4 +752,56 @@ export class ServiceRequestRepository {
     await new Promise((resolve) => setTimeout(resolve, 150));
     return this.getStoredRequests();
   }
+
+  /**
+   * Synchronous accessor for immediate render hydration.
+   */
+  public static getAllRequestsSync(): ServiceRequest[] {
+    return this.getStoredRequests();
+  }
+
+  /**
+   * Administrator: Update any order / request status with audit event & student notification.
+   */
+  public static updateRequestStatusByAdmin(
+    requestId: string,
+    newStatus: RequestStatus,
+    adminNote?: string
+  ): { success: boolean; request?: ServiceRequest; error?: string } {
+    const requests = this.getStoredRequests();
+    const idx = requests.findIndex((r) => r.id.toLowerCase() === requestId.toLowerCase());
+    if (idx === -1) return { success: false, error: 'Request not found' };
+
+    const target = requests[idx];
+    const updateEvent: RequestTimelineEvent = {
+      id: `t-${Date.now()}`,
+      status: newStatus,
+      title: `Status: ${newStatus.toUpperCase()}`,
+      description: adminNote || `Updated by Central Campus Administrator.`,
+      timestamp: new Date().toISOString(),
+      actor: 'Campus Admin HQ',
+    };
+
+    const updatedRequest: ServiceRequest = {
+      ...target,
+      status: newStatus,
+      timeline: [...(target.timeline || []), updateEvent],
+    };
+
+    requests[idx] = updatedRequest;
+    this.saveStoredRequests(requests);
+
+    if (target.customer.email) {
+      NotificationService.createNotification({
+        userId: target.customer.email,
+        type: 'request_update',
+        title: `Order Update: ${target.serviceName}`,
+        description: adminNote || `Your request (${target.id}) status is now ${newStatus}.`,
+        targetUrl: `#account/tracking/${target.id}`,
+        priority: 'high',
+      });
+    }
+
+    return { success: true, request: updatedRequest };
+  }
 }

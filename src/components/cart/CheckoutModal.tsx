@@ -118,9 +118,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   };
 
   const handleDone = () => {
+    const orderIdToTrack = confirmedOrderId;
     onClose();
     setConfirmedOrderId(null);
-    window.location.hash = '#account/services';
+    window.location.hash = orderIdToTrack ? `#account/tracking/${orderIdToTrack}` : '#account/tracking';
   };
 
   return (
@@ -136,7 +137,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '1.25rem',
+        padding: 'clamp(0.5rem, 2vw, 1.25rem)',
       }}
       onClick={onClose}
     >
@@ -144,9 +145,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
         style={{
           backgroundColor: '#FFFFFF',
           borderRadius: '24px',
-          maxWidth: '520px',
+          maxWidth: 'min(520px, 100%)',
           width: '100%',
-          maxHeight: '90vh',
+          maxHeight: 'min(94vh, calc(100dvh - 1.5rem))',
           overflowY: 'auto',
           boxShadow: '0 25px 60px -15px rgba(0,0,0,0.3)',
           border: '1px solid #E2E8F0',
@@ -238,7 +239,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   boxShadow: '0 8px 20px -4px rgba(22, 163, 74, 0.4)',
                 }}
               >
-                <span>View in My Services Hub</span>
+                <span>Track Live Order in Account</span>
                 <ArrowRight size={16} />
               </button>
 
@@ -292,7 +293,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   Delivery Destination
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))', gap: '0.65rem' }}>
                   <div>
                     <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#475569', marginBottom: '0.2rem' }}>
                       Hostel Wing / Block
@@ -301,7 +302,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       type="text"
                       value={deliveryDetails.hostelBlock}
                       onChange={(e) => setDeliveryDetails((prev) => ({ ...prev, hostelBlock: e.target.value }))}
-                      style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: '1.5px solid #CBD5E1', fontSize: '0.85rem' }}
+                      style={{ width: '100%', minHeight: '42px', padding: '0.55rem 0.75rem', borderRadius: '8px', border: '1.5px solid #CBD5E1', fontSize: '16px', boxSizing: 'border-box' }}
                       required
                     />
                   </div>
@@ -314,7 +315,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       type="text"
                       value={deliveryDetails.roomNumber}
                       onChange={(e) => setDeliveryDetails((prev) => ({ ...prev, roomNumber: e.target.value }))}
-                      style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: '1.5px solid #CBD5E1', fontSize: '0.85rem' }}
+                      style={{ width: '100%', minHeight: '42px', padding: '0.55rem 0.75rem', borderRadius: '8px', border: '1.5px solid #CBD5E1', fontSize: '16px', boxSizing: 'border-box' }}
                       required
                     />
                   </div>
@@ -329,7 +330,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     placeholder="e.g. Call when outside hostel gate"
                     value={deliveryDetails.specialInstructions}
                     onChange={(e) => setDeliveryDetails((prev) => ({ ...prev, specialInstructions: e.target.value }))}
-                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: '1.5px solid #CBD5E1', fontSize: '0.85rem' }}
+                    style={{ width: '100%', minHeight: '42px', padding: '0.55rem 0.75rem', borderRadius: '8px', border: '1.5px solid #CBD5E1', fontSize: '16px', boxSizing: 'border-box' }}
                   />
                 </div>
               </div>
@@ -340,7 +341,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   Select Payment Mode
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.5rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 110px), 1fr))', gap: '0.5rem' }}>
                   <button
                     type="button"
                     onClick={() => setPaymentMethod('upi')}
@@ -542,11 +543,13 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       onChange={(e) => setUtrNumber(e.target.value)}
                       style={{
                         width: '100%',
+                        minHeight: '42px',
                         padding: '0.55rem 0.75rem',
                         borderRadius: '8px',
                         border: '1px solid #CBD5E1',
-                        fontSize: '0.82rem',
+                        fontSize: '16px',
                         fontFamily: 'monospace',
+                        boxSizing: 'border-box',
                       }}
                     />
                   </div>
@@ -559,12 +562,13 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 disabled={isProcessing}
                 style={{
                   width: '100%',
+                  minHeight: '48px',
                   padding: '0.95rem',
                   backgroundColor: '#16A34A',
                   color: '#FFFFFF',
                   border: 'none',
                   borderRadius: '14px',
-                  fontSize: '0.96rem',
+                  fontSize: 'clamp(0.88rem, 2.5vw, 0.98rem)',
                   fontWeight: 800,
                   cursor: isProcessing ? 'not-allowed' : 'pointer',
                   display: 'flex',

@@ -14,6 +14,8 @@ import {
 import { Container } from '../../primitives/Container';
 import { ScrollReveal } from '../../motion/ScrollReveal';
 import type { Campus } from '../../../data/campuses';
+import { useDomain } from '../../../context/DomainContext';
+import { SiteSettingsService, type SiteSettings } from '../../../services/siteSettingsService';
 
 export interface PrizeWinningHeroProps {
   selectedCampus: Campus;
@@ -32,6 +34,16 @@ export const PrizeWinningHero: React.FC<PrizeWinningHeroProps> = ({
   onOpenShowcase: _onOpenShowcase,
   onOpenSearch,
 }) => {
+  const { domainConfig, currentDomain } = useDomain();
+  const [siteSettings, setSiteSettings] = React.useState<SiteSettings>(() => SiteSettingsService.getSettings());
+
+  React.useEffect(() => {
+    const handleUpdate = () => {
+      setSiteSettings(SiteSettingsService.getSettings());
+    };
+    window.addEventListener('easehub_site_settings_updated', handleUpdate);
+    return () => window.removeEventListener('easehub_site_settings_updated', handleUpdate);
+  }, []);
   return (
     <section
       id="hero"
@@ -63,18 +75,18 @@ export const PrizeWinningHero: React.FC<PrizeWinningHeroProps> = ({
         }}
       />
 
-      {/* 2. Warm Sunshine Yellow & Fresh Emerald Lighting Aura */}
+      {/* 2. Refined Atmospheric Lighting Aura */}
       <div
         aria-hidden="true"
         style={{
           position: 'absolute',
-          top: '-140px',
+          top: '-120px',
           left: '50%',
           transform: 'translateX(-50%)',
-          width: '1000px',
-          height: '520px',
+          width: 'min(900px, 100vw)',
+          height: '420px',
           borderRadius: '50%',
-          background: 'radial-gradient(ellipse at center, rgba(250, 204, 21, 0.28) 0%, rgba(34, 197, 94, 0.12) 40%, rgba(255, 255, 255, 0) 75%)',
+          background: `radial-gradient(ellipse at center, ${domainConfig.accentBg} 0%, rgba(255, 255, 255, 0) 70%)`,
           pointerEvents: 'none',
           zIndex: 1,
         }}
@@ -89,6 +101,7 @@ export const PrizeWinningHero: React.FC<PrizeWinningHeroProps> = ({
             textAlign: 'center',
             maxWidth: '920px',
             margin: '0 auto',
+            padding: '0 clamp(0.5rem, 2vw, 1.5rem)',
           }}
         >
           {/* Institutional Trust & Campus Network Live Indicator */}
@@ -102,27 +115,29 @@ export const PrizeWinningHero: React.FC<PrizeWinningHeroProps> = ({
               borderRadius: 'var(--radius-pill)',
               fontSize: '0.8rem',
               fontWeight: 700,
-              color: '#0F5132',
-              backgroundColor: '#EFF5EC',
-              border: '1px solid rgba(22, 163, 74, 0.28)',
+              color: domainConfig.accentColor,
+              backgroundColor: domainConfig.accentBg,
+              border: `1px solid ${domainConfig.accentBorder}`,
               marginBottom: '1.5rem',
-              boxShadow: '0 2px 8px rgba(15, 81, 50, 0.04)',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
             }}
           >
-            <ShieldCheck size={16} color="#15803D" />
-            <span>Verified Student Living Network</span>
-            <span style={{ color: 'rgba(15, 81, 50, 0.3)' }}>|</span>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#15803D' }}>
+            <ShieldCheck size={16} color={domainConfig.accentColor} />
+            <span>{currentDomain === 'unified' ? (siteSettings.badgeText || domainConfig.badge) : domainConfig.badge}</span>
+            <span style={{ opacity: 0.3 }}>|</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: domainConfig.accentColor }}>
               <span
                 style={{
                   width: '8px',
                   height: '8px',
                   borderRadius: '50%',
-                  backgroundColor: '#16A34A',
-                  boxShadow: '0 0 10px rgba(22, 163, 74, 0.65)',
+                  backgroundColor: domainConfig.accentColor,
+                  boxShadow: `0 0 10px ${domainConfig.accentColor}`,
                 }}
               />
-              {selectedCampus.name} Live
+              {siteSettings.campusName || selectedCampus.name} Live
             </span>
           </div>
 
@@ -130,22 +145,25 @@ export const PrizeWinningHero: React.FC<PrizeWinningHeroProps> = ({
           <h1
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(2.3rem, 5.5vw, 4rem)',
+              fontSize: 'clamp(2.1rem, 5.2vw, 3.8rem)',
               fontWeight: 800,
               letterSpacing: '-0.035em',
-              lineHeight: 1.1,
+              lineHeight: 1.12,
               margin: '0 0 1.2rem 0',
               color: '#0F172A',
             }}
           >
-            The Operating System for{' '}
-            <span className="prize-gradient-text">Collegiate Living.</span>
+            {siteSettings.headlinePrefix || domainConfig.headlinePrefix}{' '}
+            <span className="prize-gradient-text" style={{ color: domainConfig.accentColor }}>
+              {siteSettings.headlineHighlight || domainConfig.headlineHighlight}
+            </span>{' '}
+            {siteSettings.headlineSuffix !== undefined && siteSettings.headlineSuffix !== '' ? siteSettings.headlineSuffix : domainConfig.headlineSuffix}
           </h1>
 
           {/* Subtitle */}
           <p
             style={{
-              fontSize: 'clamp(1rem, 2vw, 1.2rem)',
+              fontSize: 'clamp(0.95rem, 1.8vw, 1.15rem)',
               color: '#475569',
               lineHeight: 1.6,
               maxWidth: '680px',
@@ -153,7 +171,7 @@ export const PrizeWinningHero: React.FC<PrizeWinningHeroProps> = ({
               fontWeight: 400,
             }}
           >
-            Curated student hostels, fresh mess subscriptions, same-day laundry, and midnight exam canteen deliveries — all coordinated with zero brokerage in one unified interface.
+            {siteSettings.heroDescription || domainConfig.description}
           </p>
 
           {/* 3. Global Quick Search Bar & Shortcut Trigger */}
@@ -166,19 +184,19 @@ export const PrizeWinningHero: React.FC<PrizeWinningHeroProps> = ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              padding: '0.8rem 1.35rem',
+              padding: '0.75rem 1.25rem',
               borderRadius: 'var(--radius-pill)',
               cursor: 'pointer',
               marginBottom: '2rem',
-              border: '1px solid rgba(22, 163, 74, 0.22)',
+              border: `1px solid ${domainConfig.accentBorder}`,
               backgroundColor: '#FFFFFF',
-              boxShadow: '0 6px 20px -2px rgba(15, 81, 50, 0.08)',
+              boxShadow: '0 6px 20px -2px rgba(0, 0, 0, 0.06)',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: '#64748B' }}>
-              <Search size={18} color="#16A34A" />
-              <span style={{ fontSize: '0.92rem', color: '#334155' }}>
-                Search PG rooms, mess plans, laundry, or night food...
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: '#64748B', minWidth: 0 }}>
+              <Search size={18} color={domainConfig.accentColor} style={{ flexShrink: 0 }} />
+              <span style={{ fontSize: '0.90rem', color: '#334155', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                Search rooms, mess plans, laundry, or night food...
               </span>
             </div>
             <div
@@ -186,21 +204,22 @@ export const PrizeWinningHero: React.FC<PrizeWinningHeroProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.35rem',
-                backgroundColor: 'rgba(22, 163, 74, 0.08)',
+                backgroundColor: domainConfig.accentBg,
                 padding: '0.25rem 0.6rem',
                 borderRadius: '6px',
                 fontSize: '0.72rem',
                 fontFamily: 'var(--font-mono)',
-                color: '#15803D',
+                color: domainConfig.accentColor,
                 fontWeight: 700,
-                border: '1px solid rgba(22, 163, 74, 0.18)',
+                border: `1px solid ${domainConfig.accentBorder}`,
+                flexShrink: 0,
               }}
             >
               <span>⌘K</span>
             </div>
           </div>
 
-          {/* 4. Interactive Quick-Action Dock */}
+          {/* 4. Interactive Quick-Action Dock (Domain Configured) */}
           <div
             style={{
               display: 'flex',
@@ -208,95 +227,70 @@ export const PrizeWinningHero: React.FC<PrizeWinningHeroProps> = ({
               justifyContent: 'center',
               gap: '0.65rem',
               marginBottom: '3rem',
+              width: '100%',
             }}
           >
-            <button
-              type="button"
-              onClick={() => onOpenQuickCategory('pg')}
-              className="prize-dock-btn easehub-spring-btn"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.65rem 1.15rem',
-                borderRadius: 'var(--radius-pill)',
-                backgroundColor: '#FFFFFF',
-                border: '1px solid rgba(22, 163, 74, 0.25)',
-                color: '#0F172A',
-                fontSize: '0.86rem',
-                fontWeight: 600,
-                cursor: 'pointer',
-              }}
-            >
-              <Building2 size={16} color="#15803D" />
-              <span>Verified PGs & Hostels</span>
-            </button>
+            {domainConfig.quickActions.map((action) => {
+              let Icon = Building2;
+              let iconColor = domainConfig.accentColor;
 
-            <button
-              type="button"
-              onClick={() => window.dispatchEvent(new CustomEvent('easehub_open_mess_menu'))}
-              className="prize-dock-btn"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.65rem 1.15rem',
-                borderRadius: 'var(--radius-pill)',
-                backgroundColor: '#FFFFFF',
-                border: '1px solid rgba(234, 179, 8, 0.35)',
-                color: '#0F172A',
-                fontSize: '0.86rem',
-                fontWeight: 600,
-                cursor: 'pointer',
-              }}
-            >
-              <UtensilsCrossed size={16} color="#D97706" />
-              <span>Daily Mess Subscriptions</span>
-            </button>
+              if (action.action === 'mess-menu' || action.id.includes('mess')) {
+                Icon = UtensilsCrossed;
+                iconColor = '#D97706';
+              } else if (action.id.includes('laundry') || action.category === 'laundry') {
+                Icon = Shirt;
+                iconColor = '#7C3AED';
+              } else if (action.action === 'canteen') {
+                Icon = Moon;
+                iconColor = '#D97706';
+              } else if (action.category === 'pg') {
+                Icon = Building2;
+                iconColor = '#1D4ED8';
+              } else {
+                Icon = Zap;
+              }
 
-            <button
-              type="button"
-              onClick={() => onOpenQuickCategory('laundry')}
-              className="prize-dock-btn"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.65rem 1.15rem',
-                borderRadius: 'var(--radius-pill)',
-                backgroundColor: '#FFFFFF',
-                border: '1px solid rgba(22, 163, 74, 0.25)',
-                color: '#0F172A',
-                fontSize: '0.86rem',
-                fontWeight: 600,
-                cursor: 'pointer',
-              }}
-            >
-              <Shirt size={16} color="#16A34A" />
-              <span>Doorstep Laundry</span>
-            </button>
+              const handleClick = () => {
+                if (action.action === 'mess-menu') {
+                  window.dispatchEvent(new CustomEvent('easehub_open_mess_menu'));
+                } else if (action.action === 'canteen') {
+                  onOpenCanteen();
+                } else if (action.category && action.category !== 'all') {
+                  onOpenQuickCategory(action.category);
+                } else {
+                  const el = document.getElementById('core-services');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  else onOpenQuickCategory('pg');
+                }
+              };
 
-            <button
-              type="button"
-              onClick={onOpenCanteen}
-              className="prize-dock-btn"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.65rem 1.15rem',
-                borderRadius: 'var(--radius-pill)',
-                backgroundColor: '#FFFFFF',
-                border: '1px solid rgba(234, 179, 8, 0.35)',
-                color: '#0F172A',
-                fontSize: '0.86rem',
-                fontWeight: 600,
-                cursor: 'pointer',
-              }}
-            >
-              <Moon size={16} color="#D97706" />
-              <span>🌙 Midnight Canteen</span>
-            </button>
+              return (
+                <button
+                  key={action.id}
+                  type="button"
+                  onClick={handleClick}
+                  className="prize-dock-btn easehub-spring-btn"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    padding: '0.65rem 1.15rem',
+                    borderRadius: 'var(--radius-pill)',
+                    backgroundColor: '#FFFFFF',
+                    border: '1px solid rgba(0, 0, 0, 0.1)',
+                    color: '#0F172A',
+                    fontSize: '0.86rem',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    minHeight: '44px',
+                    transition: 'all 0.18s ease',
+                  }}
+                >
+                  <Icon size={16} color={iconColor} />
+                  <span>{action.label}</span>
+                </button>
+              );
+            })}
           </div>
 
           {/* 5. Live Showcase Bento Grid Preview (Visual Wow Cards) */}

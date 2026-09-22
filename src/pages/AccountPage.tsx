@@ -21,10 +21,11 @@ import {
   RequestDetailPage,
   StudentDashboardOverview,
   AccountServicesTab,
+  AccountOrderTrackingTab,
 } from '../components/account';
 import { parseAccountRouteFromUrl, type AccountSubpage } from '../utils/routes';
 import { NotificationService } from '../services/notificationService';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Navigation } from 'lucide-react';
 
 interface AccountPageProps {
   onNavigateToAuth?: (mode?: 'sign-in' | 'sign-up') => void;
@@ -45,6 +46,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({
 
     const hash = window.location.hash.toLowerCase();
     if (hash.includes('/services') || hash.includes('/my-services')) return { subpage: 'services' };
+    if (hash.includes('/tracking') || hash.includes('/track') || hash.includes('/orders')) return { subpage: 'tracking' };
     if (hash.includes('/notifications')) return { subpage: 'notifications' };
     if (hash.includes('/profile')) return { subpage: 'profile' };
     if (hash.includes('/settings')) return { subpage: 'settings' };
@@ -174,7 +176,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({
       style={{
         maxWidth: '1160px',
         margin: '0 auto',
-        padding: 'calc(var(--navbar-height, 72px) + 2rem) var(--space-6) var(--space-24)',
+        padding: 'calc(var(--navbar-height, 72px) + 1.25rem) clamp(0.75rem, 3.5vw, 1.5rem) var(--space-20)',
         display: 'flex',
         flexDirection: 'column',
         gap: 'var(--space-8)',
@@ -200,6 +202,7 @@ export const AccountPage: React.FC<AccountPageProps> = ({
           paddingBottom: 'var(--space-2)',
           overflowX: 'auto',
           WebkitOverflowScrolling: 'touch',
+          scrollbarWidth: 'none',
         }}
       >
         {/* Overview Tab */}
@@ -236,6 +239,18 @@ export const AccountPage: React.FC<AccountPageProps> = ({
           >
             LIVE
           </span>
+        </button>
+
+        {/* Order Tracking Tab */}
+        <button
+          type="button"
+          role="tab"
+          aria-selected={activeTab === 'tracking'}
+          onClick={() => navigateToTab('tracking')}
+          style={getTabStyle(activeTab === 'tracking')}
+        >
+          <Navigation size={16} color={activeTab === 'tracking' ? '#15803D' : '#16A34A'} />
+          <span style={{ fontWeight: 800 }}>Order Tracking</span>
         </button>
 
         {/* Requests Tab */}
@@ -308,6 +323,15 @@ export const AccountPage: React.FC<AccountPageProps> = ({
           <AccountServicesTab
             user={user}
             onNavigateToServices={onNavigateToServices}
+          />
+        )}
+
+        {/* Genuine Order Tracking Tab */}
+        {activeTab === 'tracking' && (
+          <AccountOrderTrackingTab
+            user={user}
+            onNavigateToServices={onNavigateToServices}
+            preselectedOrderId={routeInfo.requestId}
           />
         )}
 

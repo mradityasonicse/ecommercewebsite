@@ -46,7 +46,9 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({
   useEffect(() => {
     const handleLocation = () => {
       const hash = window.location.hash.toLowerCase();
-      if (hash.includes('services') || hash.includes('catalog')) {
+      if (hash.includes('tracking') || hash.includes('/orders') || hash.includes('#orders')) {
+        setActiveTab('orders');
+      } else if (hash.includes('services') || hash.includes('catalog')) {
         setActiveTab('services');
       } else if (hash.includes('account') || hash.includes('dashboard')) {
         setActiveTab('account');
@@ -189,15 +191,20 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({
           </span>
         </button>
 
-        {/* 3. Orders / Cart Tab */}
+        {/* 3. Orders / Tracking Tab */}
         <button
           type="button"
           onClick={() => {
             setActiveTab('orders');
-            toggleCart();
+            if (itemCount > 0) {
+              toggleCart();
+            } else {
+              window.location.hash = '#account/tracking';
+              if (onNavigateAccount) onNavigateAccount();
+            }
           }}
           className="easehub-tab-btn"
-          aria-label={`View Orders & Cart (${itemCount} items)`}
+          aria-label={`View Orders & Tracking (${itemCount} items)`}
           style={{
             position: 'relative',
             display: 'flex',
@@ -256,7 +263,7 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({
             )}
           </div>
           <span style={{ fontSize: '10px', fontWeight: activeTab === 'orders' ? 800 : 600, letterSpacing: '0.02em', color: activeTab === 'orders' ? '#15803D' : '#64748B' }}>
-            Orders
+            {itemCount > 0 ? 'Cart' : 'Orders'}
           </span>
         </button>
 

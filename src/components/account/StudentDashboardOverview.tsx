@@ -234,10 +234,19 @@ export const StudentDashboardOverview: React.FC<StudentDashboardOverviewProps> =
 
         <button
           type="button"
+          onClick={() => onNavigateToTab('tracking')}
+          style={{ ...quickActionButtonStyle, borderColor: '#86EFAC', backgroundColor: 'rgba(22, 163, 74, 0.15)' }}
+        >
+          <Package size={18} color="#4ADE80" />
+          <span style={{ fontWeight: 700, color: '#FFFFFF' }}>Track Orders</span>
+        </button>
+
+        <button
+          type="button"
           onClick={() => onNavigateToTab('requests')}
           style={quickActionButtonStyle}
         >
-          <Package size={18} color="var(--color-brand-blue)" />
+          <Clock size={18} color="var(--color-brand-blue)" />
           <span style={{ fontWeight: 600 }}>Order History</span>
         </button>
 
@@ -343,9 +352,9 @@ export const StudentDashboardOverview: React.FC<StudentDashboardOverviewProps> =
                       size="sm"
                       icon={<ExternalLink size={12} />}
                       iconPosition="right"
-                      onClick={() => onNavigateToTab('requests', req.id)}
+                      onClick={() => onNavigateToTab('tracking', req.id)}
                     >
-                      Track
+                      Track Order
                     </Button>
                   </div>
 

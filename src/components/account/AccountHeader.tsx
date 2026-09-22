@@ -12,7 +12,7 @@ export const AccountHeader: React.FC<AccountHeaderProps> = ({ user, onSignOut })
   return (
     <div
       style={{
-        padding: 'var(--space-8)',
+        padding: 'clamp(1rem, 3vw, 1.75rem)',
         borderRadius: 'var(--radius-2xl)',
         backgroundColor: 'var(--color-surface-1)',
         border: '1px solid var(--color-border-subtle)',
@@ -46,10 +46,10 @@ export const AccountHeader: React.FC<AccountHeaderProps> = ({ user, onSignOut })
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
             <h1
               style={{
-                fontSize: '1.5rem',
+                fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)',
                 fontFamily: 'var(--font-display)',
                 fontWeight: 800,
-                color: '#FFFFFF',
+                color: 'var(--color-text-primary, #0F172A)',
                 margin: 0,
               }}
             >

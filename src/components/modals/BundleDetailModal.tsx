@@ -3,7 +3,8 @@ import type { Bundle } from '../../data/bundles';
 import { Modal } from '../ui/Modal';
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
-import { Check, Zap, CheckCircle2, MessageCircle } from 'lucide-react';
+import { Check, Zap, CheckCircle2, MessageCircle, ShoppingCart } from 'lucide-react';
+import { useCart } from '../../context/CartContext';
 
 interface BundleDetailModalProps {
   bundle: Bundle | null;
@@ -12,6 +13,7 @@ interface BundleDetailModalProps {
 }
 
 export const BundleDetailModal: React.FC<BundleDetailModalProps> = ({ bundle, onClose, onViewPass }) => {
+  const { addItem, openCart } = useCart();
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [studentEmail, setStudentEmail] = useState('');
 
@@ -133,6 +135,49 @@ export const BundleDetailModal: React.FC<BundleDetailModalProps> = ({ bundle, on
                 e.currentTarget.style.boxShadow = 'inset 0 1px 3px rgba(0, 0, 0, 0.3)';
               }}
             />
+            {/* Add to Cart Primary CTA */}
+            <Button
+              variant="primary"
+              size="md"
+              fullWidth
+              type="button"
+              className="easehub-btn-tactile"
+              onClick={() => {
+                addItem({
+                  id: `bundle_${bundle.id}`,
+                  slug: bundle.id,
+                  name: bundle.name,
+                  category: 'extra',
+                  priceText: `₹${bundle.bundlePrice.toLocaleString()}/${bundle.billingPeriod}`,
+                  numericPrice: bundle.bundlePrice,
+                  periodText: bundle.billingPeriod,
+                  imageUrl: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&auto=format&fit=crop&q=80',
+                  providerName: 'EaseHub Smart All-in-One Pass',
+                  optionName: bundle.tagline,
+                });
+                openCart();
+                onClose();
+              }}
+              style={{
+                background: 'linear-gradient(135deg, #2563eb, #1d4ed8)',
+                color: '#ffffff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                fontWeight: 700,
+                boxShadow: '0 4px 14px rgba(37, 99, 235, 0.35)',
+                padding: '0.85rem 1rem',
+              }}
+            >
+              <ShoppingCart size={18} />
+              <span>Add Combo to Cart & Checkout (₹{bundle.bundlePrice.toLocaleString()})</span>
+            </Button>
+
+            <div style={{ textAlign: 'center', fontSize: '0.75rem', color: 'var(--color-text-muted)', margin: '0.1rem 0' }}>
+              — or activate directly via student email / WhatsApp pass ID —
+            </div>
+
             <Button variant="accent" size="md" fullWidth type="submit" className="easehub-btn-tactile">
               Activate Pass & Generate Digital ID Card
             </Button>

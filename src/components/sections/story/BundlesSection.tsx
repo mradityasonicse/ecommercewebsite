@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   ArrowRight, 
   CheckCircle2,
   PackageCheck,
   Wifi,
   Sparkles,
+  ShoppingCart,
 } from 'lucide-react';
 import {
   MessCulinaryIcon,
@@ -12,13 +13,43 @@ import {
 } from '../../icons/ProfessionalCategoryIcons';
 import { Container } from '../../primitives/Container';
 import { ScrollReveal } from '../../motion/ScrollReveal';
-import { BUNDLES, type Bundle } from '../../../data/bundles';
+import type { Bundle } from '../../../data/bundles';
+import { BundleRepository } from '../../../services/bundleRepository';
+import { useCart } from '../../../context/CartContext';
 
 interface BundlesSectionProps {
   onSelectBundle: (bundle: Bundle) => void;
 }
 
 export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }) => {
+  const { addItem, openCart } = useCart();
+  const [bundles, setBundles] = useState<Bundle[]>(() => BundleRepository.getBundlesSync());
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setBundles(BundleRepository.getBundlesSync());
+    };
+    window.addEventListener('easehub_bundles_updated', handleUpdate);
+    return () => window.removeEventListener('easehub_bundles_updated', handleUpdate);
+  }, []);
+
+  const handleAddComboToCart = (e: React.MouseEvent, bundle: Bundle) => {
+    e.stopPropagation();
+    addItem({
+      id: `bundle-${bundle.id}`,
+      slug: 'bundle',
+      name: bundle.name,
+      category: 'extra',
+      priceText: `₹${bundle.bundlePrice.toLocaleString('en-IN')}`,
+      numericPrice: bundle.bundlePrice,
+      periodText: bundle.billingPeriod,
+      imageUrl: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300&auto=format&fit=crop&q=80',
+      providerName: 'EaseHub Campus Pass',
+      optionName: bundle.servicesIncluded.slice(0, 2).join(' + '),
+    });
+    openCart();
+  };
+
   return (
     <section
       id="bundles"
@@ -137,7 +168,7 @@ export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }
             alignItems: 'stretch',
           }}
         >
-          {BUNDLES.map((bundle, index) => {
+          {bundles.map((bundle, index) => {
             const isFeatured = bundle.isPopular;
             return (
               <ScrollReveal key={bundle.id} variant="fade-up" delay={index * 120}>
@@ -366,47 +397,69 @@ export const BundlesSection: React.FC<BundlesSectionProps> = ({ onSelectBundle }
                   </div>
                 </div>
 
-                {/* Bottom CTA Button */}
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onSelectBundle(bundle);
-                  }}
-                  className={`easehub-btn-tactile easehub-spring-btn ${isFeatured ? '' : 'bundle-cta-standard'}`}
-                  style={{
-                    width: '100%',
-                    padding: '0.75rem 1rem',
-                    borderRadius: '12px',
-                    backgroundColor: isFeatured ? '#16A34A' : undefined,
-                    color: isFeatured ? '#FFFFFF' : undefined,
-                    border: isFeatured ? 'none' : undefined,
-                    fontSize: '0.88rem',
-                    fontWeight: 800,
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '0.5rem',
-                    cursor: 'pointer',
-                    transition: 'all 0.15s ease',
-                    boxShadow: isFeatured ? '0 4px 14px rgba(22, 163, 74, 0.35)' : 'none',
-                  }}
-                  onMouseEnter={(e) => {
-                    if (isFeatured) {
-                      e.currentTarget.style.backgroundColor = '#15803D';
-                    }
-                    e.currentTarget.style.transform = 'translateY(-1px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    if (isFeatured) {
-                      e.currentTarget.style.backgroundColor = '#16A34A';
-                    }
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
-                >
-                  <span>Explore Bundle Details</span>
-                  <ArrowRight size={15} className="easehub-arrow-slide" />
-                </button>
+                {/* Bottom CTA Buttons */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '0.6rem', marginTop: '0.5rem' }}>
+                  <button
+                    type="button"
+                    onClick={(e) => handleAddComboToCart(e, bundle)}
+                    className="easehub-btn-tactile easehub-spring-btn"
+                    style={{
+                      padding: '0.7rem 0.85rem',
+                      borderRadius: '12px',
+                      backgroundColor: '#16A34A',
+                      color: '#FFFFFF',
+                      border: 'none',
+                      fontSize: '0.85rem',
+                      fontWeight: 800,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.45rem',
+                      cursor: 'pointer',
+                      boxShadow: '0 4px 12px rgba(22, 163, 74, 0.3)',
+                      transition: 'all 0.15s ease',
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#15803D')}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#16A34A')}
+                  >
+                    <ShoppingCart size={15} />
+                    <span>Add to Cart</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onSelectBundle(bundle);
+                    }}
+                    style={{
+                      padding: '0.7rem 0.85rem',
+                      borderRadius: '12px',
+                      backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                      border: '1.5px solid #E2E8F0',
+                      color: '#334155',
+                      fontSize: '0.82rem',
+                      fontWeight: 700,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.35rem',
+                      cursor: 'pointer',
+                      transition: 'all 0.15s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = '#16A34A';
+                      e.currentTarget.style.color = '#16A34A';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = '#E2E8F0';
+                      e.currentTarget.style.color = '#334155';
+                    }}
+                  >
+                    <span>Details</span>
+                    <ArrowRight size={13} />
+                  </button>
+                </div>
               </div>
             </ScrollReveal>
           );

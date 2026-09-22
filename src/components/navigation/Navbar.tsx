@@ -4,6 +4,7 @@ import { BrandLogo } from '../brand/BrandLogo';
 import { DesktopNav } from './DesktopNav';
 import { MobileMenu } from './MobileMenu';
 import { SearchTrigger } from './SearchTrigger';
+import { DomainSwitcher } from './DomainSwitcher';
 
 export interface NavbarProps {
   selectedCampus: Campus;
@@ -83,9 +84,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               <BrandLogo variant="mobile" href="#" />
             </div>
 
-            {/* Right: Quick Search & Animated Hamburger */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-
+            {/* Right: Domain Switcher, Quick Search & Animated Hamburger */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <DomainSwitcher variant="compact" />
               <SearchTrigger variant="compact" />
 
               {/* Animated Hamburger Button (Morphs to X) */}

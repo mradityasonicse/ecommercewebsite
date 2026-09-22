@@ -133,7 +133,7 @@ Please confirm order & dispatch the night runner!`;
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '1rem',
+        padding: 'clamp(0.5rem, 2vw, 1rem)',
       }}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
@@ -143,7 +143,7 @@ Please confirm order & dispatch the night runner!`;
         style={{
           width: '100%',
           maxWidth: '820px',
-          maxHeight: '92vh',
+          maxHeight: 'min(92vh, calc(100dvh - 1.5rem))',
           backgroundColor: '#FFFFFF',
           borderRadius: '24px',
           border: '1.5px solid rgba(22, 163, 74, 0.22)',
@@ -172,11 +172,13 @@ Please confirm order & dispatch the night runner!`;
         {/* Modal Header */}
         <div
           style={{
-            padding: '1.25rem 1.75rem',
+            padding: '1rem clamp(0.75rem, 2.5vw, 1.5rem)',
             borderBottom: '1px solid rgba(22, 163, 74, 0.12)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '0.75rem',
             position: 'relative',
             zIndex: 2,
             backgroundColor: '#F8FAF7',
@@ -319,11 +321,11 @@ Please confirm order & dispatch the night runner!`;
             {/* Menu Items Grid */}
             <div
               style={{
-                padding: '1.25rem 1.75rem',
+                padding: '1rem clamp(0.75rem, 2.5vw, 1.5rem)',
                 overflowY: 'auto',
                 flex: 1,
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
                 gap: '1rem',
               }}
             >
@@ -492,12 +494,14 @@ Please confirm order & dispatch the night runner!`;
             {totalItemsCount > 0 && (
               <div
                 style={{
-                  padding: '1rem 1.75rem',
+                  padding: '0.85rem clamp(0.75rem, 2.5vw, 1.5rem)',
                   backgroundColor: '#F8FAF7',
                   borderTop: '1px solid rgba(22, 163, 74, 0.15)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
+                  flexWrap: 'wrap',
+                  gap: '0.75rem',
                   boxShadow: '0 -10px 25px rgba(0,0,0,0.05)',
                 }}
               >
@@ -614,7 +618,7 @@ Please confirm order & dispatch the night runner!`;
             </div>
 
             {/* Room Number & Phone inputs */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 180px), 1fr))', gap: '1rem' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#334155', marginBottom: '0.4rem' }}>
                   Room Number / Floor (Optional)
@@ -626,12 +630,13 @@ Please confirm order & dispatch the night runner!`;
                   onChange={(e) => setHostelRoomNumber(e.target.value)}
                   style={{
                     width: '100%',
+                    minHeight: '44px',
                     padding: '0.7rem 0.9rem',
                     borderRadius: '10px',
                     backgroundColor: '#FFFFFF',
                     border: '1.5px solid #E2E8F0',
                     color: '#0F172A',
-                    fontSize: '0.85rem',
+                    fontSize: '16px',
                     outline: 'none',
                     boxSizing: 'border-box',
                   }}
@@ -649,12 +654,13 @@ Please confirm order & dispatch the night runner!`;
                   onChange={(e) => setStudentPhone(e.target.value)}
                   style={{
                     width: '100%',
+                    minHeight: '44px',
                     padding: '0.7rem 0.9rem',
                     borderRadius: '10px',
                     backgroundColor: '#FFFFFF',
                     border: '1.5px solid #E2E8F0',
                     color: '#0F172A',
-                    fontSize: '0.85rem',
+                    fontSize: '16px',
                     outline: 'none',
                     boxSizing: 'border-box',
                   }}

@@ -19,6 +19,7 @@ import {
 
 // Auth Context Provider
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { DomainProvider } from './context/DomainContext';
 import { CartProvider } from './context/CartContext';
 import { CartDrawer } from './components/cart/CartDrawer';
 import { BrandIntroSplash } from './components/intro/BrandIntroSplash';
@@ -43,12 +44,10 @@ import { CoreServicesSection, type BookingTargetPayload } from './components/sec
 import { CampusBentoSection } from './components/sections/story/CampusBentoSection';
 import { WhatsAppBookingModal } from './components/modals/WhatsAppBookingModal';
 import { ThankYouTrustModal } from './components/modals/ThankYouTrustModal';
-import { OrderTrackerModal } from './components/modals/OrderTrackerModal';
 import { MidnightCanteenModal } from './components/canteen/MidnightCanteenModal';
 import { CommandPaletteModal } from './components/modals/CommandPaletteModal';
 import { PrizeWinningHero } from './components/sections/hero/PrizeWinningHero';
 import { DailyMessMenuModal } from './components/mess/DailyMessMenuModal';
-import { DailyMessMenuSection } from './components/sections/mess/DailyMessMenuSection';
 import type { BookingSubmissionData } from './utils/whatsapp';
 
 // Storytelling Experience (Phase 4)
@@ -153,7 +152,13 @@ function MainApp() {
     } else if (role === 'admin') {
       navigateTo('admin');
     } else {
-      navigateTo('account');
+      const currentHash = window.location.hash.toLowerCase();
+      if (currentHash && currentHash !== '#login' && currentHash !== '#select-role') {
+        const targetView = getRouteStateFromUrl().view;
+        navigateTo(targetView !== 'login' ? targetView : 'app');
+      } else {
+        navigateTo('app');
+      }
     }
   };
 
@@ -231,9 +236,6 @@ function MainApp() {
   const [isRequestCampusOpen, setIsRequestCampusOpen] = useState(false);
   const [activeBookingPayload, setActiveBookingPayload] = useState<BookingTargetPayload | null>(null);
   const [thankYouBookingData, setThankYouBookingData] = useState<BookingSubmissionData | null>(null);
-  const [isOrderTrackerOpen, setIsOrderTrackerOpen] = useState(false);
-  const [trackerTab, setTrackerTab] = useState<'mess' | 'laundry' | 'pg'>('mess');
-  const [trackerOrderId, setTrackerOrderId] = useState<string | undefined>(undefined);
   const [isCanteenOpen, setIsCanteenOpen] = useState(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [isMessMenuOpen, setIsMessMenuOpen] = useState(false);
@@ -303,8 +305,16 @@ function MainApp() {
       
     }
 
-    // 6. Student Account Dashboard (#account)
-    if (isAccountRoute(window.location.pathname, window.location.hash)) {
+    // 6. Student Account Dashboard (#account, #track, #orders, #tracking)
+    if (
+      isAccountRoute(window.location.pathname, window.location.hash) ||
+      hash === '#track' ||
+      hash.startsWith('#track?') ||
+      hash === '#tracker' ||
+      hash.startsWith('#tracker?') ||
+      hash.startsWith('#orders') ||
+      hash.startsWith('#account/tracking')
+    ) {
       return { view: 'account', serviceSlug: '' };
     }
 
@@ -412,22 +422,20 @@ function MainApp() {
     }
   }, []);
 
-  // Listen for Live Tracker modal requests across components
+  // Listen for Live Tracker requests across components -> Route to genuine Account Order Tracking
   useEffect(() => {
     const handleOpenTracker = (e: any) => {
-      if (e?.detail?.tab) setTrackerTab(e.detail.tab);
-      if (e?.detail?.orderId) setTrackerOrderId(e.detail.orderId);
-      setIsOrderTrackerOpen(true);
+      const orderId = e?.detail?.orderId;
+      window.location.hash = orderId ? `#account/tracking/${orderId}` : '#account/tracking';
+      navigateTo('account');
     };
     window.addEventListener('easehub_open_order_tracker', handleOpenTracker as any);
 
     const checkTrackHash = () => {
       const h = window.location.hash.toLowerCase();
-      if (h === '#track' || h === '#tracker' || h.startsWith('#track?')) {
-        if (h.includes('kind=pg') || h.includes('tab=pg')) setTrackerTab('pg');
-        else if (h.includes('kind=laundry') || h.includes('tab=laundry')) setTrackerTab('laundry');
-        else if (h.includes('kind=mess') || h.includes('tab=mess')) setTrackerTab('mess');
-        setIsOrderTrackerOpen(true);
+      if (h === '#track' || h === '#tracker' || h.startsWith('#track?') || h.startsWith('#tracker?')) {
+        window.location.hash = '#account/tracking';
+        navigateTo('account');
       }
     };
 
@@ -621,7 +629,10 @@ function MainApp() {
       selectedCampus={selectedCampus}
       onCampusChange={setSelectedCampus}
       onRequestCampusOpen={() => setIsRequestCampusOpen(true)}
-      onOpenTracker={() => setIsOrderTrackerOpen(true)}
+      onOpenTracker={() => {
+        window.location.hash = '#account/tracking';
+        navigateTo('account');
+      }}
       onOpenNotifications={() => setIsNotificationCenterOpen(true)}
       onNavigateHome={() => navigateTo('app')}
       onNavigateServices={() => navigateTo('services')}
@@ -694,7 +705,10 @@ function MainApp() {
               }
             }}
             onOpenCanteen={() => setIsCanteenOpen(true)}
-            onOpenTracker={() => setIsOrderTrackerOpen(true)}
+            onOpenTracker={() => {
+              window.location.hash = '#account/tracking';
+              navigateTo('account');
+            }}
             onOpenSearch={() => setIsCommandPaletteOpen(true)}
           />
 
@@ -705,7 +719,10 @@ function MainApp() {
               if (el) el.scrollIntoView({ behavior: 'smooth' });
             }}
             onOpenMessMenu={() => setIsMessMenuOpen(true)}
-            onOpenTracker={() => setIsOrderTrackerOpen(true)}
+            onOpenTracker={() => {
+              window.location.hash = '#account/tracking';
+              navigateTo('account');
+            }}
           />
 
           {/* 1. Core Services & Card Catalog (Primary Focus: PG, Mess, Laundry, Extra Services, Contact) */}
@@ -714,13 +731,14 @@ function MainApp() {
             onOpenBooking={(payload) => setActiveBookingPayload(payload)}
           />
 
-          {/* 1.5 Live Daily Mess Menu Board (Breakfast, Lunch, Dinner) */}
-          <DailyMessMenuSection onOpenFullMenu={() => setIsMessMenuOpen(true)} />
 
           {/* 2. Curated Campus Intelligence Bento Grid */}
           <CampusBentoSection
             selectedCampus={selectedCampus}
-            onOpenTracker={() => setIsOrderTrackerOpen(true)}
+            onOpenTracker={() => {
+              window.location.hash = '#account/tracking';
+              navigateTo('account');
+            }}
             onOpenCanteen={() => setIsCanteenOpen(true)}
             onOpenBooking={(category) => {
               const s = ECOSYSTEM_SERVICES.find((srv) => srv.category === category || srv.slug === category);
@@ -800,22 +818,11 @@ function MainApp() {
         <ThankYouTrustModal
           data={thankYouBookingData}
           onClose={() => setThankYouBookingData(null)}
-          onOpenTracker={(tab, orderId) => {
+          onOpenTracker={(_tab, orderId) => {
             setThankYouBookingData(null);
-            if (tab) setTrackerTab(tab);
-            if (orderId) setTrackerOrderId(orderId);
-            setIsOrderTrackerOpen(true);
+            window.location.hash = orderId ? `#account/tracking/${orderId}` : '#account/tracking';
+            navigateTo('account');
           }}
-        />
-      )}
-
-      {/* 24h Order and Laundry Status Tracker Modal */}
-      {isOrderTrackerOpen && (
-        <OrderTrackerModal
-          isOpen={isOrderTrackerOpen}
-          onClose={() => setIsOrderTrackerOpen(false)}
-          defaultTab={trackerTab}
-          orderId={trackerOrderId}
         />
       )}
 
@@ -825,8 +832,9 @@ function MainApp() {
           isOpen={isNotificationCenterOpen}
           onClose={() => setIsNotificationCenterOpen(false)}
           onOpenTracker={(orderId) => {
-            if (orderId) setTrackerOrderId(orderId);
-            setIsOrderTrackerOpen(true);
+            setIsNotificationCenterOpen(false);
+            window.location.hash = orderId ? `#account/tracking/${orderId}` : '#account/tracking';
+            navigateTo('account');
           }}
           onNavigateAccount={() => navigateTo('account')}
         />
@@ -879,7 +887,8 @@ function MainApp() {
           onClose={() => setIsCommandPaletteOpen(false)}
           onSelectAction={(actionId, payload) => {
             if (actionId === 'tracker') {
-              setIsOrderTrackerOpen(true);
+              window.location.hash = '#account/tracking';
+              navigateTo('account');
             } else if (actionId === 'canteen') {
               setIsCanteenOpen(true);
             } else if (actionId === 'mess-menu') {
@@ -940,11 +949,13 @@ function MainApp() {
 export function App() {
   return (
     <AuthProvider>
-      <CartProvider>
-        <MobilePreviewContainer>
-          <MainApp />
-        </MobilePreviewContainer>
-      </CartProvider>
+      <DomainProvider>
+        <CartProvider>
+          <MobilePreviewContainer>
+            <MainApp />
+          </MobilePreviewContainer>
+        </CartProvider>
+      </DomainProvider>
     </AuthProvider>
   );
 }

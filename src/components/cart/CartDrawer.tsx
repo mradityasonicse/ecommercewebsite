@@ -76,7 +76,7 @@ export const CartDrawer: React.FC = () => {
         <div
           style={{
             width: '100%',
-            maxWidth: '440px',
+            maxWidth: 'min(440px, 100vw)',
             height: '100%',
             backgroundColor: '#FFFFFF',
             display: 'flex',
@@ -326,8 +326,8 @@ export const CartDrawer: React.FC = () => {
                           type="button"
                           onClick={() => updateQuantity(item.id, -1)}
                           style={{
-                            width: '24px',
-                            height: '24px',
+                            width: '28px',
+                            height: '28px',
                             borderRadius: '6px',
                             backgroundColor: '#FFFFFF',
                             border: '1px solid #E2E8F0',
@@ -338,17 +338,17 @@ export const CartDrawer: React.FC = () => {
                             color: '#334155',
                           }}
                         >
-                          <Minus size={12} />
+                          <Minus size={13} />
                         </button>
-                        <span style={{ fontSize: '0.82rem', fontWeight: 800, minWidth: '18px', textAlign: 'center' }}>
+                        <span style={{ fontSize: '0.84rem', fontWeight: 800, minWidth: '22px', textAlign: 'center' }}>
                           {item.quantity}
                         </span>
                         <button
                           type="button"
                           onClick={() => updateQuantity(item.id, 1)}
                           style={{
-                            width: '24px',
-                            height: '24px',
+                            width: '28px',
+                            height: '28px',
                             borderRadius: '6px',
                             backgroundColor: '#FFFFFF',
                             border: '1px solid #E2E8F0',
@@ -359,7 +359,7 @@ export const CartDrawer: React.FC = () => {
                             color: '#334155',
                           }}
                         >
-                          <Plus size={12} />
+                          <Plus size={13} />
                         </button>
                       </div>
                     </div>
@@ -418,23 +418,26 @@ export const CartDrawer: React.FC = () => {
                     onChange={(e) => setCouponInput(e.target.value)}
                     style={{
                       flex: 1,
+                      minHeight: '40px',
                       padding: '0.45rem 0.75rem',
                       borderRadius: '8px',
                       border: '1px solid #CBD5E1',
-                      fontSize: '0.8rem',
+                      fontSize: '16px',
                       outline: 'none',
                       backgroundColor: '#FFFFFF',
+                      boxSizing: 'border-box',
                     }}
                   />
                   <button
                     type="submit"
                     style={{
-                      padding: '0.45rem 0.85rem',
+                      padding: '0.45rem 0.95rem',
+                      minHeight: '40px',
                       backgroundColor: '#0F172A',
                       color: '#FFFFFF',
                       border: 'none',
                       borderRadius: '8px',
-                      fontSize: '0.8rem',
+                      fontSize: '0.82rem',
                       fontWeight: 700,
                       cursor: 'pointer',
                     }}
@@ -492,12 +495,13 @@ export const CartDrawer: React.FC = () => {
                 onClick={handleOpenCheckout}
                 style={{
                   width: '100%',
+                  minHeight: '48px',
                   padding: '0.85rem',
                   backgroundColor: '#16A34A',
                   color: '#FFFFFF',
                   border: 'none',
                   borderRadius: '12px',
-                  fontSize: '0.94rem',
+                  fontSize: 'clamp(0.88rem, 2.5vw, 0.96rem)',
                   fontWeight: 800,
                   cursor: 'pointer',
                   display: 'flex',

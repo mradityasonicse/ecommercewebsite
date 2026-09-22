@@ -18,6 +18,24 @@ export const RequestCampusDrawer: React.FC<RequestCampusDrawerProps> = ({ isOpen
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!collegeName.trim()) return;
+
+    try {
+      const existing = JSON.parse(localStorage.getItem('easehub_campus_nominations') || '[]');
+      const newNomination = {
+        id: `NOM-${Date.now().toString().slice(-4)}`,
+        collegeName: collegeName.trim(),
+        city: city.trim(),
+        email: email.trim(),
+        studentCohort,
+        createdAt: new Date().toISOString(),
+      };
+      existing.unshift(newNomination);
+      localStorage.setItem('easehub_campus_nominations', JSON.stringify(existing));
+      window.dispatchEvent(new CustomEvent('easehub_campus_nominated', { detail: newNomination }));
+    } catch {
+      // Storage unavailable
+    }
+
     setSubmitted(true);
   };
 
@@ -51,13 +69,15 @@ export const RequestCampusDrawer: React.FC<RequestCampusDrawerProps> = ({ isOpen
                 onChange={(e) => setCollegeName(e.target.value)}
                 style={{
                   width: '100%',
+                  minHeight: '44px',
                   padding: '0.75rem',
                   backgroundColor: 'var(--color-surface-1)',
                   borderRadius: 'var(--radius-sm)',
                   border: '1px solid var(--color-border-subtle)',
                   color: 'var(--color-text-primary)',
-                  fontSize: 'var(--text-xs)',
+                  fontSize: '16px',
                   outline: 'none',
+                  boxSizing: 'border-box',
                 }}
               />
             </div>
@@ -74,13 +94,15 @@ export const RequestCampusDrawer: React.FC<RequestCampusDrawerProps> = ({ isOpen
                 onChange={(e) => setCity(e.target.value)}
                 style={{
                   width: '100%',
+                  minHeight: '44px',
                   padding: '0.75rem',
                   backgroundColor: 'var(--color-surface-1)',
                   borderRadius: 'var(--radius-sm)',
                   border: '1px solid var(--color-border-subtle)',
                   color: 'var(--color-text-primary)',
-                  fontSize: 'var(--text-xs)',
+                  fontSize: '16px',
                   outline: 'none',
+                  boxSizing: 'border-box',
                 }}
               />
             </div>
@@ -97,13 +119,15 @@ export const RequestCampusDrawer: React.FC<RequestCampusDrawerProps> = ({ isOpen
                 onChange={(e) => setEmail(e.target.value)}
                 style={{
                   width: '100%',
+                  minHeight: '44px',
                   padding: '0.75rem',
                   backgroundColor: 'var(--color-surface-1)',
                   borderRadius: 'var(--radius-sm)',
                   border: '1px solid var(--color-border-subtle)',
                   color: 'var(--color-text-primary)',
-                  fontSize: 'var(--text-xs)',
+                  fontSize: '16px',
                   outline: 'none',
+                  boxSizing: 'border-box',
                 }}
               />
             </div>
@@ -117,13 +141,15 @@ export const RequestCampusDrawer: React.FC<RequestCampusDrawerProps> = ({ isOpen
                 onChange={(e) => setStudentCohort(e.target.value)}
                 style={{
                   width: '100%',
+                  minHeight: '44px',
                   padding: '0.75rem',
                   backgroundColor: 'var(--color-surface-1)',
                   borderRadius: 'var(--radius-sm)',
                   border: '1px solid var(--color-border-subtle)',
                   color: 'var(--color-text-primary)',
-                  fontSize: 'var(--text-xs)',
+                  fontSize: '16px',
                   outline: 'none',
+                  boxSizing: 'border-box',
                 }}
               >
                 <option value="50-200">50 - 200 Students</option>

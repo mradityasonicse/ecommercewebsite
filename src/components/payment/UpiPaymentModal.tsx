@@ -121,7 +121,7 @@ export const UpiPaymentModal: React.FC<UpiPaymentModalProps> = ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '1rem',
+        padding: 'clamp(0.5rem, 2vw, 1rem)',
         animation: 'fadeIn 0.2s ease-out',
       }}
       onClick={onClose}
@@ -136,7 +136,7 @@ export const UpiPaymentModal: React.FC<UpiPaymentModalProps> = ({
           boxShadow: '0 25px 50px -12px rgba(15, 23, 42, 0.25)',
           color: '#0F172A',
           overflow: 'hidden',
-          maxHeight: '92vh',
+          maxHeight: 'min(92vh, calc(100dvh - 1.5rem))',
           display: 'flex',
           flexDirection: 'column',
         }}
@@ -483,7 +483,7 @@ export const UpiPaymentModal: React.FC<UpiPaymentModalProps> = ({
                   </div>
                 )}
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))', gap: '0.75rem' }}>
                   <div>
                     <label style={{ display: 'block', fontSize: '0.75rem', color: '#334155', fontWeight: 600, marginBottom: '0.25rem' }}>
                       Your Name *
@@ -496,13 +496,15 @@ export const UpiPaymentModal: React.FC<UpiPaymentModalProps> = ({
                       onChange={(e) => setStudentName(e.target.value)}
                       style={{
                         width: '100%',
+                        minHeight: '42px',
                         padding: '0.55rem 0.75rem',
                         borderRadius: '0.5rem',
                         backgroundColor: '#FFFFFF',
                         border: '1.5px solid #CBD5E1',
                         color: '#0F172A',
-                        fontSize: '0.82rem',
+                        fontSize: '16px',
                         outline: 'none',
+                        boxSizing: 'border-box',
                       }}
                     />
                   </div>
@@ -518,13 +520,15 @@ export const UpiPaymentModal: React.FC<UpiPaymentModalProps> = ({
                       onChange={(e) => setStudentPhone(e.target.value)}
                       style={{
                         width: '100%',
+                        minHeight: '42px',
                         padding: '0.55rem 0.75rem',
                         borderRadius: '0.5rem',
                         backgroundColor: '#FFFFFF',
                         border: '1.5px solid #CBD5E1',
                         color: '#0F172A',
-                        fontSize: '0.82rem',
+                        fontSize: '16px',
                         outline: 'none',
+                        boxSizing: 'border-box',
                       }}
                     />
                   </div>
@@ -543,6 +547,7 @@ export const UpiPaymentModal: React.FC<UpiPaymentModalProps> = ({
                     onChange={(e) => setUtrNumber(e.target.value.replace(/\s/g, ''))}
                     style={{
                       width: '100%',
+                      minHeight: '44px',
                       padding: '0.65rem 0.75rem',
                       borderRadius: '0.5rem',
                       backgroundColor: '#FFFFFF',
@@ -550,8 +555,9 @@ export const UpiPaymentModal: React.FC<UpiPaymentModalProps> = ({
                       color: '#15803D',
                       fontWeight: 800,
                       letterSpacing: '1px',
-                      fontSize: '0.9rem',
+                      fontSize: '16px',
                       outline: 'none',
+                      boxSizing: 'border-box',
                     }}
                   />
                   <span style={{ fontSize: '0.7rem', color: '#64748B', display: 'block', marginTop: '0.2rem' }}>

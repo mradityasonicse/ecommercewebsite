@@ -208,6 +208,7 @@ export function parseAuthRouteFromUrl(pathname: string, hash: string): ParsedAut
 export type AccountSubpage =
   | 'overview'
   | 'services'
+  | 'tracking'
   | 'requests'
   | 'request-detail'
   | 'profile'
@@ -250,6 +251,9 @@ export function parseAccountRouteFromUrl(pathname: string, hash: string): Parsed
       }
       if (seg1 === 'services' || seg1 === 'my-services') {
         return { subpage: 'services' };
+      }
+      if (seg1 === 'tracking' || seg1 === 'track' || seg1 === 'orders') {
+        return { subpage: 'tracking', requestId: seg2 };
       }
       if (seg1 === 'requests') {
         if (seg2) {

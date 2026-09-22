@@ -134,7 +134,7 @@ ${dayMenu.meals.dinner.items.map((i) => `• ${i.name}`).join('\n')}
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '1rem',
+        padding: 'clamp(0.5rem, 2vw, 1rem)',
         animation: 'fadeIn 0.2s ease-out',
       }}
       onClick={onClose}
@@ -143,7 +143,7 @@ ${dayMenu.meals.dinner.items.map((i) => `• ${i.name}`).join('\n')}
         style={{
           width: '100%',
           maxWidth: '980px',
-          maxHeight: '94vh',
+          maxHeight: 'min(94vh, calc(100dvh - 1.5rem))',
           backgroundColor: 'var(--color-surface-1)',
           border: '1.5px solid var(--color-border-subtle)',
           borderRadius: '1.25rem',
@@ -158,14 +158,14 @@ ${dayMenu.meals.dinner.items.map((i) => `• ${i.name}`).join('\n')}
         {/* Top Header */}
         <div
           style={{
-            padding: '1.25rem 1.75rem',
+            padding: '1rem clamp(0.75rem, 2.5vw, 1.5rem)',
             borderBottom: '1px solid var(--color-border-subtle)',
             backgroundColor: 'var(--color-surface-2)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             flexWrap: 'wrap',
-            gap: '1rem',
+            gap: '0.75rem',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
@@ -300,14 +300,14 @@ ${dayMenu.meals.dinner.items.map((i) => `• ${i.name}`).join('\n')}
         {/* Provider Selector & Day Selector Bar */}
         <div
           style={{
-            padding: '0.85rem 1.75rem',
+            padding: '0.75rem clamp(0.75rem, 2.5vw, 1.5rem)',
             backgroundColor: 'var(--color-surface-1)',
             borderBottom: '1px solid var(--color-border-subtle)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             flexWrap: 'wrap',
-            gap: '1rem',
+            gap: '0.75rem',
           }}
         >
           {/* Provider Select Dropdown */}
@@ -458,7 +458,7 @@ ${dayMenu.meals.dinner.items.map((i) => `• ${i.name}`).join('\n')}
         {/* Scrollable Body Containing the 3 Meal Cards */}
         <div
           style={{
-            padding: '1.5rem 1.75rem',
+            padding: '1rem clamp(0.75rem, 2.5vw, 1.5rem)',
             overflowY: 'auto',
             flex: 1,
             backgroundColor: 'var(--color-surface-base)',
@@ -470,7 +470,7 @@ ${dayMenu.meals.dinner.items.map((i) => `• ${i.name}`).join('\n')}
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: mealsToDisplay.length === 3 ? 'repeat(auto-fit, minmax(280px, 1fr))' : '1fr',
+              gridTemplateColumns: mealsToDisplay.length === 3 ? 'repeat(auto-fit, minmax(min(100%, 270px), 1fr))' : '1fr',
               gap: '1.25rem',
               alignItems: 'start',
             }}

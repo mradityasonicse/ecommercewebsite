@@ -1200,6 +1200,44 @@ body.mobile-preview-active .easehub-mobile-nav-drawer .easehub-mobile-drawer-hea
   border: 1.5px solid #86EFAC;
 }
 
+/* ==========================================================================
+   MOBILE-FIRST ROBUSTNESS & RESPONSIVE BREAKPOINT SAFEGUARDS (320px - 414px)
+   ========================================================================== */
+html, body {
+  max-width: 100vw;
+  overflow-x: clip;
+}
+
+@supports not (overflow-x: clip) {
+  html, body {
+    overflow-x: hidden;
+  }
+}
+
+/* Prevent multimedia elements from causing horizontal overflow */
+img, svg, video, canvas, audio, iframe, embed, object {
+  max-width: 100%;
+}
+
+@media (max-width: 640px) {
+  /* Prevent iOS auto-zoom on form inputs by guaranteeing 16px minimum text size */
+  input:not([type="checkbox"]):not([type="radio"]), 
+  select, 
+  textarea {
+    font-size: 16px !important;
+  }
+
+  /* Responsive container padding clamps for 320px - 414px devices */
+  .container,
+  .container-narrow,
+  .container-wide,
+  .container-full {
+    padding-left: clamp(0.75rem, 3.5vw, 1.25rem);
+    padding-right: clamp(0.75rem, 3.5vw, 1.25rem);
+  }
+}
+
+
 
 
 
