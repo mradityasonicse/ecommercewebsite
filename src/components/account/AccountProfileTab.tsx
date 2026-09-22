@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   User as UserIcon,
   Mail,
@@ -15,10 +15,20 @@ import {
   BookOpen,
   Calendar,
   AlertCircle,
+  Package,
+  Clock,
+  Navigation,
+  CheckCircle2,
+  ChevronRight,
+  Sparkles,
+  MessageCircle,
 } from 'lucide-react';
 import type { User } from '../../types/auth';
 import { useAuth } from '../../context/AuthContext';
 import { Button } from '../ui/Button';
+import { ServiceRequestRepository } from '../../services/serviceRequestRepository';
+import type { ServiceRequest, RequestStatus } from '../../types/booking';
+import { RequestStatusBadge } from './RequestStatusBadge';
 
 interface AccountProfileTabProps {
   user: User;
@@ -54,6 +64,32 @@ export const AccountProfileTab: React.FC<AccountProfileTabProps> = ({ user, onUp
   const [studentId, setStudentId] = useState(
     user.profile?.studentId || user.studentId || 'STU-2024-042'
   );
+
+  // Real-Time Student Orders State
+  const [orders, setOrders] = useState<ServiceRequest[]>([]);
+  const [isLoadingOrders, setIsLoadingOrders] = useState(true);
+
+  const loadUserOrders = async () => {
+    setIsLoadingOrders(true);
+    try {
+      let reqs = await ServiceRequestRepository.getUserRequests(user.email);
+      if (reqs.length === 0) {
+        reqs = await ServiceRequestRepository.getAllRequests();
+      }
+      setOrders(reqs);
+    } catch {
+      setOrders([]);
+    } finally {
+      setIsLoadingOrders(false);
+    }
+  };
+
+  useEffect(() => {
+    loadUserOrders();
+    const handleUpdate = () => loadUserOrders();
+    window.addEventListener('easehub_requests_updated', handleUpdate);
+    return () => window.removeEventListener('easehub_requests_updated', handleUpdate);
+  }, [user.email]);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -603,6 +639,338 @@ export const AccountProfileTab: React.FC<AccountProfileTabProps> = ({ user, onUp
             </div>
           </div>
         </div>
+      </div>
+
+      {/* 2. REAL-TIME STUDENT ORDERS & MILESTONE TRACKING SECTION */}
+      <div
+        style={{
+          backgroundColor: 'var(--color-surface-1)',
+          border: '1px solid var(--color-border-subtle)',
+          borderRadius: 'var(--radius-xl)',
+          padding: 'clamp(1rem, 3.5vw, 1.75rem)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1.25rem',
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.2rem' }}>
+              <Navigation size={18} color="#16A34A" />
+              <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--color-text-primary, #0F172A)', margin: 0 }}>
+                Live Service Orders & Milestone Tracking
+              </h3>
+              {orders.length > 0 && (
+                <span
+                  style={{
+                    fontSize: '0.7rem',
+                    fontWeight: 800,
+                    padding: '0.15rem 0.5rem',
+                    borderRadius: '9999px',
+                    backgroundColor: 'rgba(22, 163, 74, 0.15)',
+                    color: '#16A34A',
+                    border: '1px solid rgba(22, 163, 74, 0.3)',
+                  }}
+                >
+                  {orders.filter((o) => o.status !== 'completed' && o.status !== 'cancelled').length} ACTIVE
+                </span>
+              )}
+            </div>
+            <p style={{ fontSize: '0.84rem', color: 'var(--color-text-secondary)', margin: 0 }}>
+              Official tracking timeline for your hostel deliveries, campus meals, laundry bags, and repairs.
+            </p>
+          </div>
+
+          <a
+            href="#account/tracking"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.35rem',
+              padding: '0.5rem 0.95rem',
+              borderRadius: '8px',
+              backgroundColor: '#EFF6FF',
+              border: '1px solid #BFDBFE',
+              color: '#1D4ED8',
+              fontSize: '0.82rem',
+              fontWeight: 700,
+              textDecoration: 'none',
+              transition: 'all 0.15s ease',
+            }}
+          >
+            <span>Dedicated Tracking Console</span>
+            <ChevronRight size={14} />
+          </a>
+        </div>
+
+        {isLoadingOrders ? (
+          <div
+            style={{
+              padding: '2.5rem 1.5rem',
+              textAlign: 'center',
+              color: 'var(--color-text-secondary)',
+              fontSize: '0.88rem',
+              borderRadius: '12px',
+              backgroundColor: 'var(--color-surface-2)',
+            }}
+          >
+            Loading your active orders and timeline...
+          </div>
+        ) : orders.length === 0 ? (
+          <div
+            style={{
+              padding: '2.5rem 1.5rem',
+              textAlign: 'center',
+              borderRadius: '12px',
+              backgroundColor: 'var(--color-surface-2)',
+              border: '1px dashed var(--color-border-subtle)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '0.75rem',
+            }}
+          >
+            <div
+              style={{
+                width: '48px',
+                height: '48px',
+                borderRadius: '50%',
+                backgroundColor: '#F1F5F9',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#64748B',
+              }}
+            >
+              <Package size={24} />
+            </div>
+            <div style={{ fontSize: '0.98rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
+              No Active Service Requests Found
+            </div>
+            <p style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', maxWidth: '420px', margin: 0, lineHeight: 1.5 }}>
+              When you order student laundry pickup, activate mess meal passes, or request hostel shifting, your real-time progressive milestones will track here.
+            </p>
+            <a
+              href="#core-services"
+              style={{
+                marginTop: '0.5rem',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+                padding: '0.6rem 1.25rem',
+                backgroundColor: '#2563EB',
+                borderRadius: '8px',
+                color: '#FFFFFF',
+                fontSize: '0.82rem',
+                fontWeight: 700,
+                textDecoration: 'none',
+              }}
+            >
+              <Sparkles size={14} />
+              <span>Explore Campus Services</span>
+            </a>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {orders.slice(0, 3).map((order) => {
+              const stages = [
+                { id: 'submitted', label: 'Order Placed' },
+                { id: 'confirmed', label: 'Confirmed' },
+                { id: 'in_service', label: 'In Progress' },
+                { id: 'completed', label: 'Delivered' },
+              ];
+
+              const getStepIndex = (st: RequestStatus) => {
+                if (st === 'pending') return 0;
+                if (st === 'confirmed') return 1;
+                if (st === 'in_progress') return 2;
+                if (st === 'completed') return 3;
+                return 1;
+              };
+
+              const activeStep = getStepIndex(order.status);
+              const isCancelled = order.status === 'cancelled';
+
+              return (
+                <div
+                  key={order.id}
+                  style={{
+                    padding: '1.25rem',
+                    borderRadius: '12px',
+                    backgroundColor: 'var(--color-surface-2)',
+                    border: '1px solid var(--color-border-subtle)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '1rem',
+                  }}
+                >
+                  {/* Top Bar: Order ID, Status Badge, and Service Name */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem' }}>
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
+                        <span style={{ fontFamily: 'monospace', fontWeight: 700, fontSize: '0.82rem', color: '#2563EB' }}>
+                          {order.id}
+                        </span>
+                        <RequestStatusBadge status={order.status} size="sm" />
+                      </div>
+                      <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: 0 }}>
+                        {order.serviceName}
+                      </h4>
+                      <div style={{ fontSize: '0.78rem', color: 'var(--color-text-secondary)', marginTop: '0.15rem' }}>
+                        {order.providerName || 'EaseHub University Partner'} • {order.optionName || 'Standard Package'}
+                      </div>
+                    </div>
+
+                    <div style={{ textAlign: 'right' }}>
+                      <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#16A34A' }}>
+                        {order.estimatedPrice || '₹499'}
+                      </div>
+                      <div style={{ fontSize: '0.74rem', color: 'var(--color-text-muted)' }}>
+                        Room {order.customer?.roomNumber || user.roomNumber || '304'} ({order.customer?.hostelBlock || user.hostelBlock || 'Block B'})
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 4-Stage Visual Progress Bar / Milestone Timeline */}
+                  {!isCancelled ? (
+                    <div style={{ padding: '0.5rem 0' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', marginBottom: '0.5rem' }}>
+                        {/* Connecting Line */}
+                        <div
+                          style={{
+                            position: 'absolute',
+                            top: '12px',
+                            left: '5%',
+                            right: '5%',
+                            height: '3px',
+                            backgroundColor: 'var(--color-border-subtle, #E2E8F0)',
+                            zIndex: 1,
+                          }}
+                        >
+                          <div
+                            style={{
+                              height: '100%',
+                              width: `${(activeStep / (stages.length - 1)) * 100}%`,
+                              backgroundColor: '#16A34A',
+                              transition: 'width 0.3s ease',
+                            }}
+                          />
+                        </div>
+
+                        {/* Step Nodes */}
+                        {stages.map((stage, idx) => {
+                          const isDone = idx <= activeStep;
+                          const isCurrent = idx === activeStep;
+
+                          return (
+                            <div
+                              key={stage.id}
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                gap: '0.35rem',
+                                zIndex: 2,
+                                position: 'relative',
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: '26px',
+                                  height: '26px',
+                                  borderRadius: '50%',
+                                  backgroundColor: isDone ? '#16A34A' : 'var(--color-surface-1, #FFFFFF)',
+                                  border: isDone ? '2px solid #16A34A' : '2px solid var(--color-border-subtle, #CBD5E1)',
+                                  color: isDone ? '#FFFFFF' : '#94A3B8',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  fontSize: '0.72rem',
+                                  fontWeight: 800,
+                                  boxShadow: isCurrent ? '0 0 0 4px rgba(22, 163, 74, 0.2)' : 'none',
+                                }}
+                              >
+                                {isDone ? <CheckCircle2 size={14} /> : idx + 1}
+                              </div>
+                              <span
+                                style={{
+                                  fontSize: '0.7rem',
+                                  fontWeight: isCurrent ? 800 : 600,
+                                  color: isCurrent ? '#16A34A' : isDone ? 'var(--color-text-primary)' : 'var(--color-text-muted)',
+                                  whiteSpace: 'nowrap',
+                                }}
+                              >
+                                {stage.label}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ) : (
+                    <div style={{ padding: '0.6rem 0.85rem', backgroundColor: 'rgba(239, 68, 68, 0.1)', borderRadius: '8px', color: '#EF4444', fontSize: '0.8rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                      <AlertCircle size={15} />
+                      <span>This order was cancelled. You may re-order anytime from the services catalog.</span>
+                    </div>
+                  )}
+
+                  {/* Actions & Schedule Details */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', paddingTop: '0.5rem', borderTop: '1px solid var(--color-border-subtle)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.78rem', color: 'var(--color-text-secondary)' }}>
+                      <Clock size={13} color="#2563EB" />
+                      <span>Scheduled: {order.schedule?.date || 'Today'} ({order.schedule?.timeSlot || 'Standard Slot'})</span>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const phone = '918102848776';
+                          const msg = `Hello EaseHub! I'm checking status on my order ${order.id} (${order.serviceName}) for ${order.customer?.hostelBlock || 'Hostel'} Room ${order.customer?.roomNumber || '304'}.`;
+                          window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
+                        }}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.35rem',
+                          padding: '0.4rem 0.75rem',
+                          borderRadius: '6px',
+                          backgroundColor: 'rgba(37, 211, 102, 0.12)',
+                          color: '#15803D',
+                          border: '1px solid rgba(37, 211, 102, 0.3)',
+                          fontSize: '0.76rem',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <MessageCircle size={13} />
+                        <span>WhatsApp Partner</span>
+                      </button>
+
+                      <a
+                        href={`#account/tracking/${order.id}`}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.35rem',
+                          padding: '0.4rem 0.75rem',
+                          borderRadius: '6px',
+                          backgroundColor: '#2563EB',
+                          color: '#FFFFFF',
+                          fontSize: '0.76rem',
+                          fontWeight: 700,
+                          textDecoration: 'none',
+                        }}
+                      >
+                        <span>Full Tracking →</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

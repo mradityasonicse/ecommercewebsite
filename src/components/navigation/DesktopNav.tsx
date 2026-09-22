@@ -74,6 +74,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({ onOpenTracker: _onOpenTr
     return [
       { id: 'home', label: 'Home', href: '#home' },
       { id: 'pg', label: 'PG & Hostels', href: '#pg' },
+      { id: 'mess', label: 'Student Mess', href: '#mess' },
       { id: 'laundry', label: 'Laundry', href: '#laundry' },
       { id: 'extra', label: 'Extra Services', href: '#extra' },
     ];
@@ -91,9 +92,10 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({ onOpenTracker: _onOpenTr
       return;
     }
 
-    if (['pg', 'laundry', 'extra'].includes(item.id)) {
+    if (['pg', 'mess', 'laundry', 'extra'].includes(item.id)) {
       const categoryMap: { [key: string]: string } = {
         pg: 'pg',
+        mess: 'mess',
         laundry: 'laundry',
         extra: 'extra',
       };
