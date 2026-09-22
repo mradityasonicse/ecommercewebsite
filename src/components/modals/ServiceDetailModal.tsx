@@ -1,9 +1,10 @@
 import React from 'react';
-import { Check } from 'lucide-react';
+import { Check, ShoppingBag } from 'lucide-react';
 import { Modal } from '../ui/Modal';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
 import type { EcosystemService } from '../../data/services';
+import { useCart } from '../../context/CartContext';
 
 interface ServiceDetailModalProps {
   service: EcosystemService | null;
@@ -18,7 +19,25 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
   onExploreProviders,
   onBookService,
 }) => {
+  const { addItem, openCart } = useCart();
   if (!service) return null;
+
+  const handleAddToCart = () => {
+    const numPrice = parseInt(service.startingPrice.replace(/\D/g, ''), 10) || 499;
+    addItem({
+      id: `service-${service.id}`,
+      slug: service.slug,
+      name: service.name,
+      category: service.category === 'meals' ? 'meals' : service.category === 'laundry' ? 'laundry' : 'pg',
+      priceText: service.startingPrice,
+      numericPrice: numPrice,
+      periodText: service.pricingUnit ? `per ${service.pricingUnit}` : undefined,
+      providerName: 'EaseHub Campus Verified',
+      optionName: service.badgeText || 'Campus Package',
+    });
+    onClose();
+    openCart();
+  };
 
   return (
     <Modal
@@ -100,11 +119,20 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
 
         {/* Action Buttons */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', marginTop: '0.75rem' }}>
-          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap' }}>
             <Button
               variant="accent"
               size="md"
-              style={{ flex: '1 1 200px' }}
+              style={{ flex: '1 1 180px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.45rem' }}
+              onClick={handleAddToCart}
+            >
+              <ShoppingBag size={17} />
+              <span>Add to Cart & Checkout</span>
+            </Button>
+            <Button
+              variant="outline"
+              size="md"
+              style={{ flex: '1 1 160px' }}
               onClick={() => {
                 onClose();
                 if (onBookService) {
@@ -114,7 +142,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
                 }
               }}
             >
-              Request Service Now
+              Book Service Directly
             </Button>
             <Button
               variant="outline"
@@ -124,7 +152,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
                 window.location.hash = `#services/${service.slug}`;
               }}
             >
-              View Full Details
+              Details
             </Button>
             <Button variant="outline" size="md" onClick={onClose}>
               Close

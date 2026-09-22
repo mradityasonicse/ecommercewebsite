@@ -22,6 +22,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { DomainProvider } from './context/DomainContext';
 import { CartProvider } from './context/CartContext';
 import { CartDrawer } from './components/cart/CartDrawer';
+import { FloatingCartButton } from './components/cart/FloatingCartButton';
 import { BrandIntroSplash } from './components/intro/BrandIntroSplash';
 import { LoginGateModal } from './components/modals/LoginGateModal';
 import { RoleLoginGateModal, type UserPersona } from './components/auth/RoleLoginGateModal';
@@ -940,7 +941,8 @@ function MainApp() {
         <span>1-Tap Mobile View</span>
       </button>
 
-      {/* Campus Commerce Slide-Over Cart Drawer */}
+      {/* Campus Commerce Slide-Over Cart Drawer & Floating Cart Pill */}
+      <FloatingCartButton />
       <CartDrawer />
     </AppShell>
   );

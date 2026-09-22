@@ -266,11 +266,11 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           </div>
         ) : (
           /* Checkout Form */
-          <div style={{ padding: '1.75rem' }}>
+          <div style={{ padding: 'clamp(1.1rem, 4vw, 1.75rem)' }}>
             {/* Header */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
               <div>
-                <h2 style={{ fontSize: '1.35rem', fontWeight: 900, color: '#0F172A', margin: 0 }}>
+                <h2 style={{ fontSize: 'clamp(1.15rem, 3.5vw, 1.35rem)', fontWeight: 900, color: '#0F172A', margin: 0 }}>
                   Instant Campus Checkout
                 </h2>
                 <div style={{ fontSize: '0.8rem', color: '#64748B', marginTop: '0.15rem' }}>
@@ -280,9 +280,22 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#94A3B8' }}
+                aria-label="Close Checkout Modal"
+                style={{
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '10px',
+                  backgroundColor: '#F1F5F9',
+                  border: 'none',
+                  cursor: 'pointer',
+                  color: '#64748B',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  touchAction: 'manipulation',
+                }}
               >
-                <X size={20} />
+                <X size={19} />
               </button>
             </div>
 
@@ -293,36 +306,38 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   Delivery Destination
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))', gap: '0.65rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))', gap: '0.75rem' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#475569', marginBottom: '0.2rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#475569', marginBottom: '0.25rem' }}>
                       Hostel Wing / Block
                     </label>
                     <input
                       type="text"
                       value={deliveryDetails.hostelBlock}
                       onChange={(e) => setDeliveryDetails((prev) => ({ ...prev, hostelBlock: e.target.value }))}
-                      style={{ width: '100%', minHeight: '42px', padding: '0.55rem 0.75rem', borderRadius: '8px', border: '1.5px solid #CBD5E1', fontSize: '16px', boxSizing: 'border-box' }}
+                      placeholder="e.g. Block B / Boys Hostel"
+                      style={{ width: '100%', minHeight: '44px', padding: '0.6rem 0.85rem', borderRadius: '10px', border: '1.5px solid #CBD5E1', fontSize: '16px', boxSizing: 'border-box', backgroundColor: '#FFFFFF', outline: 'none' }}
                       required
                     />
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#475569', marginBottom: '0.2rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#475569', marginBottom: '0.25rem' }}>
                       Room Number
                     </label>
                     <input
                       type="text"
                       value={deliveryDetails.roomNumber}
                       onChange={(e) => setDeliveryDetails((prev) => ({ ...prev, roomNumber: e.target.value }))}
-                      style={{ width: '100%', minHeight: '42px', padding: '0.55rem 0.75rem', borderRadius: '8px', border: '1.5px solid #CBD5E1', fontSize: '16px', boxSizing: 'border-box' }}
+                      placeholder="e.g. 304"
+                      style={{ width: '100%', minHeight: '44px', padding: '0.6rem 0.85rem', borderRadius: '10px', border: '1.5px solid #CBD5E1', fontSize: '16px', boxSizing: 'border-box', backgroundColor: '#FFFFFF', outline: 'none' }}
                       required
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#475569', marginBottom: '0.2rem' }}>
+                  <label style={{ display: 'block', fontSize: '0.74rem', fontWeight: 700, color: '#475569', marginBottom: '0.25rem' }}>
                     Delivery Call Instructions
                   </label>
                   <input
@@ -330,7 +345,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     placeholder="e.g. Call when outside hostel gate"
                     value={deliveryDetails.specialInstructions}
                     onChange={(e) => setDeliveryDetails((prev) => ({ ...prev, specialInstructions: e.target.value }))}
-                    style={{ width: '100%', minHeight: '42px', padding: '0.55rem 0.75rem', borderRadius: '8px', border: '1.5px solid #CBD5E1', fontSize: '16px', boxSizing: 'border-box' }}
+                    style={{ width: '100%', minHeight: '44px', padding: '0.6rem 0.85rem', borderRadius: '10px', border: '1.5px solid #CBD5E1', fontSize: '16px', boxSizing: 'border-box', backgroundColor: '#FFFFFF', outline: 'none' }}
                   />
                 </div>
               </div>
@@ -562,28 +577,29 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 disabled={isProcessing}
                 style={{
                   width: '100%',
-                  minHeight: '48px',
-                  padding: '0.95rem',
+                  minHeight: '52px',
+                  padding: '0.95rem 1.25rem',
                   backgroundColor: '#16A34A',
                   color: '#FFFFFF',
                   border: 'none',
                   borderRadius: '14px',
-                  fontSize: 'clamp(0.88rem, 2.5vw, 0.98rem)',
-                  fontWeight: 800,
+                  fontSize: 'clamp(0.92rem, 2.6vw, 1.02rem)',
+                  fontWeight: 900,
                   cursor: isProcessing ? 'not-allowed' : 'pointer',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '0.5rem',
+                  gap: '0.55rem',
                   boxShadow: '0 8px 20px -4px rgba(22, 163, 74, 0.4)',
                   opacity: isProcessing ? 0.7 : 1,
+                  touchAction: 'manipulation',
                 }}
               >
                 {isProcessing ? (
                   <span>Dispatching to Kitchen & Partners...</span>
                 ) : (
                   <>
-                    <ShieldCheck size={18} />
+                    <ShieldCheck size={20} />
                     <span>Pay & Confirm Order (₹{grandTotal})</span>
                   </>
                 )}

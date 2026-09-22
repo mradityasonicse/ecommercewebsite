@@ -4,7 +4,6 @@ import { BrandLogo } from '../brand/BrandLogo';
 import { type Campus } from '../../data/campuses';
 import { UserActions } from './UserActions';
 import { SearchTrigger } from './SearchTrigger';
-import { DomainSwitcher } from './DomainSwitcher';
 import { Container } from '../primitives/Container';
 
 export interface DesktopNavProps {
@@ -231,9 +230,8 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({ onOpenTracker: _onOpenTr
             })}
           </nav>
 
-          {/* 3. Right Utility Actions (Domain Switcher + Search + Mobile View + Auth) */}
+          {/* 3. Right Utility Actions (Search + Mobile View + Auth) */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexShrink: 0 }}>
-            <DomainSwitcher />
             <SearchTrigger variant="desktop" />
 
             {/* 1-Tap Mobile View Simulator Button */}

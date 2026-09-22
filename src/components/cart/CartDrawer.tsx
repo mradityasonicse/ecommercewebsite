@@ -76,20 +76,22 @@ export const CartDrawer: React.FC = () => {
         <div
           style={{
             width: '100%',
-            maxWidth: 'min(440px, 100vw)',
+            maxWidth: 'min(460px, 100vw)',
             height: '100%',
+            maxHeight: '100dvh',
             backgroundColor: '#FFFFFF',
             display: 'flex',
             flexDirection: 'column',
             boxShadow: '-10px 0 40px rgba(0,0,0,0.2)',
             animation: 'easehub-slide-left 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+            position: 'relative',
           }}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
           <div
             style={{
-              padding: '1.25rem 1.5rem',
+              padding: 'clamp(1rem, 3.5vw, 1.35rem)',
               borderBottom: '1px solid #E2E8F0',
               display: 'flex',
               alignItems: 'center',
@@ -100,17 +102,18 @@ export const CartDrawer: React.FC = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
               <div
                 style={{
-                  width: '36px',
-                  height: '36px',
+                  width: '38px',
+                  height: '38px',
                   borderRadius: '10px',
                   backgroundColor: '#DCFCE7',
                   color: '#15803D',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  flexShrink: 0,
                 }}
               >
-                <ShoppingBag size={18} />
+                <ShoppingBag size={19} />
               </div>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
@@ -119,11 +122,11 @@ export const CartDrawer: React.FC = () => {
                   </h2>
                   <span
                     style={{
-                      fontSize: '0.72rem',
+                      fontSize: '0.74rem',
                       fontWeight: 800,
                       backgroundColor: '#16A34A',
                       color: '#FFFFFF',
-                      padding: '0.1rem 0.45rem',
+                      padding: '0.12rem 0.5rem',
                       borderRadius: '9999px',
                     }}
                   >
@@ -139,10 +142,11 @@ export const CartDrawer: React.FC = () => {
             <button
               type="button"
               onClick={closeCart}
+              aria-label="Close Campus Shopping Cart"
               style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '8px',
+                width: '36px',
+                height: '36px',
+                borderRadius: '10px',
                 backgroundColor: '#FFFFFF',
                 border: '1px solid #E2E8F0',
                 display: 'flex',
@@ -150,6 +154,7 @@ export const CartDrawer: React.FC = () => {
                 justifyContent: 'center',
                 cursor: 'pointer',
                 color: '#64748B',
+                touchAction: 'manipulation',
               }}
             >
               <X size={18} />
@@ -316,50 +321,54 @@ export const CartDrawer: React.FC = () => {
                         style={{
                           display: 'flex',
                           alignItems: 'center',
-                          gap: '0.4rem',
+                          gap: '0.35rem',
                           backgroundColor: '#F1F5F9',
-                          borderRadius: '8px',
-                          padding: '2px',
+                          borderRadius: '10px',
+                          padding: '3px',
                         }}
                       >
                         <button
                           type="button"
                           onClick={() => updateQuantity(item.id, -1)}
+                          aria-label={`Decrease quantity of ${item.name}`}
                           style={{
-                            width: '28px',
-                            height: '28px',
-                            borderRadius: '6px',
+                            width: '32px',
+                            height: '32px',
+                            borderRadius: '8px',
                             backgroundColor: '#FFFFFF',
-                            border: '1px solid #E2E8F0',
+                            border: '1px solid #CBD5E1',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             cursor: 'pointer',
-                            color: '#334155',
+                            color: '#1E293B',
+                            touchAction: 'manipulation',
                           }}
                         >
-                          <Minus size={13} />
+                          <Minus size={14} />
                         </button>
-                        <span style={{ fontSize: '0.84rem', fontWeight: 800, minWidth: '22px', textAlign: 'center' }}>
+                        <span style={{ fontSize: '0.88rem', fontWeight: 800, minWidth: '24px', textAlign: 'center', color: '#0F172A' }}>
                           {item.quantity}
                         </span>
                         <button
                           type="button"
                           onClick={() => updateQuantity(item.id, 1)}
+                          aria-label={`Increase quantity of ${item.name}`}
                           style={{
-                            width: '28px',
-                            height: '28px',
-                            borderRadius: '6px',
+                            width: '32px',
+                            height: '32px',
+                            borderRadius: '8px',
                             backgroundColor: '#FFFFFF',
-                            border: '1px solid #E2E8F0',
+                            border: '1px solid #CBD5E1',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             cursor: 'pointer',
-                            color: '#334155',
+                            color: '#1E293B',
+                            touchAction: 'manipulation',
                           }}
                         >
-                          <Plus size={13} />
+                          <Plus size={14} />
                         </button>
                       </div>
                     </div>
@@ -374,11 +383,12 @@ export const CartDrawer: React.FC = () => {
             <div
               style={{
                 borderTop: '1px solid #E2E8F0',
-                padding: '1.25rem',
+                padding: 'clamp(1rem, 3.5vw, 1.25rem)',
+                paddingBottom: 'calc(clamp(1rem, 3.5vw, 1.25rem) + env(safe-area-inset-bottom, 12px))',
                 backgroundColor: '#F8FAF7',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '0.9rem',
+                gap: '0.85rem',
               }}
             >
               {/* Promo code box */}
@@ -388,40 +398,40 @@ export const CartDrawer: React.FC = () => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: '0.45rem 0.75rem',
+                    padding: '0.55rem 0.75rem',
                     backgroundColor: '#DCFCE7',
                     border: '1px solid #86EFAC',
-                    borderRadius: '8px',
-                    fontSize: '0.78rem',
+                    borderRadius: '10px',
+                    fontSize: '0.8rem',
                     fontWeight: 700,
                     color: '#15803D',
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                    <Tag size={14} />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    <Tag size={15} />
                     <span>Coupon {appliedCoupon} applied (-₹{discountAmount})</span>
                   </div>
                   <button
                     type="button"
                     onClick={removeCoupon}
-                    style={{ background: 'none', border: 'none', color: '#B91C1C', cursor: 'pointer', fontWeight: 800, fontSize: '0.74rem' }}
+                    style={{ background: 'none', border: 'none', color: '#B91C1C', cursor: 'pointer', fontWeight: 800, fontSize: '0.76rem', padding: '4px' }}
                   >
                     Remove
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleApplyCoupon} style={{ display: 'flex', gap: '0.4rem' }}>
+                <form onSubmit={handleApplyCoupon} style={{ display: 'flex', gap: '0.5rem' }}>
                   <input
                     type="text"
-                    placeholder="Enter Coupon (e.g. CAMPUS50)"
+                    placeholder="Coupon (e.g. CAMPUS50)"
                     value={couponInput}
                     onChange={(e) => setCouponInput(e.target.value)}
                     style={{
                       flex: 1,
-                      minHeight: '40px',
-                      padding: '0.45rem 0.75rem',
-                      borderRadius: '8px',
-                      border: '1px solid #CBD5E1',
+                      minHeight: '44px',
+                      padding: '0.5rem 0.75rem',
+                      borderRadius: '10px',
+                      border: '1.5px solid #CBD5E1',
                       fontSize: '16px',
                       outline: 'none',
                       backgroundColor: '#FFFFFF',
@@ -431,15 +441,16 @@ export const CartDrawer: React.FC = () => {
                   <button
                     type="submit"
                     style={{
-                      padding: '0.45rem 0.95rem',
-                      minHeight: '40px',
+                      padding: '0.5rem 1rem',
+                      minHeight: '44px',
                       backgroundColor: '#0F172A',
                       color: '#FFFFFF',
                       border: 'none',
-                      borderRadius: '8px',
-                      fontSize: '0.82rem',
-                      fontWeight: 700,
+                      borderRadius: '10px',
+                      fontSize: '0.84rem',
+                      fontWeight: 800,
                       cursor: 'pointer',
+                      touchAction: 'manipulation',
                     }}
                   >
                     Apply
@@ -448,20 +459,20 @@ export const CartDrawer: React.FC = () => {
               )}
 
               {couponMessage && (
-                <div style={{ fontSize: '0.74rem', color: couponMessage.isError ? '#DC2626' : '#16A34A', fontWeight: 600 }}>
+                <div style={{ fontSize: '0.76rem', color: couponMessage.isError ? '#DC2626' : '#16A34A', fontWeight: 700 }}>
                   {couponMessage.text}
                 </div>
               )}
 
               {/* Price Breakdown */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.82rem', color: '#64748B' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.84rem', color: '#64748B' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <span>Item Subtotal</span>
                   <span style={{ color: '#0F172A', fontWeight: 700 }}>₹{subtotal}</span>
                 </div>
 
                 {discountAmount > 0 && (
-                  <div style={{ display: 'flex', justifyContent: 'space-between', color: '#16A34A' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', color: '#16A34A', fontWeight: 700 }}>
                     <span>Student Discount</span>
                     <span>-₹{discountAmount}</span>
                   </div>
@@ -476,10 +487,10 @@ export const CartDrawer: React.FC = () => {
                   style={{
                     display: 'flex',
                     justifyContent: 'space-between',
-                    fontSize: '1.05rem',
+                    fontSize: '1.1rem',
                     fontWeight: 900,
                     color: '#0F172A',
-                    paddingTop: '0.4rem',
+                    paddingTop: '0.45rem',
                     borderTop: '1px dashed #CBD5E1',
                     marginTop: '0.2rem',
                   }}
@@ -495,24 +506,25 @@ export const CartDrawer: React.FC = () => {
                 onClick={handleOpenCheckout}
                 style={{
                   width: '100%',
-                  minHeight: '48px',
-                  padding: '0.85rem',
+                  minHeight: '50px',
+                  padding: '0.85rem 1rem',
                   backgroundColor: '#16A34A',
                   color: '#FFFFFF',
                   border: 'none',
-                  borderRadius: '12px',
-                  fontSize: 'clamp(0.88rem, 2.5vw, 0.96rem)',
-                  fontWeight: 800,
+                  borderRadius: '14px',
+                  fontSize: 'clamp(0.9rem, 2.6vw, 0.98rem)',
+                  fontWeight: 900,
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '0.5rem',
+                  gap: '0.55rem',
                   boxShadow: '0 8px 20px -4px rgba(22, 163, 74, 0.4)',
+                  touchAction: 'manipulation',
                 }}
               >
                 <span>Proceed to Instant Checkout (₹{grandTotal})</span>
-                <ArrowRight size={16} />
+                <ArrowRight size={18} />
               </button>
             </div>
           )}

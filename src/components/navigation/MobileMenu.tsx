@@ -13,7 +13,6 @@ import {
 import { BrandLogo } from '../brand/BrandLogo';
 import { CAMPUSES, type Campus } from '../../data/campuses';
 import { SearchTrigger } from './SearchTrigger';
-import { DomainSwitcher } from './DomainSwitcher';
 import { useAuth } from '../../context/AuthContext';
 
 export interface MobileMenuProps {
@@ -234,24 +233,6 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
               onTrigger={onClose}
               style={{ width: '100%', minWidth: '100%', padding: '0.55rem 0.85rem' }}
             />
-          </div>
-
-          {/* Domain Hub Switcher Row */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '0.65rem 0.85rem',
-              backgroundColor: 'var(--color-surface-2)',
-              borderRadius: 'var(--radius-md)',
-              border: '1px solid var(--color-border-subtle)',
-            }}
-          >
-            <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-secondary)' }}>
-              Active Hub View:
-            </span>
-            <DomainSwitcher variant="compact" />
           </div>
 
           {/* Campus Selector Row */}
